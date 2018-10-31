@@ -1,9 +1,8 @@
-plugins:
-  - jekyll-remote-theme
+repository: dooglz/gamesEng2
   
-  
-output: web
+remote_theme: dooglz/documentation-theme-jekyll@gh-pages
 
+output: web
 
 topnav_title: Jekyll Documentation Theme
 # this appears on the top navigation bar next to the home button
@@ -29,6 +28,40 @@ kramdown:
  auto_ids: true
  hard_wrap: false
  syntax_highlighter: rouge
- 
- 
- remote_theme: tomjoht/documentation-theme-jekyll@gh-pages
+
+defaults:
+-
+  scope:
+    path: ""
+    type: "pages"
+  values:
+    layout: "page"
+    comments: true
+    search: true
+    sidebar: home_sidebar
+    topnav: topnav
+-
+  scope:
+    path: ""
+    type: "tooltips"
+  values:
+    layout: "page"
+    comments: true
+    search: true
+    tooltip: true
+
+-
+  scope:
+    path: ""
+    type: "posts"
+  values:
+    layout: "post"
+    comments: true
+    search: true
+    sidebar: home_sidebar
+    topnav: topnav
+
+# these are defaults used for the frontmatter for these file types
+
+sidebars:
+- home_sidebar
