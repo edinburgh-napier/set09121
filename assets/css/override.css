@@ -1,0 +1,7 @@
+.tip {
+  background-color: bisque;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 10px;
+  display: inline-block;
+}

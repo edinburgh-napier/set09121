@@ -1,20 +1,33 @@
 entries:
 - title: Sidebar
-  levels: one
+  product: Jekyll Doc Theme
+  version: 6.0
   folders:
-
-  - title: Products
+  - title: Overview
     output: web
     folderitems:
-    - title: News
+    - title: HomePage
       url: /index.html
       output: web
-    - title: Theme instructions
+      type: homepage
+  - title: 1 Getting Started
+    output: web
+    folderitems:
+    - title: Repo Setup
+      url: /repo_setup.html
+      output: web
+    - title: Build Setup
+      url: /build_setup.html
+      output: web
+  - title: Tips And tricks
+    output: web
+    folderitems:
+    - title: Installers
       url: /index.html
       output: web
-    - title: Product 1
-      url: /index.html
+    - title: Continuous integration
+      url: index.html
       output: web
-    - title: Product 2
-      url: /index.html
+    - title: SSH keys
+      url: /sshkeys.html
       output: web

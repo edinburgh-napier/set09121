@@ -4,11 +4,11 @@ remote_theme: dooglz/documentation-theme-jekyll@gh-pages
 
 output: web
 
-topnav_title: Jekyll Documentation Theme
+topnav_title: Games Engineering
 # this appears on the top navigation bar next to the home button
-site_title: Jekyll theme for documentation
+site_title: Games Engineering
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
-company_name: Your company
+company_name: Edinburgh napier University
 # this appears in the footer
 
 exclude:
