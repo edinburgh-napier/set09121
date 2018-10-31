@@ -1,3 +1,34 @@
-remote_theme: tomjoht/documentation-theme-jekyll
 plugins:
   - jekyll-remote-theme
+  
+  
+output: web
+
+
+topnav_title: Jekyll Documentation Theme
+# this appears on the top navigation bar next to the home button
+site_title: Jekyll theme for documentation
+# this appears in the html browser tab for the site title (seen mostly by search engines, not users)
+company_name: Your company
+# this appears in the footer
+
+exclude:
+  - .idea/
+  - .gitignore
+# these are the files and directories that jekyll will exclude from the build
+
+feedback_subject_line: Jekyll documentation theme
+feedback_email: tomjoht@gmail.com
+
+highlighter: rouge
+# library used for syntax highlighting
+
+markdown: kramdown
+kramdown:
+ input: GFM
+ auto_ids: true
+ hard_wrap: false
+ syntax_highlighter: rouge
+ 
+ 
+ remote_theme: tomjoht/documentation-theme-jekyll@gh-pages
