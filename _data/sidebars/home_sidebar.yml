@@ -19,6 +19,12 @@ entries:
     - title: Build Setup
       url: /build_setup.html
       output: web
+  - title: 2 Pong
+    output: web
+    folderitems:
+    - title: Pong
+      url: /pong.html
+      output: web
   - title: Tips And tricks
     output: web
     folderitems:
