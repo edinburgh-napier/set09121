@@ -23,10 +23,10 @@ entries:
     output: web
     folderitems:
     - title: Installers
-      url: /index.html
+      url: /index2.html
       output: web
     - title: Continuous integration
-      url: index.html
+      url: /index2.html
       output: web
     - title: SSH keys
       url: /sshkeys.html
