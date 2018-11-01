@@ -6,9 +6,13 @@ permalink:  pong.html
 summary: Let's start at the beginning
 sidebar: home_sidebar
 ---
-![Pong](/assets/images/pong.gif)
 
 For your first practical, we will be going back to the most basic of basic. Creating the classic arcade game PONG. For this we will be chucking some of the software practices you may be used to out the window. We will be using one single main.cpp file, no classes, no OO at all. You should be able to have a working pong game, with AI, in under 200 lines of code. 
+
+<video class="middle" width="400" height="300" loop autoplay>
+  <source src="/assets/videos/pong.mp4" type="video/mp4">
+</video>
+
 
 The purpose of this exercise is to get you acquainted with SFML. We will come back to the exercise often as an example of simple software design, as it useful as a base to compare more complex approaches.
 
