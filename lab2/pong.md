@@ -46,11 +46,22 @@ The program starts as all programs do, with the main() function.
 Here we would load in anything we need at the start of the game, create the window, load settings, and all the usual start-up things you can imagine. If we weren't using SFML we would have to detect the capabilities of the system and enable or disable certain code paths accordingly (or throw an error and quit). SFML does all this work for us, and so we only need to care about loading things directly relevant to our game.
 
 From there we enter a while loop of some kind. This will be based on some boolean value that determines if the game should quit or not. The game logic will set this from true to false when some event has happened (e.g, ESC key pressed, or player presses quit button).  This loop will continuously run two functions, Update and Render.
-Update is where all game-logic code will go. This includes input processing, physics, content loading/unloading, networking.. etc. 
+ 
+
+The rate at which we loop through this loop is the games framerate.
+
+### Update(dt)
+Update is where all game-logic code will go. This includes input processing, physics, content loading/unloading, networking.. etc.
+
+This is also commonly called the game "Tick". While in our games we only do one "Tick" per frame, we could do more. If the game's logic could be executed quickly, and the game relies on fast action, it may be beneficial to do as many updates as you can between frames. While we aren't going to implement this, what you should take away is that:
+The Update function should be decoupled from Render(), so that multiple calls to Update() before a call to  Render() should not break your game.
 
 Once the Game update has been completed, the game can render a frame.  No rendering will take place during the update function. The simple way of thinking is that the Update function determines where everything is and what it's doing. The render function then draws the results of the update.   
 
-The rate at which we loop through this loop is the games framerate.
+## Delta Time  - (Δt)
+
+{:tip="deltatime" class="tip"}
+DetaTime Covered is in more detail here
 
 Before calling Update, the Delta-Time (DT) is calculated. This is the amount of time that has passed between now and the previous frame. With a game updating at a steady 60fps, dt should be approximately 16ms (1/60).
 To actually calculate DT, you can use inbuilt C++ timers, or just use the handy SFML Clock.
@@ -58,6 +69,28 @@ To actually calculate DT, you can use inbuilt C++ timers, or just use the handy 
 static sf::Clock clock;
 const float dt = clock.restart().asSeconds();
 ```
+But why do we need this?
+
+Anything in the game logic that does anything with time needs DT to work. Imagine a weapon cooldown, a player can only use it every 10 seconds. A naive approach would be to assume a constant 60fps, so 10 seconds = 600 frames. Then you could have an integer set to 600 and decrement it every frame. This wouldn't work due to small fluctuations in the fps, and while 600 frames have passed, that may not equate to 10 seconds in the real world. If we instead do ```counter -= DT``` each update. now we are relying on time, rather than frames, This is called **frame-rate independence**.
+
+Anytime you are doing game logic that has any link to time, you must use DT. This includes moving the player. This may not seem to be time-based at first. But consider what speed is: Distance over *time*. You don't want the player to move from one side fo the screen to the other in less time if the framerate is higher.
+
+It's a tricky concept but easy to implement. Usually, just multiply whatever by DT.
+```Cpp
+float playerSpeed = 10.0f;
+void Update(double dt) {
+  //bad!
+  if(moveButton.pressed){
+    player.move(playerSpeed);
+  }
+  //Good!
+  if(moveButton.pressed){
+    player.move(playerSpeed * dt);
+  }
+}
+```
+
+
 
 
 

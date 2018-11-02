@@ -37,3 +37,6 @@ entries:
     - title: SSH keys
       url: /sshkeys.html
       output: web
+    - title: DeltaTime
+      url: /deltatime.html
+      output: web
