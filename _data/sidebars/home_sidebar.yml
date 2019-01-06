@@ -22,8 +22,20 @@ entries:
   - title: 2 Pong
     output: web
     folderitems:
-    - title: Pong
+    - title: Pong 1 - Game Programming Fundamentals
       url: /pong.html
+      output: web
+    - title: Pong 2 - The Mechanics of Pong
+      url: /pong2.html
+      output: web
+    - title: Pong 3 - Moving the Ball
+      url: /pong3.html
+      output: web
+  - title: 3 Space Invaders
+    output: web
+    folderitems:
+    - title: Space Invaders 1
+      url: /SpaceInvaders1.html
       output: web
   - title: Tips And tricks
     output: web

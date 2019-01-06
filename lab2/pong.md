@@ -1,5 +1,5 @@
 ---
-title: "Pong"
+title: "Pong 1 - Game Programming Fundamentals"
 keywords: pong
 tags: [pong]
 permalink:  pong.html
@@ -18,7 +18,7 @@ The purpose of this exercise is to get you acquainted with SFML. We will come ba
 
 Before we get stuck in, let's cover some of the fundamentals.
 
-# The Game Loop
+## The Game Loop
 
 The fundamental core of all games, is the game loop. While some engines may hide this away, behind the scenes you can be sure that the code for any game can be stripped away to the fundamental game loop. It looks like this.
 ```Cpp
@@ -47,10 +47,9 @@ Here we would load in anything we need at the start of the game, create the wind
 
 From there we enter a while loop of some kind. This will be based on some boolean value that determines if the game should quit or not. The game logic will set this from true to false when some event has happened (e.g, ESC key pressed, or player presses quit button).  This loop will continuously run two functions, Update and Render.
  
-
 The rate at which we loop through this loop is the games framerate.
 
-### Update(dt)
+### The Update Function
 Update is where all game-logic code will go. This includes input processing, physics, content loading/unloading, networking.. etc.
 
 This is also commonly called the game "Tick". While in our games we only do one "Tick" per frame, we could do more. If the game's logic could be executed quickly, and the game relies on fast action, it may be beneficial to do as many updates as you can between frames. While we aren't going to implement this, what you should take away is that:
@@ -58,7 +57,7 @@ The Update function should be decoupled from Render(), so that multiple calls to
 
 Once the Game update has been completed, the game can render a frame.  No rendering will take place during the update function. The simple way of thinking is that the Update function determines where everything is and what it's doing. The render function then draws the results of the update.   
 
-## Delta Time  - (Δt)
+#### Delta Time  - (Δt)
 
 {:tip="deltatime" class="tip"}
 DetaTime Covered is in more detail here
@@ -90,10 +89,40 @@ void Update(double dt) {
 }
 ```
 
+### Render()
+
+The render function does what you would expect, renders everything in the game to screen. There may be additional logic that goes on to do with optimization and sending things back and forth between the GPU, but we are not dealing with any of this for a 2D game in SFML. To us, the render function is simply where we tell SFML to draw to the screen. In a multi-threaded engine, this could be happening alongside an update function (more on this much later). 
+
+#### Vsync
+One other piece of logic that is important the game loop is the "buffer-swap" or "swap-chain" or "Vsync". This is a function that we can call that let's the GPU know that the rendering has finished, and therefore  it's time to send the completed rendered frame to the monitor.
+
+```Cpp
+//End the frame - send to monitor - do this every frame
+window.display();
+```
+
+If we have enabled Vertical-sync (Vsync), the game will limit itself to the refresh rate of the connected monitor (usually 60hz, so 60fps). In this scenario once we have finished rendering everything in under 16ms, and we call window.display(), the game will wait for the remaining time of the frame before continuing. This is a carry-over from low level graphics programming where you don't want to send a new image to the monitor before it has finished drawing the previous (this causes visual Tearing). So if we are rendering faster than 60fps, the game will wait at the end of the render function while the monitor catches up. Before starting again the next frame.
+With vsync disabled, once we have finished rendering a frame, window.display() does not pause after sending the image and we continue to render the next frame immediately.
+
+```Cpp
+// enable or disable vsync - do at start of game, or via options menu
+window.setVerticalSyncEnabled(true/false);	
+```
+
+An important gotcha that can happen here  is that the graphics drivers can manually override and forcefully enable or disable Vsync. So don't depend on it always being in the state that you set it.
+
+**Why do we care about this?**
+If you are measuring the performance of your game, and it seems to be stuck to 30 or 60fps. Vsync is on. Turn it off to see the true performance of your game.
+
+
+## Next Steps
+You may want to come back here and re-read this page later on. For now, with the basics covered let's get some code written!
+
+Head over to [chapter 2: The Mechanics of Pong](pong2)
 
 
 
 
 ---
 Previous step: [Build setup](build_setup)
-Next step: [Pong](pong)
+Next step: [Pong 2](pong2)

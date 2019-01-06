@@ -17,4 +17,10 @@
 
 .middle{
   margin: auto;
+} 
+
+.small img{
+  max-width: 50%;
+  height: auto;
+  margin: auto;
 }
