@@ -1,7 +1,6 @@
 entries:
-- title: Sidebar
-  product: Jekyll Doc Theme
-  version: 6.0
+- title: Navigation
+  product: Navigation
   folders:
   - title: Overview
     output: web
@@ -51,4 +50,10 @@ entries:
       output: web
     - title: DeltaTime
       url: /deltatime.html
+      output: web
+  - title: Lectures
+    output: web
+    folderitems:
+    - title: Lecture1
+      url: /lecture1.html
       output: web
