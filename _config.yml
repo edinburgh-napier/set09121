@@ -65,3 +65,7 @@ defaults:
 
 sidebars:
 - home_sidebar
+
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"
