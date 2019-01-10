@@ -1,6 +1,6 @@
 # GAMES ENGINEERING # 
 ### Lectures & Labs ###
-## Live website here: [dooglz.github.io/gamesEng2](https://edinburgh-napier.github.io/set09121/) ##
+## Live website here: [edinburgh-napier.github.io/set09121](https://edinburgh-napier.github.io/set09121/) ##
 You can view the native markdown if you wish [index.md](index.md)
 
 Generated PDF of everything here [/releases](https://github.com/edinburgh-napier/set09121/releases)
