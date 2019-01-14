@@ -60,3 +60,6 @@ entries:
     - title: Lecture2
       url: /lecture2.html
       output: web
+    - title: Lecture3
+      url: /lecture3.html
+      output: web
