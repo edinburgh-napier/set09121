@@ -33,8 +33,11 @@ entries:
   - title: 3 Space Invaders
     output: web
     folderitems:
-    - title: Space Invaders 1
-      url: /SpaceInvaders1.html
+    - title: Space Invaders 1 - Prep
+      url: /spaceinvaders1.html
+      output: web
+    - title: Space Invaders 2 - Code
+      url: /spaceinvaders2.html
       output: web
   - title: Tips And tricks
     output: web
@@ -50,6 +53,12 @@ entries:
       output: web
     - title: DeltaTime
       url: /deltatime.html
+      output: web
+    - title: Resources
+      url: /resources.html
+      output: web
+    - title: Cmake Tricks
+      url: /cmake_tips.html
       output: web
   - title: Lectures
     output: web

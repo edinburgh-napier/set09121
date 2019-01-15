@@ -129,7 +129,9 @@ Finally, you need to add to your Render() function. I'll let you figure out what
 
 ## Runtime Resources
 If you have written your code correctly, you will get an error during runtime, that it can't find the font file specified.
-You will need to have your font file relative to the ``working directory" of your game. Traditionally this is wherever the .exe is (In the build folder), but IDEs can change this to be other places. There is a proper way to do this, and we will cover this in the next practical. For now you should investigate where your program looks for files and place the font there manually.
+You will need to have your font file relative to the *working directory*"* of your game. Traditionally this is wherever the .exe is (In the build folder), but IDEs can change this to be other places.
+
+Take a look here  [Runtime Resources tips and tricks](resources)
 
 
 ## Done
