@@ -47,7 +47,7 @@ You're an absolute madman, your game never needs to work on another PC.
 ```cpp
 spritesheet.loadFromFile("C:/users/YOU/Desktop/GAMEBUILD/Release/res/img/invaders_sheet.png")
 ```
-This will work great, but DON'T DO THIS.
+This will work great, and is useful for debugging issues, but don't have this as a permanent solution.
 
 
 ## Method 2 - Change Working Dir, copy files from source to build 

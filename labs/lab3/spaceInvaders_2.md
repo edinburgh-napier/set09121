@@ -7,11 +7,11 @@ summary: OO
 sidebar: home_sidebar
 ---
 
-# Creating the Ship Class
+## Creating the Ship Class
 
-It's been a long journey since we wrote some space invaders code, let's get back to it. As with all software projects, as the complexity of the software grows, so do the potential different ways to implement it. That is to say, this may not be the best way to implement space invaders, we like to think it's at least a 'good' way. The point of building it this way is to expose you to many different aspects of C++ OO. Any programmer worth their salt will have an opinion on how they could improve someone else's code, and if you feel at the end of this that you have some ideas, then this lesson was successful.
+It's been a long journey since we wrote some space invaders code, let's get back to it. As with all software projects, as the complexity of the software grows, so do the potential different ways to implement it. That is to say, this may not be the best way to implement space invaders, we like to think it's at least a 'good' way. The point of building it this way is to expose you to many different aspects of C++ OO. Any programmer worth their salt will have an opinion on how they could improve someone elses code, and if you feel at the end of this that you have some ideas, then this lesson was successful.
 
-##### Let's go OO
+### Let's go OO
 
 We are going to need at least two different entities for our invaders game. Invaders and the player. Invaders are all identical other than their starting position and sprite. They also exhibit some non-trivial individual logic. Your software engineering brain should be starting to form the basis for properties and methods of the invader class by this point. To add to the fun, consider the player, and how similar it is also to the invader. they both shoot bullets, move, and can explode. This sounds like inheritance should be joining this party.
 
@@ -19,15 +19,15 @@ The way we are going to go about this to have an *abstract base class*
 **Ship**, which is inherited from by a **Player** class and an
 **Invader** Class.
 
-##### Functionality of the Ship
+### Functionality of the Ship
 
 The ship class will contain all logic that is common for both the player and invaders. Primarily this will be \"moving around\". We could go with the full entity model and have Ship be a base class, with variables for it's position and rotation and such. We would then also have a sf::Sprite member attached where we would call upon all the SFML render logic. This is a good idea -- for a larger game. For space invaders that would involve lot's of code to keep the sprite in sync with the ship Entity. Instead we are going to take a super short cut, and inherit for sf::sprite.
 
 This means that Ship will have all teh same methods as a sf::sprite, including all the usual 'SetPostition()' and 'move()' commands we have been using already. It also means we can pass a ship object directly to window.draw().
 
-##### Create Ship.h
+### Create Ship.h
 
-Create a file inside the invaders source folder called "ship.h\". This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). the reason we do this is to keep the logic of the class stored inside a .cpp file, any peice of code that want's to access this functionality only needs the header. This concept does not exist inside java or C\#, wherein you provide the full definition of a function inside a class in one file. the code runtime parses this and allows other classes to link to it. C++ is not so nice, and while this is totally possible to work in this fashion, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Ask in the lab if you would like to know more.
+Create a file inside the invaders source folder called "ship.h". This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). the reason we do this is to keep the logic of the class stored inside a .cpp file, any piece of code that want's to access this functionality only needs the header. This concept does not exist inside java or C#, wherein you provide the full definition of a function inside a class in one file. the code runtime parses this and allows other classes to link to it. C++ is not so nice, and while this is totally possible to work in this fashion, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Ask in the lab if you would like to know more.
 
 Anyway, Inside Ship.h get this written down:
 
@@ -51,7 +51,7 @@ public:
 };
 ```
 
-##### Create Ship.cpp
+### Create Ship.cpp
 
 Next to our ship.h, create ship.cpp
 
@@ -76,9 +76,9 @@ void Ship::Update(const float &dt) {}
 Ship::~Ship() = default;
 ```
 
-##### Access to global variables
+### Access to global variables
 
-The code above needs access to some variables we have in our main.cpp (spritesheet). There are multiple ways to go about this. A rather simple yet hacky way is to have these variables as 'extern' in a header file. To do this, create another header, called \"game.h\" and insert:
+The code above needs access to some variables we have in our main.cpp (spritesheet). There are multiple ways to go about this. A rather simple yet hacky way is to have these variables as 'extern' in a header file. To do this, create another header, called "game.h" and insert:
 
 ```cpp 
 //game.h
@@ -94,10 +94,9 @@ extern sf::Texture spritesheet;
 
 We are defining some common variables here as constant, which is fine. The interesting bit is the 'extern spritesheet', this tells anyone that includes game.h that a sprite-sheet exists 'somewhere". That somewhere is main.cpp, and the compiler will figure this out for us when we need to access it from ship.cpp.
 
-**Remember to reload CMake via Zero\_check to add our new files to the
-build**
+**Remember to reload CMake via Zero\_check to add our new files to the build**
 
-##### Test out the code
+### Test out the code
 
 As Ship is an abstract class, we can't create one. Ee can only create a concrete class derived from it. We can reference it as pointer however, due to how c++ polymorphism works. Add the following to the top of your main.cpp
 
@@ -110,8 +109,8 @@ std::vector<Ship *> ships;
 
 This should compile without errors.
 
-Making the Invader class
-------------------------
+## Making the Invader class
+
 
 We could create a new invader.h and invader .cpp to house the invader class. Generally speaking separate files for separate classes is a good idea, although unlike Java we don't *have* to do this. In some situations when certain classes are very similar or just slightly different version of each other it makes sense to host them in the same Header file.
 
@@ -175,7 +174,7 @@ Render() {...
   }
 ```
 
-### Invader movement
+###Invader movement
 
 A quirk of space invaders is that all the invaders move as one, when any of the invaders touches the edge of the screen: all invaders drop down and reverse direction. When invaders are killed, the remaining invaders speed up. From this we can gather that we need some form of communication medium between all the invaders so they can communicate when it's time to drop down and when to speed up. We are going to store these parameters as two variables: direction and speed. We could store these as properties in each invader, but as the contents will be identical for each invader we should do something better. The \"something better\" is static properties.
 
@@ -199,7 +198,7 @@ float Invader::speed;
 
 We can access these variables anywhere like so 'invader::speed = 20.f'.
 
-##### Invader Update
+### Invader Update
 
 It's about time we had something moving on screen. We should modify the
 Invaders Update() to include some movement code.
@@ -223,7 +222,7 @@ void Invader::Update(const float &dt) {
 
 The first two lines are simple, we call the base ship::update() to run any logic that is generic for all ships (none right now). Then we move either left or right, at the speed dictated by the static speed variable. The next few lines of code is the logic to detect weather it's time to drop and reverse. Direction is involved in the check to stop a feedback loop occurring of one invader triggering the reverse, then in the same frame another invader re-reversing it. So long as the invaders are updated sequentially (i.e not in threads) then this will work.
 
-### Spawning Invaders
+## Spawning Invaders
 
 Now we need to see this in action, lets create some more invaders. I'll
 start you off with this hint:
@@ -241,8 +240,8 @@ Load(){...
  }
 ```
 
-The Player Class
-----------------
+## The Player Class
+
 
 Compared to the invader, the player is actually a very simple class. The only real logic it brings to the party is moving left and right based on keyboard inputs. Let's get to it by adding to the ship.h file
 
@@ -274,12 +273,9 @@ void Player::Update(const float &dt) {
 
 You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time and add it to the vector of ships.
 
-Bullets
--------
+## Bullets
 
-The game wouldn't be very difficult (or possible) without bullets firing
-around. Let's look at our requirements:
-
+The game wouldn't be very difficult (or possible) without bullets firing around. Let's look at our requirements:
 - Invaders shoot green bullets downwards
 - The player shoots white bullets upwards
 - The bullets explode any ship they touch
@@ -325,8 +321,7 @@ void Bullet::Update(const float &dt) {
 
 ### Firing bullets
 
-Alrighty, that's a barebones Bullet created, now to spawn one. The
-simplest way to do this would be to do something like this:
+Alrighty, that's a barebones Bullet created, now to spawn one. The simplest way to do this would be to do something like this:
 
 
 ```cpp 
@@ -339,12 +334,9 @@ if (Keyboard::isKeyPressed(...)) {
 
 This is not a good idea however, there is three major problems.
 
-Firstly, we will spawn thousands of bullets, we need a way to 'cooldown'
-the weapon of the player\
-Secondly, How do we update and render them? We should store our bullets
-somewhere.\
-Thirdly, and this is a big one, we put these bullets on the heap, and
-then forget about them, ayy'oh that's a **Memory Leak**.
+1. we will spawn thousands of bullets, we need a way to 'cooldown' the weapon of the player 
+1. How do we update and render them? We should store our bullets somewhere. 
+1. This is a big one, we put these bullets on the heap, and then forget about them, ayy'oh that's a **Memory Leak**.
 
 ### Storing our bullets
 
@@ -368,13 +360,13 @@ So now the player is responsible for handling and keeping track of all the bulle
 
 Yes, we will be firing loads of bullets, and we don't want to have keep track them all and delete them. In larger games this would cause performance issues. It won't here, but let's pretend we are running on original 80's hardware, we've gotta do better, or else the arcade will have to shut-down and the kids will be sad.
 
-##### A different solution - Bullet Pools
+### A different solution - Bullet Pools
 
 How about instead of creating bullets as and when we need them, we allocate a whole bunch at the start, and put them into a \"pool of available bullets\". When a player or an invader fires, an inactive bullet in the pool gets initialised to the correct position and mode and goes about it's bullet'y business. After this bullet has exploded or moved off-screen, it is moved back into the pool (or just set to \"inactive\").
 
 This is a very common technique used in games with lots of expensive things coming into and out of existence. Almost every AAA Unity£D game uses this with GameObjects -- which take forever to allocate and construct. It's much quicker to allocate loads at the start and re-use them.
 
-##### Storing the Bullet Pool
+#### Storing the Bullet Pool
 
 Each Ship could have it's own pool of 3 or 4 bullets to re-use, but that's a lot of code to refactor. Instead let's store the bullet pool *inside* the bullet class.
 
@@ -422,12 +414,10 @@ Protected:
 };
 ```
 
-I'll let you figure out the changes to the bullet.cpp. Keep in mind the
-differences between static-and non static functions. The \_update()
-function is given in the next section.
+I'll let you figure out the changes to the bullet.cpp. Keep in mind the differences between static-and non static functions. The _update() function is given in the next section.
 
-Exploding Things
-----------------
+#### Exploding Things
+
 
 We will be using SFML to do the collision checks for us this time.
 
@@ -464,15 +454,7 @@ void Bullet::_Update(const float &dt) {
 };
 ```
 
-This code will require modification to our ship class. Also we need
-access to a pointer to the player ship so we can determine the types of
-collisions. My way of doing this would be to add it as another extern in
-game.h. We need to introduce Explode behaviour into the ship classes. We
-will add the common functionality to the base Ship class - turning into
-the explosion sprite. The invader class will extend this by increasing
-the speed of other invaders, add removing the explosion sprite after a
-second. The player ship will end the game if explode is called on it.
-Which will trigger a game reset.
+This code will require modification to our ship class. Also we need access to a pointer to the player ship so we can determine the types of collisions. My way of doing this would be to add it as another extern in game.h. We need to introduce Explode behaviour into the ship classes. We will add the common functionality to the base Ship class - turning into the explosion sprite. The invader class will extend this by increasing the speed of other invaders, add removing the explosion sprite after a second. The player ship will end the game if explode is called on it. Which will trigger a game reset.
 
 
 ```cpp 
@@ -498,11 +480,10 @@ void Ship::Explode() {
 }
 ```
 
-Bullet Timing and Explosion fade
---------------------------------
+### Bullet Timing and Explosion fade
 
-We noticed earlier that there is no limit to how fast a player could
-shoot -- let's remedy that now.
+
+We noticed earlier that there is no limit to how fast a player could shoot -- let's remedy that now.
 
 My favourite way of doing this is keeping a 'cooldown' timer.
 
@@ -520,16 +501,11 @@ void Player::Update(const float &dt) {
 }
 ```
 
-Every time we fire, we put the timer up by .7 seconds. Every Update() we
-reduce this by dt. This means that we should only be able to fire from
-the player every .7 seconds. You could image some form of power-up that
-would modify this timer.
+Every time we fire, we put the timer up by .7 seconds. Every Update() we reduce this by dt. This means that we should only be able to fire from the player every .7 seconds. You could image some form of power-up that would modify this timer.
 
-### Invader shooting
+## Invader shooting
 
-Invaders should shoot somewhat randomly. How you do this is up to you,
-when it comes to something like this, it's usually a case of trying out
-magic numbers until you find something that looks good.
+Invaders should shoot somewhat randomly. How you do this is up to you, when it comes to something like this, it's usually a case of trying out magic numbers until you find something that looks good.
 
 My hacky / beautiful solution was this:
 
@@ -547,26 +523,19 @@ void Invader::Update(const float &dt) {
 }
 ```
 
-I've limited so an invader won't be able to fire more than once in four
-seconds. Bonus points for coming up with a solution wherein only the
-bottom row of invaders shoot, and as the invaders numbers dwindle, they
-fire more often.
+I've limited so an invader won't be able to fire more than once in four seconds. Bonus points for coming up with a solution wherein only the bottom row of invaders shoot, and as the invaders numbers dwindle, they fire more often.
 
-### Fading the Explosion sprite
+## Fading the Explosion sprite
 
-At the moment our implementation turns a invader into the explosion
-sprite when it explodes, an the explosion remains in space. We need it
-to fade out over time. To do ths we will use a similar technique as the
-bullet timer, where we will have a cooldown timer that starts when the
-ship explodes, and once the timer hit's 0, the invader is moved off the
-screen or turned invisible.
+At the moment our implementation turns a invader into the explosion sprite when it explodes, an the explosion remains in space. We need it to fade out over time. To do ths we will use a similar technique as the bullet timer, where we will have a cooldown timer that starts when the ship explodes, and once the timer hit's 0, the invader is moved off the screen or turned invisible.
 
-Future
-------
+I'll leave the code for this up to you.
+
+## Future / Advanced tasks.
 
 -   Game over screen
 -   Restarting the Game
--   animated sprites
+-   Animated sprites
 -   Green shield bases
 
 
