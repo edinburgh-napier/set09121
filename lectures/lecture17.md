@@ -8,11 +8,25 @@ layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
 
-Release builds
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
+
+# Lecture 17 - Releasing your game
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Release builds
 ==============
 
 Green Go button Moving beyond the Green button.
-![image](build_options){width="\textwidth"}
+![image](build_options)
 
 Runtime-resources ![image](build_folder){width="75%"}
 

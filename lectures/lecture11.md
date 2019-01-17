@@ -7,8 +7,21 @@ summary: lecture1
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
 
-Recommended Reading
+# Lecture 11 - Physics
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading
 
 .5
 
@@ -20,7 +33,7 @@ Recommended Reading
 
 -   Unless you need to know this information it isn't necessary.
 
-.5 ![image](physics-book){width="\textwidth"}
+.5 ![image](physics-book)
 
 What do we mean by game physics?
 ================================
@@ -64,8 +77,8 @@ Physics Engine
     there.
 
 .5 ![image](box2d){width=".8\textwidth"}\
-![image](havok){width="\textwidth"}\
-![image](euphoria){width="\textwidth"}\
+![image](havok)\
+![image](euphoria)\
 
 Types of Physics
 ================
@@ -83,7 +96,7 @@ Collision Detection
 -   There are numerous techniques to detect collisions in 2D and 3D --
     from fast course-grained to slow fine-grained.
 
-.5 ![image](collision-detection){width="\textwidth"}
+.5 ![image](collision-detection)
 
 Particle Simulation
 
@@ -100,7 +113,7 @@ Particle Simulation
 
     -   For example, smoke, fire, explosions, water, etc.
 
-.5 ![image](particle){width="\textwidth"}
+.5 ![image](particle)
 
 Rigid Body Dynamics
 
@@ -113,7 +126,7 @@ Rigid Body Dynamics
 
 -   The bodies are rigid as they do not change shape.
 
-.5 ![image](rigid-body){width="\textwidth"}
+.5 ![image](rigid-body)
 
 Bringing them Together
 
@@ -225,7 +238,7 @@ Newton's Third Law of Motion
 -   A similar looking force is the normal force which cancels out the
     force of gravity on a resting object.
 
-.5 ![image](normal-force){width="\textwidth"}
+.5 ![image](normal-force)
 
 Equations of Motion
 
@@ -337,7 +350,7 @@ Adding Forces
 -   Adding forces is just a case of adding the vector forces together
     and applying the resultant net force to the object.
 
-.5 ![image](adding-forces){width="\textwidth"}
+.5 ![image](adding-forces)
 
 Examples
 

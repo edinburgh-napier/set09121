@@ -7,14 +7,28 @@ summary: lecture16
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
-Recommended Reading
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
+
+# Lecture X - 
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading
 
 .5
 
 -   Artificial Intelligence for Games. Second Edition. Millington and
     Funge (2009).
 
-.5 ![image](ai_book){width="\textwidth"}
+.5 ![image](ai_book)
 
 Review
 ======
@@ -33,7 +47,7 @@ Review -- Activity Diagrams
 -   The goal is to be able to create a skeleton of the functionality
     before implementing it.
 
-.5 ![image](activity_diagram){width="\textwidth"}
+.5 ![image](activity_diagram)
 
 Review -- AI Techniques
 
@@ -94,7 +108,7 @@ Review -- State Machines
     -   If the guard is hit, the guard will fall onto the ground and
         die.
 
-.5 ![image](simple_state_guard){width="\textwidth"}
+.5 ![image](simple_state_guard)
 
 What are Decision Trees?
 ========================
@@ -138,7 +152,7 @@ Decision Tree -- Example 1
     -   If the guard loses sight of the player, the guard will return to
         patrolling between point A and point B.
 
-Decision Tree -- Diagram ![image](guard_decisions){width="\textwidth"}
+Decision Tree -- Diagram ![image](guard_decisions)
 
 Diagram Explanation
 
@@ -178,7 +192,7 @@ Using Activity Diagrams
 -   If you want, you can use the action states as the actual actions to
     take.
 
-Decision Tree -- Example 2 ![image](decision_tree){width="\textwidth"}
+Decision Tree -- Example 2 ![image](decision_tree)
 
 Decision Trees in Our Game Engine
 =================================
@@ -211,7 +225,7 @@ Decision Trees in Our Game Engine
 -   `makeDecision` is called by the `entity` which in turn calls
     `makeDecision` on any child nodes.
 
-.5 ![image](decision_tree_node){width="\textwidth"}
+.5 ![image](decision_tree_node)
 
 Implementing Nodes
 
@@ -226,7 +240,7 @@ Implementing Nodes
 -   `getBranch` is defined by the programmer based on required
     parameters.
 
-.5 ![image](decision_node_types){width="\textwidth"}
+.5 ![image](decision_node_types)
 
 Using the Class
 
@@ -259,7 +273,7 @@ decisionTree =
             make_shared<WaitDecision>()));
 ```
 
-.4 ![image](guard_decisions){width="\textwidth"}
+.4 ![image](guard_decisions)
 
 Combining Decision Trees and State Machines
 ===========================================
@@ -283,7 +297,7 @@ State Machine and Decision Tree
 ![image](simple_state_guard){width=".8\textwidth"}\
 ![image](guard_decisions){width=".6\textwidth"}
 
-Combined Diagram ![image](guard_decision_state){width="\textwidth"}
+Combined Diagram ![image](guard_decision_state)
 
 Comments on Decision Trees
 

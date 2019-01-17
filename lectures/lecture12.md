@@ -7,7 +7,21 @@ summary: lecture12
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
-Recommended Reading
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
+
+# Lecture 12 - AI
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading
 
 .5
 
@@ -16,7 +30,7 @@ Recommended Reading
 
     -   A good resource for anyone interested in game AI.
 
-.5 ![image](ai_book){width="\textwidth"}
+.5 ![image](ai_book)
 
 History of Game AI
 ==================
@@ -88,7 +102,7 @@ In the beginning...PacMan
 
 -   ...game AI did not change much until the mid 1990s.
 
-.5 ![image](pacman){width="\textwidth"}
+.5 ![image](pacman)
 
 Timeline
 
@@ -210,7 +224,7 @@ Path Finding
 
     -   A\* (fast).
 
-.5 ![image](waypoint-mesh){width="\textwidth"}
+.5 ![image](waypoint-mesh)
 
 Decision Making
 ---------------
@@ -260,7 +274,7 @@ Decision Making
     -   Not very popular in academia any more -- probability and
         statistics preferred.
 
-.5 ![image](fuzzy-logic){width="\textwidth"}
+.5 ![image](fuzzy-logic)
 
 Decision Making
 
@@ -380,7 +394,7 @@ Learning
 -   So far has fallen short on large scale game projects (see Creatures,
     Fable II).
 
-.5 ![image](neural-network){width="\textwidth"}
+.5 ![image](neural-network)
 
 Learning
 

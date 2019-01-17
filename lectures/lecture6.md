@@ -7,8 +7,21 @@ summary: lecture6
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
 
-Recommended Reading Any C++ book really, but C++ Primer is good.
+# Lecture X - 
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading Any C++ book really, but C++ Primer is good.
 
 Goal -- to teach you object-orientation in C++
 
@@ -17,64 +30,60 @@ C++ is an object-oriented language.
 Why you Need to Know Object-orientation in C++
 
 -   We have defined our games using Formal Elements.
-
 -   We have also defined our game as a system.
-
 -   We have also taken an entity view of a game.
-
 -   All of these elements require us to define objects.
+-   You are also going to build one of the most complex systems you have undertaken at university. This requires breaking the system down into controllable components. This is what object-orientation is for.
+-   Also, this is an opportunity to learn object-orientation properly (from Kevin's point-of-view).
 
--   You are also going to build one of the most complex systems you have
-    undertaken at university. This requires breaking the system down
-    into controllable components. This is what object-orientation is
-    for.
 
--   Also, this is an opportunity to learn object-orientation properly
-    (from Kevin's point-of-view).
+---
 
-Outline
+# Basics of Object-orientation in C++
 
-Basics of Object-orientation in C++
-===================================
 
-Defining a `class` in C++
+---
+
+# Defining a `class` in C++
 
 -   `class` definitions are simple in C++.
-
--   To define a `class` in C++ we use the `class` keyword followed by
-    the name of the `class`.
-
+-   To define a `class` in C++ we use the `class` keyword followed by the name of the `class`.
 -   A `class` is then the members defined between the curly brackets.
-
--   **Note** -- a semi-colon is required at the end of the definition.
-    This is different to Java and C\#.
+-   **Note** -- a semi-colon is required at the end of the definition. This is different to Java and C\#.
 
 `class` Definition in C++
 
-    class my_class
-    {
-        // Members
-    };
+```cpp
+class my_class
+{
+    // Members
+};
+```
 
-Defining a `struct` in C++
+---
+
+# Defining a `struct` in C++
 
 -   C++ also allows the definitions of `struct` types.
 
 -   `struct` definitions are also simple in C++.
 
--   To define a `struct` in C++ we use the `struct` keyword followed by
-    the name of the `struct`.
+-   To define a `struct` in C++ we use the `struct` keyword followed by the name of the `struct`.
 
 -   A `struct` is then the members defined between the curly brackets.
 
 `struct` Definition in C++
 
-        struct my_struct
-        {
-            // Members
-        };
+```cpp
+struct my_struct
+{
+    // Members
+};
+```
 
-Defining Attributes
+---
+
+# Defining Attributes
 
 -   Attributes are the values that go along with our objects.
 
@@ -84,39 +93,45 @@ Defining Attributes
     -   We will look at visibility in a few slides.
 
 Attributes in C++
+```cpp
+class my_class
+{
+    // Object (instance) values.
+    float x;
+    float y = 0.5f; // Initialised value
+    const string name; // Constant value
+    // Class (static) values.
+    static int n;
+};
+```
 
-    class my_class
-    {
-        // Object (instance) values.
-        float x;
-        float y = 0.5f; // Initialised value
-        const string name; // Constant value
-        // Class (static) values.
-        static int n;
-    };
+---
 
-Defining Methods
+# Defining Methods
 
 -   Same rules apply for methods.
 
 Methods in C++
-
-    class my_class
+```cpp
+class my_class
+{
+    void do_something()
     {
-        void do_something()
-        {
-            // Do something.
-        }
-        // Const methods do not change values of object.
-        float get_x() const
-        {
-            return x;
-        }
-        // Class (static) methods.
-        static int get_n() { return n; }
-    };
+        // Do something.
+    }
+    // Const methods do not change values of object.
+    float get_x() const
+    {
+        return x;
+    }
+    // Class (static) methods.
+    static int get_n() { return n; }
+};
+```
 
-Defining Constructors
+---
+
+# Defining Constructors
 
 -   Constructors define how an object is instantiated.
 
@@ -128,19 +143,23 @@ Defining Constructors
 
 Constructors in C++
 
-    class my_class
+```cpp
+class my_class
+{
+public:
+    // Default constructor
+    my_class() { }
+    // Parameterised constructor
+    my_class(float xx, float yy)
+    : x(xx), y(yy) // Sets object attributes
     {
-    public:
-        // Default constructor
-        my_class() { }
-        // Parameterised constructor
-        my_class(float xx, float yy)
-        : x(xx), y(yy) // Sets object attributes
-        {
-        }
-    };
+    }
+};
+```
 
-Defining Destructors
+---
+
+# Defining Destructors
 
 -   Destructors determine how an object is destroyed when it goes out of
     scope.
@@ -154,17 +173,27 @@ Defining Destructors
 -   A destructor looks like a constructor with a tilde \~in front of it.
     A class can only have one destructor.
 
-Destructors in C++
 
-    class my_class
-    {
-    public:
+---
+
+# Destructors in C++
+
+```cpp
+class my_class
+{
+public:
     // Default constructor
-        ~my_class()
-        {
-            // Free up resources.
-        }
-    };
+    ~my_class()
+    {
+        // Free up resources.
+    }
+};
+```
+
+
+---
+
+# RAII
 
 Our First Rule of Good OO in C++ -- RAII
 
@@ -184,10 +213,15 @@ Our First Rule of Good OO in C++ -- RAII
 -   Getting into this habit is also good for all programming, even in
     garbage collected languages.
 
-Object-orientation Concepts in C++
-==================================
 
-Core Object-orientation Concepts
+---
+
+# Object-orientation Concepts in C++
+
+
+---
+
+# Core Object-orientation Concepts
 
 -   As stated, C++ has object-orientated features.
 
@@ -218,9 +252,11 @@ Core Object-orientation Concepts
 
 -   We will look at each of these properties in turn.
 
-Encapsulation -- and why it is a lie
 
-.5
+---
+
+# Encapsulation -- and why it is a lie
+
 
 -   Encapsulation means that we can create components from other
     components (classes have attributes).
@@ -233,8 +269,8 @@ Encapsulation -- and why it is a lie
 -   However, it is very simple to reference across the object boundary,
     leading to data mutation problems.
 
-.5
 
+```
     class my_class
     {
         string &str;
@@ -249,10 +285,16 @@ Encapsulation -- and why it is a lie
     my_class c2(s);
     // Both c1 and c2 point to
     // same value.
+```
+
+
+---
+
+# Scope Protection
 
 `public, private` and `protected`
 
-.5
+
 
 -   We can specify the visibility of class members via `public`,
     `private`, and `protected` modifiers.
@@ -263,8 +305,8 @@ Encapsulation -- and why it is a lie
 -   We define "zones" of visibility in C++ rather than individual
     values.
 
-.5
 
+```
     class my_class
     {
         // This value is private.
@@ -279,8 +321,12 @@ Encapsulation -- and why it is a lie
     private:
         // Private again.
     };
+```
 
-What is Inheritance?
+
+---
+
+# What is Inheritance?
 
 -   Inheritance is the ability to base part of a class's behaviour on an
     existing class definition (specification).
@@ -298,10 +344,11 @@ What is Inheritance?
     specification to a collection of derived-classes. I try and have
     single-level inheritance as far as possible.
 
-Inheritance in C++
 
-Inheritance in C++
+---
 
+# Inheritance in C++
+```
     class A
     {
     };
@@ -313,23 +360,19 @@ Inheritance in C++
     class C : public A
     {
     };
+```
 
-Multiple-inheritance in C++
 
-.5
+---
+
+# Multiple-inheritance in C++
 
 -   C++ does not have an interface definition as Java and C\#.
-
     -   We will look at virtual behaviour shortly.
+-   We do have multiple-inheritance which provides the same features (more-or-less).
+-   Multiple-inheritance allows us to define a class as inheriting from more than one base-class.
 
--   We do have multiple-inheritance which provides the same features
-    (more-or-less).
-
--   Multiple-inheritance allows us to define a class as inheriting from
-    more than one base-class.
-
-.5
-
+```
     class A
     {
     };
@@ -341,8 +384,12 @@ Multiple-inheritance in C++
     class C : public A, public B
     {
     };
+```
 
-What is Polymorphism?
+
+---
+
+# What is Polymorphism?
 
 -   Polymorphism is the ability of our objects to act as different
     types.
@@ -370,19 +417,17 @@ What is Polymorphism?
     interface the produces different behaviour is fundamental to
     software reuse.
 
-Polymorphism in C++
 
-.5
+
+---
+
+# Polymorphism in C++
+
 
 -   Polymorphism in C++ occurs whenever we derive classes.
-
 -   An object can be converted into any of its base types automatically.
-
--   There are a few caveats which we will look at later. But hopefully
-    you are all familiar with this basic concept.
-
-.5
-
+-   There are a few caveats which we will look at later. But hopefully you are all familiar with this basic concept.
+```
     class A
     {
     public:
@@ -400,11 +445,15 @@ Polymorphism in C++
 
     B b;
     func(b);
+```
 
-Examples
+
+---
+
+# Examples
 
 Converting (Casting) Between Types in C++
-
+```
     sparrow *s;
     // C-style casting.  DON'T DO!
     bird *b = (bird*)s; 
@@ -417,14 +466,16 @@ Converting (Casting) Between Types in C++
     // We can also remove const, but best not to
     const animal *a1;
     animal *a2 = const_cast<animal*>(a1);
+```
 
-What is Overloading?
 
--   A key concept of polymorphism is specialisation from a generalised
-    interface.
+---
 
--   What this means is that an object may look like a general type, but
-    will act like a special type.
+# What is Overloading?
+
+-   A key concept of polymorphism is specialisation from a generalised interface.
+
+-   What this means is that an object may look like a general type, but will act like a special type.
 
 -   For example:
 
@@ -442,9 +493,10 @@ What is Overloading?
 
 -   The specialised objects can overload the generalised behaviour.
 
-Method Overload
 
-.5
+---
+
+# Method Overload
 
 -   A basic form of polymorphism is *ad-hoc polymorphism*.
 
@@ -456,9 +508,9 @@ Method Overload
 -   Not that parameters are the real way of distinguishing methods --
     the return type cannot be different for the same parameters.
 
-.5
 
-``` {basicstyle="\tiny\ttfamily"}
+
+```
 class A
 {
 public:
@@ -472,29 +524,20 @@ public:
 };
 ```
 
-`virtual` Members
 
-.55
+---
 
--   To mark a method as overridable in a child class we need to state
-    that it is `virtual`.
+# `virtual` Members
 
+-   To mark a method as overridable in a child class we need to state that it is `virtual`.
     -   Same as C\#; Java uses `abstract`.
-
--   When a method is `virtual` it means method calls are looked up via a
-    virtual function table.
-
+-   When a method is `virtual` it means method calls are looked up via a virtual function table.
     -   Called dynamic dispatch.
-
--   Basically it means that instead of looking up a function to call
-    based on type, an object shows where a function is from its own
-    state information.
-
+-   Basically it means that instead of looking up a function to call based on type, an object shows where a function is from its own state information.
 -   Child classes can then overwrite `virtual` ones if they choose.
 
-.45
 
-``` {basicstyle="\tiny\ttfamily"}
+```
 class A
 {
 public:
@@ -518,31 +561,20 @@ A *a = new B();
 a->work();
 ```
 
-Proper Overloading in C++
 
-.55
+---
+
+# Proper Overloading in C++
+
 
 -   Just overriding behaviour is not best practice in C++.
-
--   You need to indicate what you mean so the compiler you can check you
-    are doing things correctly.
-
+-   You need to indicate what you mean so the compiler you can check you are doing things correctly.
 -   Two keywords introduced in C++11:
-
-    `override`:
-
-    :   marks a method as overriding a parent one.
-
-    `final`:
-
-    :   marks a method as no longer overrideable in further child
-        classes.
-
+    - `override` marks a method as overriding a parent one.
+    - `final`  marks a method as no longer overrideable in further child classes.
 -   The compiler can create better code if you used correctly.
 
-.45
-
-``` {basicstyle="\tiny\ttfamily"}
+``` 
 class A
 {
 public:
@@ -568,9 +600,14 @@ public:
 };
 ```
 
-**Danger** -- values, references, and pointers
 
-.5
+---
+
+## **Danger** -- values, references, and pointers
+
+---
+
+# Pointers
 
 -   In C++ you do not get polymorphic behaviour from just having a
     polymorphic type.
@@ -583,7 +620,7 @@ public:
 
 .5
 
-``` {basicstyle="\tiny\ttfamily"}
+```
 class A
 {
 public:
@@ -612,23 +649,17 @@ A *a3 = (A*)&b;
 a3->work();
 ```
 
-Pure `virtual` Members
+---
 
-.5
+# Pure `virtual` Members
 
--   C\# and Java provide an `interface` specifier to indicate a set of
-    methods that a child class **must** implement itself.
-
+-   C\# and Java provide an `interface` specifier to indicate a set of methods that a child class **must** implement itself.
 -   C++ has no such specifier, but it does allow pure virtual methods.
-
 -   A pure virtual method is one that is set to `0`.
+-   If a class has any pure virtual methods no instances can be created of it.
 
--   If a class has any pure virtual methods no instances can be created
-    of it.
 
-.5
-
-``` {basicstyle="\tiny\ttfamily"}
+```
 class A
 {
 public:
@@ -654,25 +685,22 @@ B b;
 C c;
 ```
 
-How to do Object-orientation Properly in C++
-============================================
 
-Pointers and References
+---
 
-.5
+# How to do Object-orientation Properly in C++
 
--   As stated, you need to have pointer or references for polymorphic
-    behaviour to work in C++.
 
--   For pure virtual methods, this means that we can only have pointers
-    to objects of their type.
+---
 
--   This can be a stumbling block for new C++ programmers as it is a bit
-    different to what you are used to.
+# Pointers and References
 
-.5
+-   As stated, you need to have pointer or references for polymorphic behaviour to work in C++.
+-   For pure virtual methods, this means that we can only have pointers to objects of their type.
+-   This can be a stumbling block for new C++ programmers as it is a bit different to what you are used to.
 
-``` {basicstyle="\tiny\ttfamily"}
+
+```
 class A
 {
 };
@@ -689,22 +717,19 @@ A a1 = (B)b;
 A &a2 = (A&)b;
 ```
 
-Differences for References than Java and C\#
 
-.5
+---
+
+# Differences for References than Java and C\#
+
 
 -   C++ has references (with the & modifier).
-
 -   However, C++ references are not the same as Java references.
-
 -   C++ references **always** point to the same location.
+-   C++ references cannot be set to `null` (or similar) except in the case of numbers (as `NULL` is `0`)
 
--   C++ references cannot be set to `null` (or similar) except in the
-    case of numbers (as `NULL` is `0`)
 
-.5
-
-``` {basicstyle="\tiny\ttfamily"}
+```
 // Try and pass parameters as references when possible
 void work(const int &n)
 {
@@ -729,30 +754,20 @@ a2 = NULL; // Compiler error
 m = NULL; // OK as NULL = 0
 ```
 
-Smart Pointers
 
-.5
+---
+
+# Smart Pointers
 
 -   In modern C++ you are better using smart pointers than raw pointers.
-
 -   Raw pointers are now discouraged in top-level (user program) code.
-
--   Smart pointers allow automatic memory allocation, and thus get round
-    all the C++ problems.
+-   Smart pointers allow automatic memory allocation, and thus get round all the C++ problems.
 
 -   Two types:
+    `shared_ptr`:   are reference counted.
+    `unique_ptr`:   have only one owner.
 
-    `shared_ptr`:
-
-    :   are reference counted.
-
-    `unique_ptr`:
-
-    :   have only one owner.
-
-.5
-
-``` {basicstyle="\tiny\ttfamily"}
+```cpp
 // When do we call delete?
 int *n1 = new int(5);
 // Automatically counts references - close to a Java
@@ -767,20 +782,17 @@ int n4 = *n3;
 n2 = nullptr;
 ```
 
-Calling Members to Pointers
 
-.5
+---
+
+# Calling Members to Pointers
 
 -   Pointers have to be dereferenced to access their members.
-
 -   This means using the `*` operator before the object name.
+-   As this happens so often, and is tiresome, C++ provides the arrow notation (`->`) as a simplification.
 
--   As this happens so often, and is tiresome, C++ provides the arrow
-    notation (`->`) as a simplification.
 
-.5
-
-``` {basicstyle="\tiny\ttfamily"}
+```
 class A
 {
 public:
@@ -794,25 +806,19 @@ shared_ptr<A> a = make_shared<A>();
 a->work();
 ```
 
-Construction, Destruction, and Assignment
 
-.5
+---
+
+# Construction, Destruction, and Assignment
 
 -   C++ allows very fine grained control of a number of behaviours.
-
--   Object copying occurs whenever you call a method, or build an object
-    from an existing one.
-
+-   Object copying occurs whenever you call a method, or build an object from an existing one.
 -   Object assignment occurs whenever you use the `=` operator.
-
--   Each of these new objects will require a destructor call to
-    clean-up.
-
+-   Each of these new objects will require a destructor call to clean-up.
 -   This can lead to numerous unnecessary calls if you are not careful.
 
-.5
 
-``` {basicstyle="\tiny\ttfamily"}
+```
 class A
 {
 public:
@@ -837,22 +843,20 @@ A a2 = a1;
 work(a1);
 ```
 
+
+---
+
+# Const
+
 Define Members as `const` If Possible
 
-.5
 
 -   Many method calls do not change the state of an object.
-
 -   If this is the case, specify the method as `const`.
-
 -   This will allow the compiler to optimise your code, which is good.
+-   It will also allow the compiler to check you are writing correct code if you do this properly.
 
--   It will also allow the compiler to check you are writing correct
-    code if you do this properly.
-
-.5
-
-``` {basicstyle="\tiny\ttfamily"}
+```cpp
 class A
 {
 private:
@@ -871,23 +875,19 @@ public:
 };
 ```
 
-Declare in Headers, Implement in Code
 
-.5
+---
 
--   This is an idea you might not be as familiar with if you come from a
-    Java and C\# background.
+# Declare in Headers, Implement in Code
 
+
+-   This is an idea you might not be as familiar with if you come from a Java and C\# background.
 -   In C++, declarations should be provided in a header file (.h).
-
--   Actual implementation (definition) should be provided in a code file
-    (.cpp).
-
+-   Actual implementation (definition) should be provided in a code file (.cpp).
 -   Exceptions exist around pre-compiled headers and templates.
 
-.5
 
-``` {basicstyle="\tiny\ttfamily"}
+```
 // A.h
 class A
 {
@@ -911,40 +911,28 @@ int A::do_more()
 }
 ```
 
-Other Concepts
+
+---
+
+# Other Concepts
 
 -   A number of additional concepts are worth looking into.
 
-    PIMPL:
+    PIMPL   private implementation or pointer-to-implementation. Useful to hide pointer requirements and allow cheap moving of objects.
+    templates: :   are very powerful in C++. Metatemplate programming is a neat thing if you can wrap your head around it.
+    virtual destructors: :   if you have a base-class, the destructor must be virtual. Otherwise clean-up may not be correct.
 
-    :   private implementation or pointer-to-implementation. Useful to
-        hide pointer requirements and allow cheap moving of objects.
+---
 
-    templates:
+# Summary
 
-    :   are very powerful in C++. Metatemplate programming is a neat
-        thing if you can wrap your head around it.
 
-    virtual destructors:
+---
 
-    :   if you have a base-class, the destructor must be virtual.
-        Otherwise clean-up may not be correct.
-
-Summary
-=======
-
-Summary
+# Summary
 
 -   You have just learned C++ in an hour.
-
--   This is obviously not possible, and you will need practice in these
-    ideas. I am simply signposting ideas.
-
--   C++ is one of the most complicated languages around (they keep
-    adding features), so get a good working knowledge of what you need
-    and hack it together.
-
--   Key thing today was how to do object-orientation properly. Hopefully
-    you can work around this with your previous Java and C\# knowledge.
-
+-   This is obviously not possible, and you will need practice in these ideas. I am simply signposting ideas.
+-   C++ is one of the most complicated languages around (they keep adding features), so get a good working knowledge of what you need and hack it together.
+-   Key thing today was how to do object-orientation properly. Hopefully you can work around this with your previous Java and C\# knowledge.
 -   But at the end of the day it is all about practice.

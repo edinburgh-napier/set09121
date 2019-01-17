@@ -7,175 +7,166 @@ summary: lecture8
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
 
-Review of UML
-=============
+# Lecture X - Design Patterns
+### SET09121 - Games Engineering
 
-What is UML?
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Review of UML
+
+
+---
+
+# What is UML?
 
 -   UML stands for the Unified Modelling Language.
-
 -   UML allows us to model software from various viewpoints.
-
     -   The structure of the software.
-
         -   Class diagram.
-
     -   The behaviour of the software.
-
         -   Use case diagram.
-
         -   Activity diagram.
-
         -   State diagram.
-
     -   The interaction within the software.
-
         -   Sequence diagram.
-
 -   UML can be integrated into any software development process.
-
     -   Analysis and requirements gathering.
-
     -   System design.
-
 -   UML essentially provides a schematic of our software.
 
-When to Use UML
+---
+
+# When to Use UML
 
 -   There are five diagrams I find useful.
-
     -   Use case diagrams -- overall requirements gathering.
-
     -   Activity diagrams -- flow chart of behaviour.
-
     -   Class diagrams -- main system design.
-
-    -   Sequence diagrams -- individual steps and interaction between
-        components.
-
+    -   Sequence diagrams -- individual steps and interaction between components.
     -   State diagrams -- model object or system state.
+- **Use diagrams whenever possible!** 
+ - Working out on paper how something works is always easier than banging your head off your code, even if the diagram is rough.
+ - Trust me, I've been there.
 
--   **Use diagrams whenever possible!** Working out on paper how
-    something works is always easier than banging your head off your
-    code, even if the diagram is rough.
 
-    -   Trust me, I've been there.
+---
 
-What are Design Patterns?
-=========================
+# What are Design Patterns?
 
-What are Design Patterns?
 
--   A design pattern is a reusable solution to a commonly occurring
-    problem when designing software.
+---
 
+# What are Design Patterns?
+
+-   A design pattern is a reusable solution to a commonly occurring problem when designing software.
 -   Reusable is the key here.
-
-    -   Engineering is about reusing existing solutions whenever
-        possible.
-
-    -   Other engineering disciplines have reusable solutions to given
-        problems.
-
--   When we look at our software development problems from a high enough
-    abstraction level we will see lots of areas of reuse.
+    -   Engineering is about reusing existing solutions whenever possible.
+    -   Other engineering disciplines have reusable solutions to given problems.
+-   When we look at our software development problems from a high enough abstraction level we will see lots of areas of reuse.
 
 Software Development Approaches
-![image](software_development){height=".8\textheight"}
+![image](software_development)
 
-Reading UML for Patterns
 
-.5
+---
 
--   The important factor we are going to cover is our ability to
-    recognise and implement patterns from UML.
+# Reading UML for Patterns
 
--   We're not expecting you to find patterns online, try to determine if
-    they are useful, and then try and integrate them.
+-   The important factor we are going to cover is our ability to recognise and implement patterns from UML.
+-   We're not expecting you to find patterns online, try to determine if they are useful, and then try and integrate them.
 
-.5 ![image](patterns){width="\textwidth"}
+![image](patterns)
 
-Useful Design Patterns for Games
-================================
 
-Types of Patterns
+---
 
--   Design patterns can be divided into a number of categories based on
-    the type of problem they try and solve.
+# Useful Design Patterns for Games
 
-    Creational patterns
 
-    :   Used for, or dictate, object creation mechanisms.
+---
 
-    Structural patterns
+# Types of Patterns
 
-    :   Allow control of the relationships between objects.
+- Design patterns can be divided into a number of categories based on the type of problem they try and solve.
+ - Creational patterns :   Used for, or dictate, object creation mechanisms.
+ - Structural patterns :   Allow control of the relationships between objects.
+ - Behavioural patterns :   Used to control common communication patterns between objects.
+- We have already used a pattern from each of these categories.
 
-    Behavioural patterns
 
-    :   Used to control common communication patterns between objects.
+---
 
--   We have already used a pattern from each of these categories.
+# Singleton
 
-Singleton
----------
 
-Singleton Pattern ![image](singleton){width="\textwidth"}
+---
 
-Singleton Pattern
+# Singleton Pattern 
+![image](singleton)
 
--   The Singleton pattern lets us ensure that only one instance of a
-    given class ever exists.
 
--   The pattern is good when we want to control and coordinate
-    particular operations in our system.
+---
+
+# Singleton Pattern
+
+-   The Singleton pattern lets us ensure that only one instance of a given class ever exists.
+
+-   The pattern is good when we want to control and coordinate particular operations in our system.
 
     -   For example a car typically only has one steering wheel.
 
     -   Our game engine wants to ensure control over game entities at
         particular stages.
 
--   Singletons are good for providing a centralised approach to access a
-    particular part of the system.
+-   Singletons are good for providing a centralised approach to access a particular part of the system.
 
     -   Almost like providing a global attribute.
 
 -   There are numerous approaches to ensure Singleton behaviour.
 
-Composite
----------
 
-Composite Pattern ![image](composite){width="\textwidth"}
+---
 
-Composite Pattern
+# Composite Pattern 
 
--   The Composite pattern allows us to treat objects and compositions of
-    objects in a uniform manner.
+![image](composite)
 
-    -   We tell our game to update, it tells the entity manager to
-        update, which tells the entities to update, etc.
 
--   A pure compositional pattern has components and compositions of
-    components that look the same.
+---
 
-    -   In Object-Oriented Software Development you could add buttons to
-        panels, and panels to other panels or windows. The window just
-        treats the panel as any other component.
+# Composite Pattern
 
--   We take a less pure approach but we are still composing groups of
-    objects with uniform interfaces.
+-   The Composite pattern allows us to treat objects and compositions of objects in a uniform manner.
+-   We tell our game to update, it tells the entity manager to update, which tells the entities to update, etc.
 
-Iterator
---------
+-   A pure compositional pattern has components and compositions of components that look the same.
 
-Iterator Pattern ![image](iterator){width="\textwidth"}
+    -   In Object-Oriented Software Development you could add buttons to panels, and panels to other panels or windows. The window just treats the panel as any other component.
 
-Iterator Pattern
+-   We take a less pure approach but we are still composing groups of objects with uniform interfaces.
 
--   The iterator pattern allows us to access the individual elements of
-    a collection of objects (aggregate) in a uniform manner without
-    exposing the collection structure underneath.
+
+---
+
+# Iterator Pattern 
+
+![image](iterator)
+
+
+---
+
+# Iterator Pattern
+
+-   The iterator pattern allows us to access the individual elements of a collection of objects (aggregate) in a uniform manner without exposing the collection structure underneath.
 
 -   One of the most useful (and oldest) patterns available.
 
@@ -183,32 +174,37 @@ Iterator Pattern
 
     -   Add objects to collection.
 
-    -   Iterate through collection when needed and perform individual
-        actions.
+    -   Iterate through collection when needed and perform individual actions.
 
-Mediator
---------
 
-Mediator Pattern ![image](mediator){width="\textwidth"}
+---
 
-Mediator Pattern
+# Mediator Pattern 
+![image](mediator)
 
--   The Mediator pattern provides a unified interface to a set of
-    objects in a system.
+
+---
+
+# Mediator Pattern
+
+-   The Mediator pattern provides a unified interface to a set of objects in a system.
 
 -   Mediator is very common pattern in GUI systems.
 
     -   Event based programming.
 
--   The mediator pattern is useful for building messaging systems as it
-    detaches the components. It is a loose coupling approach.
+-   The mediator pattern is useful for building messaging systems as it detaches the components. It is a loose coupling approach.
 
-State
------
 
-State Pattern ![image](state){width="\textwidth"}
+---
 
-State Pattern
+# tate Pattern 
+![image](state)
+
+
+---
+
+# State Pattern
 
 -   Allows us to encapsulate an object's state within another object.
 
@@ -220,91 +216,86 @@ State Pattern
 
     -   Current state is chase PacMan.
 
-    -   When PacMan eats a power pill the ghost changes state to evade
-        PacMan.
+    -   When PacMan eats a power pill the ghost changes state to evade PacMan.
 
-    -   When power pill timer runs out state changes back to chase
-        PacMan.
+    -   When power pill timer runs out state changes back to chase PacMan.
+-   The different behaviours are programmed in different objects. The ghost simply calls the state class when it updates.
 
--   The different behaviours are programmed in different objects. The
-    ghost simply calls the state class when it updates.
 
-Strategy
---------
+---
 
-Strategy Pattern ![image](strategy){width="\textwidth"}
+# Strategy Pattern 
 
-Strategy Pattern
+![image](strategy)
 
--   Sometimes we want to maintain a set of algorithms that an object can
-    execute at given times.
 
--   In general the algorithms that need to be used are not known until
-    runtim.
+---
 
-    -   The PacMan example previously code equally be achieved by the
-        strategy pattern.
+# Strategy Pattern
 
--   Again this is a good AI pattern allowing us to interchange
-    behaviours at given points.
+-   Sometimes we want to maintain a set of algorithms that an object can execute at given times.
 
--   Notice that the state and strategy patterns are also very similar
-    (structurally identical). They have different purposes but can be
-    used fairly interchangeably.
+-   In general the algorithms that need to be used are not known until runtime.
+    -   The PacMan example previously code equally be achieved by the strategy pattern.
 
-Manager
--------
+-   Again this is a good AI pattern allowing us to interchange behaviours at given points.
 
-Manager Pattern ![image](manager){width="\textwidth"}
+-   Notice that the state and strategy patterns are also very similar (structurally identical). They have different purposes but can be used fairly interchangeably.
 
-Manager Pattern
 
--   We want to have a centralised repository and control point for a
-    collection of objects.
+---
 
--   The manager object keeps track of objects of a particular type and
-    maintains them in a data collection.
+# Manager Pattern 
 
--   The manager object also performs group operations on the collection
-    of objects when required.
+![image](manager)
 
--   The manager pattern is something we've identified when making the
-    game engine.
 
+---
+
+# Manager Pattern
+
+-   We want to have a centralised repository and control point for a collection of objects.
+
+-   The manager object keeps track of objects of a particular type and maintains them in a data collection.
+-   The manager object also performs group operations on the collection of objects when required.
+
+-   The manager pattern is something we've identified when making the game engine.
     -   There are similar patterns such as the Boss pattern.
 
     -   We are free to define our own patterns.
 
-Data-driven Design
-------------------
 
-Data-driven Design Pattern ![image](data-driven-uml){width="\textwidth"}
+---
 
-Data-driven Design Pattern
+# Data-driven Design Pattern 
 
--   Having each object contain its own data is not-necessarily
-    efficient.
+![image](data-driven-uml)
 
--   Data layout in memory means certain functions are going to jump
-    around memory, which is expensive.
+
+---
+
+# Data-driven Design Pattern
+
+-   Having each object contain its own data is not-necessarily efficient.
+
+-   Data layout in memory means certain functions are going to jump around memory, which is expensive.
 
 -   Also, it can lead to costs in copying objects around.
 
 -   A better idea is to store data objects in data owning objects.
 
--   A functional object (one that has actual methods) then has access to
-    these objects as required.
+-   A functional object (one that has actual methods) then has access to these objects as required.
 
--   This makes everything much easier to manage -- although some OO
-    purists think it isn't OO any more
+-   This makes everything much easier to manage -- although some OO purists think it isn't OO any more
 
-Recognising Design Patterns
 
--   You will be surprised how often design patterns pop-up when
-    developing software.
+---
 
--   Some patterns are even built into languages and frameworks that you
-    have used.
+# Recognising Design Patterns
+
+-   You will be surprised how often design patterns pop-up when developing software.
+
+-   Some patterns are even built into languages and frameworks that you have used.
 
     -   `foreach` in C\# is an iterator.
 
@@ -314,21 +305,23 @@ Recognising Design Patterns
 
     -   Java provides the observer pattern.
 
--   To recognise a pattern you need to first recognise the problem you
-    are trying to solve.
+-   To recognise a pattern you need to first recognise the problem you are trying to solve.
 
     -   Again, this means doing a higher-level analysis.
 
--   If you find you are doing the same thing over and over again,
-    chances are you have a pattern.
+-   If you find you are doing the same thing over and over again, chances are you have a pattern.
 
-Summary
-=======
 
-Summary
+---
 
--   Design patterns are a very important tool in the software engineer's
-    toolbox.
+# Summary
+
+
+---
+
+# Summary
+
+-   Design patterns are a very important tool in the software engineer's toolbox.
 
     -   Reusable solutions to particular problems.
 
@@ -336,12 +329,10 @@ Summary
 
     -   Patterns have proven usefulness.
 
--   Understanding design patterns is probably the most important skill
-    you can pick up at this stage of your programming education.
+-   Understanding design patterns is probably the most important skill you can pick up at this stage of your programming education.
 
     -   Object-oriented Software Development touched on these areas.
 
--   Knowing when and where to use a design pattern can save you a lot of
-    effort.
+-   Knowing when and where to use a design pattern can save you a lot of effort.
 
     -   And there are a lot of potential patterns out there.

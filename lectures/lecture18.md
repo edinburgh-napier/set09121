@@ -7,19 +7,33 @@ summary: lecture18
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
-QA
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
+
+# Lecture 18 - QA and TRC
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# QA
 ==
 
-Bug-Catching ![image](portal2_bugs){width="\textwidth"}
+Bug-Catching ![image](portal2_bugs)
 
 QA \"\[QA and publishing\] is like being test on how well you can
 crash-land a plane\" - Tim Schafer
 
 <https://www.youtube.com/embed/ssUFuZyu5bw?start=974&end=1353>
 
-Bug-Tracking ![image](bug_tracker){width="\textwidth"}
+Bug-Tracking ![image](bug_tracker)
 
-Bug-Catching ![image](civ){width="\textwidth"}
+Bug-Catching ![image](civ)
 
 Bug-Catching
 

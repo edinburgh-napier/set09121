@@ -7,15 +7,28 @@ summary: lecture15
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
 
-Recommended Reading
+# Lecture 14 - AI 4
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading
 
 .5
 
 -   Artificial Intelligence for Games. Second Edition. Millington and
     Funge (2009).
 
-.5 ![image](ai_book){width="\textwidth"}
+.5 ![image](ai_book)
 
 Review -- State and State Machines
 ==================================
@@ -40,7 +53,7 @@ Review -- State Diagrams
 
 -   State modelling also provides dynamic behaviour.
 
-.5 ![image](state_diagram){width="\textwidth"}
+.5 ![image](state_diagram)
 
 Review -- State Design Pattern
 
@@ -57,7 +70,7 @@ Review -- State Design Pattern
 -   Different behaviours are programmed in different objects -- the
     ghost simply calls the state class when it updates.
 
-.5 ![image](state){width="\textwidth"}
+.5 ![image](state)
 
 Review -- AI Techniques
 
@@ -124,9 +137,9 @@ State Machines for AI
     -   If the guard is hit, the guard will fall onto the ground and
         die.
 
-State Machines for AI ![image](simple_state_guard){width="\textwidth"}
+State Machines for AI ![image](simple_state_guard)
 
-Example -- Maze Solving ![image](maze){width="\textwidth"}
+Example -- Maze Solving ![image](maze)
 
 Example -- Maze Solving
 
@@ -147,7 +160,7 @@ Example -- Maze Solving
 
         -   Although it will not necessarily be the fastest route.
 
-Example -- Maze Solving ![image](maze_solve){width="\textwidth"}
+Example -- Maze Solving ![image](maze_solve)
 
 State Machines in the Game Engine
 =================================
@@ -167,7 +180,7 @@ State Machines in Our Game Engine
     in our game engine.
 
 State Pattern in Our Engine
-![image](game_state_pattern){width="\textwidth"}
+![image](game_state_pattern)
 
 `State` Interface
 
@@ -184,7 +197,7 @@ State Pattern in Our Engine
 
     -   Allows simple state reuse if this is desired.
 
-.5 ![image](state_interface){width="\textwidth"}
+.5 ![image](state_interface)
 
 `StateMachineComponent` Class
 
@@ -199,7 +212,7 @@ State Pattern in Our Engine
 -   The core difference is that `Update` does not apply to all states,
     just the current state.
 
-.5 ![image](state_machine){width="\textwidth"}
+.5 ![image](state_machine)
 
 `Update`
 

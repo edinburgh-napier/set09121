@@ -7,7 +7,21 @@ summary: lecture13
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
-Recommended Reading
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
+
+# Lecture 13 - AI2
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading
 
 .5
 
@@ -16,7 +30,7 @@ Recommended Reading
 
 -   Whole chapter on steering behaviours.
 
-.5 ![image](ai_book){width="\textwidth"}
+.5 ![image](ai_book)
 
 Review -- Background Knowledge
 ==============================
@@ -169,7 +183,7 @@ Seek
                         v &= \hat{d} \times speed
                         \end{aligned}$$
 
-.3 ![image](seek){width="\textwidth"}
+.3 ![image](seek)
 
 Flee
 ----
@@ -187,7 +201,7 @@ Flee
                         v &= \hat{d} \times speed
                         \end{aligned}$$
 
-.3 ![image](flee){width="\textwidth"}
+.3 ![image](flee)
 
 Arrive
 ------
@@ -206,7 +220,7 @@ Arrive
                         \lVert d \rVert > radius &\implies v = \hat{d} \times speed
                         \end{aligned}$$
 
-.3 ![image](arrive){width="\textwidth"}
+.3 ![image](arrive)
 
 Face
 ----
@@ -226,7 +240,7 @@ Face
                         r &= (\theta - orientation) * rot\_speed
                         \end{aligned}$$
 
-.3 ![image](face){width="\textwidth"}
+.3 ![image](face)
 
 Steering Behaviours in Our Engine
 =================================
@@ -262,7 +276,7 @@ Steering Behaviour Interface
 -   `get_steering` performs the necessary calculation for the defined
     steering behaviour and outputs a `steering_output`.
 
-.4 ![image](steering_interface){width="\textwidth"}
+.4 ![image](steering_interface)
 
 Steering Output `struct`
 
@@ -283,7 +297,7 @@ Steering Output `struct`
 -   We will not use rotation in the practical, but it is there if you
     need it.
 
-.4 ![image](steering_output){width="\textwidth"}
+.4 ![image](steering_output)
 
 Example -- Seek
 
@@ -306,7 +320,7 @@ Example -- Seek
     return output;
     ```
 
-.4 ![image](seek_class){width="\textwidth"}
+.4 ![image](seek_class)
 
 Example -- Flee
 
@@ -329,7 +343,7 @@ Example -- Flee
     return output;
     ```
 
-.4 ![image](flee_class){width="\textwidth"}
+.4 ![image](flee_class)
 
 Combining Behaviours
 ====================
@@ -377,7 +391,7 @@ Example -- The Sophisticated Guard
         patrolling between point A and point B.
 
 Example -- The Sophisticated Guard Diagram
-![image](sophisticated_guard){width="\textwidth"}
+![image](sophisticated_guard)
 
 Combining Steering Behaviours
 

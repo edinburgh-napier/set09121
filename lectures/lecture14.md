@@ -7,8 +7,21 @@ summary: lecture14
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
 
-Recommended Reading
+# Lecture 14 - AI 3
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Recommended Reading
 
 .5
 
@@ -17,7 +30,7 @@ Recommended Reading
 
 -   Whole chapter on pathfinding.
 
-.5 ![image](ai_book){width="\textwidth"}
+.5 ![image](ai_book)
 
 What is Pathfinding?
 ====================
@@ -38,7 +51,7 @@ What is Pathfinding?
 -   There is a good chance you have covered this before in AI or
     algorithms and data structures.
 
-.5 ![image](pathfinding){width="\textwidth"}
+.5 ![image](pathfinding)
 
 Why do we need Pathfinding?
 
@@ -74,7 +87,7 @@ Pathfinding Costs
 -   Generally we are looking for simplifications to make things more
     efficient.
 
-.5 ![image](witcher3_map){width="\textwidth"}
+.5 ![image](witcher3_map)
 
 Underpinning Theory -- Graphs
 =============================
@@ -233,7 +246,7 @@ Dijkstra's Algorithm
 -   This means it is not actively searching for the destination but
     doing a traversal of the graph until it happens to find it.
 
-.5 ![image](dijkstra){width="\textwidth"}
+.5 ![image](dijkstra)
 
 Example -- Dijkstra at Work
 [[Link]{style="color: blue"}](https://youtu.be/dhvf9KCAsVg)
@@ -322,7 +335,7 @@ A\*
 
     -   We still have $\mathcal{O}(\lvert V \rvert^2)$ complexity.
 
-.5 ![image](astar){width="\textwidth"}
+.5 ![image](astar)
 
 Example -- A\* at Work
 [[Link]{style="color: blue"}](https://youtu.be/19h1g22hby8)
@@ -372,7 +385,7 @@ Output from Pathfinding
 
 -   We will take the latter approach.
 
-.5 ![image](graph-walk){width="\textwidth"}
+.5 ![image](graph-walk)
 
 Pathfinding and Steering
 

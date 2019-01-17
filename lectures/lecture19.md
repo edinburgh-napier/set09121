@@ -8,7 +8,21 @@ layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
 
-Background
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+<textarea data-template>
+
+# Lecture 19 - Performance Optimisation
+### SET09121 - Games Engineering
+
+<br><br>
+Kevin Chalmers and Sam Serrels
+
+School of Computing. Edinburgh Napier University
+
+
+---
+
+# Background
 ==========
 
 What is Performance Optimisation?
@@ -68,7 +82,7 @@ The 80/20 Rule
 -   It does make sense -- loops normally are the biggest area of
     computation in your application.
 
-.5 ![image](80-20){width="\textwidth"}
+.5 ![image](80-20)
 
 What are we interested in?
 
@@ -108,7 +122,7 @@ First big trick -- release mode and run without debug
 
 -   So, don't do it in final builds.
 
-.5 ![image](run-no-debug){width="\textwidth"}
+.5 ![image](run-no-debug)
 
 Second big trick -- avoid I/O or do it better
 
@@ -371,7 +385,7 @@ Finding Hot Paths -- Using Tools
 -   Basically, tools do a good job of finding places in your code that
     are slowing things down.
 
-.5 ![image](hot-path){width="\textwidth"}
+.5 ![image](hot-path)
 
 Bottlenecks
 
@@ -386,7 +400,7 @@ Bottlenecks
 
 -   Even a small tweak here can make all the difference.
 
-.5 ![image](bottleneck){width="\textwidth"}
+.5 ![image](bottleneck)
 
 Algorithmic Analysis
 
@@ -399,7 +413,7 @@ Algorithmic Analysis
 
 -   See your algorithms and data structures material for more insight.
 
-.5 ![image](alg-analysis){width="\textwidth"}
+.5 ![image](alg-analysis)
 
 Step 5. -- Optimise your function calls
 =======================================
@@ -418,7 +432,7 @@ Function Calls Cost
 
 -   On return there is a jump back again.
 
-.5 ![image](function-call){width="\textwidth"}
+.5 ![image](function-call)
 
 `inline` Function Calls
 
@@ -469,7 +483,7 @@ Function Calls Cost
 
 -   Effectively we are double jumping in this instance.
 
-.5 ![image](virtual-function){width="\textwidth"}
+.5 ![image](virtual-function)
 
 Exceptions are the Enemy
 
