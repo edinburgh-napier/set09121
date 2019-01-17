@@ -17,9 +17,8 @@ If you have not already created a github account, create one and sign in.
 
 ( As a student you get some cool swag from github: [education.github.com/pack](https://education.github.com/pack) )
 
-![new Repo process](/assets/images/github_newrepo_1.png)
-![New Repo Options](/assets/images/github_newrepo_2.png)
-
+![newRepoprocess](assets/images/github_newrepo_1.png)
+![NewRepoOptions](assets/images/github_newrepo_2.png)
 
 1. Give your repo a simple name and descriptive description
 
@@ -34,7 +33,7 @@ something like the following image, now it's time to **clone** the
 repo down so you can start to work within it. Click the green clone
 button and copy the link within the box
 
-![Clone from Github](/assets/images/github_clone.png)
+![Clone from Github](assets/images/github_clone.png)
 
 
 ### Clone it down
