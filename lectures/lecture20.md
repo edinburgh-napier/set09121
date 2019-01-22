@@ -26,33 +26,33 @@ School of Computing. Edinburgh Napier University
 
 Our Goal
 
--   We want to enable our game to support multiple players from
+- We want to enable our game to support multiple players from
     different machines.
 
--   This requires some form of communication between the different
+- This requires some form of communication between the different
     machines.
 
--   It also requires some form of coordination between the different
+- It also requires some form of coordination between the different
     instances of the game.
 
--   We also have to do this in real-time so that the game does not hang
+- We also have to do this in real-time so that the game does not hang
     or become unplayable due to lag.
 
--   So how do we achieve this?
+- So how do we achieve this?
 
 Questions
 
--   How does networking work?
+- How does networking work?
 
--   How do we do network programming?
+- How do we do network programming?
 
--   What are the limitations of networking?
+- What are the limitations of networking?
 
--   How do we solve these limitations in games?
+- How do we solve these limitations in games?
 
--   What data should we send in a game and how do we send it?
+- What data should we send in a game and how do we send it?
 
--   How can we do networking in SFML?
+- How can we do networking in SFML?
 
 How does networking work?
 =========================
@@ -61,17 +61,17 @@ Hardware
 
 .5
 
--   We can break-down network hardware into the following:
+- We can break-down network hardware into the following:
 
-    -   Computers on the network.
+    - Computers on the network.
 
-    -   Network interfaces on the computers.
+    - Network interfaces on the computers.
 
-    -   Routers and switches that interfaces connect to.
+    - Routers and switches that interfaces connect to.
 
-    -   The connection between the interfaces and the switch/router.
+    - The connection between the interfaces and the switch/router.
 
--   Each one of these works at a different level of data abstraction.
+- Each one of these works at a different level of data abstraction.
 
 .5 ![image](network-diagram)
 
@@ -79,24 +79,24 @@ The Seven Layer Model
 
 .5
 
--   Networking works on a layered model.
+- Networking works on a layered model.
 
-    -   Application data at the top layer.
+    - Application data at the top layer.
 
-    -   Electrical signals at the bottom layer.
+    - Electrical signals at the bottom layer.
 
--   Each layer adds or extracts data to enable communication to occur.
+- Each layer adds or extracts data to enable communication to occur.
 
--   As programmers, we rarely need to consider below level 3 -- network
+- As programmers, we rarely need to consider below level 3 -- network
     layer.
 
 .5 ![image](seven-layer)
 
 Packets
 
--   This is all managed via packaging of data up into different packets.
+- This is all managed via packaging of data up into different packets.
 
--   For example, your web browser works with HTTP (the
+- For example, your web browser works with HTTP (the
     HyperText-Transport Protocol).
 
     Layer 7
@@ -132,37 +132,37 @@ Packets
 
 Addressing and Switching
 
--   Networking works like a mail system.
+- Networking works like a mail system.
 
--   Each individual packet has an address (IP address) which the switch
+- Each individual packet has an address (IP address) which the switch
     has to look at.
 
--   The switch must work out if it can send the data directly to the
+- The switch must work out if it can send the data directly to the
     addressed machine (on the local network) or where it must send it if
     not.
 
--   The switch has a lookup table matching the local IP addresses to MAC
+- The switch has a lookup table matching the local IP addresses to MAC
     addresses. This is how the switch sees the world.
 
--   The more switches a packet must pass through, the more hops it
+- The more switches a packet must pass through, the more hops it
     makes. A packet has a maximum number of hops. If it doesn't make it
     it dies.
 
--   This is how the entire Internet works (on a simple-level).
+- This is how the entire Internet works (on a simple-level).
 
 Transport Control Protocol -- TCP
 
 .5
 
--   TCP provides means of breaking down data into separate packets.
+- TCP provides means of breaking down data into separate packets.
 
--   Each data chunk is given a sequence number to allow the data to be
+- Each data chunk is given a sequence number to allow the data to be
     reformed.
 
--   TCP guarantees acknowledgement of sent data -- this means we know
+- TCP guarantees acknowledgement of sent data -- this means we know
     that data has arrived if we don't get an error.
 
--   TCP is the most common distributed application protocol because of
+- TCP is the most common distributed application protocol because of
     its guarantees.
 
 .5 ![image](packet)
@@ -174,23 +174,23 @@ Client-server Model
 
 .5
 
--   The most common application model in networking is the
+- The most common application model in networking is the
     client-server.
 
--   A client connects to a server machine via some form of universal
+- A client connects to a server machine via some form of universal
     addressing.
 
--   The sever can now communicate directly with that client.
+- The sever can now communicate directly with that client.
 
--   A server may have multiple clients that it is communicating with.
+- A server may have multiple clients that it is communicating with.
 
 .5 ![image](client-server)
 
 Sockets
 
--   Applications communicate using sockets.
+- Applications communicate using sockets.
 
--   A socket is just an encapsulation of the following:
+- A socket is just an encapsulation of the following:
 
     Address
 
@@ -204,43 +204,43 @@ Sockets
 
     :   allows an individual application to be addressed on the network.
 
--   These are provided by layers 3-5 of our model.
+- These are provided by layers 3-5 of our model.
 
--   A socket is therefore a software abstraction that allows an
+- A socket is therefore a software abstraction that allows an
     application to send and receive data with other applications.
 
--   Each socket thus has both a source port and a destination port.
+- Each socket thus has both a source port and a destination port.
 
 Server Socket
 
--   A server socket is a special type of socket that listens for an
+- A server socket is a special type of socket that listens for an
     initial communication.
 
--   A client socket will connect to this socket initially.
+- A client socket will connect to this socket initially.
 
--   Once connected, the server creates a new socket exclusively for that
+- Once connected, the server creates a new socket exclusively for that
     client connection (with an appropriate port).
 
--   The server socket can continue listening on its original socket for
+- The server socket can continue listening on its original socket for
     new incoming connections.
 
--   A server socket will be the first established socket in a
+- A server socket will be the first established socket in a
     distributed application. It is needed to initiate a connection.
 
 Three-way Handshake
 
 .5
 
--   As TCP requires guaranteed connection, the client-server
+- As TCP requires guaranteed connection, the client-server
     communication initiates what is known as a three-way handshake.
 
--   The client sends a SYN packet to the server.
+- The client sends a SYN packet to the server.
 
--   The server sends a SYN+ACK packet to acknowledge.
+- The server sends a SYN+ACK packet to acknowledge.
 
--   The client sends a ACK packet to acknowledge.
+- The client sends a ACK packet to acknowledge.
 
--   Communication is now established.
+- Communication is now established.
 
 .5 ![image](three-way)
 
@@ -249,56 +249,56 @@ What are the limitations of networking?
 
 Bandwidth and Throughput
 
--   The biggest limitation on a network is its bandwidth.
+- The biggest limitation on a network is its bandwidth.
 
--   The bandwidth indicates the theoretical limit that data can be sent
+- The bandwidth indicates the theoretical limit that data can be sent
     through the network.
 
-    -   Typically measured in megabits (1 million bits) per second.
+    - Typically measured in megabits (1 million bits) per second.
 
--   Most people have heard the term bandwidth, but the actual figure we
+- Most people have heard the term bandwidth, but the actual figure we
     are interested in is throughput.
 
--   Throughput is the **actual** amount of data that is sent between two
+- Throughput is the **actual** amount of data that is sent between two
     machines.
 
--   Throughput will be lower than bandwidth due to limitations between
+- Throughput will be lower than bandwidth due to limitations between
     the two machines and other factors.
 
--   Generally, throughput is too low for transferring an entire game's
+- Generally, throughput is too low for transferring an entire game's
     data in 16ms.
 
-    -   On a 100Mbps network that is enough time to send 2 kilobytes of
+    - On a 100Mbps network that is enough time to send 2 kilobytes of
         data.
 
 Latency
 
--   Latency (or lag) is a bigger concern in games.
+- Latency (or lag) is a bigger concern in games.
 
--   Latency is the time it takes a packet to get to another machine.
+- Latency is the time it takes a packet to get to another machine.
 
--   You can find latency easily using ping and dividing the result by
+- You can find latency easily using ping and dividing the result by
     two (as ping does a round trip).
 
--   For example, as of writing I can ping Google from my office machine
+- For example, as of writing I can ping Google from my office machine
     in about 23ms, so latency is about 12ms.
 
--   Latency is therefore going to mean any update you send between game
+- Latency is therefore going to mean any update you send between game
     instances will likely be at least one frame out-of-date.
 
 TCP Guarantees
 
--   TCP can be a very slow protocol.
+- TCP can be a very slow protocol.
 
--   Each TCP packet must be acknowledged by the receiver.
+- Each TCP packet must be acknowledged by the receiver.
 
--   The receiver has to rebuild the sent data from the packets.
+- The receiver has to rebuild the sent data from the packets.
 
--   If any packet is missing, the entire data is resent.
+- If any packet is missing, the entire data is resent.
 
--   If an acknowledgement is not received, the sender resends the data.
+- If an acknowledgement is not received, the sender resends the data.
 
--   So TCP guarantees come at a cost.
+- So TCP guarantees come at a cost.
 
 How do we solve these limitations in games?
 ===========================================
@@ -307,15 +307,15 @@ Peer-to-peer Lockstep
 
 .5
 
--   The original approach to solving networking for games was a
+- The original approach to solving networking for games was a
     peer-to-peer lockstep.
 
--   Here, each client would update it's move to the other clients.
+- Here, each client would update it's move to the other clients.
 
--   The game would wait until everyone has updated before moving onto
+- The game would wait until everyone has updated before moving onto
     the next move.
 
--   It was slow as you can guess.
+- It was slow as you can guess.
 
 .5 ![image](p2p)
 
@@ -323,64 +323,64 @@ Client-side Prediction
 
 .5
 
--   Nowadays games will try and predict movement.
+- Nowadays games will try and predict movement.
 
--   Given that in a single "server" tick we know what the client has
+- Given that in a single "server" tick we know what the client has
     moved, we can interpolate the move by the next tick.
 
--   Propagate this amongst all clients and we should have a close
+- Propagate this amongst all clients and we should have a close
     approximation to reality.
 
--   Every so often send more complete data.
+- Every so often send more complete data.
 
 .5 ![image](client-prediction)
 
 User Datagram Packet -- UDP
 
--   As we are now predicting movements and locations, we can
+- As we are now predicting movements and locations, we can
     occasionally lose information without much concern.
 
--   Therefore, we do not need packet guarantees. TCP is no longer
+- Therefore, we do not need packet guarantees. TCP is no longer
     needed.
 
--   UDP is an alternate protocol which is connectionless. We just send
+- UDP is an alternate protocol which is connectionless. We just send
     data to a location.
 
--   The receiver will read its data packet as often as it can, and only
+- The receiver will read its data packet as often as it can, and only
     those it receives.
 
--   Basically, we can improve performance considerably by not
+- Basically, we can improve performance considerably by not
     acknowledging data sends.
 
 Synchronous versus Asynchronous Polling
 
--   We can also change how we service connections.
+- We can also change how we service connections.
 
--   Typically, we wait on a connection until data arrives.
+- Typically, we wait on a connection until data arrives.
 
--   This would impact our frame time -- we need to service the
+- This would impact our frame time -- we need to service the
     connection only when data is ready.
 
--   Asynchronous socket communication means we perform an operation
+- Asynchronous socket communication means we perform an operation
     whenever a communication event occurs.
 
--   This allows the game to continue on and another thread can update as
+- This allows the game to continue on and another thread can update as
     needed based on communication.
 
 Physics
 
--   A big problem in games actually comes from the physics system.
+- A big problem in games actually comes from the physics system.
 
--   The physics system is keeping track of all the physical objects and
+- The physics system is keeping track of all the physical objects and
     their interactions.
 
--   A physics engine will typically add some randomness to reactions
+- A physics engine will typically add some randomness to reactions
     just to smooth out some of the operations.
 
--   We cannot have this in different clients as it would lead to
+- We cannot have this in different clients as it would lead to
     different game instances having different object locations.
 
--   Solving game physics problems is a whole other area that we won't
+- Solving game physics problems is a whole other area that we won't
     cover -- just send the complete physical data every so often to get
     around this.
 
@@ -389,66 +389,66 @@ What data should we send in a game and how do we send it?
 
 Initial State
 
--   When a scene is loaded or started, the client needs to know as much
+- When a scene is loaded or started, the client needs to know as much
     of the game world as possible.
 
--   This will require sending a lot of data to the clients when they
+- This will require sending a lot of data to the clients when they
     start.
 
--   This is OK as the game hasn't really started for them yet.
+- This is OK as the game hasn't really started for them yet.
 
--   It also allows other information such as unique content to be shared
+- It also allows other information such as unique content to be shared
     if need be (although this is slow).
 
--   Use this loading time appropriately.
+- Use this loading time appropriately.
 
 Scene Updates
 
--   Every "server" tick you need to communicate data between the client
+- Every "server" tick you need to communicate data between the client
     and server.
 
--   The communication must update the server with information the client
+- The communication must update the server with information the client
     has on scene updates.
 
--   The communication must update the client with information the server
+- The communication must update the client with information the server
     has on scene updates.
 
--   Every so often, the client and server must do a more complete update
+- Every so often, the client and server must do a more complete update
     to normalise their information.
 
--   Effectively, we are trying to keep the client and server as
+- Effectively, we are trying to keep the client and server as
     synchronised as possible without performing lockstep.
 
 Object Serialization
 
--   When it comes to sending data in object-oriented languages
+- When it comes to sending data in object-oriented languages
     serialization is the go-to approach.
 
--   Serialization is a technique where an object is converted into a
+- Serialization is a technique where an object is converted into a
     textual or binary representation for communication and storage.
 
--   The managed languages (e.g. Java and C\#) have these capabilities
+- The managed languages (e.g. Java and C\#) have these capabilities
     built in.
 
--   C++ does not, and actually it is hard to convert local memory
+- C++ does not, and actually it is hard to convert local memory
     between two machines.
 
--   Serialization is also a slow process as it has to deeply interrogate
+- Serialization is also a slow process as it has to deeply interrogate
     the object.
 
--   Therefore, serialization is not a good approach for games in
+- Therefore, serialization is not a good approach for games in
     general.
 
 Designing a Protocol
 
 .5
 
--   A better technique is to build a protocol.
+- A better technique is to build a protocol.
 
--   Design your message types and the data that will go into the
+- Design your message types and the data that will go into the
     message.
 
--   This will allow simple messaging that can be managed easily with a
+- This will allow simple messaging that can be managed easily with a
     few case statements.
 
 .5 ![image](protocol)
@@ -458,9 +458,9 @@ How can we do networking in SFML?
 
 SFML Networking
 
--   Networking in SFML is relatively easy.
+- Networking in SFML is relatively easy.
 
--   We will use the following classes:
+- We will use the following classes:
 
     TcpListener
 
@@ -474,7 +474,7 @@ SFML Networking
 
     :   a UDP socket to communicate via.
 
--   We will use the following methods:
+- We will use the following methods:
 
     listen
 
@@ -549,24 +549,24 @@ Summary
 
 Summary
 
--   We have defined the issue of networking and discussed how we solve
+- We have defined the issue of networking and discussed how we solve
     game networking issues.
 
--   We looked at how networking works by examining the layers and
+- We looked at how networking works by examining the layers and
     protocols.
 
--   We looked at how we do network programming by presenting sockets.
+- We looked at how we do network programming by presenting sockets.
 
--   We looked at the limitations of networking by analysing the common
+- We looked at the limitations of networking by analysing the common
     metrics.
 
--   We looked at how we overcome these limitations in games by looking
+- We looked at how we overcome these limitations in games by looking
     at communicating patterns and UDP.
 
--   We then discussed what data to send and how by discussing protocols.
+- We then discussed what data to send and how by discussing protocols.
 
--   And finally we looked at how we use SFML for networking by
+- And finally we looked at how we use SFML for networking by
     presenting a client and server example.
 
--   This is all you need to get started with networking for games using
+- This is all you need to get started with networking for games using
     SFML. The lab will provide a concrete application.

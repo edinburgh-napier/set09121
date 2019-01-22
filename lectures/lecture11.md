@@ -1,5 +1,5 @@
 ---
-title: "Lecture11"
+title: "Lecture 11 - Physics"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture11.html
@@ -23,17 +23,14 @@ School of Computing. Edinburgh Napier University
 
 # Recommended Reading
 
-.5
 
--   Game Physics Engine Development, Millington.
 
--   If you ever want to build your own physics engine this is the book.
+- Game Physics Engine Development, Millington.
+- If you ever want to build your own physics engine this is the book.
+- It does introduce some of the physics concepts well.
+- Unless you need to know this information it isn't necessary.
 
--   It does introduce some of the physics concepts well.
-
--   Unless you need to know this information it isn't necessary.
-
-.5 ![image](physics-book)
+![image](physics-book)
 
 What do we mean by game physics?
 ================================
@@ -43,37 +40,37 @@ Examples [[Link]{style="color: blue"}](https://youtu.be/tugbGpRqiFY)\
 
 Game Physics
 
--   Showing a couple of examples is fine, but what is game physics and
+- Showing a couple of examples is fine, but what is game physics and
     how do we use it?
 
--   Game physics is really only a small subset of academic physics -- it
+- Game physics is really only a small subset of academic physics -- it
     is not theoretical.
 
--   Game physics uses classical mechanics to provide the basic movement
+- Game physics uses classical mechanics to provide the basic movement
     of objects in the game world.
 
-    -   We will look at the Laws of Motion for example.
+    - We will look at the Laws of Motion for example.
 
--   Other physics models are used in some areas of games.
+- Other physics models are used in some areas of games.
 
-    -   Fluid dynamics for example.
+    - Fluid dynamics for example.
 
--   Most advanced rendering techniques rely on physics concepts.
+- Most advanced rendering techniques rely on physics concepts.
 
-    -   Optics, etc.
+    - Optics, etc.
 
 Physics Engine
 
 .5
 
--   Game physics is almost always provided by a third-party engine.
+- Game physics is almost always provided by a third-party engine.
 
--   It used to be that a game studio required someone with a masters of
+- It used to be that a game studio required someone with a masters of
     PhD in physics.
 
--   We will use Box2D as our middleware.
+- We will use Box2D as our middleware.
 
--   There are a number of industry used, free, physics engines out
+- There are a number of industry used, free, physics engines out
     there.
 
 .5 ![image](box2d){width=".8\textwidth"}\
@@ -87,13 +84,13 @@ Collision Detection
 
 .5
 
--   Collision detection is not strictly part of a physics engine.
+- Collision detection is not strictly part of a physics engine.
 
--   The physics engine concerns itself with resolving collisions.
+- The physics engine concerns itself with resolving collisions.
 
-    -   So we need to be able to detect them in the first place.
+    - So we need to be able to detect them in the first place.
 
--   There are numerous techniques to detect collisions in 2D and 3D --
+- There are numerous techniques to detect collisions in 2D and 3D --
     from fast course-grained to slow fine-grained.
 
 .5 ![image](collision-detection)
@@ -102,16 +99,16 @@ Particle Simulation
 
 .5
 
--   Particle simulation forms the basis of many physics engines.
+- Particle simulation forms the basis of many physics engines.
 
--   Particles are simply simulated elements that we can apply the Laws
+- Particles are simply simulated elements that we can apply the Laws
     of Motion to.
 
-    -   The have a position, velocity, acceleration, etc.
+    - The have a position, velocity, acceleration, etc.
 
--   Particles are use for numerous graphical effects.
+- Particles are use for numerous graphical effects.
 
-    -   For example, smoke, fire, explosions, water, etc.
+    - For example, smoke, fire, explosions, water, etc.
 
 .5 ![image](particle)
 
@@ -119,31 +116,31 @@ Rigid Body Dynamics
 
 .5
 
--   Rigid bodies is about how geometric objects move and interact.
+- Rigid bodies is about how geometric objects move and interact.
 
--   Unlike particles, rigid bodies have a shape. This means that not
+- Unlike particles, rigid bodies have a shape. This means that not
     only move in space but can also rotate.
 
--   The bodies are rigid as they do not change shape.
+- The bodies are rigid as they do not change shape.
 
 .5 ![image](rigid-body)
 
 Bringing them Together
 
--   Collision detection (intersection testing) lets us find our which
+- Collision detection (intersection testing) lets us find our which
     bodies have come into contact.
 
--   Particle physics allow us to control the motion of objects without
+- Particle physics allow us to control the motion of objects without
     taking into account their size and shape.
 
--   Rigid body dynamics let us model how geometric objects interact.
+- Rigid body dynamics let us model how geometric objects interact.
 
--   Rigid body dynamics also let us determine what happens when two
+- Rigid body dynamics also let us determine what happens when two
     objects collide.
 
-    -   Collision resolution.
+    - Collision resolution.
 
--   Box2D provides these core features (and a bit more) so we can do
+- Box2D provides these core features (and a bit more) so we can do
     almost any type of 2D physical effect you can think of.
 
 Examples of Game Physics
@@ -169,11 +166,11 @@ Fundamentals -- Laws of Motion
 
 What are the Laws of Motion?
 
--   Game physics are underpinned by Newton's three Laws of Motion.
+- Game physics are underpinned by Newton's three Laws of Motion.
 
-    -   First described by Isaac Newton in the 17th century.
+    - First described by Isaac Newton in the 17th century.
 
--   Newton three laws are:
+- Newton three laws are:
 
     1.  An object in motion stays in motion unless a force is applied to
         it.
@@ -183,36 +180,36 @@ What are the Laws of Motion?
 
     3.  For any action there is an but opposite reaction.
 
--   There are also Euler's two laws of rigid body motion which we won't
+- There are also Euler's two laws of rigid body motion which we won't
     discuss here.
 
 Newton's First Law of Motion
 
 .5
 
--   An object in motion stays in motion unless a force is applied to it.
+- An object in motion stays in motion unless a force is applied to it.
 
--   Basically, if there is no force there is no change in acceleration
+- Basically, if there is no force there is no change in acceleration
     that can change velocity.
 
--   There is always some force applied to our object per frame.
+- There is always some force applied to our object per frame.
 
 .5
 
--   If $F_{net} = 0$ then there is no change in motion.
+- If $F_{net} = 0$ then there is no change in motion.
 
--   Where:
+- Where:
 
-    -   $F_{net}$ is the combined force applied to the object.
+    - $F_{net}$ is the combined force applied to the object.
 
 Newton's Second Law of Motion
 
 .5
 
--   A force applied to an object causes an acceleration in that
+- A force applied to an object causes an acceleration in that
     direction multiplied by the inverse mass of the object.
 
--   This is an important calculation, and normally underpins most of the
+- This is an important calculation, and normally underpins most of the
     force calculation work in a physics engine.
 
 .5 $$F_{net} = ma$$ Where:
@@ -231,11 +228,11 @@ Newton's Third Law of Motion
 
 .5
 
--   For any action, there is an equal but opposite reaction.
+- For any action, there is an equal but opposite reaction.
 
--   The law comes into play when working with collision resolution.
+- The law comes into play when working with collision resolution.
 
--   A similar looking force is the normal force which cancels out the
+- A similar looking force is the normal force which cancels out the
     force of gravity on a resting object.
 
 .5 ![image](normal-force)
@@ -275,33 +272,33 @@ $t$ (or $\Delta t$)
 
 Simple Gravity
 
--   We will define some basic values and principles that are useful when
+- We will define some basic values and principles that are useful when
     considering motion.
 
--   The first value we shall define is gravity, $g$.
+- The first value we shall define is gravity, $g$.
 
--   On Earth, $g$ is a downward force applied to an object.
+- On Earth, $g$ is a downward force applied to an object.
 
--   $g$ at sea level is equal to $9.82m/s$.
+- $g$ at sea level is equal to $9.82m/s$.
 
-    -   As a 2D vector this is $<0, -9.82>$.
+    - As a 2D vector this is $<0, -9.82>$.
 
--   This value for $g$ is commonly low in a 2D game world (as pixels are
+- This value for $g$ is commonly low in a 2D game world (as pixels are
     do not represent metres) so you will probably want to increase it.
 
 Weight and Mass
 
 .5
 
--   Typically we use the terms weight and mass interchangeably in
+- Typically we use the terms weight and mass interchangeably in
     everyday language.
 
--   In physics, weight and mass are different.
+- In physics, weight and mass are different.
 
--   Weight is the downward force applied to an object because of gravity
+- Weight is the downward force applied to an object because of gravity
     and the object's mass.
 
--   We use $kg$ for mass. Less gravity means less weight, but the mass
+- We use $kg$ for mass. Less gravity means less weight, but the mass
     will remain the same.
 
 .5 $$w = mg$$ Where:
@@ -324,15 +321,15 @@ Forces
 
 .5
 
--   Weight is a force. A force is considered to be any influence that
+- Weight is a force. A force is considered to be any influence that
     can affect the velocity of an object.
 
--   As we saw with $g$, a force is defined as a vector, having a
+- As we saw with $g$, a force is defined as a vector, having a
     direction and magnitude.
 
--   A Newton is a standard unit of force applied to an object.
+- A Newton is a standard unit of force applied to an object.
 
--   Many physic engines will try and deal in Newtons to ensure
+- Many physic engines will try and deal in Newtons to ensure
     calculations are uniform.
 
 .5 $$1N = 1kg \times m/s^2$$ On Earth: $$\begin{aligned}
@@ -344,10 +341,10 @@ Adding Forces
 
 .5
 
--   When applying forces, we are typically concerned with accumulated
+- When applying forces, we are typically concerned with accumulated
     force for a particular frame.
 
--   Adding forces is just a case of adding the vector forces together
+- Adding forces is just a case of adding the vector forces together
     and applying the resultant net force to the object.
 
 .5 ![image](adding-forces)
@@ -356,14 +353,14 @@ Examples
 
 .5
 
--   Springs are commonly used for a number of effects -- they do exactly
+- Springs are commonly used for a number of effects -- they do exactly
     what you think.
 
--   In games, springs are used for deformable shapes and balls.
+- In games, springs are used for deformable shapes and balls.
 
--   Drag is another force that is caused by air resistance.
+- Drag is another force that is caused by air resistance.
 
--   Games will use a simplified model of drag, such as shown.
+- Games will use a simplified model of drag, such as shown.
 
 .5 Hook's Law: $$F = -k\Delta l$$ where $k$ is the stiffness of the
 spring and $l$ the length.\
@@ -372,55 +369,55 @@ $$F_{drag} = \hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rV
 
 Impulses
 
--   Forces are a simple way of managing object movement.
+- Forces are a simple way of managing object movement.
 
-    -   A force is applied to the object.
+    - A force is applied to the object.
 
-    -   The force affects the object's acceleration.
+    - The force affects the object's acceleration.
 
-    -   The acceleration affects the velocity of the object.
+    - The acceleration affects the velocity of the object.
 
--   Sometimes we want to modify velocity directly, for example in
+- Sometimes we want to modify velocity directly, for example in
     collision resolution.
 
-    -   The amount of force applied after collision may not be enough to
+    - The amount of force applied after collision may not be enough to
         move the object.
 
--   Therefore we use impulses to calculate direct changes in velocity.
+- Therefore we use impulses to calculate direct changes in velocity.
 
 Impulses over Forces
 
--   The effect of a force is gradual, particularly in the time frames we
+- The effect of a force is gradual, particularly in the time frames we
     are dealing with.
 
-    -   Force applied to an object.
+    - Force applied to an object.
 
-    -   Force divided by object's mass is added to object's
+    - Force divided by object's mass is added to object's
         acceleration.
 
-    -   Acceleration is then multiplied by time (typically a fraction of
+    - Acceleration is then multiplied by time (typically a fraction of
         a second) and is added to the velocity of the object.
 
-    -   The new velocity, multiplied by time, is used to move the
+    - The new velocity, multiplied by time, is used to move the
         object.
 
--   Impulse forces are far more sudden.
+- Impulse forces are far more sudden.
 
-    -   Impulse is calculated.
+    - Impulse is calculated.
 
-    -   Impulse divided by mass is added to the velocity.
+    - Impulse divided by mass is added to the velocity.
 
-    -   Use the new velocity multiplied by time to move the object.
+    - Use the new velocity multiplied by time to move the object.
 
 Impulse Example
 
--   Normally we would calculate a force as follows: $$\begin{aligned}
+- Normally we would calculate a force as follows: $$\begin{aligned}
                     F &= \dots \\
                     p.F &+= F
                 \end{aligned}$$ particle uses force to modify
     acceleration in update.
 
--   For an impulse, the change is far more sudden, and we just add a
+- For an impulse, the change is far more sudden, and we just add a
     value directly to the velocity. $$\begin{aligned}
                     I &= \dots \\
                     p.v &+= I
@@ -432,32 +429,32 @@ Summary
 
 Warning
 
--   Physics effects look good in your game, provide nicer looking
+- Physics effects look good in your game, provide nicer looking
     movement, and can be used for gameplay. However...
 
--   Physics calculations can be expensive.
+- Physics calculations can be expensive.
 
-    -   They also don't always scale well also due to the object
+    - They also don't always scale well also due to the object
         interactions.
 
--   Collision detection is also expensive.
+- Collision detection is also expensive.
 
--   Be smart! Don't have lots of physical effects on the screen at one
+- Be smart! Don't have lots of physical effects on the screen at one
     time -- this can really hit performance!
 
 Summary
 
--   We have taken a very broad overview of what we mean by game physics.
+- We have taken a very broad overview of what we mean by game physics.
 
-    -   Laws of Motion.
+    - Laws of Motion.
 
-    -   Particles.
+    - Particles.
 
-    -   Rigid bodies.
+    - Rigid bodies.
 
-    -   Collisions.
+    - Collisions.
 
--   Box2D will provide us with all these features and more -- you just
+- Box2D will provide us with all these features and more -- you just
     need to explore it.
 
--   The physics tutorial will introduce most of these ideas.
+- The physics tutorial will introduce most of these ideas.

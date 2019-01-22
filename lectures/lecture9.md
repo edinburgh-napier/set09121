@@ -1,5 +1,5 @@
 ---
-title: "Lecture9"
+title: "Lecture 9 - C++ Memory"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture9.html
@@ -27,7 +27,7 @@ School of Computing. Edinburgh Napier University
  - Chapter 3 introduces some ideas.
  - Chapter 8 covers resource management.
 
-![image](assets/images/game_coding)
+![image](assets/images/game_coding_book.jpg) <!-- .element width="30%"  -->
 
 
 ---
@@ -39,11 +39,11 @@ School of Computing. Edinburgh Napier University
 
 # Different Memory Types
 
--   C++ (and applications in general) have three types of memory.
+- C++ (and applications in general) have three types of memory.
  - global (static) :   memory where global and static values are stored.
  - stack :   working memory.
  - heap (free-store) :   the rest of memory.
--   Each has a different purpose and features.
+- Each has a different purpose and features.
 
 ```cpp
 // Allocated in global memory.
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
 # Scope and Stack 
 
-![image](stack-heap)
+![image](assets/images/stack-heap.png)
 
 
 ---
@@ -82,15 +82,19 @@ void function(int param_scope){
         {
             // Scope B - can see scope A and main
             int B_scope = 20;
-        } // B_scope removed from stack
+        } 
+        // B_scope removed from stack
         {
             // Scope C can see scope A and main, Scope B is no longer valid
             int C_scope = 30;
-        } // C_scope removed from stack
-    } // A_scope removed from stack
-} // param_scope and main_scope removed from stack
+        } 
+        // C_scope removed from stack
+    } 
+    // A_scope removed from stack
+} 
+// param_scope and main_scope removed from stack
 ```
-<!-- .element: class="stretch" -->
+
 
 ---
 
@@ -102,19 +106,19 @@ void function(int param_scope){
 - The processor can optimise memory streams to improve performance (and also cache).
 - Jumping around the heap can be a major source of performance reduction.
 
-![image](assets/images/mem-layout)
+![image](assets/images/mem-layout.png)
 
 
 ---
 
 # Memory Access Times
 
--   CPU is fast when accessing adjacent memory.
--   If we jump around things slow down -- sometimes dramatically.
--   Consider a multi-dimensional array.
--   The dimensions place memory in the continuous block differently.
--   Access time difference between approach A and C can be 100x.
- -   i.e. accessing all members using approach A could be 300ns; approach C 30000ns.
+- CPU is fast when accessing adjacent memory.
+- If we jump around things slow down -- sometimes dramatically.
+- Consider a multi-dimensional array.
+- The dimensions place memory in the continuous block differently.
+- Access time difference between approach A and C can be 100x.
+ - i.e. accessing all members using approach A could be 300ns; approach C 30000ns.
 
 
 ```cpp
@@ -135,11 +139,11 @@ matrix[1][0][0] = 1; // 40000 byte jump
 
 # Memory Alignment
 
--   The CPU also reads memory in fixed chunks.
--   If a value is not aligned to these chunks, extra reads occur.
--   Generally, the C++ compiler will fix this for you, but you can help.
+- The CPU also reads memory in fixed chunks.
+- If a value is not aligned to these chunks, extra reads occur.
+- Generally, the C++ compiler will fix this for you, but you can help.
 
-![image](assets/images/mem-align)
+![image](assets/images/mem-align.jpg) <!-- .element width="95%"  -->
 
 
 ---
@@ -160,10 +164,10 @@ You must consider the limits you have in memory.
 
 # Caches
 
--   Different levels of cache replicate memory closer to the CPU to reduce access time.
--   If data is in L1 cache can be accessed in about 0.5ns; main memory about 100ns.
+- Different levels of cache replicate memory closer to the CPU to reduce access time.
+- If data is in L1 cache can be accessed in about 0.5ns; main memory about 100ns.
 
-![image](assets/images/mem-cache)
+![image](assets/images/mem-cache.png) <!-- .element width="95%"  -->
 
 
 ---
@@ -337,14 +341,13 @@ z = 20;
 
 # Construction and Destruction
 
--   Memory allocation and deallocation in C++ calls constructors and destructors.
--   Knowing when and what can be important.
--   There are a lot of background functions called in C++ you have to be aware of.
+- Memory allocation and deallocation in C++ calls constructors and destructors.
+- Knowing when and what can be important.
+- There are a lot of background functions called in C++ you have to be aware of.
 
 
 ```cpp
-my_data do_work(my_data d)
-{
+my_data do_work(my_data d) {
     // Constructor called for x
     my_data x;
     // ...
@@ -352,8 +355,7 @@ my_data do_work(my_data d)
     return x;
 } // Destructor called for d and x
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     // Constructor called for y
     my_data y;
     // Copy constructor called on y
@@ -408,21 +410,21 @@ for (size_t n = 0; n < 10; ++n)
 
 # Smart Pointers
 
--   Due to the pattern of allocation, deallocation, and keeping track of resources many programmers created in-house solutions to these problems.
--   This led to many implementations of self-managing pointers -- "smart pointer" -- that would do the work for the programmer.
--   The most popular implementation was seen in the Boost C++ libraries -- Boost is known as the missing C++ API.
--   Eventually smart pointers were standardised and added to the C++11 standard.
--   It is now recommended you use smart pointers and not old (raw) pointers as standard.
+- Due to the pattern of allocation, deallocation, and keeping track of resources many programmers created in-house solutions to these problems.
+- This led to many implementations of self-managing pointers -- "smart pointer" -- that would do the work for the programmer.
+- The most popular implementation was seen in the Boost C++ libraries -- Boost is known as the missing C++ API.
+- Eventually smart pointers were standardised and added to the C++11 standard.
+- It is now recommended you use smart pointers and not old (raw) pointers as standard.
 
 
 ---
 
 # `shared_ptr`
 
--   The most common smart pointer is `shared_ptr`.
--   This pointer counts the references to the resource.
-    -   This is done by copy construction, destruction, etc.
--   It is the closest to the Java and C\# reference type.
+- The most common smart pointer is `shared_ptr`.
+- This pointer counts the references to the resource.
+    - This is done by copy construction, destruction, etc.
+- It is the closest to the Java and C\# reference type.
 
 ```cpp
 // Make shared_ptr
@@ -444,9 +446,9 @@ ptr = nullptr;
 
 # `unique_ptr`
 
--   `unique_ptr` ensures there is only one owner.
--   You cannot copy the pointer, only move it.
--   It is faster than `shared_ptr` and you should try and use it as much as possible.
+- `unique_ptr` ensures there is only one owner.
+- You cannot copy the pointer, only move it.
+- It is faster than `shared_ptr` and you should try and use it as much as possible.
 
 
 ```cpp
@@ -468,12 +470,12 @@ do_work(move(ptr));
 
 # Assignment, Copying, and Moving
 
--   We've hinted at a number of different concepts through this discussion.
--   Assignment is whenever you use the `=` to set an object variable.
--   Copying is when we create a new object from an existing one.
--   Moving is like copying, but we move the already allocated resources to the new object. The original becomes empty.
--   This is an important concept to understand in general in C++.
--   If you want to work at the lowest level of C++ you really need to recognise these behaviours for optimisation purposes.
+- We've hinted at a number of different concepts through this discussion.
+- Assignment is whenever you use the `=` to set an object variable.
+- Copying is when we create a new object from an existing one.
+- Moving is like copying, but we move the already allocated resources to the new object. The original becomes empty.
+- This is an important concept to understand in general in C++.
+- If you want to work at the lowest level of C++ you really need to recognise these behaviours for optimisation purposes.
 
 
 ---
@@ -485,48 +487,41 @@ do_work(move(ptr));
 
 # RAII
 
--   Resource Allocation is Initialisation.
--   Always give ownership to an allocated resource to an object.
--   As long as each resource has one explicit owner, when the owner is removed the resource is freed.
--   So...
-    -   **Do not** give an entity a resource such as a loaded texture or audio clip.
-    -   **Do** give an entity a pointer or reference to such a resource.
-    -   Keep track of resources via central pools (we will look at a resource manager soon).
-    -   Try to allocate those resources when the object is created (we will discuss this soon).
+- Resource Allocation is Initialisation.
+- Always give ownership to an allocated resource to an object.
+- As long as each resource has one explicit owner, when the owner is removed the resource is freed.
+- So...
+    - **Do not** give an entity a resource such as a loaded texture or audio clip.
+    - **Do** give an entity a pointer or reference to such a resource.
+    - Keep track of resources via central pools (we will look at a resource manager soon).
+    - Try to allocate those resources when the object is created (we will discuss this soon).
 
 
 ---
 
 # Data Sharing
 
--   Although referencing is efficient to reduce memory usage, it can be more expensive for memory access.
-    -   The memory adjacency problem.
--   It is common to copy data between different contexts to improve efficiency.
--   For example having position data in the entity and the physics object.
+- Although referencing is efficient to reduce memory usage, it can be more expensive for memory access.
+    - The memory adjacency problem.
+- It is common to copy data between different contexts to improve efficiency.
+- For example having position data in the entity and the physics object.
 
 
 ```cpp
-struct world_position
-{
+struct world_position {
     vec3 position;
     quat rotation;
 };
-
-struct physics
-{
+struct physics {
     vec3 position;
     quat rotation;
     vec3 velocity;
     quat rotation_velocity;
 };
 
-world_position trans;
-physics phys;
-// Update
-// Just updated physics
-trans.position = phys.position;
-trans.rotation = phys.rotation;
-// Render will now use physics data
+Update(){
+    trans.position = phys.position;
+    trans.rotation = phys.rotation;
 ```
 
 
@@ -582,23 +577,19 @@ trans.rotation = phys.rotation;
 
 # Storing Resources
 
--   We use lookup tables to store resources.
--   We need some kind of key -- AAA games will do something fancy. If you've used console commands you have seen this.
--   The key is just matched to the actual resource.
--   We check that the resource isn't loaded before trying to return it.
+- We use lookup tables to store resources.
+- We need some kind of key -- AAA games will do something fancy. If you've used console commands you have seen this.
+- The key is just matched to the actual resource.
+- We check that the resource isn't loaded before trying to return it.
 
 
-``` {basicstyle="\tiny\ttfamily"}
+```cpp
 unordered_map<string, texture> textures;
 
-texture load_resource(const std::string &file)
-{
-    if (textures.find(string) != textures.end())
-    {
+texture load_resource(const std::string &file){
+    if (textures.find(string) != textures.end()){
         return textures.find(string).second();
-    }
-    else
-    {
+    }else{
         // Don't care how this works
         texture t = load_texture(file);
         textures[file] = t;
@@ -614,16 +605,16 @@ texture load_resource(const std::string &file)
 
 # Switching Levels
 
--   A resource manager also allows you to manage loading and unloading between levels.
--   It works also for the other management components.
--   When switching levels:
-    -   Unload entities.
-    -   Unload physics resources.
-    -   Unload assets.
-    -   Load new assets.
-    -   Set up new physics.
-    -   Create new entities.
--   You do get better systems but the basic premise is the same.
+- A resource manager also allows you to manage loading and unloading between levels.
+- It works also for the other management components.
+- When switching levels:
+    - Unload entities.
+    - Unload physics resources.
+    - Unload assets.
+    - Load new assets.
+    - Set up new physics.
+    - Create new entities.
+- You do get better systems but the basic premise is the same.
 
 
 ---
@@ -635,9 +626,9 @@ texture load_resource(const std::string &file)
 
 # Summary
 
--   We've covered a lot of ideas today.
--   We looked at how memory works in general.
--   We looked at how memory is used in C.
--   We looked at how memory is used in C++.
--   The key take away is how we apply this to manage game resources.
--   You should be able to understand the basic premise of a resource manager, why we need it, and how it operates.
+- We've covered a lot of ideas today.
+- We looked at how memory works in general.
+- We looked at how memory is used in C.
+- We looked at how memory is used in C++.
+- The key take away is how we apply this to manage game resources.
+- You should be able to understand the basic premise of a resource manager, why we need it, and how it operates.

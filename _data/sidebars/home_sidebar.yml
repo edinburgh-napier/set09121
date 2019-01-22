@@ -72,21 +72,33 @@ entries:
   - title: Lectures
     output: web
     folderitems:
-    - title: Lecture1
+    - title: Lecture 1 - Overview
       url: /lecture1.html
       output: web
-    - title: Lecture2
+    - title: Lecture 2 - Workflow
       url: /lecture2.html
       output: web
-    - title: Lecture3
+    - title: Lecture 3 - Formal Elements
       url: /lecture3.html
       output: web
-    - title: Lecture4
+    - title: Lecture 4 - Systems
       url: /lecture4.html
       output: web
-    - title: Lecture5
+    - title: Lecture 5 - Entities
       url: /lecture5.html
       output: web
-    - title: Lecture6
-      url: /lecture5.html
+    - title: Lecture 6 - OO in C++
+      url: /lecture6.html
+      output: web
+    - title: Lecture 7 - Game Design Document
+      url: /lecture7.html
+      output: web
+    - title: Lecture 8 - Design Patterns
+      url: /lecture8.html
+      output: web
+    - title: Lecture 9 - C++ Memory
+      url: /lecture9.html
+      output: web
+    - title: Lecture 10 - Engines and ECM
+      url: /lecture10.html
       output: web

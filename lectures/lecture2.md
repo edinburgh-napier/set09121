@@ -1,5 +1,5 @@
 ---
-title: "Lecture2"
+title: "Lecture 2 - Workflow"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture2.html
@@ -34,12 +34,12 @@ This module expect to see best practises in use.
 
 Why use Version control?
 
--   Keep a log of changes to your code  <!-- .element: class="fragment" -->
--   An unlimited "undo" button. <!-- .element: class="fragment" -->
--   Experiment with new features without trashing your working code <!-- .element: class="fragment" -->
--   Work in teams <!-- .element: class="fragment" --> 
--   Mirror your codebase to multiple redundant locations <!-- .element: class="fragment" -->
--   Integrate with continuous-integration, testing and deployment tools. <!-- .element: class="fragment" -->
+- Keep a log of changes to your code  <!-- .element: class="fragment" -->
+- An unlimited "undo" button. <!-- .element: class="fragment" -->
+- Experiment with new features without trashing your working code <!-- .element: class="fragment" -->
+- Work in teams <!-- .element: class="fragment" --> 
+- Mirror your codebase to multiple redundant locations <!-- .element: class="fragment" -->
+- Integrate with continuous-integration, testing and deployment tools. <!-- .element: class="fragment" -->
 
 
 ---
@@ -64,22 +64,22 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 
 # Git Hosts
 
--   Local - You don't *need* to push anywhere
--   Run your own git server
--   Github - The de facto for open-source code.
--   Bitbucket - Meh
--   Gitlab - when you need multiple repos and project management
--   [gitgud.napier.ac.uk](gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
+- Local - You don't *need* to push anywhere
+- Run your own git server
+- Github - The de facto for open-source code.
+- Bitbucket - Meh
+- Gitlab - when you need multiple repos and project management
+- [gitgud.napier.ac.uk](gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
 
 
 ---
 
 # Git clients
 
--   Command Line (Git bash on windows)
--   github desktop - [desktop.github.com](desktop.github.com)
--   sourcetree - [sourcetreeapp.com](sourcetreeapp.com)
--   gitkraken - [gitkraken.com](gitkraken.com)
+- Command Line (Git bash on windows)
+- github desktop - [desktop.github.com](desktop.github.com)
+- sourcetree - [sourcetreeapp.com](sourcetreeapp.com)
+- gitkraken - [gitkraken.com](gitkraken.com)
 
 ![image](assets/images/sourcetree.png)  <!-- .element height="70%" width="70%" -->
 
@@ -195,23 +195,23 @@ Commit selectively - don't just cram in files.
 
 # What goes into a code repository
 
--   Source code files. (.cpp, .h, .java)
--   README.md
--   LICENSE
--   .gitignore
--   Buildscripts / makefiles (CMakeLists.txt)
--   git submodules
+- Source code files. (.cpp, .h, .java)
+- README.md
+- LICENSE
+- .gitignore
+- Buildscripts / makefiles (CMakeLists.txt)
+- git submodules
 
 
 ---
 
 # What does not go into a code repository
 
--   Binary files (.wav, .mp3, .jpg, .pdf)  [ok for small things] <!-- .element: class="fragment" -->
--   Compiled Code (.exe, .dll, .lib, .so, .obj) <!-- .element: class="fragment" -->
--   IDE project files (.vcxproj, .sln) <!-- .element: class="fragment" -->
--   Junk and temp files (.log) <!-- .element: class="fragment" -->
--   Old code in a separate 'old-code' folder. <!-- .element: class="fragment" -->
+- Binary files (.wav, .mp3, .jpg, .pdf)  [ok for small things] <!-- .element: class="fragment" -->
+- Compiled Code (.exe, .dll, .lib, .so, .obj) <!-- .element: class="fragment" -->
+- IDE project files (.vcxproj, .sln) <!-- .element: class="fragment" -->
+- Junk and temp files (.log) <!-- .element: class="fragment" -->
+- Old code in a separate 'old-code' folder. <!-- .element: class="fragment" -->
 
 <br>
 
@@ -239,13 +239,13 @@ If you can't; then it shows that you don't understand your own work. <!-- .eleme
 # Version Control Best Practices
 
 ## Summary
--   Commit Often
--   Commit Related Changes
--   **Don't Break the build**
--   Use Branches
--   Agree on a Workflow
--   Write Good Commit Messages
--   **Keep The Repo Clean**
+- Commit Often
+- Commit Related Changes
+- **Don't Break the build**
+- Use Branches
+- Agree on a Workflow
+- Write Good Commit Messages
+- **Keep The Repo Clean**
 
 
 ---
@@ -282,8 +282,8 @@ If there were changes on the branch you want to merge into:
 
 For individual projects, 2 types of branches work fine.
 
--   Master
--   Feature Branches
+- Master
+- Feature Branches
 
 When you scale up onto bigger projects you add more to suit the
 development workflow. <!-- .element: class="fragment" -->
@@ -291,11 +291,11 @@ development workflow. <!-- .element: class="fragment" -->
 There is one rule to rule them all: <!-- .element: class="fragment" -->
 ** Never break Master ** <!-- .element: class="fragment" -->
 
--   **Development / Master**
+- **Development / Master**
     - Merge your feature branches into here
--   **Testing**
+- **Testing**
     - Dev merges into here, get tested before merge to Release
--   **Release**
+- **Release**
     - Tagged and available for download to the public.
     - Also commonly called "Production" or "Live" branch
 
@@ -379,11 +379,11 @@ You must know how to **build, test, and deploy** your code.
 <br>
 To do this, you must have knowledge of the following things:
 
--   Know what your program does
--   What your program needs to build
--   Where it builds
--   How it builds
--   What it need to run
+- Know what your program does
+- What your program needs to build
+- Where it builds
+- How it builds
+- What it need to run
 
 <!-- .element: class="fragment" -->
 <br>
@@ -421,13 +421,13 @@ This makes writing robust and portable applications difficult. <!-- .element: cl
 Standard c++ code that just does logic is basically cross-platform.
 
 Where we get into trouble is when hardware and system calls.
--   windowing
--   input
--   graphics
--   sound
--   threading
--   time
--   maths
+- windowing
+- input
+- graphics
+- sound
+- threading
+- time
+- maths
 
 <!-- .element: class="fragment" -->
 

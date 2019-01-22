@@ -65,78 +65,78 @@ Test all on-line activity with a 2000 friend account
 
 Your TRC
 
--   2D graphics engine using SFML
+- 2D graphics engine using SFML
 
--   Main menu (Ability to quit to menu, and restart game)
+- Main menu (Ability to quit to menu, and restart game)
 
--   Some form of AI
+- Some form of AI
 
--   Interactive Sound (i.e not just background music)
+- Interactive Sound (i.e not just background music)
 
--   1080p/60fps on a reasonable systems specification
+- 1080p/60fps on a reasonable systems specification
 
--   Usability options:\
+- Usability options:\
     Remappable controls\
     Controller support
 
--   Graphics options (Resolution & window mode)
+- Graphics options (Resolution & window mode)
 
--   Windows: 10 x64
+- Windows: 10 x64
 
--   Single file .exe game installer/uninstaller
+- Single file .exe game installer/uninstaller
 
--   User preference/savegame saving/loading from disk
+- User preference/savegame saving/loading from disk
 
--   Web presence with game promo material and downloads
+- Web presence with game promo material and downloads
 
 Your TRC pt2 Software Design & Code Quality
 
--   Tidy, documented, and organised code.
+- Tidy, documented, and organised code.
 
--   Use of appropriate software patterns.
+- Use of appropriate software patterns.
 
--   Evidence of performance analysis and optimisation.
+- Evidence of performance analysis and optimisation.
 
 Software Engineering Methods & Testing
 
--   Evidence of proper version control best practises
+- Evidence of proper version control best practises
 
--   Evidence of proper project management
+- Evidence of proper project management
 
--   Working continuous integration
+- Working continuous integration
 
--   Working build testing
+- Working build testing
 
--   Evidence and reports from playtests
+- Evidence and reports from playtests
 
 Accessibility <http://gameaccessibilityguidelines.com>
 
--   Allow the game to be started without the need to navigate through
+- Allow the game to be started without the need to navigate through
     multiple levels of menus
 
--   Ensure no essential information is conveyed by a colour alone
+- Ensure no essential information is conveyed by a colour alone
 
--   Ensure no essential information is conveyed by sounds alone
+- Ensure no essential information is conveyed by sounds alone
 
--   Offer a wide choice of difficulty levels
+- Offer a wide choice of difficulty levels
 
--   Give a clear indication that interactive elements are interactive
+- Give a clear indication that interactive elements are interactive
 
--   Allow interfaces to be resized
+- Allow interfaces to be resized
 
--   Allow all narrative and instructions to be replayed
+- Allow all narrative and instructions to be replayed
 
 Localisation Watch out for\...
 
--   EFIGS!
+- EFIGS!
 
--   Vertical text!
+- Vertical text!
 
--   Text in Art Assets!
+- Text in Art Assets!
 
--   Gendered Languages
+- Gendered Languages
 
--   Player chat & Unicode
+- Player chat & Unicode
 
 ![image](MissingNo){width="40%"}
 
@@ -145,71 +145,71 @@ Publishing
 
 Role of publishers Then:
 
--   Bankroll Development
+- Bankroll Development
 
--   Handle All Marketing
+- Handle All Marketing
 
--   Negotiate Physical Sales and distribution
+- Negotiate Physical Sales and distribution
 
--   Localisation and QA
+- Localisation and QA
 
--   Legal Protection
+- Legal Protection
 
--   Occasionally hotdrop producers into dev team
+- Occasionally hotdrop producers into dev team
 
 Now:
 
--   *might* pay you something before game is finished
+- *might* pay you something before game is finished
 
--   Handle Some Marketing, Devs do \"Community management\"
+- Handle Some Marketing, Devs do \"Community management\"
 
--   Negotiate -some- sales deals
+- Negotiate -some- sales deals
 
--   **Localisation and QA**
+- **Localisation and QA**
 
--   **Legal Protection**
+- **Legal Protection**
 
 Legals
 
 I'm Not a Lawyer, and Neither are you.
 
--   Get A lawyer
+- Get A lawyer
 
--   Form A Company
+- Form A Company
 
--   Protect your IP
+- Protect your IP
 
--   Don't Get Sued
+- Don't Get Sued
 
 [LINK: IGDA white papers on IP](http://www.igda.org/?page=resources)\
 If you game can be cloned. It will be cloned.
 
 Legal costs
 
--   **Form a company** - Protects *you* if you are sued \[Actually
+- **Form a company** - Protects *you* if you are sued \[Actually
     pretty easy in the UK\]  100-1000
 
--   **Contracts** - Formal agreement on ownership of work. Get one even
+- **Contracts** - Formal agreement on ownership of work. Get one even
     if someone is doing work for free.  600-1000
 
--   **Trademark your game and company** - People can still clone your
+- **Trademark your game and company** - People can still clone your
     game, but they can't pretend to be you  500 -£2000
 
--   **Terms of Service and Privacy Policy** Stop you being sued in the
+- **Terms of Service and Privacy Policy** Stop you being sued in the
     first place  600-1000
 
--   **Package deals** - Common for Indies  3000
+- **Package deals** - Common for Indies  3000
 
 Disclaimer: costs found after 20 mins of googling + I'm not a lawyer.
 
 Review
 
--   Keep enough time for QA
+- Keep enough time for QA
 
--   Consider Localisation & Accessibility
+- Consider Localisation & Accessibility
 
--   TRC == MARKS
+- TRC == MARKS
 
--   Game publishing is a legal battleground
+- Game publishing is a legal battleground
 
--   If you plan on Selling your game.. Good luck
+- If you plan on Selling your game.. Good luck

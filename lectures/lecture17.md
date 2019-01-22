@@ -32,15 +32,15 @@ Runtime-resources ![image](build_folder){width="75%"}
 
 Release Builds Tidy up before you ship
 
--   Hide CMD window
+- Hide CMD window
 
--   Don't assume resolution
+- Don't assume resolution
 
--   Launch windowed
+- Launch windowed
 
--   Pipe Exceptions to an error window
+- Pipe Exceptions to an error window
 
--   Turn off any developer cheats
+- Turn off any developer cheats
 
 This should be done automatically
 
@@ -51,23 +51,23 @@ static vs dynamic linking
 
 .5 Static Linking
 
--   Larger .exe file
+- Larger .exe file
 
--   No .dll / .so's generated
+- No .dll / .so's generated
 
--   Potential for better compiler optimisation
+- Potential for better compiler optimisation
 
--   Lock the version of libs
+- Lock the version of libs
 
 .5 Dynamic (Shared) linking
 
--   Smaller .exe file
+- Smaller .exe file
 
--   Libraries compiled to .dll
+- Libraries compiled to .dll
 
--   can reuse and share dlls already on the system
+- can reuse and share dlls already on the system
 
--   Modders can hack swap out your .dlls.
+- Modders can hack swap out your .dlls.
 
 Asset Pipeline You may use different assets for release, or bundle them
 up into binary files.
@@ -93,22 +93,22 @@ Continuous Integration
 
 Benefits
 
--   Ground Truth - no more "WOMM\"
+- Ground Truth - no more "WOMM\"
 
--   Alerts on broken builds - especially useful for multi-platform
+- Alerts on broken builds - especially useful for multi-platform
 
--   Signpost to others that your software still works
+- Signpost to others that your software still works
 
--   Cool badge
+- Cool badge
 
 Deployment
 ==========
 
 TOP TIPS
 
--   Embed Version/Commit Numbers \... please.
+- Embed Version/Commit Numbers \... please.
 
--   Automate Everything -\
+- Automate Everything -\
     Avoid one-off mistakes, fix it once, it will always work
 
 Test it Test it on new machines, old machine, fresh machines, virtual

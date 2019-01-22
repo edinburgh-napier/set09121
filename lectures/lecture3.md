@@ -1,5 +1,5 @@
 ---
-title: "Lecture3"
+title: "Lecture 3 - Formal Elements"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture3.html

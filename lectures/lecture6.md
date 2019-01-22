@@ -1,5 +1,5 @@
 ---
-title: "Lecture6"
+title: "Lecture 6 - OO in C++"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture6.html

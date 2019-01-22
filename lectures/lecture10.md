@@ -1,11 +1,11 @@
 ---
-title: "Lecture10"
+title: "Lecture 10 - Engines and ECM"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture10.html
 summary: lecture10
 layout: presentation
-presentationTheme: '/assets/revealJS/css/theme/napier.css' 
+presentationTheme: '/assets/revealJS/css/theme/napier_debug.css' 
 ---
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
@@ -23,14 +23,13 @@ School of Computing. Edinburgh Napier University
 
 # Requirements of a Game
 
-
 ---
 
 # What does a game need? From a Programmers point of view:
 
--   **Content**
+- **Content**
  - *3d Models*, *Shaders*, Textures, Text, Fonts, Music, Video, Saves, levels/gamestate.
--   **Processing & io**
+- **Processing & io**
  - Rendering, User input, Networking, Audio, loading/unloading/streaming
 - **Logic and Mechanics**
  - Physics, AI, Gameplay rules.
@@ -49,25 +48,25 @@ School of Computing. Edinburgh Napier University
 
 # Complexity
 
-![image](2d_engine_architecture)
+![image](assets/images/2d_engine_architecture.png) <!-- .element height="760px"  -->
 
 
 ---
 
 # Combating the Complexity
 
--   Game Codebases Get Big Fast
--   Taming and maintaing it tests your Ability as a Software Engineer
--   We've covered some Software patterns that you can pull out of your toolbox to help.These help solve small isolated design problems.
--   When it comes to pulling it all together as one giant moving thing, you need to think about the grand design of your *Engine*
--   This means separating your gameplay logic from the Generic Engine logic.
+- Game Codebases Get Big Fast
+- Taming and maintaing it tests your Ability as a Software Engineer
+- We've covered some Software patterns that you can pull out of your toolbox to help.These help solve small isolated design problems.
+- When it comes to pulling it all together as one giant moving thing, you need to think about the grand design of your *Engine*
+- This means separating your gameplay logic from the Generic Engine logic.
 
 
 ---
 
 # Build The Wall 
 
-![image](api_wall)
+![image](assets/images/api_wall.png)
 
 
 ---
@@ -78,15 +77,15 @@ School of Computing. Edinburgh Napier University
 
 # Abstraction - And so we build Games Engines
 
--   But do we need them?
+- But do we need them?
  - ...We didn't always have them.
 
 Q: How complex do you think a game needs to before you think you need to sperate Engine Code?
 
--   A: `¯\_(ツ)_/¯`
--   A: Once your code gets abstract enough
--   A: From the start
--   A: Never, and write some crazy fast/bad code
+- A: `¯\_(ツ)_/¯`
+- A: Once your code gets abstract enough
+- A: From the start
+- A: Never, and write some crazy fast/bad code
 
 Not all Games Need an 'engine'
 
@@ -98,7 +97,7 @@ Not all Games Need an 'engine'
 
 # Build The Wall 
 
-![image](api_wall2)
+![image](assets/images/api_wall2.png)
 
 ---
 
@@ -110,7 +109,7 @@ Not all Games Need an 'engine'
 
 OO is Hammered into you since 1st year, as the solution to software complexity.
 
-![image](software_development)
+![image](assets/images/software_development.png)
 
 ... But it's not perfect.
 
@@ -118,15 +117,17 @@ Enter: The Evil Tree Problem
 
 ---
 
-# ![image](oo_strcuture)
+# Object Orientation & the Evil Tree
+
+![image](assets/images/oo_strcuture.PNG)
 
 ---
 
 # Possible Evil Tree Solutions
 
 To Fix this We need either:
--   Multiple Inheritance (Which c++ doesn't have)
--   Or Interfaces (Which c++ doesn't have)
+- Multiple Inheritance (Which c++ doesn't have)
+- Or Interfaces (Which c++ doesn't have)
 
 C++ as a language doesn't have these natively, but it doesn't stop us from adding it ourselves.
 
@@ -135,7 +136,7 @@ C++ as a language doesn't have these natively, but it doesn't stop us from addin
 
 # The Evil Tree Solutions The Entity Component Model
 
-ECM ![image](ecm_strcuture)
+![image](assets/images/ecm_strcuture.png)
 
 
 ---
@@ -144,7 +145,7 @@ ECM ![image](ecm_strcuture)
 
 ECM enables Data Orientated design.
 
-![image](ecs2)
+![image](assets/images/ecs2.png)
 
 
 ---
@@ -173,7 +174,6 @@ class Component {
   render();
 };
 ``` 
-<!-- .element: class="stretch" -->
 
 
 ---
@@ -229,7 +229,7 @@ pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
 
 ---
 
-## C++ TEMPLATES!
+## C++ TEMPLATES have arrived!
 `template <typename HELP>!`
 
 
@@ -256,12 +256,6 @@ class Entity {
     Component* addComponent(Component*){}
 }
 ```
-<!-- .element: class="stretch" -->
-
-
----
-
-# ECM Code
 
 ```cpp
 auto pl = make_shared<Entity>();
@@ -280,7 +274,7 @@ pl->getComponentsOftype(PlayerMovementComponent)[0]->setSpeed(150.f);
 
 ---
 
-# ECM without tempaltes
+# ECM without templates
 
 ```cpp
 getComponentsOftype(ComponentType CT){
@@ -301,3 +295,122 @@ Either way : Lots of Icky Code, and we have less functionality:
 No parameter passing, no constructing with one method.
 
 Templates give us more for less code. It's worth learning the weird syntax.
+
+
+---
+
+# ECM template Deep Dive 1
+
+```cpp
+class Entity {
+
+  template <typename T, typename... Targs>
+  std::shared_ptr<T> addComponent(Targs... params) {
+    static_assert(std::is_base_of<Component, T>::value, "T != component");
+    std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
+    _components.push_back(sp);
+    return sp;
+  }
+
+}
+```
+
+
+---
+
+# ECM template Deep Dive 2
+
+```cpp
+class Entity {
+
+  //template <typename T, typename... Targs>
+  std::shared_ptr<T> addComponent(Targs... params) {
+    //static_assert(std::is_base_of<Component, T>::value, "T != component");
+    std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
+    _components.push_back(sp);
+    return sp;
+  }
+
+}
+```
+
+
+```cpp
+class Component {
+  private: 
+    Entity*_parent
+  public:
+    Component(Entity* const p);
+}
+
+class PickupComponent : public Component {
+private: 
+  bool _isBig;
+public:
+  PickupComponent() = delete;
+  PickupComponent(Entity* p, bool big = false);
+}
+```
+<!-- .element: class="fragment" -->
+
+
+---
+
+# ECM template Deep Dive 3
+
+Replace T with PickupComponent
+
+```cpp
+class Entity {
+  std::shared_ptr<PickupComponent> addPickupComponent(bool big) {
+    std::shared_ptr<PickupComponent> sp(std::make_shared<PickupComponent>(this,big));
+    _components.push_back(sp);
+    return sp;
+  }
+}
+```
+
+```cpp
+class Component {
+  private: 
+    Entity*_parent
+  public:
+    Component(Entity* const p);
+}
+
+class PickupComponent : public Component {
+private: 
+  bool _isBig;
+public:
+  PickupComponent() = delete;
+  PickupComponent(Entity* p, bool big = false);
+}
+```
+
+---
+
+# ECM template Deep Dive 4
+
+With Old Raw Pointers
+```cpp
+class Entity {
+  PickupComponent* addPickupComponent(bool big) {
+    PickupComponent* sp new PickupComponent(this, big);
+    _components.push_back(sp);
+    return sp;
+  }
+}
+```
+
+with New Safe Smart Pointers.
+
+```cpp
+class Entity {
+  std::shared_ptr<PickupComponent> addPickupComponent(bool big) {
+    std::shared_ptr<PickupComponent> sp(std::make_shared<PickupComponent>(this,big));
+    _components.push_back(sp);
+    return sp;
+  }
+}
+```
+<!-- .element: class="fragment" -->

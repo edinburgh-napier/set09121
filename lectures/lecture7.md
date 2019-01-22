@@ -1,5 +1,5 @@
 ---
-title: "Lecture7"
+title: "Lecture 7 - Game Design Document"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture7.html
@@ -25,9 +25,9 @@ School of Computing. Edinburgh Napier University
 
  Game Design Workshop. 3rd Edition. Fullerton (2014).
 
--   Read Chapter 14 on Design Documentation.
+- Read Chapter 14 on Design Documentation.
 
-![image](assets/images/gdw_book)
+![image](assets/images/gdw_book.jpg)
 
 
 ---
@@ -39,60 +39,57 @@ School of Computing. Edinburgh Napier University
 
 # What is the Game Design Document?
 
--   Game Design Document (GDD) is the template for the game that is to be created.
--   The GDD is the main reference when determining how things should be done when developing the game.
--   However, it is not a sacred document.
-    -   It is a living, constantly changing document.
-    -   Updates are made as the development progresses.
--   It can get quite large.
-    -   Over 1,000 pages in some circumstances.
--   Team size and document size leads to using online collaboration approaches.
-    -   Wiki usage common.
+- Game Design Document (GDD) is the template for the game that is to be created.
+- The GDD is the main reference when determining how things should be done when developing the game.
+- However, it is not a sacred document.
+    - It is a living, constantly changing document.
+    - Updates are made as the development progresses.
+- It can get quite large.
+    - Over 1,000 pages in some circumstances.
+- Team size and document size leads to using online collaboration approaches.
+    - Wiki usage common.
 
 
 ---
 
 # General Content
 
--   There is no standard format. It can be very company specific.
--   Some guidelines are out there (for example Fullerton).
--   Sections we will produce:
-    -   Overview and vision statement.
-        -   Broad overview of the game. Game designer's vision.
-    -   Audience, platform, and marketing.
-        -   Who is the game aimed at? What is the core demographic?
-        -   Marketing is generally responsibility of the marketing department.
-    -   Gameplay.
-        -   Large important section detailing how the game plays. Game designer puts together their vision for this section.
+- There is no standard format. It can be very company specific.
+- Some guidelines are out there (for example Fullerton).
+- Sections we will produce:
+    - Overview and vision statement.
+        - Broad overview of the game. Game designer's vision.
+    - Audience, platform, and marketing.
+        - Who is the game aimed at? What is the core demographic?
+        - Marketing is generally responsibility of the marketing department.
+    - Gameplay.
+        - Large important section detailing how the game plays. Game designer puts together their vision for this section.
 
 
 ---
 
 # General Content
 
--   Sections we will produce (continued):
-    -   Characters.
-        -   What characters exist in the game? Consider both playable and non-playable characters.
-    -   Story.
-        -   What is the back story and the story told during the game?
-    -   World.
-        -   Description of the world where the game exists.
+- Sections we will produce (continued):
+    - Characters.
+        - What characters exist in the game? Consider both playable and non-playable characters.
+    - Story.
+        - What is the back story and the story told during the game?
+    - World.
+        - Description of the world where the game exists.
 
-.5 ![image](game_characters)
 
 
 ---
 
 # General Content
 
--   Sections we will produce (continued):
-    -   Media list.
-        -   Assets to be created for the game.
-    -   Technical specification.
-        -   May be a separate document.
-        -   Defines the technical aspects of the project.
-
-.5 ![image](game_characters)
+- Sections we will produce (continued):
+    - Media list.
+        - Assets to be created for the game.
+    - Technical specification.
+        - May be a separate document.
+        - Defines the technical aspects of the project.
 
 Exercise -- Researching Design Documents Use Google to search for game design documents. There are quite a few out there and some templates. 
 You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. If you do find a AAA one let us know.
@@ -107,28 +104,22 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 # Contents -- Design History
 
--   Design History.
-    -   GDD is a living document.
-    -   Updates to the document should be described at the beginning of the document.
-    -   Version history should be maintained.
-        -   Version 1.0.
-        -   Version 2.0.
-        -   Version 2.1.
+- Design History.
+    - GDD is a living document.
+    - Updates to the document should be described at the beginning of the document.
+    - Version history should be maintained.
 
-.5 ![image](version)
+ ![image](assets/images/version.png)
 
 
 ---
 
-# Contents -- Overview
+# Contents -- Audience, Platform, and Marketing
 
-Audience, Platform, and Marketing
-
-- This is an important section for the game publisher.
 - Market research must be undertaken to determine the likely return to the publisher.
-    - Unit sales are the most important factor from the publisher's point of view.
+    - Unit sales are the most important factor for a publisher.
     - The quality of the game comes second.
-    - Catering for a small, niche market is unlikely to win over a game publisher.
+    - Catering for a small/niche market is unlikely to win over a publisher.
 - You need to define the target audience.
     - Who will buy the game?
     - What is the core demographic?
@@ -138,40 +129,35 @@ Audience, Platform, and Marketing
     - Why have these been chosen?
     - Ensure this matches with the target audience.
 - You also need to define the hardware requirements.
-    - Does your game have specific hardware requirements?
-    - Very important for PC games.
-
 
 ---
 
 # Contents -- Legal Analysis
 
--   A very important that you ensure everything is covered from a legal point of view.
--   Are there any legal or financial implications that come with the game production.
-    -   Licence agreements.
-    -   Copyright considerations.
-    -   Engine/library terms and conditions.
--   Typically, Intellectual Property Rights (IPR) will be with the publisher, not the studio.
-    -   Depends where the idea originally came from.
--   Game engines typically require statements of use, are expensive, and may require a per unit sale cost.
-
+- Important that you ensure everything is covered from a legal point of view.
+- Are there any legal or financial implications that come with the game production.
+    - Licence agreements.
+    - Copyright considerations.
+    - Engine/library terms and conditions.
+- Typically, Intellectual Property Rights (IPR) will be with the publisher, not the studio.
+- Game engines typically require statements of use, are expensive, and may require a per unit sale cost.
+- Legal & IP agreements with your Team/Contractors also needs to be considered. 
 
 ---
 
 # Copyright Issues
 
 
--   IP owners are very protective.
-    -   Game companies included.
--   When creating your game consider:
-    -   Where you sourced your content from.
-    -   If the content is very similar to existing content.
-    -   If the game is very similar to others on the market.
-    -   If you have given due credit to any external tools, libraries,
-        etc., you have used.
--   Paying homage to something is all well and good but can get you into trouble.
+- IP owners are very protective.
+    - Game companies included.
+- When creating your game consider:
+    - Where you sourced your content from.
+    - If the content is very similar to existing content.
+    - If the game is very similar to others on the market.
+    - If you have given due credit to any external tools, libraries, etc.
+- Paying homage to something is all well and good but can get you into trouble.
 
-.4 ![image](megaman)
+![image](assets/images/sonic_anim.gif)
 
 
 ---
@@ -183,19 +169,19 @@ Audience, Platform, and Marketing
 
 # Contents -- Gameplay
 
--   The description of gameplay is initially one of the largest sections in the game.
--   The game designer puts most of their focus into this section at the start.
--   This section will focus on how the game plays.
--   The Formal Elements and systems view will be useful here.
--   Overview section:
-    -   Description of the core functionality.
-    -   Good practice is to base this on a physical or digital prototype.
--   Gameplay description section:
-    -   A detailed description of how the game plays.
--   Controls section:
-    -   User interfaces.
-    -   Rules (including some from Formal Elements).
-    -   Scoring / winning conditions.
+- The description of gameplay is initially one of the largest sections in the game.
+- The game designer puts most of their focus into this section at the start.
+- This section will focus on how the game plays.
+- The Formal Elements and systems view will be useful here.
+- Overview section:
+    - Description of the core functionality.
+    - Good practice is to base this on a physical or digital prototype.
+- Gameplay description section:
+    - A detailed description of how the game plays.
+- Controls section:
+    - User interfaces.
+    - Rules (including some from Formal Elements).
+    - Scoring / winning conditions.
 
 
 ---
@@ -203,57 +189,63 @@ Audience, Platform, and Marketing
 # Contents -- Gameplay 2
 
 
--   Modes and other features.
-    -   Single-player, multi-player, etc.
-    -   Other features that may affect gameplay.
--   Levels.
-    -   Designs for any levels for the game.
-    -   The more detailed the level descriptions the better.
--   Flowchart.
-    -   Flowchart is needed to map out the gameplay.
--   Editor.
-    -   Does the game require the development of an editor?
-    -   What are its features?
+- Modes and other features.
+    - Single-player, multi-player, etc.
+    - Other features that may affect gameplay.
+- Levels.
+    - Designs for any levels for the game.
+    - The more detailed the level descriptions the better.
+- Flowchart.
+    - Flowchart is needed to map out the gameplay.
+- Editor.
+    - Does the game require the development of an editor?
+    - What are its features?
 
-![image](flowchart)
 
+---
+
+# Contents -- Gameplay - Flowcharts are great
+
+![image](assets/images/flowchart.png)
 
 
 ---
 
 # Characters
 
+
 ---
 
 # Contents -- Character Design
 
--   Optional part of the design document.
-    -   Crucial part in AAA game design.
--   Character work can be a long, iterative process.
--   Very important to increase engagement with the player.
-    -   Kids love dark-haired 30-something males.
--   Will include concept design and description.
+- Optional part of the design document.
+    - Crucial part in AAA game design.
+- Character work can be a long, iterative process.
+- Very important to increase engagement with the player.
+    - Kids love dark-haired 30-something males.
+- Will include concept design and description.
 
-![image](characters)
+![image](assets/images/game_characters.jpg) <!-- .element width="40%"  -->
+
 
 
 ---
 
 # Contents -- Character Types
 
--   Generally two types of character in a game.
--   Playable characters.
-    -   Can have a lot of work spent on them.
-    -   Generally very detailed -- particularly in games where you see the character all the time.
--   Non-playable characters.
-    -   Treat these as objects in your game with properties and functionality.
-    -   Includes:
-        -   Monsters and enemies.
-        -   Friends and allies.
-        -   Neutral characters.
-    -   Think about which traits you want these characters to have.
-    -   Think about the behaviours these characters need.
-    -   AI is a core concern in this section.
+- Generally two types of character in a game.
+- Playable characters.
+    - Can have a lot of work spent on them.
+    - Generally very detailed -- particularly in games where you see the character all the time.
+- Non-playable characters.
+    - Treat these as objects in your game with properties and functionality.
+    - Includes:
+        - Monsters and enemies.
+        - Friends and allies.
+        - Neutral characters.
+    - Think about which traits you want these characters to have.
+    - Think about the behaviours these characters need.
+    - AI is a core concern in this section.
 
 
 ---
@@ -302,7 +294,12 @@ If required, a description of the game world should be detailed.
  - Physics.
  - Society/culture.
 
-![image](game-world)
+
+---
+
+# Game World - Maps are great!
+
+![image](assets/images/game-world.png)
 
 
 ---
@@ -352,12 +349,11 @@ Contents -- Media List
 
 # Contents -- Technical Specification2
 
-Some technical requirements to consider:
-
+- Some technical requirements to consider:
 - Development platform and tools.
  - e.g. Visual Studio, Unity.
-- Delivery mechanism.
- - Disc, online, etc.
+- Delivery mechanism / distribution.
+ - Steam / Humble / Itch / Epic / GoG
 - Game engine
  - Technical specifications.
  - Design.
@@ -367,15 +363,13 @@ Some technical requirements to consider:
 - Rendering system.
 - Internet / network requirements.
 - System parameters.
- - e.g. max players, connectivity, et .
-Other.
-
+ - e.g. max players, connectivity, etc
 
 ---
 
-# Contents -- Flow Chart 
+# Contents -- Flow Chart's are still great!
 
-![image](flowchart2)
+![image](assets/images/flowchart2.png)
 
 
 ---
@@ -388,16 +382,15 @@ Other.
 # Contents -- Maintenance
 
 
--   Game Design Document (GDD) is not a sacred object.
-    -   Living document.
-    -   Updates made as development progresses.
--   GDD can also get quite large.
-    -   Thousands of pages in some circumstances.
--   Game development can have large teams.
-    -   Over a hundred people in some circumstances.
--   Document coordination is difficult in such circumstances.
+- Game Design Document (GDD) is not a sacred object.
+    - Living document.
+    - Updates made as development progresses.
+- GDD can also get quite large.
+    - Thousands of pages in some circumstances.
+- Game development can have large teams.
+    - Over a thousand people in some circumstances.
 
-![image](script)
+![image](assets/images/script.jpg) 
 
 
 ---

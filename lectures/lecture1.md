@@ -1,5 +1,5 @@
 ---
-title: "Lecture1"
+title: "Lecture 1 - Overview"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture1.html
