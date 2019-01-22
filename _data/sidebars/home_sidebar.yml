@@ -81,3 +81,9 @@ entries:
     - title: Lecture3
       url: /lecture3.html
       output: web
+    - title: Lecture4
+      url: /lecture4.html
+      output: web
+    - title: Lecture5
+      url: /lecture5.html
+      output: web
