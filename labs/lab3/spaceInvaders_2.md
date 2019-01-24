@@ -174,7 +174,7 @@ Render() {...
   }
 ```
 
-###Invader movement
+### Invader movement
 
 A quirk of space invaders is that all the invaders move as one, when any of the invaders touches the edge of the screen: all invaders drop down and reverse direction. When invaders are killed, the remaining invaders speed up. From this we can gather that we need some form of communication medium between all the invaders so they can communicate when it's time to drop down and when to speed up. We are going to store these parameters as two variables: direction and speed. We could store these as properties in each invader, but as the contents will be identical for each invader we should do something better. The \"something better\" is static properties.
 
@@ -222,7 +222,14 @@ void Invader::Update(const float &dt) {
 }
 ```
 
-The first two lines are simple, we call the base ship::update() to run any logic that is generic for all ships (none right now). Then we move either left or right, at the speed dictated by the static speed variable. The next few lines of code is the logic to detect weather it's time to drop and reverse. Direction is involved in the check to stop a feedback loop occurring of one invader triggering the reverse, then in the same frame another invader re-reversing it. So long as the invaders are updated sequentially (i.e not in threads) then this will work. As we are nowaccessing the ships array, we now need to include `game.h`.
+The first two lines are simple, we call the base ship::update() to run any logic that is generic for all ships (none right now). Then we move either left or right, at the speed dictated by the static speed variable. The next few lines of code is the logic to detect weather it's time to drop and reverse. Direction is involved in the check to stop a feedback loop occurring of one invader triggering the reverse, then in the same frame another invader re-reversing it. So long as the invaders are updated sequentially (i.e not in threads) then this will work. 
+
+As we are nowaccessing the ships array, we now need to include `game.h`, and we should put a handle to it in game.h.
+
+```cpp 
+//game.h
+extern std::vector<Ship*> ships;
+```
 
 ## Spawning Invaders
 
@@ -273,8 +280,10 @@ void Player::Update(const float &dt) {
 }
 ```
 
-You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time and add it to the vector of ships.
-
+You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time. You could add it to the vector of ships, but rember the hacky line in invader's update: `ships[i]->move(0, 24);`? This wuold also move the player. Not good. To solve this you can either 
+ - A: Have the player seperate fomr the ship list, and manually update and render it.
+ - B: Change the invader update to only move invaders down.
+ 
 ## Bullets
 
 The game wouldn't be very difficult (or possible) without bullets firing around. Let's look at our requirements:
