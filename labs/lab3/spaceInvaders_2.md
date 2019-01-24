@@ -280,8 +280,8 @@ void Player::Update(const float &dt) {
 }
 ```
 
-You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time. You could add it to the vector of ships, but rember the hacky line in invader's update: `ships[i]->move(0, 24);`? This wuold also move the player. Not good. To solve this you can either 
- - A: Have the player seperate fomr the ship list, and manually update and render it.
+You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time. You could add it to the vector of ships, but rember the hacky line in invader's update: `ships[i]->move(0, 24);`? This would also move the player. Not good. To solve this you can either 
+ - A: Have the player seperate from the ship list, and manually update and render it.
  - B: Change the invader update to only move invaders down.
  
 ## Bullets
