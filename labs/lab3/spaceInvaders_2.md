@@ -205,6 +205,8 @@ Invaders Update() to include some movement code.
 
 ```cpp 
 //ship.cpp
+#include game.h
+
 void Invader::Update(const float &dt) {
     Ship::Update(dt);
 
@@ -220,7 +222,7 @@ void Invader::Update(const float &dt) {
 }
 ```
 
-The first two lines are simple, we call the base ship::update() to run any logic that is generic for all ships (none right now). Then we move either left or right, at the speed dictated by the static speed variable. The next few lines of code is the logic to detect weather it's time to drop and reverse. Direction is involved in the check to stop a feedback loop occurring of one invader triggering the reverse, then in the same frame another invader re-reversing it. So long as the invaders are updated sequentially (i.e not in threads) then this will work.
+The first two lines are simple, we call the base ship::update() to run any logic that is generic for all ships (none right now). Then we move either left or right, at the speed dictated by the static speed variable. The next few lines of code is the logic to detect weather it's time to drop and reverse. Direction is involved in the check to stop a feedback loop occurring of one invader triggering the reverse, then in the same frame another invader re-reversing it. So long as the invaders are updated sequentially (i.e not in threads) then this will work. As we are nowaccessing the ships array, we now need to include `game.h`.
 
 ## Spawning Invaders
 
