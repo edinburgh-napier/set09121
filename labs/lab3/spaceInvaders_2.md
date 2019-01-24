@@ -204,7 +204,7 @@ It's about time we had something moving on screen. We should modify the
 Invaders Update() to include some movement code.
 
 ```cpp 
-//ship.h
+//ship.cpp
 void Invader::Update(const float &dt) {
     Ship::Update(dt);
 
