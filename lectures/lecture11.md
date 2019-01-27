@@ -5,11 +5,11 @@ tags: [Lecture]
 permalink:  lecture11.html
 summary: lecture1
 layout: presentation
-presentationTheme: '/assets/revealJS/css/theme/napier_debug.css' 
+presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
-
+{% raw  %}
 # Lecture 11 - 2D Physics
 ### SET09121 - Games Engineering
 
@@ -29,17 +29,21 @@ School of Computing. Edinburgh Napier University
 - It does introduce some of the physics concepts well.
 - Unless you need to know this information it isn't necessary.
 
-![image](assets/images/physics-book)
+![image](assets/images/physics_book.jpg) <!-- .element width="30%" -->
 
 
 ---
 
 # What do we mean by game physics?
 
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/xh6bhBAO7vQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Examples 
-[[Link]{style="color: blue"}](https://youtu.be/tugbGpRqiFY)
-[[Link]{style="color: blue"}](https://youtu.be/x8Fo2slT2WA)
+
+---
+
+# What do we mean by game physics?
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/tugbGpRqiFY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
@@ -67,9 +71,9 @@ Examples
 - We will use Box2D as our middleware.
 - There are a number of industry used, free, physics engines out there.
 
-![image](assets/images/box2d)
-![image](assets/images/havok)
-![image](assets/images/euphoria)
+![image](assets/images/box2d.png) <!-- .element width="30%" -->
+![image](assets/images/havok.png) <!-- .element width="30%" -->
+![image](assets/images/euphoria.jpg) <!-- .element width="30%" -->
 
 
 ---
@@ -81,7 +85,7 @@ Examples
     - So we need to be able to detect them in the first place.
 - There are numerous techniques to detect collisions in 2D and 3D -- from fast course-grained to slow fine-grained.
 
-![image](assets/images/collision-detection)
+![image](assets/images/collision-detection.png) <!-- .element width="50%" -->
 
 
 ---
@@ -95,7 +99,7 @@ Examples
 - Particles are use for numerous graphical effects.
     - For example, smoke, fire, explosions, water, etc.
 
-![image](assets/images/particle)
+![image](assets/images/particle.jpg)<!-- .element width="60%" -->
 
 
 ---
@@ -107,7 +111,7 @@ Examples
 - Unlike particles, rigid bodies have a shape. This means that not only move in space but can also rotate.
 - The bodies are rigid as they do not change shape.
 
-![image](assets/images/rigid-body)
+![image](assets/images/rigid-body.jpg)
 
 
 ---
@@ -125,30 +129,37 @@ Examples
 
 ---
 
-# Examples of Game Physics
-========================
+# Example -- Collision Detection
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/qTV3ZQgTnkg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Example -- Collision Detection
-[[Link]{style="color: blue"}](https://youtu.be/qTV3ZQgTnkg)
 
-Example -- Particle Simulation
-[[Link]{style="color: blue"}](https://youtu.be/YeNeod0qfPY)
+---
 
-Example -- Rigid Bodies
-[[Link]{style="color: blue"}](https://youtu.be/LnvtZn2agmA)
+# Example -- Particle Simulation
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/YeNeod0qfPY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Example -- Water Simulation
-[[Link]{style="color: blue"}](https://youtu.be/zMTzWLGcPEk)
 
-Example -- Cloth Simulation
-[[Link]{style="color: blue"}](https://youtu.be/zt2P-yI5knY)
+---
 
+# Example -- Rigid Bodies
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/LnvtZn2agmA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+
+# Example -- Water Simulation
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/zMTzWLGcPEk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+
+# Example -- Cloth Simulation
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/zt2P-yI5knY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
 ## Fundamentals -- Laws of Motion
-
 
 
 ---
@@ -166,72 +177,18 @@ Example -- Cloth Simulation
 
 ---
 
-#Newton's First Law of Motion
+# Newton's First Law of Motion
 
 
 - An object in motion stays in motion unless a force is applied to it.
 - Basically, if there is no force there is no change in acceleration that can change velocity.
-- There is always some force applied to our object per frame.
 
-- If $F_{net} = 0$ then there is no change in motion.
+- If $F_{net} = 0$ then there is no **change** in motion.
 - Where:
     - $F_{net}$ is the combined force applied to the object.
+    - Opposite forces can cancel each other out.
 
 
----
-</textarea>
-</section>
-
-<section>
-    <h3>The Lorenz Equations</h3>
-
-    \[\begin{aligned}
-    \dot{x} &amp; = \sigma(y-x) \\
-    \dot{y} &amp; = \rho x - y - xz \\
-    \dot{z} &amp; = -\beta z + xy
-    \end{aligned} \]
-
-</section>
-
-
-<section>
-    <h3>A Cross Product Formula</h3>
-
-    \[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
-    \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-    \frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
-    \frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0
-    \end{vmatrix}  \]
-</section>
-
-<section>
-    <h3>The probability of getting \(k\) heads when flipping \(n\) coins is</h3>
-
-    \[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]
-</section>
-
-
-
-
-<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
-<textarea>
-
----
-
-# test 2
-
-{% raw  %}
-`$$ J(\theta_0,\theta_1) = \sum_{i=0} $$`
-{% endraw %}
-{% raw  %}
-`$ J(\theta_0,\theta_1) = \sum_{i=0} $`
-{% endraw %}
-{% raw  %}
-$$ J(\theta_0,\theta_1) = \sum_{i=0} $$
-{% endraw %}
-{% raw  %}
-$ J(\theta_0,\theta_1) = \sum_{i=0} $
-{% endraw %}
 ---
 
 # Newton's Second Law of Motion
@@ -241,27 +198,9 @@ $ J(\theta_0,\theta_1) = \sum_{i=0} $
 
 - This is an important calculation, and normally underpins most of the force calculation work in a physics engine.
 
-$$a^2 + b^2 = c^2$$
+`$$ F = ma $$` Where: $m$ is the mass, $a$ is the acceleration.
 
-$$ J(\theta_0,\theta_1) = \sum_{i=0} $$
-
-$\bar{X}= \frac{1}{T}\sum^T\_{t=1} X\_t, \bar{Y}=\frac{1}{T}\sum^T\_{t=1} Y\_t$
-
-`$\bar{X}= \frac{1}{T}\sum^T\_{t=1} X\_t, \bar{Y}=\frac{1}{T}\sum^T\_{t=1} Y\_t$`
-
-`$$ J(\theta_0,\theta_1) = \sum_{i=0} $$`
-
-`$$ F_{net} = ma $$` Where:
-
-$m$
-
-:   is the mass.
-
-$a$
-
-:   is the acceleration
-
-Or: `$$a = \frac{F_{net}}{m}$$`
+Or: `$$a = \frac{F}{m}$$`
 
 
 ---
@@ -273,7 +212,7 @@ Or: `$$a = \frac{F_{net}}{m}$$`
 - The law comes into play when working with collision resolution.
 - A similar looking force is the normal force which cancels out the force of gravity on a resting object.
 
-![image](assets/images/normal-force)
+![image](assets/images/normal-force.png)
 
 
 ---
@@ -282,14 +221,14 @@ Or: `$$a = \frac{F_{net}}{m}$$`
 
 
 <div style="float: left;width: 40%;" > 
-{% raw  %}
+
 `$$ v = u + at $$`<br>
 `$$ s = \frac{1}{2}(u + v)t $$`<br>
 `$$ s = ut + \frac{1}{2}at^2 $$`<br>
 `$$ s = vt - \frac{1}{2}at^2 $$`<br>
 `$$ v^2 = u^2 + 2as $$`<br>
 `$$ a = \frac{v - u}{t} $$`<br>
-{% endraw %}
+
 </div>
 
 
@@ -325,19 +264,15 @@ Or: `$$a = \frac{F_{net}}{m}$$`
 
 # Weight and Mass
 
-- Typically we use the terms weight and mass interchangeably in everyday language.
+- we use the terms weight and mass interchangeably in everyday language.
 - In physics, weight and mass are different.
-- Weight is the downward force applied to an object because of gravity and the object's mass.
+- Weight is the downward force applied to an object due to gravity and the object's mass.
+- Mass is the measure of how much matter is in an object. 
 - We use $kg$ for mass. Less gravity means less weight, but the mass will remain the same.
 
 $w = mg$ 
 
-Where:
-$w$ :   is weight.
-$m$ :   is mass.
-$g$ :   is gravity.
-
-Also: $$m = \frac{w}{g}$$
+Where: $w$ is weight, $m$ is mass, $g$ is gravity.
 
 
 ---
@@ -350,10 +285,8 @@ Also: $$m = \frac{w}{g}$$
 - A Newton is a standard unit of force applied to an object.
 - Many physic engines will try and deal in Newtons to ensure calculations are uniform.
 
-$$1N = 1kg \times m/s^2$$ On Earth: $$\begin{aligned}
-                    1N = 102g \\
-                    g = 9.8N
-                \end{aligned}$$
+$$1N = 1kg \times m/s^2$$
+On Earth: $$g = 9.8 m/s^2$$ so: $$1N = 0.102kg $$ $$ 1kg = 9.8N $$
 
 
 ---
@@ -364,7 +297,7 @@ $$1N = 1kg \times m/s^2$$ On Earth: $$\begin{aligned}
 - When applying forces, we are typically concerned with accumulated force for a particular frame.
 - Adding forces is just a case of adding the vector forces together and applying the resultant net force to the object.
 
-![image](assets/images/adding-forces)
+![image](assets/images/adding-forces.png)
 
 
 ---
@@ -373,11 +306,12 @@ $$1N = 1kg \times m/s^2$$ On Earth: $$\begin{aligned}
 
 - Springs are commonly used for a number of effects -- they do exactly what you think.
 - In games, springs are used for deformable shapes and balls.
-- Drag is another force that is caused by air resistance.
 
+Hook's Law: $$F = -k\Delta l$$ where $k$ is the stiffness of the spring and $l$ the length.
+
+- Drag is another force that is caused by air resistance.
 - Games will use a simplified model of drag, such as shown.
-Hook's Law: $$F = -k\Delta l$$ where $k$ is the stiffness of the
-spring and $l$ the length.\
+
 Simplified drag:
 $$F_{drag} = \hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rVert^2)$$
 
@@ -393,6 +327,8 @@ $$F_{drag} = \hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rV
 - Sometimes we want to modify velocity directly, for example in collision resolution.
     - The amount of force applied after collision may not be enough to move the object.
 - Therefore we use impulses to calculate direct changes in velocity.
+
+Impulses are Cheat forces. We implement them by directly modifying velocity. You can't do this in real life.
 
 
 ---
@@ -414,8 +350,9 @@ $$F_{drag} = \hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rV
 
 # Impulse Example
 
-- Normally we would calculate a force as follows: $$ F &= \dots $$ $$ p.F &+= F  $$ particle uses force to modify acceleration in update.
-- For an impulse, the change is far more sudden, and we just add a value directly to the velocity. $$I &= \dots $$ $$p.v &+= I $$ particle uses new velocity at next update.
+- Normally we would calculate a force as follows: $$ F_{net} \mathrel{{+}{=}} F $$
+- For an impulse, the change is far more sudden, and we just add a value directly to the velocity. $$ p.v \mathrel{{+}{=}} I $$.
+- Particle uses new velocity at next update.
 
 ---
 
@@ -441,3 +378,5 @@ Warning
     - Collisions.
 - Box2D will provide us with all these features and more -- you just need to explore it.
 - The physics tutorial will introduce most of these ideas.
+
+{% endraw %}

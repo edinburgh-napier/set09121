@@ -14,6 +14,8 @@ company_name: Edinburgh napier University
 exclude:
   - .idea/
   - .gitignore
+  - .git
+  - .vscode
 # these are the files and directories that jekyll will exclude from the build
 
 feedback_subject_line: Games Engineering Documentation
