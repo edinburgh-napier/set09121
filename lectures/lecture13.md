@@ -10,7 +10,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 13 - AI2
+# Lecture 13 - Steering Behaviors
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -27,112 +27,106 @@ School of Computing. Edinburgh Napier University
 - Artificial Intelligence for Games. Second Edition. Millington and Funge (2009).
 - Whole chapter on steering behaviours.
 
-![image](ai_book)
-
-Review -- Background Knowledge
+![image](assets/images/ai_book.jpg)<!-- .element width="30%" -->
 
 
-Review -- AI Techniques
+---
+
+## Review -- Background Knowledge
+
+
+---
+
+# Review -- AI Techniques
 
 - There are numerous usable AI techniques applicable to games development.
-
     - Classical, deterministic techniques -- popular.
-
     - Academic, non-deterministic techniques -- useful in some areas.
-
 - Different techniques accomplish different aspects of game behaviour.
-
     - Movement.
-
     - Decision making.
-
     - Strategy.
-
     - Learning.
-
 - Today we will look at the basics of movement via steering behaviours.
 
-Review -- Working with Vectors
+
+---
+
+# Review -- Working with Vectors
 
 - We have dealt with vectors for a long time now.
-
     - Hopefully you understand them!
-
 - Steering behaviours rely on vector operations.
-
     - We are generally trying to work out positions and velocity to move entities in a certain manner.
-
 - We will be performing numerous vector operations to support our steering behaviours.
-
     - Adding and subtracting vectors.
-
     - Getting the length of a vector.
-
     - Normalizing a vector.
-
     - Converting vectors to angles.
 
-Review -- Basic Physics/Movement
+
+---
+
+# Review -- Basic Physics/Movement
 
 - Steering behaviours work with our physics engine.
-
 - Steering behaviours output a direction of travel.
-
     - And a rotation if you want to use it.
-
 - We use this output to influence our entities.
-
     - We can set the velocity directly.
-
     - We can apply the output as a force.
-
 - Remember:
-
     - Out physics engine is concerned with object movement.
-
     - Our steering behaviours are also concerned with object movement.
-
     - Therefore, combining the two is a good idea.
 
-What are Steering Behaviours
-============================
 
-What are Steering Behaviours?
+---
+
+## Steering Behaviours
+
+
+---
+
+# What are Steering Behaviours?
 
 - Steering behaviours are an AI technique that lets us program basic movement.
-
     - Movement is often considered the base ability of a game AI.
-
 - Steering behaviours are actually very simple.
-
     - They work on basic object positioning and rotation.
-
 - They provide an output which tells a game character which way to move.
-
     - This can be considered the velocity of an entity.
-
 - There are numerous examples (see the recommended reading):
-
     - Seek
-
     - Flee
-
     - Arrive
-
     - Avoid obstacle
-
     - etc.
 
-Example -- Flocking
-[[Link]{style="color: blue"}](https://youtu.be/QbUPfMXXQIY)
 
-Example -- Game
-[[Link]{style="color: blue"}](https://youtu.be/J2hI_eGGmzg)
+---
 
-Steering Behaviour Examples
+# Example -- Flocking
 
 
-Steering Behaviours
+
+---
+
+# Example -- Flocking
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/QbUPfMXXQIY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+
+# Example -- Game
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/J2hI_eGGmzg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+
+# Steering Behaviours
 
 - There are many steering behaviours out there.
     - Refer to the AI book for some of the most useful.
@@ -143,91 +137,102 @@ Steering Behaviours
  - **Arrive** :   move towards a target and stop within a certain range.
  - **Face** : face the target.
 
-Seek
-----
 
-Seek
+---
+
+# Seek
 
 
 - Very simple idea.
 - Move towards a target.
 - Calculation: 
 
-$$\begin
-d &= target - position 
-v &= \hat{d} \times speed
-$$
+$$ d = target - position $$
 
-![image](seek)
+$$v = \hat{d} \times speed$$
 
-Flee
-----
+![image](assets/images/seek.png)
 
-Flee
+
+---
+
+# Flee
 
 - Also simple -- effectively the inverse of seek.
 - Run away from a target.
 - Calculation: 
 
-$$
-d &= position - target \\
-v &= \hat{d} \times speed
-$$
+$$d = position - target$$
 
-![image](flee)
+$$v = \hat{d} \times speed$$
 
-Arrive
-------
+![image](assets/images/flee.png)
 
-Arrive
+
+---
+
+# Arrive
 
 - Seek, but with a stopping distance to stop the wiggle.
 - Move towards target and stop when within a given distance.
 - Calculation: 
 
-$$\begin{aligned}
-d &= target - position \\
-\lVert d \rVert \leq radius &\implies v = 0 \\
-\lVert d \rVert > radius &\implies v = \hat{d} \times speed
-\end{aligned}$$
+$$d = target - position $$
 
-![image](arrive)
+$$ ||d|| \leq radius \implies v = 0 $$
 
-Face
-----
+$$ ||d|| > radius \implies v = \hat{d} \times speed $$
 
-Face
+
+![image](assets/images/arrive.png)
+
+
+---
+
+# Face
 
 - A rotational steer.
 - Turn to face a target.
 - Calculation (simplified -- there are more checks to do):
-$$\begin{aligned}
-d &= target - position \\
-\theta &= \arctan(y, x) \\
-r &= (\theta - orientation) * rot\_speed
-\end{aligned}$$
 
-![image](face)
+$$d = target - position $$
 
-Steering Behaviours in Our Engine
+$$\theta = \arctan(y, x) $$
+
+$$r = (\theta - orientation) * rot\_speed$$
+
+![image](assets/images/face.png)
 
 
-Steering Behaviours in Our Engine
+---
+
+# Steering Behaviours in Our Engine
+
 - We want to build a reusable technique for steering behaviours.
     - We want reusable so we can program as many steering behaviours as we like.
 - We will not be creating or using any particular pattern or data structure approach this time.
     - A steering behaviour is just a steering behaviour.
 - If you like you can go further and combine steering behaviours within a single steering behaviour.
     - See weighted/combined behaviours in the recommended reading. Steering Behaviour Interface
+
+
+
+
+---
+
+# Steering Behaviour Interface
+
 - `steering_behaviour` is our base interface (or virtual class in C++ terms).
 - It only declares one pure virtual method:
     - `get_steering`
 - `get_steering` performs the necessary calculation for the defined steering behaviour and outputs a `steering_output`.
 
-![image](steering_interface)
+![image](assets/images/steering_interface.png)
 
 
-Steering Output struct
+---
+
+# Steering Output struct
 
 - `steering_output` declares two values.
 - `direction`: :   the vector we want to travel in.
@@ -235,28 +240,34 @@ Steering Output struct
 - Results from `get_steering` are put in here.
 - We will not use rotation in the practical, but it is there if you need it.
 
-[image](steering_output)
+![image](assets/images/steering_output.png)
 
-Example -- Seek
 
+---
+
+# Example -- Seek
 
 - We have two entities:
     - `target` and `character`.
 - We have `max_speed`.
 - `get_steering` is:
 
+
 ```cpp
-    steering_output output;
-    output.direction = target.get_position() - character.get_position();
-    output.direction = normalize(output.direction);
-    output.direction *= max_speed;
-    output.rotation = 0.0f;
-    return output;
+steering_output output;
+output.direction = target.get_position() - character.get_position();
+output.direction = normalize(output.direction);
+output.direction *= max_speed;
+output.rotation = 0.0f;
+return output;
 ```
 
-![image](seek_class)
+![image](assets/images/seek_class.png)
 
-Example -- Flee
+
+---
+
+# Example -- Flee
 
 
 - We have two entities:
@@ -273,11 +284,12 @@ output.rotation = 0.0f;
 return output;
 ```
 
-![image](flee_class)
+![image](assets/images/flee_class.png)
 
-Combining Behaviours
 
-Combining Steering, Decisions, and State
+---
+
+# Combining Steering, Decisions, and State
 
 - Next we are going to discuss decision making and behaviour control using state machines and decision trees.
 - We will be looking at combining these ideas to create a sophisticated looking AI.
@@ -287,7 +299,10 @@ Combining Steering, Decisions, and State
 - We can consider that the behavioural states also contain a steering behaviour if necessary.
     - For example having a seek state.
 
-Example -- The Sophisticated Guard
+
+---
+
+# Example -- The Sophisticated Guard
 
 - The guard has some basic actions:
     - The guard patrols between point A and point B.
@@ -298,10 +313,16 @@ Example -- The Sophisticated Guard
     - If health is low, the guard will flee from the player.
     - If the guard loses sight of the player, the guard will return to patrolling between point A and point B.
 
-Example -- The Sophisticated Guard Diagram
-![image](sophisticated_guard)
 
-Combining Steering Behaviours
+---
+
+# Example -- The Sophisticated Guard Diagram
+![image](assets/images/sophisticated_guard.png)
+
+
+---
+
+# Combining Steering Behaviours
 
 - We can also combine steering behaviours to create more elaborate movement.
     - This is how flocking works.
@@ -314,7 +335,10 @@ Combining Steering Behaviours
     - 0.1 align.
     - 0.1 obstacle avoidance.
 
-Comments on Steering
+
+---
+
+# Comments on Steering
 
 - Steering behaviours are very simple.
     - They are also very fast to calculate.
@@ -327,10 +351,9 @@ Comments on Steering
     - Remember some of the path finding examples.
 
 
-Summary
+---
 
-
-Summary
+# Summary
 
 - As always, we have only really scratched the surface of steering behaviours.
     - There are numerous other behaviours out there.

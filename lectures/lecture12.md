@@ -181,7 +181,6 @@ What is Artificial Intelligence?
 ![image](assets/images/fuzzy-logic.png) <!-- .element width="30%" -->
 
 
-
 ---
 
 # Decision Making

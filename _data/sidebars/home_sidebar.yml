@@ -102,3 +102,12 @@ entries:
     - title: Lecture 10 - Engines and ECM
       url: /lecture10.html
       output: web
+    - title: Lecture 11 - 2D Physics
+      url: /lecture11.html
+      output: web
+    - title: Lecture 12 - AI
+      url: /lecture12.html
+      output: web
+    - title: Lecture 13 - Steering
+      url: /lecture13.html
+      output: web
