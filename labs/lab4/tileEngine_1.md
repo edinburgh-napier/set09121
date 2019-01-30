@@ -18,9 +18,14 @@ Create the main.cpp, and add the new project to CMake.
 
 The Game we are about to make is a maze game. The player moves a purple circle around from a starting point and tries to get to a determined end point in the shortest amount of time.
 
+<video class="middle" width="400" height="300" loop autoplay>
+  <source src="assets/videos/maze_game.mp4" type="video/mp4">
+</video>
+
+
 The Maze will be loaded from a text file with a super simple format. The logic for loading, rendering, and managing the maze data will be handled by a standalone \"LevelSystem\" library that we will build. This means we can use this code again in future projects. While we are building libraries, we will also make a small Maths helper library to cover some of the functions that SFML doesn't provide with its vector class.
 
-The maze file, along with all other resources can be found in the Repo (assets/levels/maze_2.txt)
+The maze file, along with all other resources can be found in the [Repo (assets/levels/maze_2.txt)](https://github.com/edinburgh-napier/set09121/tree/master/assets)
 
 ```
 wwwwwwww
