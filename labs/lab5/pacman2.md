@@ -1,5 +1,5 @@
 ---
-title: "PacMan 2"
+title: "PacMan 2 - ECM"
 keywords: PACMAN
 tags: [PACMAN]
 permalink:  pacman2.html
@@ -8,14 +8,14 @@ sidebar: home_sidebar
 ---
 
 
-The Entity Component Model
---------------------------
+## The Entity Component Model
+
 
 It's time to bring in the big-guns, standard inheritance and OO can only get us so far. Having a huge inheritance tree for all of our entities would become infeasible to write and maintain, and such we will now adopt the ECM pattern. This will be covered a lecture, here we will focus only on the implementation.
 
 ### The ECM Library
 
-The code we are about to write will be generic in nature, and we will want to sue it again, so we will spin it out to it's own library.
+The code we are about to write will be generic in nature, and we will want to use it again, so we will spin it out to it's own library.
 In case you've forgotten, here's the CMake: Remember to add it to the linked libraries of our lab executable too.
 
 ```CMake
@@ -25,9 +25,14 @@ target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm" )
 target_link_libraries(lib_ecm PRIVATE lib_maths)
 ```
 
-Inside the lib_ecm folder we will have ecm.h and ecm.cpp. Move your Entity class that you've already written into the ecm library, and include it in the relevant places in the pacman code. **Check that everything still compiles and works**
+Inside the lib_ecm folder we will have ecm.h and ecm.cpp. Move your Entity class that you've already written into the ecm library, and include it in the relevant places in the pacman code. 
 
-Here's what your entity Class should look like:
+{:class="important"}
+**Check that everything still compiles and works before continuing**
+
+### Entity Additions
+We're going to add some new stuff to the basic Entity:
+Here's what your entity class should look like:
 
 ```cpp
 //"ecm.h"
@@ -65,17 +70,17 @@ public:
   void setForDelete();
   bool isVisible() const;
   void setVisible(bool _visible);
+}
 ```
 
 You should have already had most of this, there are a couple of additions you may not of had. Note there is no property for a sprite or a shape. What's new is the declaration of a Component, and a vector of components stored privately.
 
 ### Component
-
-The component code is remarkably simple.
+In the same header file, we are now going to define the component class. The code is remarkably simple.
 
 ```cpp
-//"ecm.cpp"
- class Component { 
+//"ecm.h"
+class Component { 
  protected:
    Entity *const _parent;
    bool _fordeletion; // should be removed
@@ -87,16 +92,15 @@ The component code is remarkably simple.
    virtual void update(double dt) = 0;
    virtual void render() = 0;
    virtual ~Component();
- };
+};
 ```
 
 When a component is constructed, an Entity must be passed to the constructor. This is so each component knows who it's parent is. Other than that, it's just our usual two friendly update and render() functions again. There is also a _fordeletion flag, we'll come back to this later.
 
-### Sprite component
+## Shape component
 
-Before we add the rest of the functionality it would be useful to work with an example of a component. Here is a ShapeComponent. Add it to the Pacman code for now. While it may be a good idea to have some generic components in the ecm library, we're not sure what we are going to need in the future. So we will keep components in the paceman code for now and have the library just be the definitions for the base Entity and Component.
+Before we add the rest of the functionality it would be useful to work with an example of a component. Here is a ShapeComponent. Add it to the Pacman code folder for now. While it may be a good idea to have some generic components in the ecm library, we're not sure what we are going to need in the future. So we will keep components in the paceman code for now and have the library just be the definitions for the base Entity and Component.
 
-We'll talk about that template in a bit.
 
 ```cpp
 //"cmp_sprite.h"
@@ -119,9 +123,13 @@ public:
 };
 ```
 
+We'll talk about that setShape template in a bit.
+
+
 There's nothing funky in the definition .cpp. Components are remarkably simple when built correctly.
 
-``` {.c++ language="C++" caption="cmp\_sprite.cpp"}
+```cpp
+//cmp_sprite.cpp"
 void SpriteComponent::update(double dt) {
   _sprite->setPosition(_parent->getPosition());
 }
@@ -134,11 +142,12 @@ void ShapeComponent::render() { Renderer::queue(_shape.get()); }
 
 sf::Shape& ShapeComponent::getShape() const { return *_shape; }
 
-ShapeComponent::ShapeComponent(Entity* p)
-    : Component(p), _shape(make_shared<sf::CircleShape>()) {}
+ShapeComponent::ShapeComponent(Entity* p) : Component(p), _shape(make_shared<sf::CircleShape>()) {}
 ```
 
-### Adding a component
+The only complexity to note is the constructor -- which passes the calling entity to the base `Component()` constructor, and also constructs the `_shape` to a sfml circle.
+
+## Adding a component
 
 So how do we add a shape component to an entity? There are many different approaches to this, the key is to to remember this happens at runtime. Components can be dynamically added and removed to entities. Therefore some of the usual methods you may think won't work.
 
@@ -166,8 +175,8 @@ s->setShape<sf::CircleShape>(12.f);
 We use templates here to do four major things.
 
 1.  Create a component of any `<specified>` type `T`(line 4).
-    - consider this as simple algebra, T is a variable in our formula, and our formula is this while function.
-    - imagine anyplace that T is used, replace it with a type: like `int` or `movement_component`
+    - consider this as simple algebra, T is a variable in our formula, and our formula is this whole function.
+    - imagine any place that T is used, replace it with a type: like `int` or `movement_component`
 2.  Check that the specified type is actually a component (line 3)
 3.  Pass any parameters to the component constructor. (line 4)
 4.  Add the built component into the entity component list (line 5)
