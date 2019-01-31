@@ -60,11 +60,17 @@ entries:
     - title: PacMan 2 - AI
       url: /pacman3.html
       output: web
-  - title: 6 - Physics
+  - title: 6 Physics
     output: web
     folderitems:
     - title: Physics
       url: /physics.html
+      output: web
+  - title: 7 Platformer
+    output: web
+    folderitems:
+    - title: Platformer
+      url: /platfomer.html
       output: web
   - title: Tips And tricks
     output: web
