@@ -301,4 +301,5 @@ void GameScene::update(double dt) {
 
 After this long round trip, implementing a new render system, An entity manager class, a Scene class, and creating two scenes, we should be back to where we begun. The game will start to the menu scene, where you should see the text "Almost Pacman" Drawn. Pressing Space will take you into the game scene, where our player and 4 ghosts will be on screen and moving around. Pressing Tab will take us back to the menu. Pressing Escape will close the game down.
 
+{:class="important"}
 Make sure you have got here, and everything is working so far without any errors. Things are going to get a bit wild next. You should commit your code now.

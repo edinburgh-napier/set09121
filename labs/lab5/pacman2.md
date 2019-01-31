@@ -183,7 +183,7 @@ We use templates here to do four major things.
 
 The extra template we had in the ShapeComponent is unrelated to this process. That one just allows us to set the shape type with templates, rather than having a different shape component for each type of sf::shape.
 
-##### Putting this to use
+#### Putting this to use
 
 It's time to kill off our original Entity classes for Ghosts and the player that were in the pacman code. We may need some of the code in there, so instead of deleting the files, just change any `\#includes` pointing to them to point to `ecm.h` instead.
 
@@ -231,7 +231,7 @@ problem - things aren't moving any more.
 We've got a shape component that let's things be drawn. We need game
 logic and movement next.
 
-##### Actor Movement Component
+#### Actor Movement Component
 
 For moving things around we will define 3 components. A base "Actor Movement" Component that has the generic methods and properties such as `Move()` and `_speed`. From there we will inherit to two seperate components `PlayerMovementComponent` and `EnemyAIComponent`. The first will contain the keyboard controls to move the play, the second will contain the AI for the ghosts.
 
@@ -294,15 +294,15 @@ float ActorMovementComponent::getSpeed() const { ... }
 void ActorMovementComponent::setSpeed(float speed) { ... }
 ```
 
-##### Player Movement Component
+#### Player Movement Component
 
 This is super simple, inherit from ActorMovementComponent and add the usual keyboard controls to the Update();
 
-##### Enemy AI Component
+#### Enemy AI Component
 
 This will get much more complex later on, as we dip into AI topics. For now, place your random movement code into the Update().
 
-##### Add the new Components
+#### Add the new Components
 
 Adding the new components we just made to our player and ghosts follows the same principle we use to add the shape component:
 
@@ -362,17 +362,17 @@ const std::vector<std::shared_ptr<T>> get_components() const;
 
 But how do we build this?
 
-##### Finding components
+#### Finding components
 
-Retrieving or finding components of a certain type can be done in a few ways. To do this we need a way to tell what type a component is. The simple way is to have a string or numeric identifier as a property on each component type. Then a simple search through all the components on an entity for the value we need would work. This requires us adding code into every component class we have made -- not good(but not a bad idea).
+Retrieving or finding components of a certain type can be done in a few ways. To do this we need a way to tell what type a component is. The simple way is to have a string or numeric identifier as a property on each component type. Then a simple search through all the components on an entity for the value we need. This would require us adding code into every component class we have made -- not good(but not a bad idea).
 
 Fortunately, the c++ runtime has us covered for this, with a very handy function: `typeid()`. This is part of the Run-Time-Type-Information (RTTI) capabilites of the compiler, there are arguments for and against the performance cost of enabling this. It makes our lives easy so we'll take it for now and make a fake promise to ourselves to come up with something better in the future.
 
 `typeid()` returns an arbitrary number, so it ca't tell us outright what type of class an object is, but we can compare it with the id of a known class. so our process to find components of a given type is to loop through all components on an entity and compare the `typeid()` with the `typeid()` of the type we want. When we find a component that matches, we add it to a vector that we will return.
 
-##### get_components<T>()
+#### get_components<T>()
 
-Here it is:
+Here it is, isn't it pretty:
 
 ```cpp
 //ecm.h - get_components<T>()
@@ -389,7 +389,7 @@ const std::vector<std::shared_ptr<T>> get_components() const {
 }
 ```
 
-##### Getting Compatible Components
+#### Getting Compatible Components
 
 More often than not, we may not know exactly which components are on an entity. A Player will have a PlayerMovement Component, which derives from ActorMovement. Calling get_components<ActorMovement> would return an empty vector. This could cause us headaches. We need a way of getting a T Component, or anything that derives from a T component. `typeid()` can't help us here.
 
@@ -414,8 +414,9 @@ const std::vector<std::shared_ptr<T>> GetCompatibleComponent() {
 }
 ```
 
-### Checkpoint
+## Checkpoint
 
 That was a big change-up in code design. We are no longer using a single classes for Player and Ghost. Instead we are constructing them from components. You can see how this approach lends itself to modular and "Game-like" design. We can easily add or remove components at runtime to any Entity. A logical extension of this would be to design a "Factory" that constructs pre-set Entities with specific components, rather than doing it in pacman.cpp. That's a job for another day, our way is fine for now.
 
+{:class="important"}
 Make sure you have got here, and everything is working, compiling and running so far without any errors. You should commit your code now. Have a well-earned break.

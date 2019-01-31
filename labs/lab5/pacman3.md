@@ -1,5 +1,5 @@
 ---
-title: "PacMan 3"
+title: "PacMan 3 - AI"
 keywords: PACMAN
 tags: [PACMAN]
 permalink:  pacman3.html
@@ -7,21 +7,14 @@ summary: PACMAN
 sidebar: home_sidebar
 ---
 
-Pacman AI
----------
+AI will be covered in detail in later labs, for this we will be using a very basic state-machine and super simple path-finding. You may have noticed that we have brought in the level system library within the ActorMovementComponent. You should have already altered the CMake to link against this. We will be using the Level system to feed the Ghost AI with information about the level.
 
-AI will be covered in detail in later labs, for this we will be using a
-very basic state-machine and super simple path-finding. You may have
-noticed that we have brought in the level system library within the
-ActorMovementComponent. You should have already altered the CMake to
-link against this. We will be using the Level system to feed the Ghost
-AI with information about the level.
-
-##### Pacman Level
+## Pacman Level
 
 First up, let's get the level loaded and rendered.
 
-``` {.c++ language="C++" caption="pacman.cpp"}
+```cpp
+//"pacman.cpp"
 void GameScene::load() {
 ...
  ls::loadLevelFile("res/pacman.txt", 25.0f);
@@ -34,10 +27,10 @@ void GameScene::render() {
 }
 ```
 
-Easily done, thanks to our well built level system. What we can do now
-is use this to change the spawn positions of our Entities
+Easily done, thanks to our well built level system. What we can do now is use this to change the spawn positions of our Entities
 
-``` {.c++ language="C++" caption="pacman.cpp"}
+```cpp
+//"pacman.cpp"
 void GameScene::respawn() {
  player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
  player->GetCompatibleComponent<ActorMovementComponent>()[0]
@@ -53,51 +46,35 @@ void GameScene::respawn() {
 }
 ```
 
-This makes use of a new function 'findTiles()' which we haven't written
-yet, go an implement it into the level system library. Here's the
-declaration, you must figure out the implementation.
+This makes use of a new function `findTiles()` which we haven't written yet, go an implement it into the level system library. Here's the declaration, you must figure out the implementation.
 
-``` {.c++ language="C++" caption="LevelSystem.h"}
+```
+//"LevelSystem.h"
 static std::vector<sf::Vector2ul> findTiles(TILE);
 ```
 
-With this done, the player should be spawning at the bottom, and the
-ghosts randomly in the middle. The ActorMovementComponent has a
-\"validMove()\" function which should stop both Entity types from moving
-into a wall. We are getting pretty close to a game now.
+With this done, the player should be spawning at the bottom, and the ghosts randomly in the middle. The ActorMovementComponent has a `validMove()` function which should stop both Entity types from moving into a wall. We are getting pretty close to a game now.
 
-### Ghost Movement
 
-We could have the Ghosts chasing the player, for now we will do
-something easier. The ghosts will move along the level continuously,
-until they reach a corner or junction tile. They will then pick a random
-direction to turn and move in, they will never turn $180\deg$ and move
-back the way they came.
+## Ghost Movement
 
-``` {.c++ language="C++" caption="cmp\_enemy\_ai.h"}
+
+We could have the Ghosts chasing the player, for now we will do something easier. The ghosts will move along the level continuously, until they reach a corner or junction tile. They will then pick a random direction to turn and move in, they will never turn and move back the way they came.
+
+For this to work we only need to store two additional properties in the ghost component: The current state, and current direction.
+
+```cpp
+//cmp_enemy_ai.h
 class EnemyAIComponent : public ActorMovementComponent {
 protected:
   sf::Vector2f _direction;
-  enum state { DEADEND, ROAMING, ROTATING, ROTATED };
+  enum state {ROAMING, ROTATING, ROTATED };
   state _state;
 ...
 }
 ```
 
-For this to work we only need to store two additional properties in the
-ghost component: The current state, and current direction.
-
-``` {.c++ language="C++" caption="cmp\_enemy\_ai.h"}
-class EnemyAIComponent : public ActorMovementComponent {
-protected:
-  sf::Vector2f _direction;
-  enum state { DEADEND, ROAMING, ROTATING, ROTATED };
-  state _state;
-...
-}
-```
-
-The four states a ghost can be are as follows:
+The three states a ghost can be are as follows:
 
 -   **ROAMING** - Happily moving along - not at waypoint
 
@@ -105,24 +82,15 @@ The four states a ghost can be are as follows:
 
 -   **ROTATED** - Keep moving until out of waypoint.
 
-You may think that this is a little over-complicated, why do we need two
-different rotating states? The reason is that as we are moving as float
-coordinates -- not teleporting from tile to tile, a ghost will be inside
-a way-point for more than one frame. For this reason we need to store a
-flag to know that we have already rotated, and should not rotate again
-until the ghost exits the tile. There are many approaches to this, this
-is just my implementation, feel free to do something alternative.
+You may think that this is a little over-complicated, why do we need two different rotating states? The reason is that as we are moving as float coordinates -- not teleporting from tile to tile, a ghost will be inside a way-point for more than one frame. For this reason we need to store a flag to know that we have already rotated, and should not rotate again until the ghost exits the tile. There are many approaches to this, this is just my implementation, feel free to do something alternative.
 
-##### Picking a Direction
+### Picking a Direction
 
-With our states figured out, we now move onto the code that transitions
-between them, the ghost 'AI'. Each update() the ghost will need ot
-evaluate if it's time to change state, we will need a few variables to
-accomplish this (Lines 4 to 13). A switch statement forms the logic
-flow, starting with the current state. I've left two of the states to
-complete.
+With our states figured out, we now move onto the code that transitions between them, the ghost 'AI'. Each update() the ghost will need to evaluate if it's time to change state, we will need a few variables to accomplish this (Lines 4 to 13). A switch statement forms the logic flow, starting with the current state. I've left two of the states to complete. 
+
 {% raw %}
-``` {.c++ language="C++" caption="cmp\_enemy\_ai.cpp"}
+```cpp
+//cmp_enemy_ai.cpp
 static const Vector2i directions[] = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
 
 void EnemyAIComponent::update(double dt) {
@@ -172,25 +140,17 @@ void EnemyAIComponent::update(double dt) {
 }
 ```
 {% endraw %}
+
 ### Collision
 
-Pacman just isn't Pacman without dangerous ghosts. Detecting when a
-ghost has collided with the player could be done in a number of places.
-A well-engineered solution would be to have a \"collidable\" interface
-on the player, with each ghost checking itself against the player.
-Another approach would be to ship this out to a standalone physics and
-collision system.
+Pacman just isn't Pacman without dangerous ghosts. Detecting when a ghost has collided with the player could be done in a number of places. A well-engineered solution would be to have a \"collidable\" interface on the player, with each ghost checking itself against the player. Another approach would be to ship this out to a standalone physics and collision system.
 
-The approach we are going to take is the most simple, doing the check in
-the pacman.cpp Update().
+The approach we are going to take is the most simple, doing the check in the pacman.cpp Update().
 
-For this to work we need to keep a reference to both the player and the
-ghosts. the game scene does have an EntityList which contains both, and
-so we could iterate through that. But wouldn't it just be easier if we
-did this?
+For this to work we need to keep a reference to both the player and the ghosts. the game scene does have an EntityList which contains both, and so we could iterate through that. But wouldn't it just be easier if we did this?
 
-``` {.c++ language="C++" caption="pacman.cpp"}
-
+```cpp
+//"pacman.cpp"
 vector<shared_ptr<Entity>> ghosts;
 shared_ptr<Entity> player;
 
@@ -212,7 +172,9 @@ void GameScene::load() {
 Sometimes it's best to fall back on the simplest solutions. And here is
 our collision check.
 
-``` {.c++ language="C++" caption="pacman.cpp"}
+
+```cpp
+//"pacman.cpp"
 for (auto& g : ghosts) {
     if (length(g->getPosition() - player->getPosition()) < 30.0f) {
       respawn();
@@ -222,25 +184,21 @@ for (auto& g : ghosts) {
 
 You'll have to build up the respawn() code to reset everything.
 
-### Nibbles
+## Nibbles
 
 One last thing to add, food for pacman.
 
-We're deviating quite far from the proper game rules and going to have
-the pickup 'nibbles' speed Pacman(and the ghosts) up. We'll place a
-small white nibble on every EMPTY tile, and larger blue nibble on all
-the WAYPOINTs. the larger blue nibbles will speed the eater up more than
-the white nibbles.
-
+We're deviating quite far from the proper game rules and going to have the pickup 'nibbles' speed Pacman(and the ghosts) up. We'll place a small white nibble on every EMPTY tile, and larger blue nibble on all the WAYPOINTs. the larger blue nibbles will speed the eater up more than the white nibbles.
 For this we will need a new component, a PickupComponent.
 
-##### PickupComponent
+### PickupComponent
 
-The class declaration is very simple so it's committed, the only non
-standard property is a float 'points' which is how much to speed the
-eater up.
+The class declaration is very simple so I've left it out, the only non standard property is a float `points` which is how much to speed the eater up.
 
-``` {.c++ language="C++" caption="cmp\_pickup.cpp"}
+The `PickupComponent::update` looks like this:
+
+```cpp
+//"cmp_pickup.cpp.cpp"
 void PickupComponent::update(double) {
   for (...) {       //every entity in the scene
     if (...) {      //within 30.f unit of me
@@ -258,7 +216,8 @@ void PickupComponent::update(double) {
 
 .. and here is how we create the nibbles..
 
-``` {.c++ language="C++" caption="pacman.cpp"}
+```cpp
+//"pacman.cpp"
 
 vector<shared_ptr<Entity>> nibbles;
 
@@ -274,9 +233,11 @@ shared_ptr<Entity> makeNibble(const Vector2ul& nl, bool big) {
 }
 ```
 
-\... and here's where we call that function.
+... and here's where we call that function.
 
-``` {.c++ language="C++" caption="pacman.cpp"}
+```cpp
+//"pacman.cpp"
+
 void GameScene::respawn() {
   ...
   //clear any remaining nibbles
@@ -302,8 +263,6 @@ void GameScene::respawn() {
 }
 ```
 
-Last steps
-----------
+## Last steps
 
-All that reamins now is some form of high score system, and we are done.
-I'll leave this one up to you.
+All that remains now is some form of high score system, and we are done. I'll leave this one up to you. 
