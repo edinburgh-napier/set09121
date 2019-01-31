@@ -34,3 +34,10 @@ You will also need Git and CMake installed, and added to your PATH.
 
 ### SFML
 You may be glad to know that for this module, the Rendering of your games projects will be handled for you. We will be making use of the 2D Games/Graphics library SFML [sfml-dev.org](www.sfml-dev.org). This handles many of the low-level grunt-work that goes into making games, allowing us to focus on the high level design. There is also a wide array of tutorials and pre-existing support available around the internet if you run into a SFML-specific problem.
+
+
+# 2018 showcase
+
+<video class="middle" width="640" height="360" loop controls>
+  <source src="http://games.soc.napier.ac.uk/projects/gameseng/2018.mp4" type="video/mp4">
+</video>
