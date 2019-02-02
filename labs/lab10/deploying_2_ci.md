@@ -58,7 +58,7 @@ AppVeyor will be able to build your repo manually, by triggering a build from th
 
 #### Badges
 
-![badges](/assets/images/badges.png)
+![badges](assets/images/badges.png)
 
 The most important part of CI, is having that amazing "Build Passing" badge on your Repo. The Badge page under the AV settings supplies you with the markdown code. Simply put this in your Repo's README and you will see badge rendered on your github page.
 

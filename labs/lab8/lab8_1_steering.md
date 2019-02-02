@@ -119,7 +119,7 @@ int main() {
 ```
 
 You should be able to run this now and get the output shown
-![Steering Lab Menu](/assets/images/screen-steer-start.png)
+![Steering Lab Menu](assets/images/screen-steer-start.png)
 ### SteeringScene
 
 Before moving onto steering behaviours properly let us set up our `SteeringScene`. We are going to have an object on the screen (represented by a red dot) that the player will move around using the arrow keys. To do this we will create a basic `BasicMovementComponent`. You can replace this with the physics movement component from last practical if you wish. The `cmp_basic_movement.h` and `cmp_basic_movement.cpp` files are provided below. You should be able to understand the basic premise by now.

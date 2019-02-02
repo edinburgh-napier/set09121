@@ -20,7 +20,7 @@ We have steering and movement in place, but that is really only a simple part of
 
 We have mentioned states, state diagrams and state machines before. A state machine is just a technique for describing and modelling the state (behaviour, control, etc.) of a system in a mathematical manner. The system is modelled with a number of states, and the transitions between those states. As an example, we can model a game as a state machine such as this figure:
 
-![State Machine](/assets/images/state-machine.png)
+![State Machine](assets/images/state-machine.png)
 
 We have four states (active, inactive, paused, exit) and transitions between these states. Modelling our system in this manner makes it quite easy to understand. Let us look at a more concrete example.
 
@@ -28,7 +28,7 @@ We have four states (active, inactive, paused, exit) and transitions between the
 
 This is an example of a state machine for how a character might behave:
 
-![State Machine Example](/assets/images/state-machine-example.png)
+![State Machine Example](assets/images/state-machine-example.png)
 
 If you plot out how the behaviour works, starting from Idle at the top, you will see that this behaviour maps how an enemy guard might behave in a game. This is what we are aiming for in a state machine. It might be that you have no idea yet how to implement what Patrol means, but that doesn't matter. At this level, you want to map high level behaviour, not low level implementation.
 
@@ -38,7 +38,7 @@ We have already looked at state diagrams from a UML point of view, and state dia
 
 An example of a state diagram:
 
-![State Diagram](/assets/images/state-diagram.png)
+![State Diagram](assets/images/state-diagram.png)
 
 Individual states are mapped as ovals, and transitions between states are mapped using arrows between states. Again, we don't worry about how we implement the individual states; we are simply identifying behaviours and worrying about implementing the low level behaviour later.
 
@@ -48,7 +48,7 @@ We have also already looked at the state design pattern. This is what we are goi
 
 As a reminder the state design pattern:
 
-![State Design Pattern](/assets/images/state-design-pattern.png)
+![State Design Pattern](assets/images/state-design-pattern.png)
 
 
 ## Building a State Machine System
@@ -59,7 +59,7 @@ We have now reviewed the general ideas that we are going to implement in this pr
 
 This illustrates the system we are going to implement:
 
-![State Machine System Class Diagram](/assets/images/state-class-diagram.png)
+![State Machine System Class Diagram](assets/images/state-class-diagram.png)
 
 A `State` just has one method -- `execute`. This method will process the behaviour of a given state.
 
@@ -272,13 +272,13 @@ int main()
 
 You should now be able to run the application to make sure it works. When you do, the menu should be presented as shown in this Figure: 
 
-![Starting Menu Screen for Decision Demos](/assets/images/screen-state-start.png)
+![Starting Menu Screen for Decision Demos](assets/images/screen-state-start.png)
 
 ### State Machine Component
 
 Let us now implement our new state machine system. We already know our class definitions for the header files -- following this UML class diagram:
 
-![State Machine System Class Diagram](/assets/images/state-class-diagram.png)
+![State Machine System Class Diagram](assets/images/state-class-diagram.png)
 
 #### Header File
 
@@ -478,4 +478,4 @@ void StateScene::Load()
 
 The new lines of code are 16-19. If you run the application you will be able to move your player to the enemy dot and see them change colour. 
 
-![](/assets/images/screen-states.png)
+![](assets/images/screen-states.png)

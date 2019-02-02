@@ -102,7 +102,7 @@ void MenuScene::Update(const double &dt){
 
 And add the line `PathfindingScene pathfindingScene;` to our declarations in `main.cpp`. Then you should run the application and get the output shown:
 
-![Start of Pathfinding Demo](/assets/images/screen-path-start.png)
+![Start of Pathfinding Demo](assets/images/screen-path-start.png)
 
 
 ## Implementing A\*

@@ -182,7 +182,7 @@ OK time to combine everything we have done over the last two labs into an AI beh
 
 To give an idea of the behaviour we are going to implement see this Figure: 
 
-![Combined State and Decision Diagram](/assets/images/combined-state-decision.png)
+![Combined State and Decision Diagram](assets/images/combined-state-decision.png)
 This combines the decisions and states into a single representation.
 
 ### Defining Steering States

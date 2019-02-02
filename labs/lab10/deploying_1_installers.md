@@ -30,13 +30,13 @@ So far we have been building and running code in the debug configuration. This a
 
 Additionally the compiler generates Debug symbols/Debug database files that allow the debugger to work. These files are quite large. See Figure
 
-![build_folder](/assets/images/build_folder.png)
+![build_folder](assets/images/build_folder.png)
 
 ### Build Configurations
 
 To ship your game, you don't want to give the debug build to people. You want to strip out the debugging junk and streamline the game code. This is called the "Release" build in Visual studio. Changing to this is Easy: See Figure
 
-![build_options](/assets/images/build_options.png)
+![build_options](assets/images/build_options.png)
 
 CMake has generated a solution with 4 configurations. Traditionally you may only ever get 2: Debug and Release. 
 
@@ -75,7 +75,7 @@ Now you know why we did that. So, anyway, that should mean that if you run the .
 CMake has handled all the of the VS grunt work for us, but it useful to understand the differences between the build configurations. For this we need to look at the project properties. The following figure shows how to get these up:
 
 
-![project_properties](/assets/images/project_properties.png)
+![project_properties](assets/images/project_properties.png)
 
 Two important points:
 
