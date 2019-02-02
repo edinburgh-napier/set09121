@@ -28,6 +28,7 @@ School of Computing. Edinburgh Napier University
 - Artificial Intelligence for Games. Second Edition. Millington and
     Funge (2009).
 
+
  ![image](assets/images/ai_book.jpg)
 
 
@@ -48,7 +49,13 @@ School of Computing. Edinburgh Napier University
 - Understanding and modelling application state is one of the most important skills and tasks you can do.
 - State modelling also provides dynamic behaviour.
 
- ![image](assets/images/state_diagram.png)
+
+---
+
+# Review -- State Diagrams
+
+
+![image](assets/images/state_diagram.png) <!-- .element width="85%"  -->
 
 
 ---
@@ -60,7 +67,9 @@ School of Computing. Edinburgh Napier University
 - For example the ghosts in PacMan change behaviour.
 - Different behaviours are programmed in different objects -- the ghost simply calls the state class when it updates.
 
+
  ![image](assets/images/state.png)
+
 
 ---
 
@@ -76,11 +85,12 @@ School of Computing. Edinburgh Napier University
     - Learning.
 - Today we will look at the basics of decisions via state machines.
 
+
 ---
 
 # Example -- Batman: Arkham Asylum
 
-[[Link]{style="color: blue"}](https://youtu.be/hNs-orQHaKU)
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/hNs-orQHaKU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
@@ -104,14 +114,27 @@ School of Computing. Edinburgh Napier University
     - If the guard loses sight of the player, the guard will return to patrolling between point A and point B.
     - If the guard is hit, the guard will fall onto the ground and die.
 
-State Machines for AI ![image](assets/images/simple_state_guard.png)
+
+
+---
+
+# State Machines for AI 
+
+![image](assets/images/simple_state_guard.png) <!-- .element width="100%"  -->
+
+
+---
+
+# State Machines for AI 
+
+![image](assets/images/sanctum_chart.png) <!-- .element width="100%"  -->
 
 
 ---
 
 # Example -- Maze Solving 
 
-![image](assets/images/maze.png)
+![image](assets/images/maze.png) <!-- .element width="100%"  -->
 
 
 ---
@@ -127,7 +150,13 @@ State Machines for AI ![image](assets/images/simple_state_guard.png)
     - You will eventually reach the other exit.
         - Although it will not necessarily be the fastest route.
 
-Example -- Maze Solving ![image](assets/images/maze_solve.png)
+
+---
+
+# Example -- Maze Solving 
+
+
+![image](assets/images/maze_solve.png) <!-- .element width="85%"  -->
 
 
 ---
@@ -143,7 +172,8 @@ Example -- Maze Solving ![image](assets/images/maze_solve.png)
 ---
 
 # State Pattern in Our Engine
-![image](assets/images/game_state_pattern.png)
+
+![image](assets/images/game_state_pattern.png) <!-- .element width="90%"  -->
 
 
 ---
@@ -156,6 +186,7 @@ Example -- Maze Solving ![image](assets/images/maze_solve.png)
     - So the state needs to be told the entity to work on.
     - Allows simple state reuse if this is desired.
 
+
  ![image](assets/images/state_interface.png)
 
 
@@ -166,6 +197,7 @@ Example -- Maze Solving ![image](assets/images/maze_solve.png)
 - The `StateMachineComponent` is a `Component` that we can attach to an `Entity`.
 - The class also follows the manager pattern -- it contains and manages a collection of states.
 - The core difference is that `Update` does not apply to all states, just the current state.
+
 
  ![image](assets/images/state_machine.png)
 
@@ -199,9 +231,11 @@ Example -- Maze Solving ![image](assets/images/maze_solve.png)
 
 # Decomposing State Machines
 
-![image](assets/images/ranger_all_states.png)
 
-![image](assets/images/ranger_decomposed_states.png)
+![image](assets/images/ranger_all_states.png) <!-- .element width="65%"  -->
+
+
+![image](assets/images/ranger_decomposed_states.png) <!-- .element width="65%"  -->
 
 
 

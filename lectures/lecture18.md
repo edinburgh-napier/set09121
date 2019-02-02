@@ -36,7 +36,12 @@ School of Computing. Edinburgh Napier University
 # QA 
 "QA and publishing is like being test on how well you can crash-land a plane" - Tim Schafer
 
-https://www.youtube.com/embed/ssUFuZyu5bw?start=974&end=1353
+
+---
+
+# QA 
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/ssUFuZyu5bw?start=974&end=1353" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
@@ -49,10 +54,17 @@ https://www.youtube.com/embed/ssUFuZyu5bw?start=974&end=1353
 
 # Bug-Catching 
 
-![image](assets/images/civ.jpg)
+![image](assets/images/civ.jpg) <!-- .element width="95%"  -->
 
 
 ---
+
+# Bug-Catching 
+
+![image](assets/images/MissingNo.png)
+
+---
+
 
 # Bug-Catching
 
@@ -65,6 +77,39 @@ The symptom was that you'd go to save your progress and it would access the memo
 ... for no obvious reason. A short write would often corrupt the memory card. 
 
 The player would go to save, and not only would we not save, we'd wipe their memory card.
+
+
+---
+
+# Playtesting
+
+Playtests can be super useful. If you treat them right.
+
+1. Be clear of your test goals <!-- .element: class="fragment" -->
+ - are you testing if a single mechanic works?
+ - are you testing to see if a level is the right difficulty?
+ - are you testing to get a general review?
+2. Make a corect environment for your test. <!-- .element: class="fragment" -->
+ - Turn off trouble features or levels to isolate the feature you want to test 
+3. Pick your test canditates, and make sure to inform them accordingly <!-- .element: class="fragment" -->
+4. Be aware of what you do/don't tell test participants beforehand <!-- .element: class="fragment" -->
+5. <!-- .element: class="fragment" --> **RECORD THE TEST** (Screen capture) <!-- .element: class="fragment" -->
+6. Don't hover <!-- .element: class="fragment" -->
+7. Do a post- survey / interview. <!-- .element: class="fragment" -->
+
+
+---
+
+# Playtesting
+
+
+Marc Tattersall (Schell Games) Top 5 post-playtest Questions.
+
+1. What was your favorite moment or interaction? <!-- .element: class="fragment" -->
+1. What was your least favorite moment or interaction? <!-- .element: class="fragment" -->
+1. When did you feel the most clever? <!-- .element: class="fragment" -->
+1. Was there anything you wanted to do that the game wouldn't let you do? <!-- .element: class="fragment" -->
+1. If you had a magic wand and could change any aspect of the game or your experience, what would it be? Unlimited budget and time. <!-- .element: class="fragment" -->
 
 
 ---
@@ -159,7 +204,7 @@ Watch out for:
 - Gendered Languages
 - Player chat & Unicode
 
-![image](assets/images/MissingNo.png)
+
 
 ---
 

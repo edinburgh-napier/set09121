@@ -26,6 +26,7 @@ School of Computing. Edinburgh Napier University
 - Artificial Intelligence for Games. Second Edition. Millington and
     Funge (2009).
 
+
  ![image](assets/images/ai_book.jpg)
 
 
@@ -38,7 +39,8 @@ School of Computing. Edinburgh Napier University
     - Internal system interactions.
 - The goal is to be able to create a skeleton of the functionality before implementing it.
 
- ![image](assets/images/activity_diagram.png)
+
+ ![image](assets/images/activity_diagram.png) <!-- .element width="40%"  -->
 
 
 ---
@@ -79,12 +81,13 @@ School of Computing. Edinburgh Napier University
     - If the guard loses sight of the player, the guard will return to patrolling between point A and point B.
     - If the guard is hit, the guard will fall onto the ground and die.
 
+
  ![image](assets/images/simple_state_guard.png)
 
 
 ---
 
-## Decision Trees?
+## Decision Trees
 
 
 ---
@@ -118,7 +121,8 @@ School of Computing. Edinburgh Napier University
 
 # Decision Tree -- Diagram 
 
-![image](assets/images/guard_decisions.png)
+
+![image](assets/images/guard_decisions.png) <!-- .element width="85%"  -->
 
 
 ---
@@ -150,7 +154,8 @@ School of Computing. Edinburgh Napier University
 
 # Decision Tree -- Example 2 
 
-![image](assets/images/decision_tree.png)
+
+![image](assets/images/decision_tree.png) <!-- .element width="85%"  -->
 
 
 ---
@@ -172,6 +177,7 @@ School of Computing. Edinburgh Napier University
     - `makeDecision`
 - `makeDecision` is called by the `entity` which in turn calls `makeDecision` on any child nodes.
 
+
  ![image](assets/images/decision_tree_node.png)
 
 
@@ -183,7 +189,8 @@ School of Computing. Edinburgh Napier University
 - Their `makeDecision` method will call the `makeDecision` on one of the child nodes returned by `getBranch`.
 - `getBranch` is defined by the programmer based on required parameters.
 
- ![image](assets/images/decision_node_types.png)
+
+ ![image](assets/images/decision_node_types.png) <!-- .element width="80%"  -->
 
 ---
 
@@ -214,6 +221,8 @@ decisionTree = make_shared<PlayerVisibleDecision>(
          make_shared<WaitDecision>())
     );
 ```
+
+
 ![image](assets/images/guard_decisions.png)
 
 
@@ -238,16 +247,20 @@ decisionTree = make_shared<PlayerVisibleDecision>(
 
 # State Machine and Decision Tree
 
-![image](assets/images/simple_state_guard.png)
 
-![image](assets/images/guard_decisions.png)
+![image](assets/images/simple_state_guard.png)  <!-- .element width="60%"  -->
+
+
+
+![image](assets/images/guard_decisions.png)  <!-- .element width="60%"  -->
 
 
 ---
 
 # Combined Diagram 
 
-![image](assets/images/guard_decision_state.png)
+
+![image](assets/images/guard_decision_state.png) <!-- .element width="95%"  -->
 
 
 ---

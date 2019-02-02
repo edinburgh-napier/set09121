@@ -22,21 +22,24 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Release builds
+## Release builds
+
+![image](assets/images/gold-master.jpg) <!-- .element width="60%"  -->
+
 
 ---
 
 # Green Go button 
 Moving beyond the Green button.
 
-![image](assets/images/build_options.png)
+![image](assets/images/build_options.png) <!-- .element width="95%"  -->
 
 
 ---
 
 # Runtime-resources 
 
-![image](assets/images/build_folder.png)
+![image](assets/images/build_folder.png) <!-- .element width="70%"  -->
 
 
 ---
@@ -45,13 +48,13 @@ Moving beyond the Green button.
 
 Tidy up before you ship
 
-- Hide CMD window
-- Don't assume resolution
-- Launch windowed
-- Pipe Exceptions to an error window
-- Turn off any developer cheats
+- Hide CMD window <!-- .element: class="fragment" -->
+- Don't assume resolution <!-- .element: class="fragment" -->
+- Launch windowed <!-- .element: class="fragment" -->
+- Pipe Exceptions to an error window <!-- .element: class="fragment" -->
+- Turn off any developer cheats <!-- .element: class="fragment" -->
 
-This should be done automatically
+This should ideally be done automatically <!-- .element: class="fragment" -->
 
 
 ---
@@ -66,52 +69,62 @@ What does your game need, and where does it look for it?
 # static vs dynamic linking
 
 **Static Linking**
-- Larger .exe file
-- No .dll / .so's generated
-- Potential for better compiler optimisation
-- Lock the version of libs
+- Larger .exe file  <!-- .element: class="fragment" -->
+- No .dll / .so's generated <!-- .element: class="fragment" -->
+- Potential for better compiler optimisation <!-- .element: class="fragment" -->
+- Lock the version of libs <!-- .element: class="fragment" -->
 
 **Dynamic (Shared) linking**
-- Smaller .exe file
-- Libraries compiled to .dll
-- can reuse and share dlls already on the system
-- Modders can hack swap out your .dlls.
+- Smaller .exe file <!-- .element: class="fragment" -->
+- Libraries compiled to .dll <!-- .element: class="fragment" -->
+- can reuse and share dlls already on the system <!-- .element: class="fragment" -->
+- Modders can hack swap out your .dlls. <!-- .element: class="fragment" -->
 
 
 ---
 
 # Asset Pipeline 
 
-You may use different assets for release, or bundle them up into binary files.
+AAA studios do complicated things here.
 
-Off-line rendering at higher settings may take place.
+But even UE4/Unity have complicated final "cooking" steps that you will want to do.
 
-This should all be automated -- more on this later
+You may use different assets for release, or bundle them up into binary files. <!-- .element: class="fragment" -->
+
+Off-line rendering at higher settings could take place. <!-- .element: class="fragment" -->
+
+This should all be automated -- more on this later <!-- .element: class="fragment" -->
 
 
 ---
 
-#Installers
+# Installers
 
 Why?  You could just deploy your game as a Zip file
 
-1.  Contain all your game files inside a single runnable .exe file - typically compressed.
-2.  Show a dialogue wizard of some kind that let's the user select an installation folder.
-3.  Extract your game files to the selected folder.
-4.  Optionally create desktop/Start Menu Shortcuts.
+1.  Contain all your game files inside a single runnable .exe file - typically compressed. <!-- .element: class="fragment" -->
+2.  Show a dialogue wizard of some kind that let's the user select an installation folder. <!-- .element: class="fragment" -->
+3.  Extract your game files to the selected folder. <!-- .element: class="fragment" -->
+4.  Optionally create desktop/Start Menu Shortcuts. <!-- .element: class="fragment" -->
+4.  Install dependencies / registry values. <!-- .element: class="fragment" -->
 
 ---
 
-# Run as Admin 
+# Running as Admin 
 
-The only time your game should need Admin Privileges, and it should work without it.
+### HINT - This was a big issue last year.  <!-- .element: class="fragment" -->
 
+Windows requires elevated permissions to touch <!-- .element: class="fragment" --> `C:\ProgramFiles` <!-- .element: class="fragment" -->
+
+The only time your game should need Admin Privileges is the installer, and it should work without it if a user installs to a non-protected space. <!-- .element: class="fragment" -->
+
+Consider where your save-game files will go. <!-- .element: class="fragment" -->
 
 ---
 
 # How
 
-![image](assets/images/nullsoft.jpg)
+![image](assets/images/nullsoft.jpg) <!-- .element width="80%"  -->
 
 
 ---

@@ -58,6 +58,7 @@ School of Computing. Edinburgh Napier University
 
 - Each one of these works at a different level of data abstraction.
 
+
  ![image](assets/images/network-diagram.png)
 
 
@@ -68,10 +69,10 @@ School of Computing. Edinburgh Napier University
 - Networking works on a layered model.
     - Application data at the top layer.
     - Electrical signals at the bottom layer.
-- Each layer adds or extracts data to enable communication to occur.
-- As programmers, we rarely need to consider below level 3 -- network layer.
+- As programmers, we rarely need to consider below level 3.
 
-![image](assets/images/seven-layer.png)
+
+![image](assets/images/osi_layers.jpg) <!-- .element width="95%"  -->
 
 
 ---
@@ -108,9 +109,6 @@ School of Computing. Edinburgh Napier University
 - TCP guarantees acknowledgement of sent data -- this means we know that data has arrived if we don't get an error.
 - TCP is the most common distributed application protocol because of its guarantees.
 
-![image](assets/images/packet.jpg)
-
-
 
 ---
 
@@ -126,7 +124,8 @@ School of Computing. Edinburgh Napier University
 - The sever can now communicate directly with that client.
 - A server may have multiple clients that it is communicating with.
 
- ![image](assets/images/client-server.png)
+
+ ![image](assets/images/client-server.png) <!-- .element width="60%"  -->
 
 
 
@@ -165,6 +164,7 @@ School of Computing. Edinburgh Napier University
 - The server sends a SYN+ACK packet to acknowledge.
 - The client sends a ACK packet to acknowledge.
 - Communication is now established.
+
 
  ![image](assets/images/three-way.png)
 
@@ -226,6 +226,7 @@ School of Computing. Edinburgh Napier University
 - The game would wait until everyone has updated before moving onto the next move.
 - It was slow as you can guess.
 
+
  ![image](assets/images/p2p.png)
 
 
@@ -238,6 +239,7 @@ School of Computing. Edinburgh Napier University
 - Given that in a single "server" tick we know what the client has moved, we can interpolate the move by the next tick.
 - Propagate this amongst all clients and we should have a close approximation to reality.
 - Every so often send more complete data.
+
 
  ![image](assets/images/client-prediction.png)
 
@@ -256,31 +258,28 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-
----
-
 # TCP
 
-![image](assets/images/packet.jpg)
+![image](assets/images/packet.jpg) <!-- .element width="60%"  -->
 
 
 ---
 
 # UDP
 
-![image](assets/images/udp_packet.png)
+![image](assets/images/udp_packet.png) <!-- .element width="80%"  -->
 
 
 ---
 
 # TCP
 
-![image](assets/images/tcp_joke.png)
+![image](assets/images/tcp_joke.png) <!-- .element width="60%"  -->
 
 
 ---
 
-# # Synchronous versus Asynchronous Polling
+# Synchronous versus Asynchronous Polling
 
 - We can also change how we service connections.
 - Typically, we wait on a connection until data arrives.
@@ -349,6 +348,7 @@ School of Computing. Edinburgh Napier University
 - A better technique is to build a protocol.
 - Design your message types and the data that will go into the message.
 - This will allow simple messaging that can be managed easily with a few case statements.
+
 
  ![image](assets/images/protocol.png)
 
@@ -432,8 +432,8 @@ int main(int argc, char **argv) {
 # Summary
 
 - We have defined the issue of networking and discussed how we solve game networking issues.
-- We looked at how networking works by examining the layers and protocols.
-- We looked at how we do network programming by presenting sockets.
+- We looked at networking layers and protocols.
+- We looked at network sockets.
 - We looked at the limitations of networking by analysing the common metrics.
 - We looked at how we overcome these limitations in games by looking at communicating patterns and UDP.
 - We then discussed what data to send and how by discussing protocols.

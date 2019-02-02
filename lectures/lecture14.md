@@ -5,7 +5,7 @@ tags: [Lecture]
 permalink:  lecture14.html
 summary: lecture14
 layout: presentation
-presentationTheme: '/assets/revealJS/css/theme/napier_debug.css' 
+presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
@@ -31,6 +31,13 @@ School of Computing. Edinburgh Napier University
 
 ---
 
+## Pathfinding
+
+![image](assets/images/pathfinding.jpg)
+
+
+---
+
 # What is Pathfinding?
 
 - Pathfinding (or more specifically path planning) is a decision making process that feeds into the movement.
@@ -38,7 +45,6 @@ School of Computing. Edinburgh Napier University
 - Pathfinding is really the key ingredient to allow characters to navigate a map.
 - There is a good chance you have covered this before in AI or algorithms and data structures.
 
- ![image](assets/images/pathfinding.jpg)
 
 
 ---
@@ -58,11 +64,12 @@ School of Computing. Edinburgh Napier University
 # Pathfinding Costs
 
 - Maps are very big today -- some over $100km^2$.
-- If each square metre was given a navigation point that is $10^8$ points.
-- If we can travel in eight directions at each point things get very expensive.
-- Generally we are looking for simplifications to make things more efficient.
+- If each square metre was a navigation point that's $10^8$ points.
+- If we can travel in eight directions, things get very expensive.
+- Generally we are looking for simplifications to combat this.
 
- ![image](assets/images/witcher3_map.jpg)
+
+ ![image](assets/images/witcher3_map.jpg) <!-- .element width="40%"  -->
 
 
 ---
@@ -93,13 +100,14 @@ School of Computing. Edinburgh Napier University
 
 # Weighted Graphs
 
-- For pathfinding (or shortest path in a graph) we are concerned with the cost.
-- The cost of a path is dependant on some factor (in games normally the distance) that allows us to determine what the cheapest path is.
-- We consider that an edge has a cost associated with it -- the weight.
-- To traverse an edge means to incur the cost of that traversal.
-- In our pathfinding each traversal will have a cost of one.
+- For pathfinding we are concerned with the cost.
+- The cost of a path is dependant on some factors (in games normally the distance) that allows us to determine what the cheapest path is.
+- We consider that an edge has a cost associated with it (weight)
+- To traverse an edge means to incur the cost of that traversal
+- In our pathfinding each traversal will have a cost of one
 
-![image](assets/images/weighted-graph.png)
+
+![image](assets/images/weighted-graph.png) <!-- .element width="60%"  -->
 
 
 ---
@@ -111,7 +119,7 @@ School of Computing. Edinburgh Napier University
 - We won't use this, but it does exist in games.
     - For example, jumping down a ledge you cannot get back up.
 
-![image](assets/images/directed-graph.png)
+![image](assets/images/directed-graph.png)  <!-- .element width="60%"  -->
 
 
 ---
@@ -123,7 +131,7 @@ School of Computing. Edinburgh Napier University
 - We will use the data directly and build up our path incrementally from the level data.
 - The algorithm should be reusable though -- you just need to specify where you are getting the data from.
 
-![image](assets/images/tile-path.jpg)
+![image](assets/images/tile-path.jpg)  <!-- .element width="60%"  -->
 
 
 ---
@@ -149,26 +157,23 @@ School of Computing. Edinburgh Napier University
 # Dijkstra's Algorithm
 
 - Defined by Edsger Dijkstra in 1956.
-- Is an algorithm to find the shortest path between two nodes in a graph.
-    - For a game, find the shortest path between two locations as described with a graph.
+- An algorithm to find the shortest path between two nodes in a graph.
+    - For a game, find the shortest path between two locations.
 - An extension to the algorithm allowed finding of all the paths from a source node.
     - In other words, how do we get to each of the nodes in the shortest time.
 - This algorithm is not only used for pathfinding in games.
     - Google Maps will use something similar for moving in road networks.
     - Network routing protocols will use such an algorithm.
-- In fact, Dijkstra is rarely used in games -- but the basic principles are.
-    - We will cover A* shortly.
+- Dijkstra is rarely used in games -- but the basic principles are.
 
 ---
 
-# Dijkstra's Algorithm
-
- Dijkstra's algorithm has 6 steps:
+# Dijkstra's Algorithm - 6 steps
 1.  Mark all nodes as initially unvisited. Use this to create the set of *unvisited* nodes.
 2.  Set distances for the nodes:
     - Initial node (current node) distance is 0.
     - Other nodes set to infinity.
-3.  For the current node look at all the connected neighbours. Use this to determine a tentative distance from the current node. Update the neighbours distances if the new route is shorter.
+3.  For the current node look at connected neighbours. Use to determine a tentative distance from the current node. Update the neighbours distances if the new route is shorter.
 4.  Mark current node as visited (remove from *unvisited* set). We will not visit this node again.
 5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite distance, stop.
 6.  Else select unvisited node with smallest tentative distance from the initial node and set as current node. Go to step 3.
@@ -182,14 +187,15 @@ School of Computing. Edinburgh Napier University
 - It iterates through nodes based on which one has the shortest distance from the start node.
 - This means it is not actively searching for the destination but doing a traversal of the graph until it happens to find it.
 
+
  ![image](assets/images/dijkstra.png)
 
 
 ---
 
 # Example -- Dijkstra at Work
-[[Link]{style="color: blue"}](https://youtu.be/dhvf9KCAsVg)
 
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/dhvf9KCAsVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
@@ -223,9 +229,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# A*
-
- A* also has 6 steps:
+#  A* also has 6 steps:
 
 1.  Mark all nodes as initially unvisited. Use this to create the set of *unvisited* nodes.
 2.  Set values for the nodes:
@@ -247,14 +251,16 @@ School of Computing. Edinburgh Napier University
 - However, in the worst-case A* still might have to search the entire graph.
     - We still have $\mathcal{O}(\lvert V \rvert^2)$ complexity.
 
- ![image](assets/images/astar.png)
+
+ ![image](assets/images/astar.png) <!-- .element width="40%"  -->
 
 
 ---
 
 # Example -- A* at Work
-[[Link]{style="color: blue"}](https://youtu.be/19h1g22hby8)
 
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/19h1g22hby8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
@@ -264,19 +270,19 @@ School of Computing. Edinburgh Napier University
 - The one we will use is Euclidean distance (straightline):
     $$h = destination - position $$
 - Another is Manhattan distance: 
- - $$ d &= destination - position $$
- - $$ h &= \lvert d.x \rvert + \lvert d.y \rvert $$
+ - $$ d = destination - position $$
+ - $$ h = \lvert d.x \rvert + \lvert d.y \rvert $$
 - This might be more useful -- it is movement through a grid (either vertical or horizontal movement, no diagonal). Each movement costs 1 unit.
 - Chebyshev distance is similar to Manhattan but allows diagonal movement:
- - $$ d &= destination - position $$
- - $$ h &= \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
+ - $$ d = destination - position $$
+ - $$ h = \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
 
 
 ---
 
 # A* versus Dijkstra
-[[Link]{style="color: blue"}](https://youtu.be/g024lzsknDo)
 
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/g024lzsknDo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
@@ -293,7 +299,8 @@ School of Computing. Edinburgh Napier University
     - A list of nodes to visit (better for continuous movement).
 - We will take the latter approach.
 
- ![image](assets/images/graph-walk.png)
+
+ ![image](assets/images/graph-walk.png) <!-- .element width="40%"  -->
 
 
 ---

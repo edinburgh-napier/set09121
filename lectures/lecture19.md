@@ -42,11 +42,11 @@ School of Computing. Edinburgh Napier University
 - "We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."
 - "In established engineering disciplines a 12% improvement, easily obtained, is never considered marginal and I believe the same viewpoint should prevail in software engineering."
 
--Basically, Knuth argues that we should not let performance considerations determine the design of our code -- it makes the code more difficult to work with.
+Basically, Knuth argues that we should not let performance considerations determine the design of our code -- it makes the code more difficult to work with.
 
- I think a good rule for the module is -- get your game working first; then worry about extra features and performance optimisation.
+I think a good rule for the module is -- get your game working first; then worry about extra features and performance optimisation.
 
- A good approach is to design-build-measure-optimise. This will give simpler results that optimise first.
+A good approach is to design-build-measure-optimise. 
 
 
 
@@ -59,8 +59,8 @@ School of Computing. Edinburgh Napier University
 - Applied to programming, we can say that 80% of processor time will happen in 20% of our code.
 - It does make sense -- loops normally are the biggest area of computation in your application.
 
- ![image](assets/images/80-20.jpg)
 
+ ![image](assets/images/80-20.jpg) <!-- .element width="60%"  -->
 
 ---
 
@@ -83,11 +83,11 @@ School of Computing. Edinburgh Napier University
 
 Release mode and run without debug
 
-- Let's face it -- you like spamming that green start button.
 - Some student's don't understand that a program can execute outside Visual Studio.
-- More don't realise that Visual Studio hooks into an application it is running.
+- More don't realise that Visual Studio hooks into an application.
 - Also, debug builds add extra code to interrogate state -- this slows down programs.
 - So, don't do it in final builds.
+
 
  ![image](assets/images/run-no-debug.jpg)
 
@@ -96,7 +96,7 @@ Release mode and run without debug
 
 # Second big trick 
 
-avoid I/O or do it better
+Avoid I/O or do it better
 
 - During debugging, we often output values to the console to check behaviour.
 - I/O like this is very slow, requiring your program to interact with the OS and present data.
@@ -111,11 +111,11 @@ avoid I/O or do it better
 
 # Metrics
 
-- Let us define some metrics that allow us to talk about performance for games.
+- Let's define metrics that allow us to talk about performance .
 - FPS: Frames-Per-Second. 
-    - The key measure most gamers like to talk about. The typical FPS displayed is the number of frames processes per second. Your monitor/TV and graphics card define how many frames you are actually shown per second (60, 120, 240, etc.).
+    - The key measure most gamers like to talk about. The typical FPS displayed is **average** the number of frames processes per second. 
 - Frame Time:  
-    - This is actually what we are interested in. How long does it take the game to produce and render a frame? Typically we aim for 16.7ms (60FPS) or 33.3ms (30FPS).
+    - This is actually what we are interested in. How long does it take the game to produce and render a **single** frame? Typically we aim for 16.7ms (60FPS) or 33.3ms (30FPS).
 - Speedup
     -  When we make an improvement we need to understand what that improvement is. Speedup is the calculation of the original time against the new time. It is calculated as $S=\frac{original}{new}$.
 
@@ -210,20 +210,25 @@ if (dirty flag is true) {
 - Spatial partitioning allows us to divide the world up so we only render the parts that are visible.
 - Also used for collision detection optimisation.
 
-![image](assets/images/spatial-partition.png)
+![image](assets/images/spatial-partition.png) <!-- .element width="80%"  -->
 
 
 ---
 
 # Example -- Horizon Zero Dawn
-[[Link]{style="color: blue"}](https://kotaku.com/horizon-zero-dawn-uses-all-sorts-of-clever-tricks-to-lo-1794385026)
 
+<video class="middle" width="960" height="540" loop autoplay>
+  <source src="assets/videos/horizon.mp4" type="video/mp4">
+</video>
 
 
 ---
 
 ## Step 3. -- Think about your memory
-==================================
+
+---
+
+# Memory
 
 Allocate Your Required Memory First
 - We have mentioned this a few times now.
@@ -298,9 +303,10 @@ for (int i=0; i < 32; i++)
 
 # Finding Hot Paths -- Using Tools
 
-Basically, tools do a good job of finding places in your code that are slowing things down.
+Tools do a good job of finding code that is slowing things down.
 
- ![image](assets/images/hot-path.png)
+
+![image](assets/images/hot-path.png) <!-- .element width="80%"  -->
 
 
 ---
@@ -312,16 +318,18 @@ Basically, tools do a good job of finding places in your code that are slowing t
 - Often, these bottlenecks are loops that are processing lots of data.
 - Even a small tweak here can make all the difference.
 
+
  ![image](assets/images/bottleneck.jpg)
 
 
 ---
 
-#Algorithmic Analysis
+# Algorithmic Analysis
 
 - And this is where algorithmic analysis can come in.
 - Abstractly measuring your algorithms, finding more efficient algorithms, and optimising the algorithms you have is important.
 - See your algorithms and data structures material for more insight.
+
 
  ![image](assets/images/alg-analysis.jpg)
 
@@ -341,7 +349,8 @@ Basically, tools do a good job of finding places in your code that are slowing t
     2.  Jump to the new code position.
 - On return there is a jump back again.
 
- ![image](assets/images/function-call.png)
+
+ ![image](assets/images/function-call.png) <!-- .element width="25%"  -->
 
 
 ---
@@ -391,6 +400,7 @@ Basically, tools do a good job of finding places in your code that are slowing t
 - `virtual` functions have an additional cost.
 - A `virtual` function call involves a lookup on the object to determine which function to call.
 - Effectively we are double jumping in this instance.
+
 
  ![image](assets/images/virtual-function.png)
 
