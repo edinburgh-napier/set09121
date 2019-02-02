@@ -168,3 +168,24 @@ entries:
     - title: Lecture 13 - Steering
       url: /lecture13.html
       output: web
+    - title: Lecture 14 - Pathfinding
+      url: /lecture14.html
+      output: web
+    - title: Lecture 15 - State Machines
+      url: /lecture15.html
+      output: web
+    - title: Lecture 16 - Decision Trees
+      url: /lecture16.html
+      output: web
+    - title: Lecture 17 - Releasing your game
+      url: /lecture17.html
+      output: web
+    - title: Lecture 18 - QA & TRC
+      url: /lecture18.html
+      output: web
+    - title: Lecture 19 - Performance
+      url: /lecture19.html
+      output: web
+    - title: Lecture 20 - Networking
+      url: /lecture20.html
+      output: web
