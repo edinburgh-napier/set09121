@@ -28,15 +28,15 @@ School of Computing. Edinburgh Napier University
 # What does a game need? From a Programmers point of view:
 
 - **Content**
- - *3d Models*, *Shaders*, Textures, Text, Fonts, Music, Video, Saves, levels/gamestate.
+ - 3d Models, Shaders, Textures, Text, Fonts, Music, Video, Saves, levels/gamestate. <!-- .element: class="fragment" -->
 - **Processing & io**
- - Rendering, User input, Networking, Audio, loading/unloading/streaming
+ - Rendering, User input, Networking, Audio, loading/unloading/streaming  <!-- .element: class="fragment" -->
 - **Logic and Mechanics**
- - Physics, AI, Gameplay rules.
+ - Physics, AI, Gameplay rules. <!-- .element: class="fragment" -->
 
 
-**Question**:  When does a game need any of the above?
-- **A: Right Now** (and without warning)
+Question:  When does a game need any of the above? <!-- .element: class="fragment" -->
+- **A: Right Now (and without warning)**  <!-- .element: class="fragment" -->
 
 
 ---
@@ -48,18 +48,18 @@ School of Computing. Edinburgh Napier University
 
 # Complexity
 
-![image](assets/images/2d_engine_architecture.png) <!-- .element height="760px"  -->
+<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture.png)</a> <!-- .element height="760px"  -->
 
 
 ---
 
 # Combating the Complexity
 
-- Game Codebases Get Big Fast
-- Taming and maintaing it tests your Ability as a Software Engineer
-- We've covered some Software patterns that you can pull out of your toolbox to help.These help solve small isolated design problems.
-- When it comes to pulling it all together as one giant moving thing, you need to think about the grand design of your *Engine*
-- This means separating your gameplay logic from the Generic Engine logic.
+- Game Codebases Get Big Fast <!-- .element: class="fragment" -->
+- Taming and maintaing it tests your Ability as a Software Engineer <!-- .element: class="fragment" -->
+- We've covered some Software patterns that you can pull out of your toolbox to help.These help solve small isolated design problems. <!-- .element: class="fragment" -->
+- When it comes to pulling it all together as one giant moving thing, you need to think about the grand design of your Engine <!-- .element: class="fragment" -->
+- This means separating your gameplay logic from the Generic Engine logic. <!-- .element: class="fragment" -->
 
 
 ---
@@ -78,20 +78,20 @@ School of Computing. Edinburgh Napier University
 # Abstraction - And so we build Games Engines
 
 - But do we need them?
- - ...We didn't always have them.
+ - ...We didn't always have them. <!-- .element: class="fragment" -->
 
-Q: How complex do you think a game needs to before you think you need to sperate Engine Code?
+Q: How complex do you think a game needs to before you think you need to sperate Engine Code? <!-- .element: class="fragment" -->
 
-- A: `¯\_(ツ)_/¯`
-- A: Once your code gets abstract enough
-- A: From the start
-- A: Never, and write some crazy fast/bad code
+- `¯\_(ツ)_/¯` <!-- .element: class="fragment" -->
+- A: Once your code gets abstract enough <!-- .element: class="fragment" -->
+- A: From the start <!-- .element: class="fragment" -->
+- A: Never, and write some crazy fast/bad code <!-- .element: class="fragment" -->
 
-Not all Games Need an 'engine'
+Not all Games Need an 'engine' <!-- .element: class="fragment" -->
 
-- Some are simplistic enough to not need it.
-- We already have an engine somewhat: SFML. 
- - This is already isolated from our code. But it doesn't do Everything we need.
+- Some are simplistic enough to not need it. <!-- .element: class="fragment" -->
+- We already have an engine somewhat: SFML.  <!-- .element: class="fragment" -->
+ - This is already isolated from our code. But it doesn't do Everything we need. <!-- .element: class="fragment" -->
 
 ---
 
@@ -111,9 +111,9 @@ OO is Hammered into you since 1st year, as the solution to software complexity.
 
 ![image](assets/images/software_development.png)
 
-... But it's not perfect.
+... But it's not perfect. <!-- .element: class="fragment" -->
 
-Enter: The Evil Tree Problem
+Enter: The Evil Tree Problem <!-- .element: class="fragment" -->
 
 ---
 
@@ -126,10 +126,10 @@ Enter: The Evil Tree Problem
 # Possible Evil Tree Solutions
 
 To Fix this We need either:
-- Multiple Inheritance (Which c++ doesn't have)
-- Or Interfaces (Which c++ doesn't have)
-
-C++ as a language doesn't have these natively, but it doesn't stop us from adding it ourselves.
+- Multiple Inheritance (Which c++ doesn't have) <!-- .element: class="fragment" -->
+- Or Interfaces (Which c++ doesn't have) <!-- .element: class="fragment" -->
+ 
+C++ as a language doesn't have these natively, but it doesn't stop us from adding it ourselves. <!-- .element: class="fragment" -->
 
 
 ---
