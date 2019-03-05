@@ -111,9 +111,13 @@ These both have their own scripting language that you will have to learn. Which 
 
 ### Automating With CMake
 
-If you thought we were done with CMake forever, almost, but not yet.
+**THIS IS OPTIONAL ADVANCED STUFF**
 
-This is optional, but CMake also supports building installer scripts for us. This saves you learning a new scripting language, the downside of this is that we have to get stuck into some advanced CMake tricks.
+You can totally omit this and just hand-build your installer scripts, but if you want to become a CMake Wizard, read on:
+
+---
+
+CMake also supports building installer scripts for us. This saves you learning a new scripting language, the downside of this is that we have to get stuck into some advanced CMake tricks.
 
 The following code and examples can be seen in action at this repo: [github.com/dooglz/Astral_Insanity](https://github.com/dooglz/Astral_Insanity
 
