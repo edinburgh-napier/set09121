@@ -126,6 +126,9 @@ entries:
     - title: Cmake Tricks
       url: /cmake_tips.html
       output: web
+    - title: Resolution Scaling
+      url: /resolution.html
+      output: web
   - title: Lectures
     output: web
     folderitems:
