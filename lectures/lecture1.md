@@ -60,13 +60,13 @@ sneaky little slide down here
 
 # Why Not Just Use Unity/Unreal?
 
-* Because some people need to make Unity/Unreal!
+* Because some people need to make Unity/Unreal! <!-- .element: class="fragment" -->
 
-* No, really. Engine teams are still a huge employment area
+* No, really. Engine teams are still a huge employment area <!-- .element: class="fragment" -->
 
-* More widely: It's important for everyone to understand how engines work
+* It's important for everyone to understand how engines work <!-- .element: class="fragment" -->
 
-* It will help you even if you use a pre-made engine
+* It will help you even if you use a pre-made engine <!-- .element: class="fragment" -->
 
 ---
 
