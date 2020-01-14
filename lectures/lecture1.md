@@ -78,8 +78,8 @@ sneaky little slide down here
 # Structure -- Lectures
 
 - Two one-hour lectures a week.  <!-- .element: class="fragment" -->
-    - Thursday @ 9am in B32.  
-    - Thursday @ 1pm in G2.  
+    - Wednesday @ 9am in D2 (The Code Lab).  
+    - Wednesday @ 12pm in D2 (The Code Lab).  
 - Attendance at both lectures is mandatory -- this is not a repeat lecture.  <!-- .element: class="fragment" -->
 - Lectures will cover:  <!-- .element: class="fragment" -->
     - Game design concepts. 
@@ -93,7 +93,7 @@ sneaky little slide down here
 # Structure -- Practical Sessions
 
 - Two-hour practical session. <!-- .element: class="fragment" -->
-    - Thursday @ 10am.
+    - Wednesday @ 10am.
 - Practicals take place in D2 (The Code Lab). <!-- .element: class="fragment" -->
 - Labs will help you develop the engine you need to use for the coursework. <!-- .element: class="fragment" -->
     - 2D development with SFML.
@@ -329,15 +329,12 @@ sneaky little slide down here
 
 MY  EMAIL 
 
-**S.Serrels@Napier.ac.uk**
+**T.Methven@Napier.ac.uk**
 
 
-*Please don't add me on facebook*. It's Weird.
-
-
-- I am generally responsive to queries so ask as soon as you have any issues.
 - The best time to ask for help is during the practical sessions.
 - Try and complete the practical before the class and then ask questions during the lab time.
+- In other words: make sure you work on this outside the assigned time!
 
 
 ---
