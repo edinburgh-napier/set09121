@@ -81,7 +81,7 @@ entries:
     - title: Pathfinding
       url: /lab8_2.html
       output: web
-  - title: 9 AI - States & Descisions
+  - title: 9 AI - States & Decisions
     output: web
     folderitems:
     - title: State Machines
