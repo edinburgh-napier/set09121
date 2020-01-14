@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -387,7 +389,7 @@ To do this, you must have knowledge of the following things:
 
 <!-- .element: class="fragment" -->
 <br>
-Submitting a game that doesn't run, due to something like missing .DLLs will loose you serious marks. <!-- .element: class="fragment" -->
+Submitting a game that doesn't run, due to something like missing .DLLs will lose you serious marks. <!-- .element: class="fragment" -->
 
 
 
