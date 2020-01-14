@@ -31,7 +31,7 @@ What we have done here is store a 2D vector of the **velocity** (speed+direction
 Which is just simple physics.
 
 I've introduced another piece of logic, the 'server' boolean. This decided which direction the ball starts moving at the start of the game. 
-The weird piece of code that you added to the load function is an 'inline IF statement'. It's just the same as a IF block, but in one line. If the statement before the ? is true, then ballVelocity.x is set to -100, if server is false, ballVelocity.x = 60.0f.  
+The weird piece of code that you added to the load function is an 'inline IF statement'. It's just the same as a IF block, but in one line. If the statement before the ? is true, then ballVelocity.x is set to 100.0f, if server is false, ballVelocity.x = -100.0f. Note that ballVelocity.y is always the same at 60.0f!
 
 
 ## Ball collision
