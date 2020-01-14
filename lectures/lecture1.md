@@ -58,6 +58,18 @@ sneaky little slide down here
 
 ---
 
+# Why Not Just Use Unity/Unreal?
+
+* Because some people need to make Unity/Unreal!
+
+* No, really. Engine teams are still a huge employment area
+
+* More widely: It's important for everyone to understand how engines work
+
+* It will help you even if you use a pre-made engine
+
+---
+
 # Learning Outcomes
 
 
