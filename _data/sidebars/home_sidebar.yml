@@ -102,7 +102,7 @@ entries:
   - title: 11 Netwokring
     output: web
     folderitems:
-    - title: Netwokring
+    - title: Networking
       url: /lab11.html
       output: web
   - title: Tips And tricks

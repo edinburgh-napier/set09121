@@ -19,7 +19,7 @@ exclude:
 # these are the files and directories that jekyll will exclude from the build
 
 feedback_subject_line: Games Engineering Documentation
-feedback_email: s.serrels@napier.ac.uk
+feedback_email: t.methven@napier.ac.uk
 
 highlighter: rouge
 # library used for syntax highlighting

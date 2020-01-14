@@ -16,7 +16,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### Welcome
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br><br>
+(Material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -346,7 +348,7 @@ MY  EMAIL
 - We brought this back as we thought it was fundamental for the Games Development students.
 - But for everyone else we hope you will learn:
     - How games work and how you can put them together.
-    - How to do software engineering properly (from Kevin and Sam's point of view!)
+    - How to do software engineering properly (from Kevin, Tom and Sam's point of view!)
 
 		
 
