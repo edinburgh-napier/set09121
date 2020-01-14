@@ -99,7 +99,7 @@ entries:
     - title: CI
       url: /lab10_2.html
       output: web
-  - title: 11 Netwokring
+  - title: 11 Networking
     output: web
     folderitems:
     - title: Networking
