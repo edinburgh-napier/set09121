@@ -108,7 +108,7 @@ sneaky little slide down here
 
 # Coursework
 
-- Out Now!
+- Out Next Week (hopefully)!
 
 - Develop a game using the game engine.
     - **You cannot use one of our samples and just change the graphics**, or likewise with samples for SFML, Box2D, etc. -- this will be a **FAIL**!
