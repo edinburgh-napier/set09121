@@ -27,11 +27,12 @@ This means that Ship will have all the same methods as a sf::sprite, including a
 
 ### Create Ship.h
 
-Create a file inside the invaders source folder called "ship.h". **Remember to ensure this new file ends up in your source directory, not the build directory. Check out Part 1 of this lab for a reminder** 
-This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). The reason we do this is to keep the logic of the class stored inside a .cpp file, while any piece of code that wants to access this functionality only needs the header. This concept does not exist inside Java or C#, wherein you provide the full definition of a function inside a class, in the one file. The is parsed for you, and allows other classes to link to it. C++ is not so nice! For example, you might have already noticed in the Pong example that if you put functions **after** those that call them, it will not work. It is totally possible to work in a more C# fashion but, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Instead, we are going to work in the more industry standard style that is likely older than most of you!
+Create a file inside the invaders source folder called "ship.h". **Remember to ensure this new file ends up in your source directory, not the build directory. Check out Part 1 of this lab for a reminder**.
+
+This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). The reason we do this is to keep the logic of the class stored inside a .cpp file, while any piece of code that wants to access this functionality only needs the header. This concept does not exist inside Java or C#, wherein you provide the full definition of a function inside a class, in the one file. The is parsed for you, and allows other classes to link to it. C++ is not so nice! For example, you might have already noticed in the Pong example that if you put functions *after* those that call them, it will not work. It is totally possible to work in a more C# fashion but, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Instead, we are going to work in the more industry standard style that is likely older than most of you!
 
 
-Anyway, Inside Ship.h get this written down:
+Anyway, Inside Ship.h write this:
 
 ```cpp 
 //ship.h
@@ -46,16 +47,16 @@ protected:
 public:
     //Constructor that takes a sprite
     explicit Ship(sf::IntRect ir);
-    //Pure virtual deconstructor -- makes this an abstract class
+    //Pure virtual deconstructor -- makes this an abstract class and avoids undefined behaviour!
     virtual ~Ship() = 0;
-    //Update, virtual so can be overrided, but not pure virtual
+    //Update, virtual so can be overridden, but not pure virtual
     virtual void Update(const float &dt);
 };
 ```
 
 ### Create Ship.cpp
 
-Next to our ship.h, create ship.cpp
+Next to our ship.h, create ship.cpp - this will cause errors for now, but we'll fix them in a second!
 
 ```cpp 
 //ship.cpp
@@ -94,7 +95,7 @@ constexpr uint16_t invaders_columns = 12;
 extern sf::Texture spritesheet;
 ```
 
-We are defining some common variables here as constant, which is fine. The interesting bit is the 'extern spritesheet', this tells anyone that includes game.h that a sprite-sheet exists 'somewhere". That somewhere is main.cpp, and the compiler will figure this out for us when we need to access it from ship.cpp.
+We are defining some common variables here as constant, which is fine. The interesting bit is the 'extern spritesheet', this tells anyone that includes game.h that a sprite-sheet exists 'somewhere". That somewhere is main.cpp, and the compiler will figure this out for us when we need to access it from ship.cpp. What do you think you need to do now to fix the errors in the ship.cpp file?
 
 **Remember to reload CMake via Zero\_check to add our new files to the build**
 
