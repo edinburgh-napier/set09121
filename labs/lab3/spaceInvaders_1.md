@@ -117,6 +117,8 @@ void Render() {
 }
 ```
 
+At this stage, you might find your code doesn't run because of the *cerr* call. That's normal, and it is to do with the fact that the cerr is not part of core C++, it's a helper object from the standard (std) library. To explain it fully would be out of the scope of this lab, so you can think of it as being the equivalent of the *System.out.println* or *Debug.Log* functions you might be more used to - it allows us to print to the console. As such, it is IO functionality, and so we need to include the correct library for this to work. I'll leave you to find out which one you need!
+
 Totally easy. Take note of this line:
 
 ```cpp
@@ -126,6 +128,8 @@ sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is dived into squares of32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite.
 
 Note that the invader doesn't take up the whole 32x32 square, it's surrounded by transparent pixels. SFML takes care of doing the rendering with correct modes so as to cuts out the background, but we may have to be careful when it comes to physics and collision code.
+
+
 
 
 # Checkpoint
