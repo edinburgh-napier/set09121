@@ -9,11 +9,11 @@ sidebar: home_sidebar
 
 ## Creating the Ship Class
 
-It's been a long journey since we wrote some space invaders code, let's get back to it. As with all software projects, as the complexity of the software grows, so do the potential different ways to implement it. That is to say, this may not be the best way to implement space invaders, we like to think it's at least a 'good' way. The point of building it this way is to expose you to many different aspects of C++ OO. Any programmer worth their salt will have an opinion on how they could improve someone elses code, and if you feel at the end of this that you have some ideas, then this lesson was successful.
+Okay, now you have your sprite loaded (right?) it's time to start on the actual game. As with all software projects, as the complexity of the software grows, so do the potential different ways to implement it. That is to say, while this may not be the best way to implement space invaders, we like to think it's at least a 'good' way. The point of building it this way is to expose you to many different aspects of C++ OO. Any programmer worth their salt will have an opinion on how they could improve someone elses code, and if you feel at the end of this that you have some ideas, then this lesson was successful.
 
 ### Let's go OO
 
-We are going to need at least two different entities for our invaders game. Invaders and the player. Invaders are all identical other than their starting position and sprite. They also exhibit some non-trivial individual logic. Your software engineering brain should be starting to form the basis for properties and methods of the invader class by this point. To add to the fun, consider the player, and how similar it is also to the invader. they both shoot bullets, move, and can explode. This sounds like inheritance should be joining this party.
+We are going to need at least two different entities for our invaders game. Invaders and the Player. Invaders are all identical other than their starting position and sprite. They also exhibit some non-trivial individual logic. Your software engineering brain should be starting to form the basis for properties and methods of the invader class by this point. To add to the fun, consider the player, and how similar it is also to the invader. They both shoot bullets, move, and can explode. It sounds like inheritance should be joining this party.
 
 The way we are going to go about this to have an *abstract base class*
 **Ship**, which is inherited from by a **Player** class and an
@@ -21,13 +21,15 @@ The way we are going to go about this to have an *abstract base class*
 
 ### Functionality of the Ship
 
-The ship class will contain all logic that is common for both the player and invaders. Primarily this will be \"moving around\". We could go with the full entity model and have Ship be a base class, with variables for it's position and rotation and such. We would then also have a sf::Sprite member attached where we would call upon all the SFML render logic. This is a good idea -- for a larger game. For space invaders that would involve lot's of code to keep the sprite in sync with the ship Entity. Instead we are going to take a super short cut, and inherit for sf::sprite.
+The ship class will contain all logic that is common for both the player and invaders. Primarily this will be \"moving around\". We could go with the full entity model and have Ship be a base class, with variables for it's position and rotation and such. We would then also have a sf::Sprite member attached where we would call upon all the SFML render logic. This is a good idea -- for a larger game. For space invaders that would involve lots of code to keep the sprite in sync with the ship Entity. Instead we are going to take a super short cut, and inherit from sf::sprite.
 
-This means that Ship will have all teh same methods as a sf::sprite, including all the usual 'SetPostition()' and 'move()' commands we have been using already. It also means we can pass a ship object directly to window.draw().
+This means that Ship will have all the same methods as a sf::sprite, including all the usual 'SetPostition()' and 'move()' commands we have been using already. It also means we can pass a ship object directly to window.draw().
 
 ### Create Ship.h
 
-Create a file inside the invaders source folder called "ship.h". This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). the reason we do this is to keep the logic of the class stored inside a .cpp file, any piece of code that want's to access this functionality only needs the header. This concept does not exist inside java or C#, wherein you provide the full definition of a function inside a class in one file. the code runtime parses this and allows other classes to link to it. C++ is not so nice, and while this is totally possible to work in this fashion, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Ask in the lab if you would like to know more.
+Create a file inside the invaders source folder called "ship.h". **Remember to ensure this new file ends up in your source directory, not the build directory. Check out Part 1 of this lab for a reminder** 
+This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). The reason we do this is to keep the logic of the class stored inside a .cpp file, while any piece of code that wants to access this functionality only needs the header. This concept does not exist inside Java or C#, wherein you provide the full definition of a function inside a class, in the one file. The is parsed for you, and allows other classes to link to it. C++ is not so nice! For example, you might have already noticed in the Pong example that if you put functions **after** those that call them, it will not work. It is totally possible to work in a more C# fashion but, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Instead, we are going to work in the more industry standard style that is likely older than most of you!
+
 
 Anyway, Inside Ship.h get this written down:
 
