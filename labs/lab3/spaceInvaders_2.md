@@ -164,6 +164,8 @@ Up to here, I've been including the include statements you'll need too - from he
 
 Important note, we used the New() operator here, which created the ship on the heap. If we wanted a stack version, we omit the new New and would use Invader 'inv = Invader()'.
 
+# Calling Update and Render
+
 As we are storing the invader in a vector that will also later contain the player, this vector cannot be of type Invader. Instead, we need to use the base class that both inherit from - the Ship class. The way we have set this up, however, we can't create a vector<Ship>, as that would try to construct an abstract class. Instead, we create a vector of pointers to the objects!
 
 Anyway, now we need to call the update function for all of our ships every frame. Due to polymorphism this is very simple: as *Update()* is a virtual function, when we call *Update()* on a Ship pointer it will run the *Update()* function of whatever is being pointed to. In other words, if we call *Update()* on an item in a *vector<\*Ship>* collection, and the Ship object that is pointed to is an Invader, then the *Update()* function in the Invader class is called. If it is a Player object, the *Update()* function in the Player class is called. Got that? 
