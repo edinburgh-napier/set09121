@@ -140,7 +140,7 @@ You should have a separate project setup and working, and showing this:
 ![image](assets/images/space_invaders_sprite.png)
 
 {:class="important"}
-**Don't continue on untill you have this working** 
+**Don't continue on until you have this working** 
 
 ## Oh... it's not working? I'm just getting a white square...
 
