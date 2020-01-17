@@ -319,11 +319,11 @@ The game wouldn't be very difficult (or possible) without bullets firing around.
 - The bullets explode any ship they touch
 - After exploding the bullets disappear
 
-If we look at our sprite-sheet we have two different bullet sprites. SFML can do some colour replacement, so if we wanted we could use the same white sprites for both bullet types and get SFML to colour tehm differently. However we want the two bullet types to look physically different so we will use two different sprites. So for wahtevr we decide to go with for our software design, we will be inheriting from sf::sprite again.
+If we look at our sprite-sheet we have two different bullet sprites. SFML can do some colour replacement, so if we wanted we could use the same white sprites for both bullet types and get SFML to colour them differently. As we want the two bullet types to look physically different, however, we will use two different sprites. Whatever visuals we decide to go with, for our software design we will be inheriting from sf::Sprite again.
 
-That's rendering out of the way, now just movement and explosions to figure out. It would be tempting to do as we did with Ship and have two sublcasses for invader and player bullets. But as they are both so similar, the only difference being the direction they travel and who they collide with, having a three class structure would be overkill. Sometimes rigorously following OO patterns isn't the best way forward. So instead we will build just bullet class.
+That's the plan for rendering out of the way, so now just movement and explosions to figure out! It would be tempting to do as we did with Ship and have two sublcasses for invader and player bullets. But as they are both so similar (the only difference being the direction they travel and who they collide with) having a three class structure would be overkill. Sometimes rigorously following OO patterns isn't the best way forward, especially with games. So instead we will build just bullet class.
 
-Here we go, create a bullet.h and bullet.cpp
+Create a bullet.h and bullet.cpp and add the following:
 
 ```cpp 
 //bullet.h
@@ -357,6 +357,9 @@ void Bullet::Update(const float &dt) {
 }
 ```
 
+**Remember: if you want anything to happen, you need to call Update() and Render() from main.cpp!**
+(It might also be sensible to create a static function to initialise the bullets too!)
+
 ### Firing bullets
 
 Alrighty, that's a barebones Bullet created, now to spawn one. The simplest way to do this would be to do something like this:
@@ -370,11 +373,11 @@ if (Keyboard::isKeyPressed(...)) {
 }
 ```
 
-This is not a good idea however, there is three major problems.
+This is not a good idea however, and there  are three major problems.
 
 1. we will spawn thousands of bullets, we need a way to 'cooldown' the weapon of the player 
 1. How do we update and render them? We should store our bullets somewhere. 
-1. This is a big one, we put these bullets on the heap, and then forget about them, ayy'oh that's a **Memory Leak**.
+1. This is a big one: we put these bullets on the heap, and then forget about them. That's a classic **Memory Leak**.
 
 ### Storing our bullets
 
@@ -396,13 +399,13 @@ Player::Update(){...
 
 So now the player is responsible for handling and keeping track of all the bullets it fires. We've stopped a runaway memory leak (for now, we still have to delete the bullets later). But how do we Render them? and while we're asking questions, won't this very get really, really big? We are going to fire a lot of bullets.
 
-Yes, we will be firing loads of bullets, and we don't want to have keep track them all and delete them. In larger games this would cause performance issues. It won't here, but let's pretend we are running on original 80's hardware, we've gotta do better, or else the arcade will have to shut-down and the kids will be sad.
+Yes, we will be firing loads of bullets, and we don't want to have keep track them all and delete them. In larger games this would cause performance issues. It won't here, but let's pretend we are running on original 80's hardware, we've gotta do better, or else the arcade will have to shut down and the kids will be sad. So will I!
 
 ### A different solution - Bullet Pools
 
-How about instead of creating bullets as and when we need them, we allocate a whole bunch at the start, and put them into a \"pool of available bullets\". When a player or an invader fires, an inactive bullet in the pool gets initialised to the correct position and mode and goes about it's bullet'y business. After this bullet has exploded or moved off-screen, it is moved back into the pool (or just set to \"inactive\").
+How about instead of creating bullets as and when we need them, we allocate a whole bunch at the start, and put them into a \"pool of available bullets\". When a player or an invader fires, an inactive bullet in the pool gets initialised to the correct position and mode and goes about it's bullety business. After this bullet has exploded or moved off-screen, it is moved back into the pool (or just set to \"inactive\").
 
-This is a very common technique used in games with lots of expensive things coming into and out of existence. Almost every AAA Unity£D game uses this with GameObjects -- which take forever to allocate and construct. It's much quicker to allocate loads at the start and re-use them.
+This is a very common technique used in games with lots of expensive things coming into and out of existence. Almost every AAA Unity3D game uses this with GameObjects -- which take forever to allocate and construct. It's much quicker to allocate loads at the start and re-use them.
 
 #### Storing the Bullet Pool
 
@@ -423,7 +426,7 @@ class Bullet : public sf::Sprite {
 
 ```
 
-We have statically allocated 256 bullets on the stack. We have brought along a sneaky unsigned char to do a clever trick to determine which bullet to use next. Unisgned chars go between 0 and 255, and then wrap round back to 0 and repeat. Therefore every time we Fire() a bullet we choose from the array like this \"bullets\[++bulletPointer\]\". If there were ever more than 256 bullets on screen we will run into trouble, but I won't worry about this if you don't.
+We have statically allocated 256 bullets on the stack. We have brought along a sneaky unsigned char to do a clever trick to determine which bullet to use next. Unisgned chars go between 0 and 255, and then wrap round back to 0 and repeat. Therefore every time we Fire() a bullet we choose from the array like this \"bullets\[++bulletPointer\]\". If there were ever more than 256 bullets on screen we will run into trouble, but I won't worry about this if you don't. In fact, if we are clever, we would just reuse the oldest bullet and with so many of them around, players would likely never even notice!
 
 We will need to change our Firing mechanism, we now don't want to ever construct a bullet, just Fire() one. We will have to change our class declaration around to suit this. Fire() will become a static function.
 
@@ -437,10 +440,10 @@ public:
   //Render's All bullets
   static void Render(sf::RenderWindow &window);
   //Chose an inactive bullet and use it.
-  static Fire(const sf::Vector2f &pos, const bool mode);
+  static void Fire(const sf::Vector2f &pos, const bool mode);
   
   ~Bullet()=default;
-Protected:
+protected:
   static unsigned char bulletPointer;
   static Bullet bullets[256];
   //Called by the static Update()
@@ -453,6 +456,9 @@ Protected:
 ```
 
 I'll let you figure out the changes to the bullet.cpp. Keep in mind the differences between static-and non static functions. The _update() function is given in the next section.
+
+{:class="important"}
+**If you are getting unresolved external symbol errors, remember the top hint from before!**
 
 #### Exploding Things
 
@@ -492,7 +498,7 @@ void Bullet::_Update(const float &dt) {
 };
 ```
 
-This code will require modification to our ship class. Also we need access to a pointer to the player ship so we can determine the types of collisions. My way of doing this would be to add it as another extern in game.h. We need to introduce Explode behaviour into the ship classes. We will add the common functionality to the base Ship class - turning into the explosion sprite. The invader class will extend this by increasing the speed of other invaders, add removing the explosion sprite after a second. The player ship will end the game if explode is called on it. Which will trigger a game reset.
+This code will require modification to our ship class. Also we need access to a pointer to the player ship so we can determine the types of collisions. My way of doing this would be to add it as another extern in game.h. We need to introduce Explode behaviour into the ship classes. We will add the common functionality to the base Ship class - turning into the explosion sprite. The invader class will extend this by increasing the speed of other invaders, add removing the explosion sprite after a second. The player ship will end the game if explode is called on it which will trigger a game reset.
 
 
 ```cpp 
@@ -526,7 +532,7 @@ We noticed earlier that there is no limit to how fast a player could shoot -- le
 My favourite way of doing this is keeping a 'cooldown' timer.
 
 ```cpp 
-//sghip.cpp
+//ship.cpp
 void Player::Update(const float &dt) {
   ...
   static float firetime = 0.0f;
@@ -554,8 +560,8 @@ void Invader::Update(const float &dt) {
   static float firetime = 0.0f;
   firetime -= dt;
   ...
-  f (firetime <= 0 && rand() % 100 == 0) {
-      Bullet::fire(getPosition(), true);
+  if (firetime <= 0 && rand() % 100 == 0) {
+      Bullet::Fire(getPosition(), true);
       firetime = 4.0f + (rand() % 60);
   }
 }
