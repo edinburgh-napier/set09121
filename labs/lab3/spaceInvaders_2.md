@@ -199,7 +199,7 @@ At this stage, you can now add additional Invaders to the screen, at different l
 
 ### Invader movement
 
-A quirk of space invaders is that all the invaders move as one, when any of the invaders touches the edge of the screen: all invaders drop down and reverse direction. When invaders are killed, the remaining invaders speed up. From this we can gather that we need some form of communication medium between all the invaders so they can communicate when it's time to drop down and when to speed up. We are going to store these parameters as two variables: direction and speed. We could store these as properties in each invader, but as the contents will be identical for each invader we should do something better. The \"something better\" is static properties.
+A quirk of space invaders is that all the invaders move as one, and when any of the invaders touch the edge of the screen all invaders drop down and reverse direction. When invaders are killed, the remaining invaders speed up. From this we can gather that we need some form of communication medium between all the invaders so they can communicate when it's time to drop down and when to speed up. We are going to store these parameters as two variables: direction and speed. We could store these as properties in each invader, but as the contents will be identical for each invader we should do something better. The \"something better\" is static properties.
 
 ```cpp 
 //ship.h
@@ -219,7 +219,7 @@ bool Invader::direction;
 float Invader::speed;
 ```
 
-We can access these variables anywhere like so 'invader::speed = 20.f'.
+We can access these variables anywhere like so 'Invader::speed = 20.f' and it will update the speed of ALL invaders at the same time. Why not try putting this in your Load() or Reset() functions in main.cpp to see how it works?
 
 ### Invader Update
 
@@ -247,7 +247,9 @@ void Invader::Update(const float &dt) {
 
 The first two lines are simple, we call the base ship::update() to run any logic that is generic for all ships (none right now). Then we move either left or right, at the speed dictated by the static speed variable. The next few lines of code is the logic to detect weather it's time to drop and reverse. Direction is involved in the check to stop a feedback loop occurring of one invader triggering the reverse, then in the same frame another invader re-reversing it. So long as the invaders are updated sequentially (i.e not in threads) then this will work. 
 
-As we are nowaccessing the ships array, we now need to include `game.h`, and we should put a handle to it in game.h.
+(Yes, we're being naughty and using hardcoded magic numbers in here which we maybe should have at least defined somewhere globally. What happens if we increase the size of our sprites?)
+
+As we are now accessing the ships array (and gameWidth) we now need to include `game.h`, and we should put a handle to it in game.h, and fix any errors that causes.
 
 ```cpp 
 //game.h
@@ -271,6 +273,11 @@ Load(){...
     }
  }
 ```
+
+The rest of the spawning logic is up to you! Good luck!
+
+{:class="important"}
+**Once you get to this stage, show us so we can see that you got a cool thing working!** 
 
 ## The Player Class
 
