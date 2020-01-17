@@ -137,6 +137,15 @@ You should have a separate project setup and working, and showing this:
 {:class="important"}
 **Don't continue on untill you have this working** 
 
+## Oh... it's not working? I'm just getting a white square...
+
+If this happens, it's most likely that you are failing to load the sprite-sheet image properly. Check the other window that opens when you run an application. Is there an error in there? Does it samy something like 'Failed to load image'? If so, there are three things to check:
+1. You did actually download the image, right?
+2. You did point your code to the correct name/location of the file, didn't you?
+3. Have you updated your CMake code to ensure that your new project's resources are copied correctly?
+
+For point 3, remember to go and read [Runtime Resources tips and tricks](resources) again. The process should be easier... assuming you imported your fonts correctly in the Pong example!
+
 Previous step: [Pong 3](pong3)
 
 Next step: [Space Invaders 2](spaceinvaders2)
