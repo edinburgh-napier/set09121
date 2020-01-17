@@ -83,6 +83,7 @@ The primary benefit of sprite sheets however is sprite-animation. It is commonpl
 
 **Save This image to your repo's resoucres folder**
 
+(Yeah, I know there are some issues with using the Space Invaders designs. We're using them as they are simple - don't do this in your coursework submission!)
 ----
 
 
