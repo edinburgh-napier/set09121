@@ -159,7 +159,7 @@ Up to here, I've been including the include statements you'll need too - from he
 
 Important note, we used the New() operator here, which created the ship on the heap. If we wanted a stack version, we omit the new New and would use Invader 'inv = Invader()'.
 
-# Calling Update and Render
+### Calling Update and Render
 
 As we are storing the invader in a vector that will also later contain the player, this vector cannot be of type Invader. Instead, we need to use the base class that both inherit from - the Ship class. The way we have set this up, however, we can't create a vector<Ship>, as that would try to construct an abstract class. Instead, we create a vector of pointers to the objects!
 
@@ -306,8 +306,10 @@ void Player::Update(const float &dt) {
 ```
 
 You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time. You could add it to the vector of ships, but rember the hacky line in invader's update: `ships[i]->move(0, 24);`? This would also move the player. Not good. To solve this you can either 
- - A: Have the player seperate from the ship list, and manually update and render it.
- - B: Change the invader update to only move invaders down.
+ - A: Have the player seperate from the ship list, and manually update and render it. **Bad option**
+ - B: Change the invader update to only move invaders down. **Good option!**
+ 
+ As a hint: what if there was a function you could call on all ships that moved the Invaders down, but which Player ignored?
  
 ## Bullets
 
