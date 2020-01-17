@@ -121,6 +121,8 @@ Add the following to code
 
 ```cpp 
 //ship.h
+#include "ship.h"
+
 class Invader : public Ship {
 public:
     Invader(sf::IntRect ir, sf::Vector2f pos);
@@ -131,6 +133,7 @@ public:
 
 ```cpp 
 //ship.cpp
+#include "invader.h"
 Invader::Invader() : Ship() {}
 
 Invader::Invader(sf::IntRect ir, sf::Vector2f pos) : Ship(ir) {
@@ -147,16 +150,27 @@ Now that we have a concrete implementation of a Ship we can create one.
 
 ```cpp
 //Main.cpp
+
+...
+#include "invader.h"
+...
+
 Load(){...
 Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), {100,100});
 ships.push_back(inv);
 ```
 
+Up to here, I've been including the include statements you'll need too - from here on out, you should be able to work them out for yourself, so don't always expect to see them!
+
 Important note, we used the New() operator here, which created the ship on the heap. If we wanted a stack version, we omit the new New and would use Invader 'inv = Invader()'.
 
-As we are storing the invader into a vector of ships, which will also later contain the player, this vector be . The way we have set this up we couldn't even create a vector$<$ship$>$, as that would try to construct an abstract class.
+As we are storing the invader in a vector that will also later contain the player, this vector cannot be of type Invader. Instead, we need to use the base class that both inherit from - the Ship class. The way we have set this up, however, we can't create a vector<Ship>, as that would try to construct an abstract class. Instead, we create a vector of pointers to the objects!
 
-We need to call the update function of all our ships every frame, due to polymorphism this is very simple. Update() is a virtual function so when we call update() on a ship pointer that points to an invader, the invader's update() is called.
+Anyway, now we need to call the update function for all of our ships every frame. Due to polymorphism this is very simple: as *Update()* is a virtual function, when we call *Update()* on a Ship pointer it will run the *Update()* function of whatever is being pointed to. In other words, if we call *Update()* on an item in a *vector<\*Ship>* collection, and the Ship object that is pointed to is an Invader, then the *Update()* function in the Invader class is called. If it is a Player object, the *Update()* function in the Player class is called. Got that? 
+
+Yeah... this can be confusing, especially if you are new to this! Do your best to get your head around it though, as this is core to how much of game engines work. We have a collection of things we need to update in some fashion, so we iterate through that collection and tell each thing to do what they are supposed to. **If you are completely befuddled, please ask in the lab!**
+
+On the plus side, look how simple the code actually is to do the updating of all the ships:
 
 ```cpp
 //Main.cpp
@@ -166,8 +180,7 @@ Update(){...
   };
 ```
 
-The same goes for rendering, as we have inherited from sprite, SFML can
-render our ships natively.
+The same ease goes for rendering, with the additional bonus that as we have inherited from sprite, SFML can render our ships natively! Nice!
 
 ```cpp
 //Main.cpp
@@ -176,6 +189,11 @@ Render() {...
     window.draw(*s);
   }
 ```
+
+At this stage, you can now add additional Invaders to the screen, at different locations, and with different graphics thanks to the sprite-sheet. Each one you add to the vector should be automagically rendered! Go on, you've probably hurt your brain by this point, so play around with it a bit.
+
+{:class="important"}
+**Do not continue until you have multiple different sprites on your screen!** 
 
 ### Invader movement
 
