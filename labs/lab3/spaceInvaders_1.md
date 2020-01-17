@@ -139,7 +139,7 @@ You should have a separate project setup and working, and showing this:
 
 ## Oh... it's not working? I'm just getting a white square...
 
-If this happens, it's most likely that you are failing to load the sprite-sheet image properly. Check the other window that opens when you run an application. Is there an error in there? Does it say something like 'Failed to load image'? If so, there are three things to check:
+If this happens, it's most likely that you are failing to load the sprite-sheet image properly. Check the other window that opens when you run an application. Is there an error in there? Does it say something like 'Failed to load image'? If so, there are four things to check:
 1. You did actually download the image, right?
 2. You did point your code to the correct name/location of the file, didn't you?
 3. You have updated your CMake code to ensure that your new project's resources are copied correctly, yeah?
