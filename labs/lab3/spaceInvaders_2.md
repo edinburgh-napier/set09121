@@ -115,7 +115,7 @@ This should compile without errors.
 ## Making the Invader class
 
 
-We could create a new invader.h and invader .cpp to house the invader class. Generally speaking separate files for separate classes is a good idea, although unlike Java we don't *have* to do this. In some situations when certain classes are very similar or just slightly different version of each other it makes sense to host them in the same Header file.
+We could create a new invader.h and invader.cpp to house the invader class. Generally speaking separate files for separate classes is a good idea, although unlike Java we don't *have* to do this. In some situations when certain classes are very similar or just slightly different version of each other it makes sense to host them in the same Header file.
 
 Add the following to code
 
@@ -133,7 +133,6 @@ public:
 
 ```cpp 
 //ship.cpp
-#include "invader.h"
 Invader::Invader() : Ship() {}
 
 Invader::Invader(sf::IntRect ir, sf::Vector2f pos) : Ship(ir) {
@@ -150,10 +149,6 @@ Now that we have a concrete implementation of a Ship we can create one.
 
 ```cpp
 //Main.cpp
-
-...
-#include "invader.h"
-...
 
 Load(){...
 Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), {100,100});
@@ -202,7 +197,7 @@ At this stage, you can now add additional Invaders to the screen, at different l
 A quirk of space invaders is that all the invaders move as one, and when any of the invaders touch the edge of the screen all invaders drop down and reverse direction. When invaders are killed, the remaining invaders speed up. From this we can gather that we need some form of communication medium between all the invaders so they can communicate when it's time to drop down and when to speed up. We are going to store these parameters as two variables: direction and speed. We could store these as properties in each invader, but as the contents will be identical for each invader we should do something better. The \"something better\" is static properties.
 
 ```cpp 
-//invader.h
+//ship.h
 class Invader : public Ship {
 public:
   static bool direction;
@@ -211,10 +206,10 @@ public:
 ```
 
 **Top Hint:** Any declared static variable **must** be defined
-somewhere. Which means we do the following in invader.cpp
+somewhere. Which means we do the following in ship.cpp
 
 ```cpp 
-//invader.cpp
+//ship.cpp
 bool Invader::direction;
 float Invader::speed;
 ```
