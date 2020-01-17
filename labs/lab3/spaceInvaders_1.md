@@ -21,12 +21,12 @@ We will be adding this lab a 'project' to our already existing 'Games Engineerin
 
 Note: this is the vernacular of Visual studio. In CMake Terms we are adding another 'Executable' to the 'project'.
 
--   Create a \"practical\_2\" folder inside your repo.
+-   Create a new folder inside your repo.
 
 -   Within that, create a main.cpp, feel free to copy some boilerplate
     SFML code into it.
     
--   Add the following to your CMakeLists.txt
+-   Add the following to your CMakeLists.txt (Make sure that you use the right folder names in here!)
 ```cmake
 ## Space invaders
 file(GLOB_RECURSE SOURCES 2_invaders/*.cpp 2_invaders/*.h)
