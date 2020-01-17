@@ -143,7 +143,7 @@ If this happens, it's most likely that you are failing to load the sprite-sheet 
 1. You did actually download the image, right?
 2. You did point your code to the correct name/location of the file, didn't you?
 3. You have updated your CMake code to ensure that your new project's resources are copied correctly, yeah?
-4. It's most likely 3. that you forgot (speaking from experience), so check again!
+4. It's most likely point 3 that you forgot (speaking from experience), so check again!
 
 For point 3, remember to go and read [Runtime Resources tips and tricks](resources) again. The process should be easier... assuming you imported your fonts correctly in the Pong example!
 
