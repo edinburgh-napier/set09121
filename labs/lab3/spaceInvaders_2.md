@@ -202,7 +202,7 @@ At this stage, you can now add additional Invaders to the screen, at different l
 A quirk of space invaders is that all the invaders move as one, and when any of the invaders touch the edge of the screen all invaders drop down and reverse direction. When invaders are killed, the remaining invaders speed up. From this we can gather that we need some form of communication medium between all the invaders so they can communicate when it's time to drop down and when to speed up. We are going to store these parameters as two variables: direction and speed. We could store these as properties in each invader, but as the contents will be identical for each invader we should do something better. The \"something better\" is static properties.
 
 ```cpp 
-//ship.h
+//invader.h
 class Invader : public Ship {
 public:
   static bool direction;
@@ -211,10 +211,10 @@ public:
 ```
 
 **Top Hint:** Any declared static variable **must** be defined
-somewhere. Which means we do the following in ship.cpp
+somewhere. Which means we do the following in invader.cpp
 
 ```cpp 
-//ship.cpp
+//invader.cpp
 bool Invader::direction;
 float Invader::speed;
 ```
