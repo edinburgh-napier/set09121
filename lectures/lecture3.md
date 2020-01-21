@@ -128,8 +128,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 - Roles can also be defined by how the players react to the rules and procedures of the game. <!-- .element: class="fragment" -->
     - Players can be collectors, explorers, killers, etc. <!-- .element: class="fragment" -->
     - See Fullerton for further discussion. <!-- .element: class="fragment" -->
-    
-	Consider the type of player that you are aiming for. <!-- .element: class="fragment; alignment: center;" -->
+    - Consider the type of player that you are aiming for. <!-- .element: class="fragment" -->
 
 
 ---
@@ -231,7 +230,8 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 - Mario's jump is one of the best examples of a 'simple' procedure <!-- .element: class="fragment" -->
 - But it gives a huge amount of freedom and flexibility <!-- .element: class="fragment" -->
-- <iframe width="560" height="315" src="https://www.youtube.com/embed/7daTGyVZ60I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- .element: class="fragment" -->
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7daTGyVZ60I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- .element: class="fragment" -->
 
 ---
 
