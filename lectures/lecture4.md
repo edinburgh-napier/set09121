@@ -454,4 +454,6 @@ People are often tempted to look only at other games... <!-- .element: class="fr
 **This is how you make bad games!** <!-- .element: class="fragment" -->
 
 For example Pac Man was inspired by:<br /> <!-- .element: class="fragment" -->
-Tom and Jerry<br />Popeye<br />Manga and Casper<br /> 
+Tom and Jerry<br /> <!-- .element: class="fragment" -->
+Popeye<br /> <!-- .element: class="fragment" --> 
+Manga & Casper<br /> <!-- .element: class="fragment" -->
