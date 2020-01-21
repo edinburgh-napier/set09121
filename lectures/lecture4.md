@@ -212,21 +212,23 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-#Seriously, do you know about the Ghosts?
+# Seriously, do you know about the Ghosts?
 
 - There are three major behaviours:
-	- Chase / Scatter / Frightened
-- Each ghost has it's own chase behaviour
-	- Blinky always goes for you
-	- Pinky tries to get in front of you
-	- Inky targets a tile based on Blinky and your position
-	- Clyde is there too (he gets scared!)
+	- Chase / Scatter / Frightened <!-- .element: class="fragment" -->
+- Each ghost has it's own chase behaviour <!-- .element: class="fragment" -->
+	- Blinky always goes for you <!-- .element: class="fragment" -->
+	- Pinky tries to get in front of you <!-- .element: class="fragment" -->
+	- Inky targets a tile based on Blinky and your position <!-- .element: class="fragment" -->
+	- Clyde is there too (he gets scared!) <!-- .element: class="fragment" -->
+- Behaviours change based on game state <!-- .element: class="fragment" -->
 
 ---
 
 # You should read more!
 
 https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
+
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/S4RHbnBkyh0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -321,6 +323,13 @@ Keep it abstract, but consider how you would program these.
 
  ![image](assets/images/gameflow.png)
 
+---
+
+# Question Time!
+
+- Should games always be unpredictable?
+	-Why should they?
+	-Why shouldn't they?
 
 ---
 
@@ -392,7 +401,7 @@ Keep it abstract, but consider how you would program these.
 
 # System Interaction and Control
 - A system does not always need interaction.
- - A game definitely does.  <!-- .element: class="fragment" -->
+ - A game definitely does (You can stretch that definition though!) <!-- .element: class="fragment" -->
 - Some things to consider:  <!-- .element: class="fragment" -->
  - What information is provided to the player about the system?  <!-- .element: class="fragment" -->
  - What can the player control?  <!-- .element: class="fragment" -->
@@ -414,7 +423,7 @@ Keep it abstract, but consider how you would program these.
  - **Properties:** the values that define the objects of the system.
  - **Behaviours:** what functions does an object perform in a system.
  - **Relationships:** how do the objects interact with each other.
-- You should use these principles to try and de-construct games thatyou are familiar with.
+- You should use these principles to try and de-construct games that you are familiar with.
 
 
 ---
@@ -431,3 +440,18 @@ Keep it abstract, but consider how you would program these.
 OO is a great way of describing and building systems of objects (games)  <!-- .element: class="fragment" -->
 
 However; in practice, actually programming these systems can be tricky. There are other extensions to OO that we will cover later. But designing an planning the OO way is a great way to design systems that will exist as software.  <!-- .element: class="fragment" -->
+
+--
+
+# BONUS SLIDE
+
+**How do you find inspiration for game ideas?**
+
+People are often tempted to look only at other games... <!-- .element: class="fragment" -->
+
+This is how you make bad games! <!-- .element: class="fragment" -->
+
+For example: Pac Man was inspired by: <!-- .element: class="fragment" -->
+	- Tom and Jerry <!-- .element: class="fragment" -->
+	- Popeye <!-- .element: class="fragment" --> 
+	- Manga & Casper <!-- .element: class="fragment" -->
