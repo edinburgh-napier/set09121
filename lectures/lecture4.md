@@ -16,7 +16,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <br><br>
 Thomas Methven
 <br>
-(Material by Kevin Chalmers and Sam Serrels)
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -128,7 +128,7 @@ School of Computing. Edinburgh Napier University
 **Objects**
 
  - Objects are the basic elements of a system.
- - In games the most basic of object is usually called an **Entity**.
+ - In games the most basic of object is usually called an **Entity**. <!-- .element: class="fragment" -->
  - Almost everything in a game is an object.  <!-- .element: class="fragment" -->
      - For example: players, opponents, environment.  <!-- .element: class="fragment" -->
  - As developers we must identify these objects and develop them.  <!-- .element: class="fragment" -->
@@ -219,7 +219,7 @@ School of Computing. Edinburgh Napier University
 - Each ghost has it's own chase behaviour <!-- .element: class="fragment" -->
 	- Blinky always goes for you <!-- .element: class="fragment" -->
 	- Pinky tries to get in front of you <!-- .element: class="fragment" -->
-	- Inky targets a tile based on Blinky and your position <!-- .element: class="fragment" -->
+	- Inky targets a space based on Blinky and your position <!-- .element: class="fragment" -->
 	- Clyde is there too (he gets scared!) <!-- .element: class="fragment" -->
 - Behaviours change based on game state <!-- .element: class="fragment" -->
 
@@ -453,7 +453,7 @@ People are often tempted to look only at other games... <!-- .element: class="fr
 
 **This is how you make bad games!** <!-- .element: class="fragment" -->
 
-For example: Pac Man was inspired by: <!-- .element: class="fragment" -->
-Tom and Jerry <!-- .element: class="fragment" -->
-Popeye <!-- .element: class="fragment" --> 
-Manga & Casper <!-- .element: class="fragment" -->
+For example Pac Man was inspired by:<br /> <!-- .element: class="fragment" -->
+Tom and Jerry<br /> <!-- .element: class="fragment" -->
+Popeye<br /> <!-- .element: class="fragment" --> 
+Manga & Casper<br /> <!-- .element: class="fragment" -->

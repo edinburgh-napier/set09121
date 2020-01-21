@@ -18,7 +18,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <br><br>
 Thomas Methven
 <br>
-(Material by Kevin Chalmers and Sam Serrels)
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
