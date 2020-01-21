@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -133,13 +135,23 @@ School of Computing. Edinburgh Napier University
  - Games are similar to standard applications although the object relationship are probably more dynamic.  <!-- .element: class="fragment" -->
 - What objects can you identify in the games you play?  <!-- .element: class="fragment" -->
 
-
 ---
 
 # What Objects Are Here? 
 
 ![image](assets/images/mario.jpg)
 
+---
+
+# Spelunky
+
+- Spelunky is one of the best examples of object inheritance in games
+
+- Olmec, a boss, inherits from a push block
+
+- The ghost can be killed because of inheritance!
+
+- More info: https://www.rockpapershotgun.com/2016/03/04/making-of-spelunky/
 
 ---
 
@@ -178,7 +190,7 @@ School of Computing. Edinburgh Napier University
 - We are normally thinking about what can happen during the update step.  <!-- .element: class="fragment" -->
  - For example, when B is pressed the player should jump.  <!-- .element: class="fragment" -->
  - Player's actions are normally based on the controls (Procedures from Formal Elements).  <!-- .element: class="fragment" -->
- - Computer controlled actions are normally supplied via some form of Artificial Intelligence.  <!-- .element: class="fragment" -->
+ - Computer controlled actions are normally supplied via some form of Artificial Intelligence (System procedures, objectives, rules).  <!-- .element: class="fragment" -->
 - The physical objects are normally controlled by the physics system.  <!-- .element: class="fragment" -->
 - What behaviours do you see in the games that you play?  <!-- .element: class="fragment" -->
 
@@ -196,8 +208,30 @@ School of Computing. Edinburgh Napier University
 
 ![image](assets/images/pacman.gif)
 
+(I bet it's more complicated than you think)
 
 ---
+
+#Seriously, do you know about the Ghosts?
+
+- There are three major behaviours:
+	- Chase / Scatter / Frightened
+- Each ghost has it's own chase behaviour
+	- Blinky always goes for you
+	- Pinky tries to get in front of you
+	- Inky targets a tile based on Blinky and your position
+	- Clyde is there too (he gets scared!)
+
+---
+
+# You should read more!
+
+https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/S4RHbnBkyh0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
 
 **Describe your favourite game as a system.** 
 
