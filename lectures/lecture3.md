@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -26,6 +28,8 @@ School of Computing. Edinburgh Napier University
 Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 - Read Chapter 3 on Formal Elements.
+
+- There are physical books in the library & a digital copy through Safari
 
 ![GameDesignWorkshopBook](assets/images/gdw_book.jpg)
 
@@ -211,6 +215,13 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
     - Special actions.
     - Resolving actions.
 
+---
+
+# Example: Mario's Jump
+
+- Mario's jump is one of the best examples of a 'simple' procedure <!-- .element: class="fragment" -->
+- But it gives a huge amount of freedom and flexibility <!-- .element: class="fragment" -->
+- <iframe width="560" height="315" src="https://www.youtube.com/embed/7daTGyVZ60I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- .element: class="fragment" -->
 
 ---
 
@@ -315,7 +326,6 @@ A **resource** is an asset that provides the player with an advantage, allows th
 
  ![BorderlandsLootBox](http://lootmaster.weebly.com/uploads/3/8/1/3/38139257/7052736.jpg) <!-- .element height="250px" -->
  ![UThealthPack](assets/images/uthealthpack.jpg) <!-- .element height="250px" -->
-![MCDiamond](https://d1u5p3l4wpay3k.cloudfront.net/minecraft_gamepedia/9/97/Diamond_Ore.png) <!-- .element height="250px" -->
 
 ---
 
@@ -433,7 +443,7 @@ Note any similarities, particularly in games of the same genre.
 - Winning is a traditional end point.
     - The game state where one of the winning conditions (objectives) has been met.
 - Some games continue without end points.
-    - Sim City, Factorio, Sims, 
+    - Sim City, Factorio (if you ignore the rocket), The Sims
 
 
 ---
@@ -445,7 +455,7 @@ Note any similarities, particularly in games of the same genre.
 
 # Try Describing a Game Using the Formal Elements
 
-- After class, try and describe a game (board, video, or whatever) using the vocabulary of formal elements.
+- After class, try and describe a game (board, video, or social) using the vocabulary of formal elements.
 
 - Try to go into some real depth: it will help you understand games more.
 
