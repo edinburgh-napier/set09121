@@ -145,7 +145,7 @@ School of Computing. Edinburgh Napier University
 
 # Spelunky
 
-- Spelunky is one of the best examples of object inheritance in games
+- Spelunky is one of the best examples of inheritance in games
 
 - Olmec, a boss, inherits from a push block
 
@@ -328,8 +328,8 @@ Keep it abstract, but consider how you would program these.
 # Question Time!
 
 - Should games always be unpredictable?
-	-Why should they?
-	-Why shouldn't they?
+	- Why should they?
+	- Why shouldn't they?
 
 ---
 
@@ -410,6 +410,8 @@ Keep it abstract, but consider how you would program these.
  - How do these considerations affect the gameplay?  <!-- .element: class="fragment" -->
 - A game will require tuning and polish to get all of these correct.  <!-- .element: class="fragment" -->
 
+**So much tuning**<!-- .element: class="fragment" -->
+
 ---
 
 # Summary
@@ -441,7 +443,7 @@ OO is a great way of describing and building systems of objects (games)  <!-- .e
 
 However; in practice, actually programming these systems can be tricky. There are other extensions to OO that we will cover later. But designing an planning the OO way is a great way to design systems that will exist as software.  <!-- .element: class="fragment" -->
 
---
+---
 
 # BONUS SLIDE
 
@@ -449,9 +451,9 @@ However; in practice, actually programming these systems can be tricky. There ar
 
 People are often tempted to look only at other games... <!-- .element: class="fragment" -->
 
-This is how you make bad games! <!-- .element: class="fragment" -->
+**This is how you make bad games!** <!-- .element: class="fragment" -->
 
 For example: Pac Man was inspired by: <!-- .element: class="fragment" -->
-	- Tom and Jerry <!-- .element: class="fragment" -->
-	- Popeye <!-- .element: class="fragment" --> 
-	- Manga & Casper <!-- .element: class="fragment" -->
+Tom and Jerry <!-- .element: class="fragment" -->
+Popeye <!-- .element: class="fragment" --> 
+Manga & Casper <!-- .element: class="fragment" -->
