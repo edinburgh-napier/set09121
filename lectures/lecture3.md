@@ -29,8 +29,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 - Read Chapter 3 on Formal Elements.
 
-- There are physical books in the library & a digital copy through Safari
-
+- Physical books in the library & a digital copy through Safari
 ![GameDesignWorkshopBook](assets/images/gdw_book.jpg)
 
 
@@ -81,6 +80,16 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
+# Social Games
+
+- What about a game in an exhibit space? Where is the invitation?
+
+- What happens if people join in without invitation?
+
+- Example time!
+
+---
+
 # Player Interaction Patterns
 
 - A **Player Interaction Pattern** helps us define how players play  the games.
@@ -119,7 +128,8 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 - Roles can also be defined by how the players react to the rules and procedures of the game. <!-- .element: class="fragment" -->
     - Players can be collectors, explorers, killers, etc. <!-- .element: class="fragment" -->
     - See Fullerton for further discussion. <!-- .element: class="fragment" -->
-    - Consider the type of player that you are aiming for. <!-- .element: class="fragment" -->
+    
+	Consider the type of player that you are aiming for. <!-- .element: class="fragment; alignment: center;" -->
 
 
 ---
