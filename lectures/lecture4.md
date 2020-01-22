@@ -362,7 +362,7 @@ Keep it abstract, but consider how you would program these.
 
 - Emergent systems exhibit behavior not explicitly programmed. The behavior emerges from the rules placed on the objects.
  - Birds flocking is such a behavior.
- - Very relative to game AI.
+ - Very relevant to game AI.
 - Nature is full of such systems.
 - Examples include: Game of Life; Spore; The Sims (sort of).
 
@@ -441,7 +441,7 @@ Keep it abstract, but consider how you would program these.
 
 OO is a great way of describing and building systems of objects (games)  <!-- .element: class="fragment" -->
 
-However; in practice, actually programming these systems can be tricky. There are other extensions to OO that we will cover later. But designing an planning the OO way is a great way to design systems that will exist as software.  <!-- .element: class="fragment" -->
+However; in practice, actually programming these systems can be tricky. There are other extensions to OO that we will cover later. But designing and planning the OO way is a great way to design systems that will exist as software.  <!-- .element: class="fragment" -->
 
 ---
 
