@@ -93,7 +93,7 @@ private:
 
 **Vector2ul will give you an error, this is something that doesn't exist yet, more on this later.**
 
-That's quite a lot to begin with. Let's pay attention to the public functions first: this is where we declare what our library can do. The protected variables are the internal state that we need for some calculations later on. The whole LevelSystem is a static class, everything is static so we can access everything within it from anywhere (Downside: we can't inherit from it). I've thrown in a handy \#define macro so we can access everything like \"ls::render()\".
+That's quite a lot to begin with. Let's pay attention to the public functions first: this is where we declare what our library can do. The protected variables are the internal state that we need for some calculations later on. The whole LevelSystem is a static class, everything is static so we can access everything within it from anywhere (Downside: we can't inherit from it). I've thrown in a handy \#define macro so we can access everything like \"ls::Render()\".
 
 With our Levelsystem declared, let's define it in levelSystem.cpp
 
@@ -210,6 +210,9 @@ Notice that while the level file is 2D, we store it in a 1D storage type. If we 
 
 Our level loader library will do more than just parse in a text file, it will also render the level with SFML. To do this we will build a list of sf::shapes for each tile in our array. The colour of this shape will depend on the colour association stored in our map. We only need to build this list of shapes once, so this function is called at the end of loadLevelFile().
 
+**You will have to add accessors for height and width at this stage, these will be useful later!**
+(This should be pretty easy!)
+
 ```cpp 
 //levelsystem.cpp
 
@@ -269,7 +272,7 @@ And finally - here lies our Render Function. Nice and Simple.
 
 ```cpp 
 //levelsystem.cpp
-void LevelSystem::render(RenderWindow &window) {
+void LevelSystem::Render(RenderWindow &window) {
   for (size_t i = 0; i < _width * _height; ++i) {
     window.draw(*_sprites[i]);
   }
@@ -312,7 +315,7 @@ target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" S
 
 This is slightly different to the level system library. This time we declare the library as INTERFACE. 
 
-This changes some complex library and linker options that are beyond the scope of explanation here. The simplest explanation is an INTERFACE library target does not directly create build output, though it may have properties set on it and it may be installed, exported and imported. Meaning that in visual studio the library will look like it is part of our main lab code (except it isn't. Magic.)
+This changes some complex library and linker options that are beyond the scope of explanation here. The simplest explanation is an INTERFACE library target does not directly create build output, though it may have properties set on it and it may be installed, exported and imported. Meaning that in Visual Studio the library will look like it is part of our main lab code (except it isn't. Magic.)
 
 
 There are many different way to create and link libraries, CMake allows us to change these options from a central point and not worry about digging through IDE options.
@@ -327,7 +330,7 @@ target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
 
 As this is a static library - and doesn't produce a compiled output, everything will be in a header. 
 
-To extend the functionality of sf::vectors we must first be within the same namespace. From here we can define code as if we were inside the sfml library code itself. Thing get a little strange if we want to change or override functions that already exist, but we don't here as we are only creating new functionality.
+To extend the functionality of sf::vectors we must first be within the same namespace. From here we can define code as if we were inside the SFML library code itself. Things get a little strange if we want to change or override functions that already exist, but we don't here as we are only creating new functionality. As such, don't worry about it for now!
 
 We start by creating a new vector type the 'Vector2ul' which will use size_t (i.e the largest unsigned integer type supported on the system) as the internal components. We will use this for the tile array coordinates.
 
@@ -410,16 +413,18 @@ void load() {
   }
 }
 ...
-void render(RenderWindow &window) {
-  ls::render(window);
+void Render(RenderWindow &window) {
+  ls::Render(window);
   ...
 }
 ```
 
 That should be all we need to successfully build both our libraries and our game. Give it a go. Build. Run. See if your hard work typing all this has paid off.
 
+I know it was lots of work to get here, but you can use loads of what you've just created for your own games!
+
 {:class="important"}
-**Your code should compile and your game should run**
+**Your code should compile and your game should run. Congratulations if you've got here! Make sure to show us!**
 
 
 ## Making the Game a Game
