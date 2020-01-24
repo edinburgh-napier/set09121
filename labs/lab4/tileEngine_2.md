@@ -62,7 +62,7 @@ public:
  enum TILE { EMPTY, START, END, WALL, ENEMY, WAYPOINT };
         
  static void loadLevelFile(const std::string&,float tileSize=100.f);
- static void render(sf::RenderWindow &window);
+ static void Render(sf::RenderWindow &window);
  static sf::Color getColor(TILE t);
  static void setColor(TILE t, sf::Color c);
  //Get Tile at grid coordinate
@@ -91,9 +91,11 @@ private:
 };
 ```
 
-That's quite a lot to begin with. pay attention to the public functions first. This is where we declare what our Library can do. The protected variables are internal state that we need for some calculation later on. The whole LevelSystem is a static class, everything is static so we can access everything within it from anywhere (Downside: we can't inherit from it). I've thrown in a handy \#define macro so we can access everything like \"ls::render()\". Vector2ul will give you an error, this is something that doesn't exist yet, more on this later.
+**Vector2ul will give you an error, this is something that doesn't exist yet, more on this later.**
 
-With our Levelsystem declared, let's get to defining it in LevelSystem.cpp
+That's quite a lot to begin with. Let's pay attention to the public functions first: this is where we declare what our library can do. The protected variables are the internal state that we need for some calculations later on. The whole LevelSystem is a static class, everything is static so we can access everything within it from anywhere (Downside: we can't inherit from it). I've thrown in a handy \#define macro so we can access everything like \"ls::render()\".
+
+With our Levelsystem declared, let's define it in levelSystem.cpp
 
 ```cpp 
 //levelsystem.cpp
@@ -128,6 +130,8 @@ void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
 ```
 
 We start off by defining all the static member variables declared in the header file. This brings in a C++ data structure that we've not dealt with before, the map. It's statically initialised with two colours, more can be added by the game later. This map is read by the \"getColor\" function which will return a transparent colour if an allocation is not within the map.
+
+**Important: make sure you use find() for maps if you are searching for an element! If use used *auto it = _colours[t]* then we would CREATE the element if it didn't exist!**
 
 You should complete the setColor function. It's super simple, but you may have to look up the c++ docs on the std::map.
 
@@ -213,7 +217,7 @@ void LevelSystem::buildSprites() {
   _sprites.clear();
   for (size_t y = 0; y < LevelSystem::getHeight(); ++y) {
     for (size_t x = 0; x < LevelSystem::getWidth(); ++x) {
-      auto s = make_unique<sf::RectangleShape>();
+      auto s = make_unique<RectangleShape>();
       s->setPosition(getTilePosition({x, y}));
       s->setSize(Vector2f(_tileSize, _tileSize));
       s->setFillColor(getColor(getTile({x, y})));
@@ -227,7 +231,7 @@ Note we need yet another function, the getTilePosition().
 
 ```cpp 
 //levelsystem.cpp
-sf::Vector2f LevelSystem::getTilePosition(sf::Vector2ul p) {
+Vector2f LevelSystem::getTilePosition(Vector2ul p) {
   return (Vector2f(p.x, p.y) * _tileSize);
 }
 ```
@@ -238,7 +242,7 @@ There will be times when we need to retrieve the actual tile at a position, both
 
 ```cpp 
 //levelsystem.cpp
-LevelSystem::TILE LevelSystem::getTile(sf::Vector2ul p) {
+LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
   if (p.x > _width || p.y > _height) {
     throw string("Tile out of range: ") + to_string(p.x) + "," + to_string(p.y) + ")";
   }
@@ -246,7 +250,7 @@ LevelSystem::TILE LevelSystem::getTile(sf::Vector2ul p) {
 }
 ```
 
-Most of this function is taken up by a range check (Where we throw an exception, new thing!). The real calculation is in that last line. The secret is to multiply the Y coordinate by the length and add the X. Don't continue on unless you understand why and how this works, it gets more difficult from here on out.
+Most of this function is taken up by a range check (Where we throw an exception like we have been earlier). The real calculation is in that last line. The secret is to multiply the Y coordinate by the tile map width, and add the X. **Don't continue on unless you understand why and how this works, it gets more difficult from here on out. Remember to ask for help if you need it!**
 
 Doing the same, but with a screen-space coordinate is not any different. However as we are dealing with floats now, we must check it's a positive number first, then we can convert to grid-space, and call our above function. Again, don't continue on unless you understand why and how this works.
 
@@ -282,40 +286,11 @@ target_link_libraries(... lib_tile_level_loader sfml-graphics)
 
 You probably could have guessed this addition. Just add the library target name to your link_libraries.
 
-## Using the library
-
-Give it a test, Call some library functions from your lab code.
-
-```cpp
-\\main.cpp
-#include "LevelSystem.h"
-
-...
-
-void load() {
-  ...
-  ls::loadLevelFile("res/maze_2.txt");
-
-  // Print the level to the console
-  for (size_t y = 0; y < ls::getHeight(); ++y) {
-    for (size_t x = 0; x < ls::getWidth(); ++x) {
-      cout << ls::getTile({x, y});
-    }
-    cout << endl;
-  }
-}
-...
-void render(RenderWindow &window) {
-  ls::render(window);
-  ...
-}
-```
-
 
 ## Maths Library
 
 
-Remember that Vector2ul type that doesn't exist? 
+Remember that Vector2ul type that doesn't exist? Before we can use this, we need to fix that error!
 
 The vector maths functionality of SFML is quite lacking when compared to larger libraries like GLM. 
 We could bring in GLM and write converter functions to allow it to interface with SFML. 
@@ -410,6 +385,35 @@ namespace sf {
      return os;
   }
 } 
+```
+
+## Using the library
+
+Give it a test, Call some library functions from your lab code.
+
+```cpp
+\\main.cpp
+#include "LevelSystem.h"
+
+...
+
+void load() {
+  ...
+  ls::loadLevelFile("res/maze_2.txt");
+
+  // Print the level to the console
+  for (size_t y = 0; y < ls::getHeight(); ++y) {
+    for (size_t x = 0; x < ls::getWidth(); ++x) {
+      cout << ls::getTile({x, y});
+    }
+    cout << endl;
+  }
+}
+...
+void render(RenderWindow &window) {
+  ls::render(window);
+  ...
+}
 ```
 
 That should be all we need to successfully build both our libraries and our game. Give it a go. Build. Run. See if your hard work typing all this has paid off.

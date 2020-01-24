@@ -154,6 +154,7 @@ void Player::render(sf::RenderWindow &window) const {
 
 Finally, you will need to create a player object, and link it into your update and render code from your game loop in order for it to show!
 
+
 {:class="important"}
 **At this point you should have a magenta circle moving around a screen. Do not continue on if you haven't got everything working so far.**
 
