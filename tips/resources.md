@@ -82,4 +82,6 @@ Then for all of your projects, do:
 
 If you need to trigger a copy, right click and build on the "copy_resources" project in VS.
 
-If you are on osx, TODO
+{:class="important"}
+**REMEMBER: DO NOT POINT TO ANYWHERE ON YOUR H DRIVE!!**
+If you do this, sometimes the res folder isn't a folder - just a strange blob! 

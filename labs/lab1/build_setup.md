@@ -92,7 +92,7 @@ While that may look foreign, you can generally guess at what every line does. Th
 If you are unfamiliar with CMake UI; Follow [This guide](https://github.com/edinburgh-napier/aux_guides/blob/master/cmake_guide.pdf)
 
 
-**Remember to place the build folder *OUTSIDE* of the repo folder. Preferably your desktop, *NOT* your H drive**
+**Remember to place the build folder *OUTSIDE* of the repo folder and *NOT* your H drive -- Remember: your desktop might also be in your H drive!**
 
 {:class="important"}
 **NEVER Build from your H drive!** 
