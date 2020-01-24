@@ -64,8 +64,8 @@ public:
   Entity() = delete;
   virtual ~Entity() = default;
 
-  virtual void update(const double dt);
-  virtual void render(sf::RenderWindow &window) const = 0;
+  virtual void Update(const double dt);
+  virtual void Render(sf::RenderWindow &window) const = 0;
 
   const sf::Vector2f getPosition();
   void setPosition(const sf::Vector2f &pos);
@@ -97,7 +97,7 @@ void Entity::setPosition(const Vector2f &pos) { _position = pos;}
 
 void Entity::move(const Vector2f &pos) { _position += pos;}
 
-void Entity::update(const double dt) {
+void Entity::Update(const double dt) {
     _shape->setPosition(_position);
 }
 
@@ -129,7 +129,7 @@ For the .cpp, for now we will keep this basic and come back to it.
 Implement code that will move the player around on screen in the update.
 
 ```cpp
-//player.h
+//player.cpp
 #include "player.h"
 using namespace sf;
 using namespace std;
@@ -151,6 +151,8 @@ void Player::render(sf::RenderWindow &window) const {
   window.draw(*_shape);
 }
 ```
+
+Finally, you will need to create a player object, and link it into your update and render code from your game loop in order for it to show!
 
 {:class="important"}
 **At this point you should have a magenta circle moving around a screen. Do not continue on if you haven't got everything working so far.**
