@@ -14,28 +14,30 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
 
 ---
 
-## Recommended Reading:
-### Any C++ book really, but C++ Primer is good.
+# Recommended Reading:
+## Any C++ book really, but C++ Primer is good.
 
 
 ---
 
-## Goal -- to teach you object-orientation in C++
+# Goal
+## To teach you object-orientation in C++
 
 
 ---
 
 ## C++ is __NOT__ an object-oriented language.
 
-
-### Or *C With classes*
+## Or *C With classes*
 
 
 **ObjectiveC** is something else entirely, nothing to do with us
