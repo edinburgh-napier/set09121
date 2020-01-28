@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -47,7 +49,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 - A system is made up of a collection of objects.
  - Examples: Mario, mushroom, blocks.
-- Objects are the key component of interest -- from a game point of view we want to work on the level of objects.
+- Objects are the key component of interest -- from a game point of view we want to work at the level of objects.
 
 
 ![image](assets/images/mario.jpg) <!-- .element width="70%"  -->
@@ -58,7 +60,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 # Review -- Properties
 
 - Objects will have properties associated with them.
-- The properties determine the individual values associated with an object.
+- The properties determine the values associated with individual objects.
 - Examples include: health; armour; position; etc.
 
  ![image](assets/images/witcher3.jpg) <!-- .element width="70%"  -->
@@ -146,7 +148,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
     - Geometry for 3D game. <!-- .element: class="fragment" -->
 - We also need basic state information of the entity. <!-- .element: class="fragment" -->
     - We need a flag to indicate if the game entity is active/up-datable: alive. <!-- .element: class="fragment" -->
-    - We also need a flag to indicate is visible: visible. <!-- .element: class="fragment" -->
+    - We also need a flag to indicate if the entity is visible: visible. <!-- .element: class="fragment" -->
 
 
 ---
@@ -253,7 +255,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 ---
 
 # Managing Entities
-Games have lot's of Entities
+Games have lots of Entities
 
 ![image](assets/images/lego_marvel.jpg) 
 
@@ -265,14 +267,15 @@ Games have lot's of Entities
 - The simplest method: use a suitable data structure. <!-- .element: class="fragment" -->
     - Array, list, or map. <!-- .element: class="fragment" -->
 - Then we can just tell them all to update and draw as required. <!-- .element: class="fragment" -->
-    - For each entity in the list call update. <!-- .element: class="fragment" -->
-    - For each entity in the list call render. <!-- .element: class="fragment" -->
+    - For each entity in the list call Update(). <!-- .element: class="fragment" -->
+    - For each entity in the list call Render(). <!-- .element: class="fragment" -->
 - However, this has limitations. <!-- .element: class="fragment" -->
     - How do we find a single entity in the list? <!-- .element: class="fragment" -->
     - How do we remove entities from the list if we want to? <!-- .element: class="fragment" -->
     - How do we pass the list around the program? <!-- .element: class="fragment" -->
     - What about general efficiency? <!-- .element: class="fragment" -->
 - Therefore we will adopt a software engineering approach to the problem by using a manager class. <!-- .element: class="fragment" -->
+
 
 
 ---
