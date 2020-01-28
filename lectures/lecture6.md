@@ -30,7 +30,7 @@ School of Computing. Edinburgh Napier University
 ---
 
 # Goal
-## To teach you object-orientation in C++
+## To learn object-orientation in C++
 
 
 ---
@@ -52,13 +52,15 @@ School of Computing. Edinburgh Napier University
 - We have also taken an entity view of a game. <!-- .element: class="fragment" -->
 - All of these elements require us to define objects. <!-- .element: class="fragment" -->
 - You are also going to build one of the most complex systems you have undertaken at university. This requires breaking the system down into controllable components. This is what object-orientation is for. <!-- .element: class="fragment" -->
-- Also, this is an opportunity to learn object-orientation properly (from Kevin's point-of-view). <!-- .element: class="fragment" -->
+- Also, this is an opportunity to learn object-orientation properly (or at least from one point-of-view). <!-- .element: class="fragment" -->
 
 
 ---
 
 # Basics of Object-orientation in C++
 
+- You'll have seen plenty of this in the Labs already <!-- .element: class="fragment" -->
+- Now we are going to talk about what some of that *means* <!-- .element: class="fragment" -->
 
 ---
 
@@ -198,7 +200,7 @@ public:
 # RAII
 
 Our First Rule of Good OO in C++ -- RAII
-- RAII stands for Resource Allocation Is Initialisation.
+- RAII stands for Resource Allocation Is Initialisation. 
 - It is a rule used in good C++ code.
 - When an object is created it allocates or takes ownership of its required resources (via the constructor).
 - When an object is destroyed it frees up its allocated and owned resources (via the destructor).
@@ -245,13 +247,25 @@ RAII : Mario should clean up after himself!
 # Core Object-orientation Concepts
 
 - As stated, C++ has object-orientated features. There are effectively four features that define a language has having object-orientation.
- - **Encapsulation**: the ability for objects to contain and own resources.
- - **Inheritance**: the ability to base behaviour and values on another class specification.
- - **Polymorphism**: the ability for a specific object to act like different types. (Common Interfaces)
- - **Overloading**: the ability to overwrite inherited behaviour to specialised local behaviour.
 
-These are the key elements of working in an object-oriented style. They should underpin your practice in object-oriented software development.
+- These are the key elements of working in an object-oriented style. They should underpin your practice in object-oriented software development. <!-- .element: class="fragment" -->
 
+---
+
+# Core Object-orientation Concepts
+
+- **Encapsulation**: the ability for objects to contain and own resources. <!-- .element: class="fragment" -->
+- **Inheritance**: the ability to base behaviour and values on another class specification. <!-- .element: class="fragment" -->
+- **Polymorphism**: the ability for a specific object to act like different types. (Common Interfaces) <!-- .element: class="fragment" -->
+- **Overloading**: the ability to overwrite inherited behaviour to specialised local behaviour. <!-- .element: class="fragment" -->
+
+---
+
+# Think Back to the Labs
+
+- Have you already done some of these? <!-- .element: class="fragment" -->
+- Remember the Space Invaders example? <!-- .element: class="fragment" -->
+- Where have you used these already? <!-- .element: class="fragment" -->
 
 ---
 
@@ -265,13 +279,18 @@ These are the key elements of working in an object-oriented style. They should u
 
 ---
 
-# Encapsulation -- and why it is a lie
+# Encapsulation 
 
 
-- Encapsulation means that we can create components from other components (classes have attributes).
-- Encapsulation also implies that objects own their resources and control their lifelines.
-    - Many formal models work on this view.
-- However, it is very simple to reference across the object boundary, leading to data mutation problems.
+- Encapsulation means that we can create components from other components (classes have attributes). <!-- .element: class="fragment" -->
+- Encapsulation also implies that objects own their resources and control their lifelines. <!-- .element: class="fragment" -->
+    - Many formal models work on this view. <!-- .element: class="fragment" -->
+
+---
+
+# Be Careful!
+
+- **It is very simple** to reference across the object boundary, leading to data mutation problems.
 
 
 ```
@@ -335,15 +354,19 @@ These are the key elements of working in an object-oriented style. They should u
 
 # What is Inheritance?
 
-- Inheritance is the ability to base part of a class's behaviour on an existing class definition (specification).
+- Inheritance is the ability to base part of a class's behaviour on an existing class definition (specification). <!-- .element: class="fragment" -->
 
-- Inheritance is a key reuse feature of object-orientation.
+- Inheritance is a key reuse feature of object-orientation. <!-- .element: class="fragment" -->
 
-- A *base-class* is a *generalisation* of required behaviour. A *derived-class* is a *specialisation* of this base behaviour.
+- A *base-class* is a *generalisation* of required behaviour. A *derived-class* is a *specialisation* of this base behaviour. <!-- .element: class="fragment" -->
 
-- Inheritance is also the object-orientation feature that enables polymorphism.
+- Inheritance is also the object-orientation feature that enables polymorphism. <!-- .element: class="fragment" -->
 
-- **Warning** -- good practice is to avoid deep levels of inheritance. I personally aim for a base-class to provide an **interface** specification to a collection of derived-classes. I try and have single-level inheritance as far as possible.
+---
+
+# Be Careful!
+
+- **Warning** -- good practice is to avoid deep levels of inheritance. I personally aim for a base-class to provide an **interface** specification to a collection of derived-classes. I try and have single-level inheritance as far as possible. <!-- .element: class="fragment" -->
 
 
 ---
@@ -368,10 +391,10 @@ These are the key elements of working in an object-oriented style. They should u
 
 # Multiple-inheritance in C++
 
-- C++ does not have an interface definition as Java and C#.
-    - We will look at virtual behaviour shortly.
-- We do have multiple-inheritance which provides the same features (more-or-less).
-- Multiple-inheritance allows us to define a class as inheriting from more than one base-class.
+- C++ does not have an interface definition as Java and C#. <!-- .element: class="fragment" -->
+    - We will look at virtual behaviour shortly. <!-- .element: class="fragment" -->
+- We do have multiple-inheritance which provides the same features (more-or-less). <!-- .element: class="fragment" -->
+- Multiple-inheritance allows us to define a class as inheriting from more than one base-class. <!-- .element: class="fragment" -->
 
 ```
     class A
@@ -403,13 +426,17 @@ These are the key elements of working in an object-oriented style. They should u
 # What is Polymorphism?
 
 - Polymorphism is the ability of our objects to act as different types.
+
+- Understanding polymorphism is one of the most important aspects of object-oriented development. Having an object provide a known interface the produces different behaviour is fundamental to software reuse.
+
+---
+
+# What is Polymorphism?
+
 - There are actually three types of polymorphism in computer science. C++ supports all three.
- - **Ad-hoc polymorphism**:   overriding functions with different parameters (we will look at this in the overloading section).
- - **Parametric polymorphism**:   overriding types based on a parameter (e.g. `vector<int>`). We will briefly look at templates at the end of lecture.
- - **Subtyping**:   having a type be derived from other super-types. This is inheritance and the focus of this section.
-
-Understanding polymorphism is one of the most important aspects of object-oriented development. Having an object provide a known interface the produces different behaviour is fundamental to software reuse.
-
+ - **Ad-hoc polymorphism**:   overriding functions with different parameters (we will look at this in the overloading section). <!-- .element: class="fragment" -->
+ - **Parametric polymorphism**:   overriding types based on a parameter (e.g. `vector<int>`). We will briefly look at templates at the end of lecture. <!-- .element: class="fragment" -->
+ - **Subtyping**:   having a type be derived from other super-types. This is inheritance and the focus of this section. <!-- .element: class="fragment" -->
 
 ---
 
@@ -477,6 +504,11 @@ Converting (Casting) Between Types in C++
 
 - A key concept of polymorphism is specialisation from a generalised interface.
 - What this means is that an object may look like a general type, but will act like a special type.
+
+---
+
+# Overloading Example
+
 - For example:
     - Animal type has a `make_sound` method.
     - Create an object of type Sparrow.
@@ -484,8 +516,7 @@ Converting (Casting) Between Types in C++
     - We treat it like a bird, it still makes a chirp sound.
     - We treat it like an animal, it still makes a chirp sound.
     - If we create a dog, it will always make a bark sound.
-- The specialised objects can overload the generalised behaviour.
-
+- *The specialised objects can overload the generalised behaviour.* <!-- .element: class="fragment" -->
 
 ---
 
@@ -517,7 +548,7 @@ public:
 
 - To mark a method as overridable in a child class we need to state that it is `virtual`.
     - Same as C\#; Java uses `abstract`.
-- When a method is `virtual` it means method calls are looked up via a virtual function table.
+- When a method is `virtual` it means method calls are looked up via a virtual function table. 
     - Called dynamic dispatch.
 - Basically it means that instead of looking up a function to call based on type, an object shows where a function is from its own state information.
 - Child classes can then overwrite `virtual` ones if they choose.
