@@ -60,7 +60,7 @@ School of Computing. Edinburgh Napier University
 # Basics of Object-orientation in C++
 
 - You'll have seen plenty of this in the Labs already <!-- .element: class="fragment" -->
-- Now we are going to talk about what some of that *means* <!-- .element: class="fragment" -->
+- Now we are going to talk about what some of that means <!-- .element: class="fragment" -->
 
 ---
 
@@ -200,12 +200,12 @@ public:
 # RAII
 
 Our First Rule of Good OO in C++ -- RAII
-- RAII stands for Resource Allocation Is Initialisation. 
-- It is a rule used in good C++ code.
-- When an object is created it allocates or takes ownership of its required resources (via the constructor).
-- When an object is destroyed it frees up its allocated and owned resources (via the destructor).
-- This ensures that we do not have memory leaks. Resources have their life tied to an object's life.
-- Getting into this habit is also good for all programming, even in garbage collected languages.
+- RAII stands for Resource Allocation Is Initialisation. <!-- .element: class="fragment" -->
+- It is a rule used in good C++ code. <!-- .element: class="fragment" -->
+- When an object is created it allocates or takes ownership of its required resources (via the constructor). <!-- .element: class="fragment" -->
+- When an object is destroyed it frees up its allocated and owned resources (via the destructor). <!-- .element: class="fragment" -->
+- This ensures that we do not have memory leaks. Resources have their life tied to an object's life. <!-- .element: class="fragment" -->
+- Getting into this habit is also good for all programming, even in garbage collected languages. <!-- .element: class="fragment" -->
 
 
 ---
@@ -248,16 +248,16 @@ RAII : Mario should clean up after himself!
 
 - As stated, C++ has object-orientated features. There are effectively four features that define a language has having object-orientation.
 
-- These are the key elements of working in an object-oriented style. They should underpin your practice in object-oriented software development. <!-- .element: class="fragment" -->
+- These are the key elements of working in an object-oriented style. They should underpin your practice in object-oriented software development.
 
 ---
 
 # Core Object-orientation Concepts
 
-- **Encapsulation**: the ability for objects to contain and own resources. <!-- .element: class="fragment" -->
-- **Inheritance**: the ability to base behaviour and values on another class specification. <!-- .element: class="fragment" -->
-- **Polymorphism**: the ability for a specific object to act like different types. (Common Interfaces) <!-- .element: class="fragment" -->
-- **Overloading**: the ability to overwrite inherited behaviour to specialised local behaviour. <!-- .element: class="fragment" -->
+- **Encapsulation**: the ability for objects to contain and own resources.
+- **Inheritance**: the ability to base behaviour and values on another class specification.
+- **Polymorphism**: the ability for a specific object to act like different types. (Common Interfaces) 
+- **Overloading**: the ability to overwrite inherited behaviour to specialised local behaviour.
 
 ---
 
@@ -354,20 +354,19 @@ RAII : Mario should clean up after himself!
 
 # What is Inheritance?
 
-- Inheritance is the ability to base part of a class's behaviour on an existing class definition (specification). <!-- .element: class="fragment" -->
+- Inheritance is the ability to base part of a class's behaviour on an existing class definition (specification).
 
-- Inheritance is a key reuse feature of object-orientation. <!-- .element: class="fragment" -->
+- Inheritance is a key reuse feature of object-orientation. 
 
-- A *base-class* is a *generalisation* of required behaviour. A *derived-class* is a *specialisation* of this base behaviour. <!-- .element: class="fragment" -->
+- A *base-class* is a *generalisation* of required behaviour. A *derived-class* is a *specialisation* of this base behaviour.
 
-- Inheritance is also the object-orientation feature that enables polymorphism. <!-- .element: class="fragment" -->
+- Inheritance is also the object-orientation feature that enables polymorphism.
 
 ---
 
 # Be Careful!
 
-- **Warning** -- good practice is to avoid deep levels of inheritance. I personally aim for a base-class to provide an **interface** specification to a collection of derived-classes. I try and have single-level inheritance as far as possible. <!-- .element: class="fragment" -->
-
+- **Warning** -- good practice is to avoid deep levels of inheritance. I personally aim for a base-class to provide an **interface** specification to a collection of derived-classes. I try and have single-level inheritance as far as possible.
 
 ---
 
@@ -391,10 +390,10 @@ RAII : Mario should clean up after himself!
 
 # Multiple-inheritance in C++
 
-- C++ does not have an interface definition as Java and C#. <!-- .element: class="fragment" -->
-    - We will look at virtual behaviour shortly. <!-- .element: class="fragment" -->
-- We do have multiple-inheritance which provides the same features (more-or-less). <!-- .element: class="fragment" -->
-- Multiple-inheritance allows us to define a class as inheriting from more than one base-class. <!-- .element: class="fragment" -->
+- C++ does not have an interface definition as Java and C#.
+    - We will look at virtual behaviour shortly. 
+- We do have multiple-inheritance which provides the same features (more-or-less). 
+- Multiple-inheritance allows us to define a class as inheriting from more than one base-class.
 
 ```
     class A
@@ -434,9 +433,9 @@ RAII : Mario should clean up after himself!
 # What is Polymorphism?
 
 - There are actually three types of polymorphism in computer science. C++ supports all three.
- - **Ad-hoc polymorphism**:   overriding functions with different parameters (we will look at this in the overloading section). <!-- .element: class="fragment" -->
- - **Parametric polymorphism**:   overriding types based on a parameter (e.g. `vector<int>`). We will briefly look at templates at the end of lecture. <!-- .element: class="fragment" -->
- - **Subtyping**:   having a type be derived from other super-types. This is inheritance and the focus of this section. <!-- .element: class="fragment" -->
+ - **Ad-hoc polymorphism**:   overriding functions with different parameters (we will look at this in the overloading section).
+ - **Parametric polymorphism**:   overriding types based on a parameter (e.g. `vector<int>`). We will briefly look at templates at the end of lecture.
+ - **Subtyping**:   having a type be derived from other super-types. This is inheritance and the focus of this section.
 
 ---
 
@@ -925,27 +924,27 @@ int A::do_more() {
 
 # Summary
 
-- You have just learned C++ in an hour.
-- This is obviously not possible, and you will need practice in these ideas. I am simply signposting ideas.
-- C++ is one of the most complicated languages around (they keep adding features), so get a good working knowledge of what you need and hack it together.
-- Key thing today was how to do object-orientation properly. Hopefully you can work around this with your previous Java and C\# knowledge.
-- But at the end of the day it is all about practice.
+- You have just learned C++ in an hour. <!-- .element: class="fragment" -->
+- This is obviously not possible, and you will need practice in these ideas. I am simply signposting ideas. <!-- .element: class="fragment" -->
+- C++ is one of the most complicated languages around (they keep adding features), so get a good working knowledge of what you need and hack it together. <!-- .element: class="fragment" -->
+- Key thing today was how to do object-orientation properly. Hopefully you can work around this with your previous Java and C\# knowledge. <!-- .element: class="fragment" -->
+- But at the end of the day it is all about practice. <!-- .element: class="fragment" -->
 
 
 ---
 
-## Sam's Golden Rules / top tips
+# Sam's Golden Rules / top tips
 
-1. Keep stuff out of headder files. Only the bare minimum!
- 1. OMG *Forward declare pointers* in headder files (google it).
- 1. You don't need to include dog.h if you only ever have a dog pointer.
+1. Keep stuff out of header files. Only the bare minimum!
+ - OMG *Forward declare pointers* in header files (Google it).
+ - You don't need to include dog.h if you only ever have a dog pointer.
 
 1. When in doubt, use Unique_ptr. Move to shared_ptr if you need it
- 1. Don't even call New(). Or Delete(). Ever. Just don't.
+ - Don't even call New(). Or Delete(). Ever. Just don't.
 
 1. Use Const everywhere.
 
 5. Put breakpoints in all your deconstructors when debugging scope issues. 
-    1. When they call will surprise you!
+ - When they call will surprise you!
 
 
