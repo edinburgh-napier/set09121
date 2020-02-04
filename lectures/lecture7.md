@@ -123,7 +123,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 - Market research must be undertaken to determine the likely return to the publisher.
     - Unit sales are the most important factor for a publisher.
     - The quality of the game comes second.
-    - Catering for a small/niche market is unlikely to win over a publisher.
+    - Catering for a small/niche market is unlikely to win over a publisher (although this depends on initial outlay).
 - You need to define the target audience.
     - Who will buy the game?
     - What is the core demographic?
@@ -226,7 +226,8 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
     - Crucial part in AAA game design.
 - Character work can be a long, iterative process.
 - Very important to increase engagement with the player.
-    - Kids love dark-haired 30-something males.
+    - Kids love dark-haired 30-something males (or so it is claimed).
+	- Try thinking about less overused character archetypes?
 - Will include concept design and description.
 
 ![image](assets/images/game_characters.jpg) <!-- .element width="40%"  -->
@@ -266,7 +267,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
  - e.g. RPGs.
 - There has to be a link between the gameplay and story.
  - Your story should unfold through the game.
-- Game script writers do exist.
+- Game writers do exist and are not usually at fault for the bad stories.
  - Books are also written on game storylines.
 - Topics to think about:
  - Synopsis.
@@ -308,9 +309,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Media List
-
-Contents -- Media List
+# Contents -- Media List
 
 - You will need a list of the assets that are required by the art and sound team.
 - Descriptions of these assets will need to be provided.
@@ -339,6 +338,11 @@ Contents -- Media List
  - The technical lead or director heads the technical team.
 - Can be quite large and detailed.
   - The more detailed the better.
+
+---
+
+# Contents -- Technical Specification 2
+
 - Key area is a technical analysis of the game.
  - What are the technical challenges of the project?
   - Important for costing the project.
@@ -351,7 +355,7 @@ Contents -- Media List
 
 ---
 
-# Contents -- Technical Specification2
+# Contents -- Technical Specification 3
 
 - Some technical requirements to consider:
 - Development platform and tools.
@@ -404,7 +408,7 @@ Contents -- Media List
 - Some are using a wiki to coordinate and communicate between team members.
  - Allows multiple users to update.
  - Allows all users to access the most up to date documentation.
- - Software development using these often as well -- see wikis on GitHub.
+ - Software development uses these often too - see wikis on GitHub.
 - Repository systems can also be used.
  - Combine document maintenance with code maintenance.
  - Could also be storing assets.
