@@ -92,6 +92,7 @@ School of Computing. Edinburgh Napier University
     - Technical specification.
         - May be a separate document.
         - Defines the technical aspects of the project.
+		
 ---
 
 # GDD Exercise
@@ -124,6 +125,11 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
     - Unit sales are the most important factor for a publisher.
     - The quality of the game comes second.
     - Catering for a small/niche market is unlikely to win over a publisher (although this depends on initial outlay).
+
+---
+
+# Contents -- Audience, Platform, and Marketing 2
+
 - You need to define the target audience.
     - Who will buy the game?
     - What is the core demographic?
