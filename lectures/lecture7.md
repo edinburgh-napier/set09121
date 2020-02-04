@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -39,7 +41,7 @@ School of Computing. Edinburgh Napier University
 
 # What is the Game Design Document?
 
-- Game Design Document (GDD) is the template for the game that is to be created.
+- A Game Design Document (GDD) is the template for the game that is to be created.
 - The GDD is the main reference when determining how things should be done when developing the game.
 - However, it is not a sacred document.
     - It is a living, constantly changing document.
@@ -90,10 +92,12 @@ School of Computing. Edinburgh Napier University
     - Technical specification.
         - May be a separate document.
         - Defines the technical aspects of the project.
+---
 
-Exercise -- Researching Design Documents Use Google to search for game design documents. There are quite a few out there and some templates. 
+# GDD Exercise
+
+Researching Design Documents Use Google to search for game design documents. There are quite a few out there and some templates. 
 You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. If you do find a AAA one let us know.
-
 
 ---
 
