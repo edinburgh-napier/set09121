@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -64,8 +66,8 @@ Game Programming Patterns - Robert Nystrom
     - Sequence diagrams -- individual steps and interaction between components.
     - State diagrams -- model object or system state.
 - **Use diagrams whenever possible!** 
- - Working out on paper how something works is always easier than banging your head off your code, even if the diagram is rough.
- - Trust me, I've been there.
+ - Working out on paper how something works is **always** easier than banging your head off your code.
+ - Trust me, we've all been there.
 
 
 ---
