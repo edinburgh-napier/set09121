@@ -70,7 +70,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# General Content
+# General Content 2
 
 - Sections we will produce (continued):
     - Characters.
@@ -84,7 +84,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# General Content
+# General Content 3
 
 - Sections we will produce (continued):
     - Media list.
@@ -92,7 +92,7 @@ School of Computing. Edinburgh Napier University
     - Technical specification.
         - May be a separate document.
         - Defines the technical aspects of the project.
-		
+
 ---
 
 # GDD Exercise
