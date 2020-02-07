@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -27,7 +29,7 @@ School of Computing. Edinburgh Napier University
 - Game Physics Engine Development, Millington.
 - If you ever want to build your own physics engine this is the book.
 - It does introduce some of the physics concepts well.
-- Unless you need to know this information it isn't necessary.
+- Unless you need to know this information, it isn't necessary.
 
 ![image](assets/images/physics_book.jpg) <!-- .element width="30%" -->
 
@@ -51,7 +53,7 @@ School of Computing. Edinburgh Napier University
 # Game Physics
 
 - Showing a couple of examples is fine, but what is game physics and how do we use it?
-- Game physics is really only a small subset of academic physics -- it is not theoretical.
+- Game physics is really only a small subset of academic physics - it is not theoretical.
 - Game physics uses classical mechanics to provide the basic movement of objects in the game world.
     - We will look at the Laws of Motion for example.
 - Other physics models are used in some areas of games.
@@ -67,7 +69,7 @@ School of Computing. Edinburgh Napier University
 
 
 - Game physics is almost always provided by a third-party engine.
-- It used to be that a game studio required someone with a masters of PhD in physics.
+- It used to be that a game studio required someone with a Masters or PhD in Physics.
 - We will use Box2D as our middleware.
 - There are a number of industry used, free, physics engines out there.
 
@@ -83,7 +85,7 @@ School of Computing. Edinburgh Napier University
 - Collision detection is not strictly part of a physics engine.
 - The physics engine concerns itself with resolving collisions.
     - So we need to be able to detect them in the first place.
-- There are numerous techniques to detect collisions in 2D and 3D -- from fast course-grained to slow fine-grained.
+- There are numerous techniques to detect collisions in 2D and 3D - from fast and course-grained to slow and fine-grained.
 
 ![image](assets/images/collision-detection.png) <!-- .element width="50%" -->
 
@@ -108,7 +110,7 @@ School of Computing. Edinburgh Napier University
 
 
 - Rigid bodies is about how geometric objects move and interact.
-- Unlike particles, rigid bodies have a shape. This means that not only move in space but can also rotate.
+- Unlike particles, rigid bodies have a shape. This means they not only move in space, but can also rotate.
 - The bodies are rigid as they do not change shape.
 
 ![image](assets/images/rigid-body.jpg)
@@ -121,10 +123,8 @@ School of Computing. Edinburgh Napier University
 - Collision detection (intersection testing) lets us find our which bodies have come into contact.
 - Particle physics allow us to control the motion of objects without taking into account their size and shape.
 - Rigid body dynamics let us model how geometric objects interact.
-- Rigid body dynamics also let us determine what happens when two objects collide.
-    - Collision resolution.
-- Box2D provides these core features (and a bit more) so we can do
-    almost any type of 2D physical effect you can think of.
+- Rigid body dynamics also let us determine what happens when two objects collide: **Collision resolution**
+- Box2D provides these core features (and a bit more) so we can do almost any type of 2D physical effect you can think of.
 
 
 ---
@@ -159,20 +159,20 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-## Fundamentals -- Laws of Motion
+## Fundamentals - Laws of Motion
 
 
 ---
 
 # What are the Laws of Motion?
 
-- Game physics are underpinned by Newton's three Laws of Motion.
+- Game physics are underpinned by Newton's Three Laws of Motion.
     - First described by Isaac Newton in the 17th century.
-- Newton three laws are:
-    1.  An object in motion stays in motion unless a force is applied to it.
-    2.  A force applied to an object causes an acceleration in that direction multiplied by the inverse mass of the object.
-    3.  For any action there is an but opposite reaction.
-- There are also Euler's two laws of rigid body motion which we won't discuss here.
+- Newton's laws are:
+    1.  An object in motion stays in motion unless an external force is applied to it.
+    2.  A force applied to an object causes an acceleration in that direction, multiplied by the inverse mass of the object.
+    3.  For any action there is an equal, but opposite reaction.
+- There are also Euler's Two Laws of Rigid Body Motion which we won't discuss here.
 
 
 ---
@@ -181,7 +181,7 @@ School of Computing. Edinburgh Napier University
 
 
 - An object in motion stays in motion unless a force is applied to it.
-- Basically, if there is no force there is no change in acceleration that can change velocity.
+- Basically, if there is no force there is no change in acceleration or velocity.
 
 - If $F_{net} = 0$ then there is no **change** in motion.
 - Where:
@@ -233,11 +233,11 @@ Or: `$$a = \frac{F}{m}$$`
 
 
 <div style="float: right;width: 60%;text-align: left;" > 
-\\\(s\\) : object displacement.<br>
-\\\(u\\) : the initial velocity.<br>
-\\\(v\\) : the final velocity.<br>
-\\\(a\\) : the acceleration.<br>
-\\\(t\\) :  (or \\(\Delta t\\)) : the time passed. 
+\\\(s\\) : object displacement<br>
+\\\(u\\) : the initial velocity<br>
+\\\(v\\) : the final velocity<br>
+\\\(a\\) : the acceleration<br>
+\\\(t\\) :  (or \\(\Delta t\\)) : the time passed 
 </div>
 
 
@@ -264,7 +264,7 @@ Or: `$$a = \frac{F}{m}$$`
 
 # Weight and Mass
 
-- we use the terms weight and mass interchangeably in everyday language.
+- We use the terms weight and mass interchangeably in everyday language.
 - In physics, weight and mass are different.
 - Weight is the downward force applied to an object due to gravity and the object's mass.
 - Mass is the measure of how much matter is in an object. 
@@ -304,7 +304,7 @@ On Earth: $$g = 9.8 m/s^2$$ so: $$1N = 0.102kg $$ $$ 1kg = 9.8N $$
 
 # Force Examples
 
-- Springs are commonly used for a number of effects -- they do exactly what you think.
+- Springs are commonly used for a number of effects - they do exactly what you think.
 - In games, springs are used for deformable shapes and balls.
 
 Hook's Law: $$F = -k\Delta l$$ where $k$ is the stiffness of the spring and $l$ the length.
@@ -351,21 +351,32 @@ Impulses are Cheat forces. We implement them by directly modifying velocity. You
 # Impulse Example
 
 - Normally we would calculate a force as follows: $$ F_{net} \mathrel{{+}{=}} F $$
-- For an impulse, the change is far more sudden, and we just add a value directly to the velocity. $$ p.v \mathrel{{+}{=}} I $$.
+- For an impulse, the change is far more sudden, and we just add a value directly to the velocity. $$ p.v \mathrel{{+}{=}} I $$
 - Particle uses new velocity at next update.
 
 ---
 
 # Summary
 
-Warning
+**Warning**
 
 - Physics effects look good in your game, provide nicer looking movement, and can be used for gameplay. However...
 - Physics calculations can be expensive.
     - They also don't always scale well also due to the object interactions.
 - Collision detection is also expensive.
-- Be smart! Don't have lots of physical effects on the screen at one time -- this can really hit performance!
+- Be smart! Don't have lots of physical effects on the screen at one time - this can really hit performance!
 
+---
+
+**Warning Pt 2**
+
+- Physics engines are not always the best way to make your game *fun*.
+- This is particularly true if your engine is not deterministic. <!-- .element: class="fragment" -->
+- Think about games like Sonic the Hedgehog: <!-- .element: class="fragment" -->
+ - Movement should feel good <!-- .element: class="fragment" -->
+ - Movement should be repeatable <!-- .element: class="fragment" -->
+ - Sonic isn't controlled by a physics engine <!-- .element: class="fragment" -->
+ - (But gravity is applied!) <!-- .element: class="fragment" -->
 
 ---
 
@@ -376,7 +387,7 @@ Warning
     - Particles.
     - Rigid bodies.
     - Collisions.
-- Box2D will provide us with all these features and more -- you just need to explore it.
-- The physics tutorial will introduce most of these ideas.
+- Box2D will provide us with all these features and more - you just need to explore it.
+- The physics lab will introduce most of these ideas practically.
 
 {% endraw %}
