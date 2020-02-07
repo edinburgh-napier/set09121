@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -25,18 +27,19 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# What does a game need? From a Programmers point of view:
+# What does a game need? From a Programmers POV:
 
 - **Content**
- - 3d Models, Shaders, Textures, Text, Fonts, Music, Video, Saves, levels/gamestate. <!-- .element: class="fragment" -->
-- **Processing & io**
- - Rendering, User input, Networking, Audio, loading/unloading/streaming  <!-- .element: class="fragment" -->
+ - 3d Models, Shaders, Textures, Text, Fonts, Music, Video, Saves, Levels/Game State etc.. <!-- .element: class="fragment" -->
+- **Processing & I/O**
+ - Rendering, User input, Networking, Audio, Loading/Unloading/Streaming  <!-- .element: class="fragment" -->
 - **Logic and Mechanics**
  - Physics, AI, Gameplay rules. <!-- .element: class="fragment" -->
 
 
 Question:  When does a game need any of the above? <!-- .element: class="fragment" -->
-- **A: Right Now (and without warning)**  <!-- .element: class="fragment" -->
+
+**A: Right Now (and without warning)**  <!-- .element: class="fragment" -->
 
 
 ---
@@ -56,8 +59,8 @@ Question:  When does a game need any of the above? <!-- .element: class="fragmen
 # Combating the Complexity
 
 - Game Codebases Get Big Fast <!-- .element: class="fragment" -->
-- Taming and maintaing it tests your Ability as a Software Engineer <!-- .element: class="fragment" -->
-- We've covered some Software patterns that you can pull out of your toolbox to help.These help solve small isolated design problems. <!-- .element: class="fragment" -->
+- Taming and maintaing it tests your ability as a Software Engineer <!-- .element: class="fragment" -->
+- We've covered some Software Patterns that you can pull out of your toolbox to help. These help solve small isolated design problems. <!-- .element: class="fragment" -->
 - When it comes to pulling it all together as one giant moving thing, you need to think about the grand design of your Engine <!-- .element: class="fragment" -->
 - This means separating your gameplay logic from the Generic Engine logic. <!-- .element: class="fragment" -->
 
@@ -77,12 +80,13 @@ Question:  When does a game need any of the above? <!-- .element: class="fragmen
 
 # Abstraction - And so we build Games Engines
 
-- But do we need them?
- - ...We didn't always have them. <!-- .element: class="fragment" -->
+Do we need them?
+
+After all we didn't always have them? <!-- .element: class="fragment" -->
 
 Q: How complex do you think a game needs to before you think you need to sperate Engine Code? <!-- .element: class="fragment" -->
 
-- `¯\_(ツ)_/¯` <!-- .element: class="fragment" -->
+- Err... <!-- .element: class="fragment" -->
 - A: Once your code gets abstract enough <!-- .element: class="fragment" -->
 - A: From the start <!-- .element: class="fragment" -->
 - A: Never, and write some crazy fast/bad code <!-- .element: class="fragment" -->
@@ -91,7 +95,7 @@ Not all Games Need an 'engine' <!-- .element: class="fragment" -->
 
 - Some are simplistic enough to not need it. <!-- .element: class="fragment" -->
 - We already have an engine somewhat: SFML.  <!-- .element: class="fragment" -->
- - This is already isolated from our code. But it doesn't do Everything we need. <!-- .element: class="fragment" -->
+ - This is already isolated from our code. But it doesn't do everything we need. <!-- .element: class="fragment" -->
 
 ---
 
@@ -107,7 +111,7 @@ Not all Games Need an 'engine' <!-- .element: class="fragment" -->
 
 # Object Orientation.
 
-OO is Hammered into you since 1st year, as the solution to software complexity.
+OO is hammered into you since 1st year as the solution to software complexity.
 
 ![image](assets/images/software_development.png)
 
@@ -126,15 +130,15 @@ Enter: The Evil Tree Problem <!-- .element: class="fragment" -->
 # Possible Evil Tree Solutions
 
 To Fix this We need either:
-- Multiple Inheritance (Which c++ doesn't have) <!-- .element: class="fragment" -->
-- Or Interfaces (Which c++ doesn't have) <!-- .element: class="fragment" -->
+- Multiple Inheritance (Which C++ doesn't have) <!-- .element: class="fragment" -->
+- Or Interfaces (Which C++ doesn't have) <!-- .element: class="fragment" -->
  
 C++ as a language doesn't have these natively, but it doesn't stop us from adding it ourselves. <!-- .element: class="fragment" -->
 
 
 ---
 
-# The Evil Tree Solutions The Entity Component Model
+# The Evil Tree Solution - The Entity Component Model
 
 ![image](assets/images/ecm_strcuture.png)
 
