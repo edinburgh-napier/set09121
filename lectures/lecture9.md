@@ -14,9 +14,12 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
+
 
 
 ---
@@ -101,7 +104,7 @@ void function(int param_scope){
 # Memory Layout
 
 - Memory is obviously just one big chunk.
-- Addressed from `0x00000000` (0) to `0xFFFFFFFF` (4,294,967,295).
+- Addressed from `0x00000000` (0) to `0xFFFFFFFF` (4,294,967,295 in 32 bit systems).
 - Memory is separated: stack at the top and the heap at the bottom.
 - The processor can optimise memory streams to improve performance (and also cache).
 - Jumping around the heap can be a major source of performance reduction.
@@ -113,9 +116,9 @@ void function(int param_scope){
 
 # Memory Access Times
 
-- CPU is fast when accessing adjacent memory.
-- If we jump around things slow down -- sometimes dramatically.
-- Consider a multi-dimensional array.
+- The CPU is fastest when accessing adjacent memory.
+- If we jump around things slow down - sometimes dramatically.
+- Consider a multi-dimensional array:
 - The dimensions place memory in the continuous block differently.
 - Access time difference between approach A and C can be 100x.
  - i.e. accessing all members using approach A could be 300ns; approach C 30000ns.
@@ -157,7 +160,7 @@ You must consider the limits you have in memory.
  - **main memory** -  commonly ranges from 4GB to 16GB at present.
  - **virtual memory** -  if main memory runs out, the (slow) HDD used.
   - 64bit OS can address ~16.8 million petabytes of memory.
-  - If you are using virtual memory you are losing.
+  - If you are using virtual memory you shouldn't be.
 
 
 ---
@@ -184,7 +187,7 @@ There are two functions of note
  - **malloc** - allocates space on the heap.
  - **free** - release space allocated.
 
-You need to release everything you allocate.
+You need to release everything you allocate or ***memory leaks***.
 
 ```cpp
 // Declare value
@@ -243,6 +246,14 @@ foo(&v); //pass in the address of v to foo
     free(y);
 ```
 
+---
+
+# REMEMBER:
+
+**An array is just a pointer to memory where the array starts!**
+
+This is really important, and can lead to all sorts of bugs if you forget!
+
 
 ---
 
@@ -250,7 +261,7 @@ foo(&v); //pass in the address of v to foo
 
 - Multi-dimensional arrays can also be stack or heap allocated.
 - Multi-dimensional arrays are just an array of pointers.
-- Each pointed to array can have a different size.
+- Each pointer to array can have a different size.
 
 ``` cpp
 // On the stack
@@ -272,7 +283,7 @@ free(y);
 
 # Copying and Pointing
 
-- The main reason we have pointers in C is to allow data to be sent around without copying.
+- The main reason we have pointers in C is to allow data to be sent around *without duplicating it*.
 - For large data objects this is a real problem.
  - Create object of 1MB size.
  - Call function with object -- 1MB copy.
@@ -551,9 +562,9 @@ Update(){
  - Hide the details of how to load a specific resource.
   - e.g. we just load -- we don't need to know the individual calls to load a texture.
  - Manage allocation and deallocation of resources.
-  - data-driven design.
+   - Data-driven design.
  - Provide a single point to manage all of this.
-  - manager pattern; maybe singleton.
+    - Manager pattern, maybe singleton.
 - So we just apply our design pattern thinking to the problem.
 
 
@@ -563,7 +574,7 @@ Update(){
 
 - Our game resource manager needs only a few different operations:
  - `initialise` :   as most of our game engine components will likely have.
- - `load_resource` :   loads or retrieves an already loaded resource.
+ - `load_resource` :   loads and/or retrieves a resource.
  - `unload_resource` :   unloads a loaded resource.
  - `clear_all` :   unloads all loaded resources.
 - That is all.
@@ -598,7 +609,7 @@ texture load_resource(const std::string &file){
 }
 ```
 
-**ALWAYS LOAD YOUR ASSETS AT THE START OF THE GAME/LEVEL! -- DO NOT DO IT DURING A FRAME!**
+**ALWAYS LOAD YOUR ASSETS AT THE START OF THE GAME/LEVEL!<br />DO NOT DO IT DURING A FRAME!**
 
 
 ---
