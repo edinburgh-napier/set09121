@@ -25,7 +25,7 @@ or: Engine Abstraction and the Entity Component Model
 5.  Create a \"ghost\" class, inherits from Entity.
     - should move around the screen randomly
     - should be a different colour to the player.
-6.  Main.cpp should create one player, and four ghosts, and store all in a `vector<entity*>`
+6.  Main.cpp should create one player, and four ghosts, and store all in a `vector<Entity*>`
     - should only call Update() and Render() on vector
     - all entity logic should be inside the entity classes.
 
