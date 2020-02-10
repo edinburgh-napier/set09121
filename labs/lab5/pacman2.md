@@ -297,9 +297,25 @@ float ActorMovementComponent::getSpeed() const { ... }
 void ActorMovementComponent::setSpeed(float speed) { ... }
 ```
 
+{:class="important"}
+You will need to comment out the validMove test for now! We will come back to this...
+
 #### Player Movement Component
 
 This is super simple, inherit from ActorMovementComponent and add the usual keyboard controls to the Update();
+
+You will also have to ensure you add the constructor in, so it works correctly. You will need to add it into the .h file, and the .cpp should have something like this in it, calling the parent class:
+
+```
+
+PlayerMovementComponent::PlayerMovementComponent(Entity* p)
+	: ActorMovementComponent(p) {}
+
+```
+
+**REMEMBER: You have to call the Update() method on all the components - you will likely want to check whether the Entity is alive here too!**
+
+
 
 #### Enemy AI Component
 
