@@ -383,11 +383,11 @@ But how do we build this?
 
 #### Finding components
 
-Retrieving or finding components of a certain type can be done in a few ways. To do this we need a way to tell what type a component is. The simple way is to have a string or numeric identifier as a property on each component type. Then a simple search through all the components on an entity for the value we need. This would require us adding code into every component class we have made -- not good(but not a bad idea).
+Retrieving or finding components of a certain type can be done in a few ways. To do this we need a way to tell what type a component is. The simple way is to have a string or numeric identifier as a property on each component type. Then a simple search through all the components on an entity for the value we need. This would require us adding code into every component class we have made -- not good (but not a bad idea).
 
-Fortunately, the c++ runtime has us covered for this, with a very handy function: `typeid()`. This is part of the Run-Time-Type-Information (RTTI) capabilites of the compiler, there are arguments for and against the performance cost of enabling this. It makes our lives easy so we'll take it for now and make a fake promise to ourselves to come up with something better in the future.
+Fortunately, the C++ runtime has us covered for this, with a very handy function: `typeid()`. This is part of the Run-Time-Type-Information (RTTI) capabilites of the compiler, there are arguments for and against the performance cost of enabling this. It makes our lives easy so we'll take it for now and make a fake promise to ourselves to come up with something better in the future.
 
-`typeid()` returns an arbitrary number, so it ca't tell us outright what type of class an object is, but we can compare it with the id of a known class. so our process to find components of a given type is to loop through all components on an entity and compare the `typeid()` with the `typeid()` of the type we want. When we find a component that matches, we add it to a vector that we will return.
+`typeid()` returns an arbitrary number, so it can't tell us outright what type of class an object is, but we can compare it with the id of a known class to discover this. So our process to find components of a given type is to loop through all components on an entity and compare the `typeid()` with the `typeid()` of the type we want. When we find a component that matches, we add it to a vector that we will return.
 
 #### get_components<T>()
 
@@ -410,7 +410,7 @@ const std::vector<std::shared_ptr<T>> get_components() const {
 
 #### Getting Compatible Components
 
-More often than not, we may not know exactly which components are on an entity. A Player will have a PlayerMovement Component, which derives from ActorMovement. Calling get_components<ActorMovement> would return an empty vector. This could cause us headaches. We need a way of getting a T Component, or anything that derives from a T component. `typeid()` can't help us here.
+More often than not, we may not know exactly which components are on an entity. A Player will have a PlayerMovement Component, which derives from ActorMovement. Calling get_components\<ActorMovement\> would return an empty vector. This will absolutely cause us headaches later on! We need a way of getting a T Component, or anything that derives from a T component. `typeid()` can't help us here.
 
 RTTI has another method that can save us here, you may have seen it in use in other places -- the `dynamic_cast()`. This tries to convert one thing into another thing, and returns true or false depending on if this was successful. This does some complex things behind the scenes and is quite slow. So slow you might actually see it taking up some of your frametime when running in Debug. So we should use this sparingly in the code, and where possible: save the result so we don't have to call it every frame.
 
