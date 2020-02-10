@@ -11,7 +11,7 @@ AI will be covered in detail in later labs, for this we will be using a very bas
 
 ## Pacman Level
 
-First up, let's get the level loaded and rendered.
+First up, let's get the level loaded and rendered. You can find it [here (assets/levels/maze_2.txt)](https://github.com/edinburgh-napier/set09121/tree/master/assets/levels).
 
 ```cpp
 //"pacman.cpp"
