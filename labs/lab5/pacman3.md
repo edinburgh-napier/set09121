@@ -27,13 +27,15 @@ void GameScene::render() {
 }
 ```
 
-Easily done, thanks to our well built level system. What we can do now is use this to change the spawn positions of our Entities
+Easily done, thanks to our well built level system. What we can do now is use this to change the spawn positions of our Entities.
+
+**Before you can do this, you need to store a reference in the .h file for the player object, and some form of list for the ghosts so we can access it from other methods!**
 
 ```cpp
 //"pacman.cpp"
 void GameScene::respawn() {
  player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
- player->GetCompatibleComponent<ActorMovementComponent>()[0]
+ player->getCompatibleComponent<ActorMovementComponent>()[0]
             ->setSpeed(150.f);
 
  auto ghost_spawns = ls::findTiles(ls::ENEMY);
@@ -54,6 +56,8 @@ static std::vector<sf::Vector2ul> findTiles(TILE);
 ```
 
 With this done, the player should be spawning at the bottom, and the ghosts randomly in the middle. The ActorMovementComponent has a `validMove()` function which should stop both Entity types from moving into a wall. We are getting pretty close to a game now.
+
+**Remember: a) you need to actually call respawn() somewhere and b) you might have to uncomment the validMove() check from earlier!**
 
 
 ## Ghost Movement
