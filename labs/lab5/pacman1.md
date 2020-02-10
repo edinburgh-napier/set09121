@@ -64,7 +64,7 @@ An annoying feature of our code right now is how we render Entities. Passing a r
 
 #### The Renderer
 
-In most game engines, the system that handles rendering things is usually the largest and arguably the most important. For us, we only need to pass what we want to draw to SFML and it handles it all. You can bet the internals window.draw() function is pretty damn impressive (it is, go and look). We don't *need* a complex rendering system on-top of, but we'll build something anyway, if only to point out how a more complex system would do things.. If we weren't using SFML this is where things would get real complicated quickfast.
+In most game engines, the system that handles rendering things is usually the largest and arguably the most important. For us, we only need to pass what we want to draw to SFML and it handles it all. You can bet the internals window.draw() function is pretty damn impressive (it is, go and look). We don't *need* a complex rendering system on-top of, but we'll build something anyway, if only to point out how a more complex system would do things. If we weren't using SFML this is where things would get real complicated quickfast.
 
 Our Render system will have a simplified Render() function that will take in a sf::Drawable object (e.g sprite,shape,text), and add this to a list of things to render.
 
@@ -134,6 +134,9 @@ Now whenever we need to render anything we can call something like.
 ```cpp
 Renderer::queue(&text);
 ```
+
+{:class="important"}
+You might need to use .get() on the unique_ptr in your player or ghost.cpp if you are following along correctly!
 
 ## Scene Management
 
