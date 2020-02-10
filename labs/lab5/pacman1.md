@@ -193,7 +193,7 @@ private:
   sf::Text text;
 
 public:
-  MenuScene();
+  MenuScene() = default;
   void update(double dt) override;
   void render() override;
   void load()override;
@@ -204,7 +204,6 @@ public:
 //pacman.cpp
 void MenuScene::update(double dt) {
   Scene::update(dt);
-  stringstream stream;
   text.setString("Almost Pacman");
 }
 
@@ -212,7 +211,14 @@ void MenuScene::render() {
   Renderer::queue(&text);
   Scene::render();
 }
+
+void MenuScene::load() {
+//Set up the text element here!
+}
 ```
+
+{:class="important"}
+Remember! For the text to show you will have to load and assign a font! Remember Pong?
 
 ### The Game scene
 
@@ -229,8 +235,8 @@ private:
 public:
   GameScene() = default;
   void update(double dt) override;
-  void render()override;
-  void load()override;
+  void render() override;
+  void load() override;
 };
 ```
 
