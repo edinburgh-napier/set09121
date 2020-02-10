@@ -19,7 +19,7 @@ The code we are about to write will be generic in nature, and we will want to us
 In case you've forgotten, here's the CMake: Remember to add it to the linked libraries of our lab executable too.
 
 ```CMake
-file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp engine/lib_ecm/*.h)
+file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)
 add_library(lib_ecm STATIC ${SOURCE_FILES})
 target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm" )
 target_link_libraries(lib_ecm PRIVATE lib_maths)
@@ -70,10 +70,13 @@ public:
   void setForDelete();
   bool isVisible() const;
   void setVisible(bool _visible);
-}
+};
 ```
 
-You should have already had most of this, there are a couple of additions you may not of had. Note there is no property for a sprite or a shape. What's new is the declaration of a Component, and a vector of components stored privately.
+You will have already had some of this, but there are a few additions you won't have had. Note there is no property for a sprite or a shape. What's new is the declaration of a Component, and a vector of components stored privately.
+
+{:class="important"}
+Remember, you will have to ensure that the Entity calls the Render method of all the components! You should check visibility here too...
 
 ### Component
 In the same header file, we are now going to define the component class. The code is remarkably simple.
@@ -129,10 +132,7 @@ We'll talk about that setShape template in a bit.
 There's nothing funky in the definition .cpp. Components are remarkably simple when built correctly.
 
 ```cpp
-//cmp_sprite.cpp"
-void SpriteComponent::update(double dt) {
-  _sprite->setPosition(_parent->getPosition());
-}
+//"cmp_sprite.cpp"
 
 void ShapeComponent::update(double dt) {
   _shape->setPosition(_parent->getPosition());
@@ -142,7 +142,7 @@ void ShapeComponent::render() { Renderer::queue(_shape.get()); }
 
 sf::Shape& ShapeComponent::getShape() const { return *_shape; }
 
-ShapeComponent::ShapeComponent(Entity* p) : Component(p), _shape(make_shared<sf::CircleShape>()) {}
+ShapeComponent::ShapeComponent(Entity* p) : Component(p), _shape(std::make_shared<sf::CircleShape>()) {}
 ```
 
 The only complexity to note is the constructor -- which passes the calling entity to the base `Component()` constructor, and also constructs the `_shape` to a sfml circle.
@@ -225,6 +225,9 @@ void GameScene::load() {
 {% endraw %}
 This should be all we need to get the game running again, but with one
 problem - things aren't moving any more.
+
+{:class="important"}
+**Do not continue until you are able to render things through the new ECM system!**
 
 ### Building More components
 
