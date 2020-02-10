@@ -370,13 +370,13 @@ This function returns a `shared_ptr` to the newly created component, so we can a
 What we want is something like this:
 
 ```cpp
-Entity-> get_component<MovementComponent>();
+Entity-> getComponent<MovementComponent>();
 ```
 
 It could be the case that there are multiple MovementComponent's on an Entity, so the function should probably return a vector. So what we are looking for is a function declaration like this:
 
 ```cpp
-const std::vector<std::shared_ptr<T>> get_components() const;
+const std::vector<std::shared_ptr<T>> getComponents() const;
 ```
 
 But how do we build this?
@@ -389,12 +389,12 @@ Fortunately, the C++ runtime has us covered for this, with a very handy function
 
 `typeid()` returns an arbitrary number, so it can't tell us outright what type of class an object is, but we can compare it with the id of a known class to discover this. So our process to find components of a given type is to loop through all components on an entity and compare the `typeid()` with the `typeid()` of the type we want. When we find a component that matches, we add it to a vector that we will return.
 
-#### get_components<T>()
+#### getComponents<T>()
 
 Here it is, isn't it pretty:
 
 ```cpp
-//ecm.h - get_components<T>()
+//ecm.h - getComponents<T>()
 template <typename T>
 const std::vector<std::shared_ptr<T>> get_components() const {
   static_assert(std::is_base_of<Component, T>::value, "T != component");
@@ -417,7 +417,7 @@ RTTI has another method that can save us here, you may have seen it in use in ot
 Here it is:
 
 ```cpp
-//ecm.h - GetCompatibleComponent$T>()"
+//ecm.h - getCompatibleComponent$T>()"
 // Will return a T component, or anything derived from a T component.
 template <typename T>
 const std::vector<std::shared_ptr<T>> GetCompatibleComponent() {

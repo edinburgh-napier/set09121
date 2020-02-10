@@ -270,8 +270,8 @@ auto s = pl->addComponent<sc>();
 // later on...
 //Uh oh
 pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
-//We would have to do something lik this:
-pl->getComponentsOftype(PlayerMovementComponent)[0]->setSpeed(150.f);
+//We would have to do something like this:
+pl->getComponentsOfType(PlayerMovementComponent)[0]->setSpeed(150.f);
 //Not *So* bad, but how would that function work?
 ```
 
