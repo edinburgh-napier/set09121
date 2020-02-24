@@ -132,6 +132,9 @@ void init() {
 
 Done, we've just created a world, in 3 lines.
 
+{:class="important"}
+You will need to remeber to add the correct include statements, or the above and below code will throw errors!
+
 ### Creating physics Bodies
 
 I'll give you five functions. The first 3 are conversion helper functions to deal with translating between the two worlds. The CreatePhysicsBox() is the biggie, inside is all the B2D logic required to add a body to the scene. The last function in an overload of the fourth, which takes in a sf::RectangleShape rather than a position and size.
@@ -243,6 +246,9 @@ void Update() {
 }
 ```
 
+{:class="important"}
+You now need to ensure that you *render* these boxes so you can test that they do, indeed, move!
+
 ### Walls
 
 At the moment our boxes just fall into the abyss. Let's put some walls in. Back to Init() for one last time. We will create 4 walls. The position and size of each will be stored continuously in a vector that we will loop through. I'll let you figure out the full details. In the end it should look like this:
@@ -276,3 +282,7 @@ void init() {
   ...
 }
 ```
+
+{:class="important"}
+Don't move on until you have some bouncin' boxes!
+
