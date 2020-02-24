@@ -284,5 +284,5 @@ void init() {
 ```
 
 {:class="important"}
-Don't move on until you have some bouncin' boxes!
+Don't move on until you have some bouncin' boxes like the gif at the top!
 
