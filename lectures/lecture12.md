@@ -62,7 +62,7 @@ What is Artificial Intelligence?
 
 ---
 
-# vs... Game AI
+# ...vs Game AI
 
 - Game AI is still rooted in the deterministic, classical, symbolic AI era.
     - Symbolic AI still used extensively in games.
@@ -391,9 +391,20 @@ What is Artificial Intelligence?
 
 # 'Protect Natalya'
 
-- These words still make me twitch...
+These words still make me grumpy...
 
 ![image](assets/images/GoldenEye-Natalya.png) 
+
+---
+
+# AI Doesn't Exist in a Vacuum
+
+- Many examples of 'great AI' don't have very complicated AI...
+- How effective the AI appears is down to more than just the algorithm
+	- How well tagged is the level?
+	- How is the level designed? (F.E.A.R. / Half-Life)
+	- Do the mechnics support the AI? (Civ V)
+	- How much does the player see?
 
 ---
 
