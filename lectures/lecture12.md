@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -34,30 +36,39 @@ School of Computing. Edinburgh Napier University
 # History of Game AI
 
 What is Artificial Intelligence?
-- Artificial Intelligence (AI) is the study of the intelligence of machines, and the attempt to replicate human-like intelligence in a machine.
-    - This is a very wide area of study, incorporating not only technical implementations of intelligence, but also ethics and philosophy.
+- AI is the study of the intelligence of machines, and the attempt to replicate human-like intelligence in a machine.
+- This is a very wide area of study, incorporating not only technical implementations of intelligence, but also ethics and philosophy.
+
+
+---
+
+# Our View of Game AI
+
 - From a games point of view, we will take a very simple outlook:
     - AI is any algorithm or code that controls the behaviour of one of our game entities.
 - Therefore, our Pong example back at the start of the module had a form of AI.
 - It was dumb, but it still behaved in a way that would allow it to be competitive.
 
-
 ---
 
-# Academic AI vs. Game AI
+# Academic AI vs...
 
 - Academic AI can be (very roughly) broken down into two phases:
     - Symbolic AI (early days)
         - Set of knowledge and reasoning algorithms.
-    - Nature inspired and learning (modern era)
+    - Nature-Inspired and Learning AI (modern era)
         - Inspired by models in nature and statistical inference.
         - Used in learning, neural networks, genetic algorithms, etc.
+
+---
+
+# vs... Game AI
+
 - Game AI is still rooted in the deterministic, classical, symbolic AI era.
     - Symbolic AI still used extensively in games.
         - Path finding, state machines, etc.
     - Modern techniques have been tried, but are rarely successful.
     - Modern techniques have seen more success in content creation.
-
 
 ---
 
@@ -152,25 +163,34 @@ What is Artificial Intelligence?
 # Decision Making
 
 - We are going to look at two types.
-- State machines.
-    - Similar to the idea of state modelling in UML.
-    - Character has a number of possible states.
-        - e.g. attack, hide, run, etc.
-    - Character determines current state based on any number of conditions.
-    - Character will change state when a particular action occurs.
-        - If patrolling and player is spotted then change state to attacking.
-- Decision trees.
-    - Similar to activity diagrams in UML.
-    - Used to control characters decision making process.
-    - Can also be used to control animation.
-    - Very simply AI technique to implement but can be very powerful.
+	- State Machines
+	- Decision Tress
 
+---
+
+# State machines
+
+- Similar to the idea of state modelling in UML.
+- Character has a number of possible states.
+    - e.g. attack, hide, run, etc.
+- Character determines current state based on any number of conditions.
+- Character will change state when a particular action occurs.
+    - If patrolling and player is spotted then change state to attacking.
+
+---
+
+# Decision trees
+    
+- Similar to activity diagrams in UML.
+- Used to control characters decision making process.
+- Can also be used to control animation.
+- Very simple AI technique to implement, but it can be very powerful.
 
 ---
 
 
 
-# Decision Making
+# Other Decision Making Techniques
 
 - Fuzzy logic
     - Logic design with grey (fuzzy) areas.
@@ -183,30 +203,27 @@ What is Artificial Intelligence?
 
 ---
 
-# Decision Making
+# Other Decision Making Techniques
 
-- Some others...
-    - Behavioural trees
-        - Chaining tasks and decisions together to form complicated behaviours.
-    - Markov systems
-        - Similar to fuzzy logic but works with probability or priority of transitions.
-    - Goal-oriented behaviour
-        - Character chooses an action based on its current goals.
-    - Rule-based systems
-        - Database of "if" conditions to determine the behaviour to take.
-
-
+- Behavioural trees
+	- Chaining tasks and decisions together to form complicated behaviours.
+- Markov systems
+	- Similar to fuzzy logic but works with probability or priority of transitions.
+- Goal-oriented behaviour
+	- Character chooses an action based on its current goals.
+- Rule-based systems
+	- Database of "if" conditions to determine the behaviour to take.
 
 ---
 
 # Strategy - World Data
 
-- Modern game AI techniques rely on data from the game world to be effective.
-    - We have already seen this with path finding.
-- Depending on the AI technique used, different types of data can be required.
+- Modern game AI techniques rely on data from the game world.
+    - We will see this more with Path Finding.
+- Depending on the technique used, different types of data are required.
     - Movement may need to know about obstacles, jump points.
     - Knowledge of cover.
-    - Knowledge of other characters in the game world to launch attacks.
+    - Knowledge of other characters in the game world.
     - etc.
 - Most of the techniques requiring world data are referred to as strategic techniques.
 
@@ -235,9 +252,9 @@ What is Artificial Intelligence?
 
 # Tactical Analysis
 
-- Essentially a more complicated version of the previous ideas.
+- Essentially a more complicated version of the previous idea.
 - The map is marked up with values to help determine where characters should move to.
-- An algorithm analyses the date to determine the action to take.
+- An algorithm analyses the data to determine the action to take.
 - For example:
     - Consider a RTS game.
     - There is a base located on the map.
@@ -250,11 +267,9 @@ What is Artificial Intelligence?
 
 ## Learning
 
-
 ---
-<!-- .slide: class="split" -->
-# Learning
 
+# Neural Networks
 
 - Neural networks are a popular nature inspired technique. 
 - They are modelled on a simplified idea of the brain.
@@ -270,7 +285,7 @@ What is Artificial Intelligence?
 
 ---
 
-# Learning
+# Other Techniques
 
 - Emergent behaviour.
     - Evolutionary algorithms.
@@ -279,18 +294,26 @@ What is Artificial Intelligence?
     - Bio-inspired algorithms.
         - Ant colony optimisation.
         - Artificial immune systems.
-- Depending on your programme you might study some of these topics:
+- Depending on your programme you might study some of these:
     - Multi-agent systems.
     - Computational intelligence.
     - Emergent computing for optimisation.
 
 
+---
+
+# Issues With These Techniques
+
+- The learning techniques often lack designer control
+	- They are 'black boxes'
+- This makes it hard to tune the AI agents in your systems
+- So how do we guarantee that the AI make the game *better*?
 
 ---
 
 # Goal of AI -- Realism
 
-- The goal of game AI is to provide a challenge to the player and create a realistic, living world.
+- One goal of game AI is to provide a challenge to the player and create a realistic, living world.
 - Examples:
     - GTA IV
     - Assassin's Creed Origins
@@ -364,7 +387,13 @@ What is Artificial Intelligence?
 - If the NPC is on the player's side you need to make sure it does not let them down.
     - Halo was notorious for this. Fallout 4 has problems also.
 
+---
 
+# 'Protect Natalya'
+
+- These words still make me twitch...
+
+![image](assets/images/GoldenEye-Natalya.png) 
 
 ---
 
@@ -387,17 +416,33 @@ What is Artificial Intelligence?
 
 ---
 
+# Non-Cheating AI
+
+- This can also happen in reverse!
+- If your AI is too good, people will think it cheats.
+	- This was the case in Farcry 1
+	- Most Backgammon games get accused of this too
+- This is partly why most FPS baddies shout what they are doing
+	- (Although this is often also a lie, see F.E.A.R. 1)
+
+---
+
 # Summary
 
 - We have looked at a very broad picture of what game AI is.
     - Essentially, use classical, deterministic techniques.
 - We also introduced some techniques that are used in games.
-    - Movement
-    - Decision making
-    - Strategy
-    - Learning
+	- Movement
+	- Decision making
+	- Strategy
+	- Learning
 
-- And how AI can sometimes not work how the player wants.
+---
+
+# Remember...
+
+- AI can sometimes not work how the player (or designer) wants.
     - Bad AI
     - Cheating AI
+	- Unfun AI
 - All these areas are worth considering depending on your game. Just think about the time you have and the experience you are aiming for.
