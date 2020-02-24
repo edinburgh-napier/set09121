@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -42,8 +44,8 @@ School of Computing. Edinburgh Napier University
 
 - Pathfinding (or more specifically path planning) is a decision making process that feeds into the movement.
     - You can consider it as crossing the boundary between movement and decision making.
-- Pathfinding is really the key ingredient to allow characters to navigate a map.
-- There is a good chance you have covered this before in AI or algorithms and data structures.
+- Pathfinding is really the key ingredient that allows characters to navigate.
+- There is a good chance you have covered this before in AI or Algorithms and Data Structures.
 
 
 
@@ -58,6 +60,15 @@ School of Computing. Edinburgh Napier University
 - Pathfinding is just a form of graph search, and there are different methods to do this.
 - We need a fast solution -- A* being the most commonly used.
 
+
+---
+
+# Why Too Complicated?
+
+- If there are only simple convex objects, basic avoidance behaviours will look great!
+- But if you have concavities, obstacle avoidance will break down
+	- In fact, your boids will appear almost magnetically funneled into the concavities!
+- As we discussed previously, level design impacts AI design
 
 ---
 
@@ -81,7 +92,7 @@ School of Computing. Edinburgh Napier University
 
 # What is a Graph?
 
-- Prepare to have terms thrown at you which don't matter too much in this context.
+- Prepare to have terms thrown at you which might give you flashbacks.
 - A **graph** is just a collection of objects where pairs of objects are related in some way.
 - We typically refer to the objects as **nodes** (or vertices) and the connections as **edges**.
 - A graph can therefore be defined as a set of nodes and a set of edges.
@@ -146,6 +157,21 @@ School of Computing. Edinburgh Napier University
     - $\lvert V \rvert$ is the size of the node (vertex) set.
 - So don't convert your massive million by million tile world into a pathfinding nightmare.
 
+
+---
+
+## Wait A Minute!
+
+---
+
+# What?
+
+- Before you do 'live' pathfinding, you should consider whether you absolutely need it!
+- What if all your agents are only pathing to a single location?
+	- If so, then you can precalculate it and have hundreds of agents!
+	- Each tile simply contains which direction to go from it...
+	- We can do this with a modified floodfill
+- For this module, however, you should be including 'live' pathfinding!
 
 ---
 
@@ -269,14 +295,18 @@ School of Computing. Edinburgh Napier University
 - There are different heuristics we can use to make the pathfinding act in a different manner.
 - The one we will use is Euclidean distance (straightline):
     $$h = destination - position $$
+
+---
+
+# Heuristics
+
 - Another is Manhattan distance: 
- - $$ d = destination - position $$
- - $$ h = \lvert d.x \rvert + \lvert d.y \rvert $$
+	$$ d = destination - position $$
+	$$ h = \lvert d.x \rvert + \lvert d.y \rvert $$
 - This might be more useful -- it is movement through a grid (either vertical or horizontal movement, no diagonal). Each movement costs 1 unit.
 - Chebyshev distance is similar to Manhattan but allows diagonal movement:
- - $$ d = destination - position $$
- - $$ h = \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
-
+	$$ d = destination - position $$
+	$$ h = \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
 
 ---
 
@@ -295,7 +325,7 @@ School of Computing. Edinburgh Napier University
 
 - The output from a path finding or a path planning operation is called a *path* or *walk*.
 - There are different approaches we can take in a game:
-    - A serious of directions of travel (useful for discrete movement).
+    - A series of directions of travel (useful for discrete movement).
     - A list of nodes to visit (better for continuous movement).
 - We will take the latter approach.
 
