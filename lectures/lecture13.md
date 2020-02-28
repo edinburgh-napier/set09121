@@ -79,7 +79,7 @@ School of Computing. Edinburgh Napier University
     - We can set the velocity directly.
     - We can apply the output as a force.
 - Remember:
-    - Out physics engine is concerned with object movement.
+    - Our physics engine is concerned with object movement.
     - Our steering behaviours are also concerned with object movement.
     - Therefore, combining the two is a good idea.
 
