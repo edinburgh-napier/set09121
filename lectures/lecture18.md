@@ -121,6 +121,8 @@ Marc Tattersall (Schell Games) Top 5 post-playtest Questions.
 
 ---
 
+## TRC Intro
+
 - This has many different names, but all companies have them
 - It's vital if you release anything for consoles, in particular
 - It's all about ensuring that your game works on the hardware
