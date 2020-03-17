@@ -15,9 +15,12 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
+
 
 
 ---
@@ -78,7 +81,7 @@ What does your game need, and where does it look for it?
 - Smaller .exe file <!-- .element: class="fragment" -->
 - Libraries compiled to .dll <!-- .element: class="fragment" -->
 - can reuse and share dlls already on the system <!-- .element: class="fragment" -->
-- Modders can hack swap out your .dlls. <!-- .element: class="fragment" -->
+- Modders can hack/swap out your .dlls. <!-- .element: class="fragment" -->
 
 
 ---
@@ -91,7 +94,7 @@ But even UE4/Unity have complicated final "cooking" steps that you will want to 
 
 You may use different assets for release, or bundle them up into binary files. <!-- .element: class="fragment" -->
 
-Off-line rendering at higher settings could take place. <!-- .element: class="fragment" -->
+Offline rendering at higher settings could take place. <!-- .element: class="fragment" -->
 
 This should all be automated -- more on this later <!-- .element: class="fragment" -->
 
@@ -120,6 +123,8 @@ The only time your game should need Admin Privileges is the installer, and it sh
 
 Consider where your save-game files will go. <!-- .element: class="fragment" -->
 
+Perhaps look at where loads of other games save stuff? <!-- .element: class="fragment" -->
+
 ---
 
 # How
@@ -131,7 +136,7 @@ Consider where your save-game files will go. <!-- .element: class="fragment" -->
 
 # Un-Installers 
 
-Make sure they work, and are added to windows correctly.
+Make sure they work, and are added to Windows correctly.
 
 
 ---
@@ -144,7 +149,7 @@ Make sure they work, and are added to windows correctly.
 # Continuous Integration
 
 Benefits
-- Ground Truth - no more "WOMM"
+- Ground Truth - no more "works on my machine"
 - Alerts on broken builds - especially useful for multi-platform
 - Signpost to others that your software still works
 - Cool badge
