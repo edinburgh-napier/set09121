@@ -14,7 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -34,7 +36,7 @@ School of Computing. Edinburgh Napier University
 ---
 
 # QA 
-"QA and publishing is like being test on how well you can crash-land a plane" - Tim Schafer
+"QA and publishing is like being tested on how well you can crash-land a plane" - Tim Schafer
 
 
 ---
@@ -93,9 +95,9 @@ Playtests can be super useful. If you treat them right.
  - Turn off trouble features or levels to isolate the feature you want to test 
 3. Pick your test canditates, and make sure to inform them accordingly <!-- .element: class="fragment" -->
 4. Be aware of what you do/don't tell test participants beforehand <!-- .element: class="fragment" -->
-5. <!-- .element: class="fragment" --> **RECORD THE TEST** (Screen capture) <!-- .element: class="fragment" -->
+5. **RECORD THE TEST** (Screen capture) <!-- .element: class="fragment" -->
 6. Don't hover <!-- .element: class="fragment" -->
-7. Do a post- survey / interview. <!-- .element: class="fragment" -->
+7. Do a post-test survey / interview. <!-- .element: class="fragment" -->
 
 
 ---
@@ -114,8 +116,15 @@ Marc Tattersall (Schell Games) Top 5 post-playtest Questions.
 
 ---
 
-## TRC
+## TRC (Technical Requirement Checklist)
 
+
+---
+
+- This has many different names, but all companies have them
+- It's vital if you release anything for consoles, in particular
+- It's all about ensuring that your game works on the hardware
+- Sometimes it is just to ensure everything behaves in a standard, expected, way.
 
 ---
 
@@ -147,7 +156,7 @@ Test all on-line activity with a 2000 friend account
 
 ---
 
-# Your TRC
+# Your TRC Pt.1
 
 - 2D graphics engine using SFML
 - Main menu (Ability to quit to menu, and restart game)
@@ -161,12 +170,11 @@ Test all on-line activity with a 2000 friend account
 - Windows: 10 x64
 - Single file .exe game installer/uninstaller
 - User preference/savegame saving/loading from disk
-- Web pr
-esence with game promo material and downloads
+- Web presence with game promo material and downloads
 
 ---
 
-# Your TRC pt2 
+# Your TRC Pt.2 
 
 - Software Design & Code Quality
     - Tidy, documented, and organised code.
@@ -188,7 +196,7 @@ esence with game promo material and downloads
 - Allow the game to be started without the need to navigate through multiple levels of menus
 - Ensure no essential information is conveyed by a colour alone
 - Ensure no essential information is conveyed by sounds alone
-- Offer a wide choice of difficulty levels
+- Offer a wide choice of difficulty levels or difficulty customisation
 - Give a clear indication that interactive elements are interactive
 - Allow interfaces to be resized
 - Allow all narrative and instructions to be replayed
@@ -213,7 +221,7 @@ Watch out for:
 
 ---
 
-# Role of publishers Then:
+# Role of Publishers Then:
 
 - Bankroll Development
 - Handle All Marketing
@@ -222,24 +230,25 @@ Watch out for:
 - Legal Protection
 - Occasionally hotdrop producers into dev team
 
-Now:
-- *might* pay you something before game is finished
-- Handle Some Marketing, Devs do *"Community management"*
-- Negotiate *some* sales deals
+---
+
+# Role of Publishers Now:
+- *Might* pay you something before game is finished
+- Handle some marketing, devs do *"Community Management"*
+- Negotiate *some* sales deals (particularly with platform holders)
 - **Localisation and QA**
 - **Legal Protection**
-
-
----
+- Having said that, every publisher is different. Get the deal that works for you!
+==-
 
 # Legals
 
-I'm Not a Lawyer, and Neither are you.
+I'm not a lawyer, and neither are you.
 
-- Get A lawyer
-- Form A Company
+- Get a lawyer
+- Form a company
 - Protect your IP
-- Don't Get Sued
+- Don't get sued
 
 [LINK: IGDA white papers on IP](http://www.igda.org/?page=resources) 
 
@@ -251,7 +260,7 @@ If you game can be cloned. It will be cloned.
 # Legal costs
 
 - **Form a company** 
-    - Protects *you* if you are sued() Actually pretty easy in the UK) £100-1000
+    - Protects *you* if you are sued (Actually pretty easy in the UK) £100-1000
 - **Contracts** 
     - Formal agreement on ownership of work. Get one even if someone is doing work for free. £600-1000
 - **Trademark your game and company** 
@@ -272,4 +281,4 @@ Disclaimer: costs found after 20 mins of googling + I'm not a lawyer.
 - Consider Localisation & Accessibility
 - TRC == MARKS
 - Game publishing is a legal battleground
-- If you plan on Selling your game.. Good luck
+- If you plan on selling your game... Good luck
