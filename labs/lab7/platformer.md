@@ -20,7 +20,7 @@ Get it here : [Repo (code)](https://github.com/edinburgh-napier/set09121/tree/ma
 **You don't need to fork the repo or anything special, just download it in some way and then copy the code over to your usual lab repo.**
 
 The code you have been given contains:
--   The skeleton code for lab6
+-   The skeleton code for lab7
 -   The three libraries we have already written. Ecm, LevelLoader, Maths.
 -   A new Library, the "Engine\". (Fully complete, no code to edit)
 -   My completed CMakeLists.txt - for you to check against
