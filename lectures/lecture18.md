@@ -95,7 +95,7 @@ Playtests can be super useful. If you treat them right.
  - Turn off trouble features or levels to isolate the feature you want to test 
 3. Pick your test canditates, and make sure to inform them accordingly <!-- .element: class="fragment" -->
 4. Be aware of what you do/don't tell test participants beforehand <!-- .element: class="fragment" -->
-5. **RECORD THE TEST** (Screen capture) <!-- .element: class="fragment" -->
+5. RECORD THE TEST (Screen capture) <!-- .element: class="fragment" -->
 6. Don't hover <!-- .element: class="fragment" -->
 7. Do a post-test survey / interview. <!-- .element: class="fragment" -->
 
