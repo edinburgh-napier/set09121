@@ -241,7 +241,8 @@ Watch out for:
 - **Localisation and QA**
 - **Legal Protection**
 - Having said that, every publisher is different. Get the deal that works for you!
-==-
+
+---
 
 # Legals
 
