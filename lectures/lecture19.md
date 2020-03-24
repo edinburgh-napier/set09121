@@ -15,7 +15,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -42,12 +44,15 @@ School of Computing. Edinburgh Napier University
 - "We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."
 - "In established engineering disciplines a 12% improvement, easily obtained, is never considered marginal and I believe the same viewpoint should prevail in software engineering."
 
+---
+
+# Premature Optimisation
+
 Basically, Knuth argues that we should not let performance considerations determine the design of our code -- it makes the code more difficult to work with.
 
 I think a good rule for the module is -- get your game working first; then worry about extra features and performance optimisation.
 
 A good approach is to design-build-measure-optimise. 
-
 
 
 ---
@@ -89,7 +94,7 @@ Release mode and run without debug
 - So, don't do it in final builds.
 
 
- ![image](assets/images/run-no-debug.jpg)
+ ![image](assets/images/run-no-debug.JPG)
 
 
 ---
@@ -101,7 +106,7 @@ Avoid I/O or do it better
 - During debugging, we often output values to the console to check behaviour.
 - I/O like this is very slow, requiring your program to interact with the OS and present data.
 - You should avoid this I/O as far as possible in final builds.
-- **IF** you must have I/O, then follow some rules to make things faster:
+- **IF you must have I/O**, then follow some rules to make things faster:
     - Don't use C++ I/O (`cin` and `cout`) -- these are slow because of error checking.
     - Don't use the C++ end-of-line terminator (`endl`) as this also flushes a stream, which is slow.
     - Do use C-style I/O (from the `cstdio` header) such as `printf`, etc. These are low-level and faster.
@@ -122,14 +127,14 @@ Avoid I/O or do it better
 
 ---
 
-## Step 1. -- Only process what you need to
+## Step 1 - Only process what you need to
 
 
 ---
 
 # Alive Flag
 
-- The first tactic we can use to improve processing is to flag if nothing should be processed.
+- The first tactic we can use to improve processing is to flag if processing something can be skipped.
 - An alive flag is a typical technique to indicate that an object should not be processed.
 - This can be extended into other parts of the system:
     - If entity in base for example.
@@ -151,7 +156,7 @@ if (health == 0) {
 - Object creation and destruction is very expensive.
 - It involves memory allocation, function calls, grabbing bits and pieces, maybe loading content.
 - It can also lead to objects being scattered around memory -- expensive to jump around.
-- An object pool fixes that (especially when combined with alive flag above):
+- An object pool fixes that (especially when combined with alive flags):
     - Allocate max number of objects required.
     - When a new object is needed grab from allocated pool and set necessary values.
     - When finished, flag as not-alive and give back to pool.
@@ -180,7 +185,7 @@ if (dirty flag is true) {
 
 ---
 
-## Step 2. -- Only draw what is visible
+## Step 2 - Only draw what is visible
 
 
 ---
@@ -190,9 +195,9 @@ if (dirty flag is true) {
 - Rendering to the screen is one of the most expensive processes in games.
     - It's why we have dedicated graphics hardware.
 - We can use our flag technique to determine if an object is visible and therefore should be rendered.
-- This allows us to hide objects or turn off their rendering when we want.
-- It also allows us to add objects that should not be rendered to our game.
-    - Remember -- what you see when playing a game isn't all that is there.
+- This allows us to hide objects/turn off their rendering when we want.
+- It also allows us to add objects that should not be rendered.
+    - Remember - what you see when playing a game isn't all that is there.
 
 ```cpp
     if (visible)
@@ -215,7 +220,7 @@ if (dirty flag is true) {
 
 ---
 
-# Example -- Horizon Zero Dawn
+# Example - Horizon Zero Dawn
 
 <video class="middle" width="960" height="540" loop autoplay>
   <source src="assets/videos/horizon.mp4" type="video/mp4">
@@ -224,7 +229,7 @@ if (dirty flag is true) {
 
 ---
 
-## Step 3. -- Think about your memory
+## Step 3 - Think about your memory
 
 ---
 
@@ -263,10 +268,10 @@ constexpr int Nfav = factorial(N);
 
 ---
 
-#Memory Alignment and Cache Coherence
+# Memory Alignment and Cache Coherence
 - We talked about this during our memory and resource management lectures.
 - Memory alignment means that data is aligned in memory, allowing the minimal reads to occur to access the data we need.
-- Cache coherency we discussed the difference in processing a multi-dimensional array using different indices due to memory layout. For example, the first `for` loop below is faster than the second.
+- For cache coherency we discussed the difference in processing a multi-dimensional array using different indices, due to memory layout. For example, the first `for` loop below is faster than the second.
 
 ```cpp
 for (int i=0; i < 32; i++)
@@ -296,7 +301,7 @@ for (int i=0; i < 32; i++)
 
 ---
 
-## Step 4. -- Use tools to find the slow bits
+## Step 4 - Use tools to find the slow bits
 
 
 ---
@@ -328,7 +333,7 @@ Tools do a good job of finding code that is slowing things down.
 
 - And this is where algorithmic analysis can come in.
 - Abstractly measuring your algorithms, finding more efficient algorithms, and optimising the algorithms you have is important.
-- See your algorithms and data structures material for more insight.
+- See your Algorithms and Data Structures material for more insight.
 
 
  ![image](assets/images/alg-analysis.jpg)
@@ -336,7 +341,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 5. -- Optimise your function calls
+## Step 5 - Optimise your function calls
 
 
 ---
@@ -412,7 +417,7 @@ Tools do a good job of finding code that is slowing things down.
 - If you are from a Java or C\# background you are probably used to using exception calls.
     - `try` and `catch` statements.
 - C++ also uses exception statements.
-- However, an exception catch is very expensive -- sometimes thousands of instructions.
+- However, an exception catch is very expensive -- sometimes **thousands of instructions**.
 - A better technique is to set a flag that can be tested.
     - This is the standard C model -- using a `get_error` function.
 
@@ -458,7 +463,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 6. -- Use low-level techniques for some performance gains
+## Step 6 - Use low-level techniques for some performance gains
 
 
 ---
@@ -532,7 +537,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 7. -- Use more cores!!!
+## Step 7 - Use more cores!!!
 
 
 ---
@@ -586,5 +591,5 @@ Tools do a good job of finding code that is slowing things down.
 - Some of these techniques are C and C++ specific, although many can be used across languages.
 - Being thoughtful when writing code can be useful.
 - But basically, use tools to find issues and try and fix them.
-- Parallelisation is a good solution to performance problems -- if you do it correctly.
+- Parallelisation is a good solution to performance problems... if you do it correctly.
 - We have a module in fourth year that examines this.
