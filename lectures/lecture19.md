@@ -127,7 +127,7 @@ Avoid I/O or do it better
 
 ---
 
-## Step 1 - Only process what you need to
+## Step 1 - Only process what you need
 
 
 ---
@@ -301,7 +301,7 @@ for (int i=0; i < 32; i++)
 
 ---
 
-## Step 4 - Use tools to find the slow bits
+## Step 4 - Use tools to find slow bits
 
 
 ---
@@ -341,7 +341,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 5 - Optimise your function calls
+## Step 5 - Optimise function calls
 
 
 ---
@@ -463,7 +463,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 6 - Use low-level techniques for some performance gains
+## Step 6 - Use low-level techniques
 
 
 ---
@@ -542,7 +542,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-# Just Throw Some Threads at the Problem!!!
+# Just Throw Some Threads at the Problem!?
 
 - A simple solution may be to use more of the hardware.
 - Multi-core means running multiples parts of the program at once is an option.
