@@ -357,7 +357,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# How can we do networking in SFML?
+## How can we do networking in SFML?
 
 ---
 
