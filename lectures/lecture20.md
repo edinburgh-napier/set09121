@@ -10,11 +10,13 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 20 - networking
+# Lecture 20 - Networking
 ### SET09121 - Games Engineering
 
 <br><br>
-Kevin Chalmers and Sam Serrels
+Thomas Methven
+<br>
+(Original material by Kevin Chalmers and Sam Serrels)
 
 School of Computing. Edinburgh Napier University
 
@@ -97,12 +99,12 @@ School of Computing. Edinburgh Napier University
 - The switch must work out if it can send the data directly to the addressed machine (on the local network) or where it must send it if not.
 - The switch has a lookup table matching the local IP addresses to MAC addresses. This is how the switch sees the world.
 - The more switches a packet must pass through, the more hops it makes. A packet has a maximum number of hops. If it doesn't make it it dies.
-- This is how the entire Internet works (on a simple-level).
+- This is how the entire Internet works (well, kinda).
 
 
 ---
 
-# Transport Control Protocol -- TCP
+# Transport Control Protocol - TCP
 
 - TCP provides means of breaking down data into separate packets.
 - Each data chunk is given a sequence number to allow the data to be reformed.
@@ -247,7 +249,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# User Datagram Packet -- UDP
+# User Datagram Packet - UDP
 
 - As we are now predicting movements and locations, we can occasionally lose information without much concern.
 - Therefore, we do not need packet guarantees. TCP is no longer needed.
@@ -297,7 +299,7 @@ School of Computing. Edinburgh Napier University
 - The physics system is keeping track of all the physical objects and their interactions.
 - A physics engine will typically add some randomness to reactions just to smooth out some of the operations.
 - We cannot have this in different clients as it would lead to different game instances having different object locations.
-- Solving game physics problems is a whole other area that we won't cover -- just send the complete physical data every so often to get around this.
+- Solving game physics problems is a whole other area that we won't cover - just send the complete physical data every so often to get around this.
 
 
 ---
@@ -355,9 +357,11 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-## How can we do networking in SFML?
+# How can we do networking in SFML?
 
-SFML Networking
+---
+
+# SFML Networking
 - Networking in SFML is relatively easy.
 - We will use the following classes:
  - **TcpListener** - a listening or server socket.
