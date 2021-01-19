@@ -25,9 +25,9 @@ School of Computing. Edinburgh Napier University
 
 # Version Control
 
-Version Control Used everywhere, by everyone.
+Version Control is used everywhere, by everyone.
 
-This module expect to see best practises in use.
+I expect to see best practices in use for this module!
 
 
 ---
@@ -39,7 +39,7 @@ Why use Version control?
 - Keep a log of changes to your code  <!-- .element: class="fragment" -->
 - An unlimited "undo" button. <!-- .element: class="fragment" -->
 - Experiment with new features without trashing your working code <!-- .element: class="fragment" -->
-- Work in teams <!-- .element: class="fragment" --> 
+- Work better in teams <!-- .element: class="fragment" --> 
 - Mirror your codebase to multiple redundant locations <!-- .element: class="fragment" -->
 - Integrate with continuous-integration, testing and deployment tools. <!-- .element: class="fragment" -->
 
@@ -68,10 +68,10 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 
 - Local - You don't *need* to push anywhere
 - Run your own git server
-- Github - The de facto for open-source code.
+- GitHub - The de facto for open-source code.
 - Bitbucket - Meh
 - Gitlab - when you need multiple repos and project management
-- [gitgud.napier.ac.uk](gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
+- [https://gitgud.napier.ac.uk](gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
 
 
 ---
@@ -79,12 +79,17 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 # Git clients
 
 - Command Line (Git bash on windows)
-- github desktop - [desktop.github.com](desktop.github.com)
-- sourcetree - [sourcetreeapp.com](sourcetreeapp.com)
-- gitkraken - [gitkraken.com](gitkraken.com)
+- GitHub Desktop - [https://desktop.github.com](desktop.github.com)
+- Sourcetree - [https://sourcetreeapp.com](sourcetreeapp.com)
+- GitKraken - [https://gitkraken.com](gitkraken.com)
 
 ![image](assets/images/sourcetree.png)  <!-- .element height="70%" width="70%" -->
 
+---
+
+# Git Hosts
+
+Honestly I'd just recommend using GitHub Destop these days! It's the nicest one to use for basic stuff...
 
 ---
 
@@ -305,6 +310,11 @@ There is one rule to rule them all: <!-- .element: class="fragment" -->
 
 ---
 
+# Naming Note
+GitHub, like many companies, is in the process of changing the name of the 'Master' branch. It seems to be in progress at time of writing, so you might see it called 'Main', 'Default', or 'Origin' in some tools! (Don't worry too much about it, just remember to **Never break the main branch**)
+
+---
+
 # Branches
 
 ![image](assets/images/gitflowworkflow.png) <!-- .element height="100%" width="100%" -->
@@ -327,7 +337,7 @@ There is one rule to rule them all: <!-- .element: class="fragment" -->
 
 Pull requests are a mechanism for a developer to notify team members that they have completed a feature.
 
-Once their feature branch is ready, the developer files a pull request via their Bitbucket/github account. 
+Once their feature branch is ready, the developer files a pull request via their Bitbucket/GitHub account. 
 This lets everybody involved know that they need to review the code and merge it into the master branch.
 
 But, the pull request is more than just a notification.
@@ -391,7 +401,12 @@ To do this, you must have knowledge of the following things:
 <br>
 Submitting a game that doesn't run, due to something like missing .DLLs will lose you serious marks. <!-- .element: class="fragment" -->
 
+---
 
+# Writing code for deployment 
+- People lose marks for this **Every. Single. Year.** 
+- Don't make me go looking for the right version of a .DLL (32 vs 64 bit). <!-- .element: class="fragment" -->
+- **TEST YOUR CODE ON ANOTHER MACHINE BEFORE SUBMITTING** <!-- .element: class="fragment" -->
 
 ---
 
@@ -420,23 +435,23 @@ This makes writing robust and portable applications difficult. <!-- .element: cl
 <!-- .slide: class="leftalign" -->
 # Cross platform code 
 
-Standard c++ code that just does logic is basically cross-platform.
+Standard C++ code that just does logic is basically cross-platform.
 
 Where we get into trouble is when hardware and system calls.
-- windowing
-- input
-- graphics
-- sound
-- threading
-- time
-- maths
+- Windowing
+- Input
+- Graphics
+- Sound
+- Threading
+- Time
+- Maths
 
 <!-- .element: class="fragment" -->
 
 Each operating system has it's own way of doing this. (See POSIX)
 <!-- .element: class="fragment" -->
 
-We have great libraries that do all this for us.
+So, we use libraries that do all this for us.
 e.g SFML, GLFW, SDL.
 <!-- .element: class="fragment" -->
 
@@ -480,12 +495,19 @@ Write **one**  CMakeLists.txt config file, dictating what your application needs
 
 CMake processes this and generates solution files relevent to the platform you are working on.
 
-Not all c++ projects use CMake or have a working config. <!-- .element: class="fragment" -->
+Not all C++ projects use CMake or have a working config. <!-- .element: class="fragment" -->
 
-SFML and box2d do. So we are all set. <!-- .element: class="fragment" -->
+SFML and Box2D do. So we are all set. <!-- .element: class="fragment" -->
 
 CMake is covered more in depth in the labs. <!-- .element: class="fragment" -->
 
+---
+
+# CMake 
+
+- You will absolutely come to hate CMake...
+- BUT, it is used in many big software houses, such as EA. <!-- .element: class="fragment" -->
+- So... get used to it now, and make sure you understand the labs! <!-- .element: class="fragment" -->
 
 </textarea>
 </section>
