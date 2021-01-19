@@ -71,7 +71,7 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 - GitHub - The de facto for open-source code.
 - Bitbucket - Meh
 - Gitlab - when you need multiple repos and project management
-- [https://gitgud.napier.ac.uk](gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
+- [https://gitgud.napier.ac.uk](https://gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
 
 
 ---
@@ -79,9 +79,9 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 # Git clients
 
 - Command Line (Git bash on windows)
-- GitHub Desktop - [https://desktop.github.com](desktop.github.com)
-- Sourcetree - [https://sourcetreeapp.com](sourcetreeapp.com)
-- GitKraken - [https://gitkraken.com](gitkraken.com)
+- GitHub Desktop - [https://desktop.github.com](https://desktop.github.com)
+- Sourcetree - [https://sourcetreeapp.com](https://sourcetreeapp.com)
+- GitKraken - [https://gitkraken.com](https://gitkraken.com)
 
 ![image](assets/images/sourcetree.png)  <!-- .element height="70%" width="70%" -->
 
@@ -89,7 +89,8 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 
 # Git Hosts
 
-Honestly I'd just recommend using GitHub Destop these days! It's the nicest one to use for basic stuff...
+Honestly I'd just recommend using GitHub Destop these days!
+It's the nicest one to use for basic stuff...
 
 ---
 
@@ -311,7 +312,9 @@ There is one rule to rule them all: <!-- .element: class="fragment" -->
 ---
 
 # Naming Note
-GitHub, like many companies, is in the process of changing the name of the 'Master' branch. It seems to be in progress at time of writing, so you might see it called 'Main', 'Default', or 'Origin' in some tools! (Don't worry too much about it, just remember to **Never break the main branch**)
+GitHub, like many companies, is in the process of changing the name of the 'Master' branch. It seems to be in progress at time of writing, so you might see it called 'Main', 'Default', or 'Origin' in some tools!
+
+(Don't worry, just remember to **Never break the main branch**)
 
 ---
 
@@ -405,7 +408,7 @@ Submitting a game that doesn't run, due to something like missing .DLLs will los
 
 # Writing code for deployment 
 - People lose marks for this **Every. Single. Year.** 
-- Don't make me go looking for the right version of a .DLL (32 vs 64 bit). <!-- .element: class="fragment" -->
+- Don't make me go looking for the right version of a .DLL <!-- .element: class="fragment" -->
 - **TEST YOUR CODE ON ANOTHER MACHINE BEFORE SUBMITTING** <!-- .element: class="fragment" -->
 
 ---
