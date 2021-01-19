@@ -39,7 +39,7 @@ Why use Version control?
 - Keep a log of changes to your code  <!-- .element: class="fragment" -->
 - An unlimited "undo" button. <!-- .element: class="fragment" -->
 - Experiment with new features without trashing your working code <!-- .element: class="fragment" -->
-- Work better in teams <!-- .element: class="fragment" --> 
+- Helps you work better in teams <!-- .element: class="fragment" --> 
 - Mirror your codebase to multiple redundant locations <!-- .element: class="fragment" -->
 - Integrate with continuous-integration, testing and deployment tools. <!-- .element: class="fragment" -->
 
