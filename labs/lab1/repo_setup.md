@@ -12,10 +12,10 @@ You will need git installed. You can use a git GUI (e.g sourcetree). However I w
 ### Create a repo
 When get onto move advanced topics, we will provide some code for you. For now you should create a blank git repo on you git host of choice ([Github](github.com), [BitBucket](bitbucket.org), or Napier's Gitlab: [gitgud.napier.ac.uk](gitgud.napier.ac.uk) )
 
-For the rst of this process I'm assuming you are using github.
-If you have not already created a github account, create one and sign in.
+For the rest of this process I'm assuming you are using GitHub.
+If you have not already created a GitHub account, create one and sign in.
 
-( As a student you get some cool swag from github: [education.github.com/pack](https://education.github.com/pack) )
+( As a student you get some cool swag from GitHub: [education.github.com/pack](https://education.github.com/pack) )
 
 ![newRepoprocess](assets/images/github_newrepo_1.png)
 ![NewRepoOptions](assets/images/github_newrepo_2.png)
@@ -25,7 +25,7 @@ If you have not already created a github account, create one and sign in.
 1. Check - Initialize with a readme
 
 1. Choose an open source license, so people cant legally steal your work
-without crediting you. The inbuilt guide from github covers this neatly,
+without crediting you. The inbuilt guide from GitHub covers this neatly,
 when in doubt: choose MIT license.
 
 After this stage Github will create the repo for you and you should see
@@ -93,6 +93,7 @@ git submodule add https://github.com/SFML/SFML.git lib/sfml
 git submodule init
 git submodule update
 ```
+**Note, you need to be in the root directory of your repository for this to work!**
 
 ---
 Next step: [build setup](build_setup)
