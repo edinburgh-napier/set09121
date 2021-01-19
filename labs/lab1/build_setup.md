@@ -91,7 +91,7 @@ While that may look odd, you can generally guess at what every line does. The go
 **Having said that, it is useful to understand it, so you can debug it!**
 
 ### 2021 Special: Downloading CMake
-Again, we have CMake installed in D2, but you'll need to get it for your own machine. You can go get the latest version at [https://cmake.org/](https://cmake.org/).
+Again, we have CMake installed in D2, but you'll need to get it for your own machine. You can go get the latest version at [https://cmake.org/](https://cmake.org/). That is currently 3.19.3. Make sure you are on this version, as it makes helping people easier!
 
 **Make sure you have it installed, before continuing!**
 

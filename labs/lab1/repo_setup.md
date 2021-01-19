@@ -36,7 +36,7 @@ button and copy the link within the box
 ![Clone from Github](assets/images/github_clone.png)
 
 ### 2021 Special: Getting GitHub Desktop
-So, usually we'd have everything you needed installed on the D2 machines. This year we still do, but you're likely not there. As such, you'll need to install GitHub Desktop (https://desktop.github.com/) onto your own machine. You can use Git directly if you like, but if you're new, I'd get the GUI. Once you've got that installed, make sure you also install Git, as described below.
+So, usually we'd have everything you needed installed on the D2 machines. This year we still do, but you're likely not there. As such, you'll need to install GitHub Desktop onto your own machine. Here it is: [https://desktop.github.com/](https://desktop.github.com/). You can use Git directly if you like, but if you're new, I'd get the GUI. Once you've got that installed, make sure you also install Git, as described below.
 
 ### Clone it down
 
