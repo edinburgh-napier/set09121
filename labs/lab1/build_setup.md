@@ -131,7 +131,7 @@ Practical_1 should be available as a project within it. Compile and run it!
 {:class="important"}
 You should see a green circle. If you do, congratulations! Your basic setup is working! If not...
 
-One common issue you will run into is when you press the little green arrow in Visual Studio is that'll say "Unable to start program... Access is denied." **Don't worry!** This is because by default VS puts one of the CMake projects (usually ALL_BUILD) as the Startup Project. Just right-click the project you want to compile and run (at the moment PRACTICAL_1) and select **Set as Startup Project**. The current Startup Project is shown in bold, by the way. Once you've done that, click the little green arrow again!
+One common issue you will run into is when you press the little green arrow in Visual Studio is that it will say "Unable to start program... Access is denied." **Don't worry, it's probably not broken!** This is usually because by default VS puts one of the CMake projects (usually ALL_BUILD) as the Startup Project. Just right-click the project you want to compile and run (at the moment PRACTICAL_1) and select **Set as Startup Project**. The current Startup Project is shown in bold, by the way. Once you've done that, click the little green arrow again!
 
 ## Saving your work
 You should take this opportunity to commit and push your work. If you know the basics of git, this is nothing new.
