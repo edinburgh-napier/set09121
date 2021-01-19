@@ -22,11 +22,6 @@ Thomas Methven
 
 School of Computing. Edinburgh Napier University
 
---
-
-## Demo 2
-sneaky little slide down here
-
 ---
 
 # What is Games Engineering
@@ -89,12 +84,12 @@ sneaky little slide down here
 
 ---
 
-# Structure -- Lectures
+# Structure – Lectures
 
 - Two one-hour lectures a week.  <!-- .element: class="fragment" -->
-    - Wednesday @ 9am in D2 (The Code Lab).  
-    - Wednesday @ 12pm in D2 (The Code Lab).  
-- Attendance at both lectures is mandatory -- this is not a repeat lecture.  <!-- .element: class="fragment" -->
+    - Tuesday @ 9am on WebEx Meetings  
+    - Tuesday @ 10am WebEx Meetings.  
+- Attendance at both lectures is mandatory - this is not a repeat lecture.  <!-- .element: class="fragment" -->
 - Lectures will cover:  <!-- .element: class="fragment" -->
     - Game design concepts. 
     - Software engineering for games.  
@@ -104,16 +99,16 @@ sneaky little slide down here
 
 ---
 
-# Structure -- Practical Sessions
+# Structure – Practical Sessions
 
 - Two-hour practical session. <!-- .element: class="fragment" -->
-    - Wednesday @ 10am.
-- Practicals take place in D2 (The Code Lab). <!-- .element: class="fragment" -->
+    - Tuesday @ 11am (straight after the lectures)
+- Practicals take place on WebEx Trainings. <!-- .element: class="fragment" -->
 - Labs will help you develop the engine you need to use for the coursework. <!-- .element: class="fragment" -->
     - 2D development with SFML.
     - Physics with Box2D.
     - Management infrastructure for the engine.
-- You need to do these practicals and keep up -- they form the basis of the coursework submission. <!-- .element: class="fragment" -->
+- You need to do these practicals and keep up – they form the basis of the coursework submission. <!-- .element: class="fragment" -->
 
 
 ---
@@ -123,15 +118,15 @@ sneaky little slide down here
 - Out Next Week (hopefully)!
 
 - Develop a game using the game engine.
-    - **You cannot use one of our samples and just change the graphics**, or likewise with samples for SFML, Box2D, etc. -- this will be a **FAIL**!
+    - **You cannot use one of our samples and just change the graphics**, or likewise with samples for SFML, Box2D, etc. – this will be a **FAIL**!
 
 - You will work with a partner, think who you might want to work with.
 
 - Coursework has four submissions.
     - [Week ~4:] Game pitch presentation.
     - [Week ~7:] Game design document.
-    - [Week ~15:] Implementation and report.
-    - [Week ~15:] Demo and peer assessment.
+    - [Week ~13:] Implementation and report.
+    - [Week ~13:] Demo and peer assessment.
 
 
 ---
@@ -155,9 +150,9 @@ sneaky little slide down here
     - 4 hours of contact (lectures and practicals).
     - 10 hours of self-study.
 - The coursework requires working in pairs which will require some organisation outside class time.
-    - Use the Games Lab -- it is what it is there for.
+    - Use Discord/Slack/Whatsapp to communicate (make sure you book regular meetings).
 - Keep up with the practical work!  There is one every week.
-    - Apart from reading week we will not be pausing.  The practicals build the engine you need.  Falling behind one week means trying to catch up the next!
+    - There is no reading week so we will not be pausing.  The practicals build the engine you need.  Falling behind one week means trying to catch up the next!
 
 
 ---
@@ -197,7 +192,7 @@ sneaky little slide down here
 
 ---
 
-# Lecture Series -- Part 1
+# Lecture Series – Part 1
 
 - Overview.
 - Workflow and repository management.
@@ -214,7 +209,7 @@ sneaky little slide down here
 
 ---
 
-# Lecture Series -- Part 2
+# Lecture Series – Part 2
 
 - AI in games.
 - Pathfinding.
@@ -333,7 +328,7 @@ sneaky little slide down here
 
 - **Game Programming Patterns:** http://gameprogrammingpatterns.com
 
-     Want to know more about some of the patterns we use and other patterns useful for games?  This website provides a number of examples.
+     Want to know more about the patterns we use and other patterns useful for games?  This website provides a number of examples.
 
 
 
