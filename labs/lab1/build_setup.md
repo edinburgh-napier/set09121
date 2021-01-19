@@ -106,6 +106,8 @@ Next, make sure you've **ACTUALLY** installed the C++ compiler modules. The bigg
 ### Creating the Solution, with CMake
 If you are unfamiliar with CMake UI; Follow [This guide](https://github.com/edinburgh-napier/aux_guides/blob/master/cmake_guide.pdf)
 
+Make sure you have installed the C++ packages mentioned above, and that you pick Visual Studio 16 2019. You can leave the other settings alone.
+
 {:class="important"}
 **Oi! Stop there! Go and actually read the guide before you move on!**
 
@@ -119,16 +121,17 @@ Or a memorystick / External HDD
 
 The build folder will **never** contain work you need to save or commit. All code resides in the source directory.
 
-Once configured and generated, you can open the .sln file in the build folder. You should not need to touch any solution or project settings form within Visual Studio.
+Once configured and generated (you might have to generate a couple of times until the red goes away), you can open the .sln file in the build folder. You should not need to touch any solution or project settings form within Visual Studio.
 The solution is set up so you don't have to do much work yourself or even understand Visual Studio settings.
 
 ### Run The solution
-Cmake should have generated a solution project for you in your build folder, open it.
+CMake should have generated a solution project for you in your build folder, open it.
 Practical_1 should be available as a project within it. Compile and run it!
 
 {:class="important"}
-You should see a green circle.
+You should see a green circle. If you do, congratulations! Your basic setup is working! If not...
 
+One common issue you will run into is when you press the little green arrow in VS it'll say "Unable to start program... Access is denied." **Don't worry!** This is because by default VS puts one of the CMake projects (usually ALL_BUILD) as the Startup Project. Just right click the project you want to run (at the moment PRACTICAL_1) and select **Set as Startup Project**. The current Startup Project is shown in bold, by the way. Once you've done that, click the little green arrow again!
 
 ## Saving your work
 You should take this opportunity to commit and push your work. If you know the basics of git, this is nothing new.
