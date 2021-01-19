@@ -7,10 +7,10 @@ summary: GIT gud
 sidebar: home_sidebar
 ---
 
-You will need git installed. You can use a git GUI (e.g sourcetree). However I will work with and show the cmd-line commands.
+You will need Git installed. You can use a Git GUI (e.g sourcetree). However I will work with and show the cmd-line commands.
 
 ### Create a repo
-When get onto move advanced topics, we will provide some code for you. For now you should create a blank git repo on you git host of choice ([Github](github.com), [BitBucket](bitbucket.org), or Napier's Gitlab: [gitgud.napier.ac.uk](gitgud.napier.ac.uk) )
+When get onto move advanced topics, we will provide some code for you. For now you should create a blank Git repo on you Git host of choice ([Github](github.com), [BitBucket](bitbucket.org), or Napier's Gitlab: [gitgud.napier.ac.uk](gitgud.napier.ac.uk) )
 
 For the rest of this process I'm assuming you are using GitHub.
 If you have not already created a GitHub account, create one and sign in.
@@ -35,6 +35,8 @@ button and copy the link within the box
 
 ![Clone from Github](assets/images/github_clone.png)
 
+### 2021 Special: Getting GitHub Desktop
+So, usually we'd have everything you needed installed on the D2 machines. This year we still do, but you're likely not there. As such, you'll need to install GitHub Desktop (https://desktop.github.com/) onto your own machine. You can use Git directly if you like, but if you're new, I'd get the GUI. Once you've got that installed, make sure you also install Git, as described below.
 
 ### Clone it down
 
@@ -42,7 +44,7 @@ button and copy the link within the box
 Are you using ssh keys? You should be.
 
 
-If you haven't installed Git on your pc yet, \url{git-scm.com/downloads}
+If you haven't installed Git on your pc yet, [go here](https://git-scm.com/downloads)
 
 Open a cmd (or git-bash) window somewhere (desktop is best). Now clone
 your repo down

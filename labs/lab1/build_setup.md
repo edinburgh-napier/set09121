@@ -11,6 +11,8 @@ To begin here I am assuming you have a local repo, with the SFML submodule.
 
 ## Get Some Code
 With a simple text editor, create a **main.cpp** file in the **practical_1** folder, input the following code:
+(I always use Notepad++, but feel free to use one you're used to, as long as it isn't Notepad or Wordpad!)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 
@@ -34,31 +36,30 @@ int main(){
 }
 ```
 
-This is the basic "Hello world" for SFML, we will use this to test everything is in-place an working.
-
+This is the basic "Hello world" for SFML, we will use this to test everything is in-place and working.
 
 ## Building code with CMake
 Now we need to create our development environment. 
 
-If you were mad you could create makefile and do it like the 1990's hacker. 
+If you were mad you could create makefiles and do it like a 1990's hacker. 
 
-If you were naive you may want to open up visual studio, create a new project, and spend 2 hours digging thourgh build settings. 2005 Called and it want is workflow back.
+If you were naive you may want to open up Visual Studio, create a new project, and spend 2 hours digging thourgh build settings. 2005 called and it want is workflow back.
 
 While C++ doesn't have a standardized package and build system (i.e, Pythons's pip, Nodes's npm), we have something that's pretty close: **CMake**
 
-CMake allows you to write a **CMakelists.txt file**. In which you specify what your program is, where the source files are, and where any of it's needed dependencies are. From here Cmake will take that config fille and go and make you a perfect pre-setup visual studio solution. No need to touch configuration options in visual studio.
+CMake allows you to write a **CMakelists.txt** file. In this you specify what your program is, where the source files are, and where any of it's needed dependencies are. From here CMake will take that config file and make you a perfect already set up Visual Studio solution. No need to touch configuration options in Visual Studio, hooray!
 
-CMake has many more benefits,but what we care about is:
+CMake has many more benefits, but what we care about is:
 1. You only need to store CMakelists.txt files in your Repo, __**no huge VSsolutions.sln**__
 1. CMakelists.txt play nice with git, you can easily see and track changes
-1. CMake doesn't just build Visual Studio solutions, it can build Xcode, Clion, Eclipse, makefiles..etc, this is an important step into writing cross-platform code.
+1. CMake doesn't just build Visual Studio solutions, it can build Xcode, Clion, Eclipse, makefiles etc. This is an important step in writing cross-platform code.
 
-Cmake Downsides:
-1. It's yet another new scripting langauge to learn
+CMake Downsides:
+1. It's yet another new scripting language to learn
 
 
 ### Create the CMake script
-With a simple text editor, create a **CMakeLists.txt** file in the **root** folder, input the following code:
+With a simple text editor, create a **CMakeLists.txt** file in the **root** folder (not practical_1) and input the following code:
 
 ```CMake
 cmake_minimum_required(VERSION 3.11)
@@ -86,7 +87,13 @@ target_include_directories(PRACTICAL_1 PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_1 sfml-graphics)
 ```
 
-While that may look foreign, you can generally guess at what every line does. The good news is I'll provide all the CMake code you will need. 
+While that may look odd, you can generally guess at what every line does. The good news is we'll provide all the CMake code you will need.
+**Having said that, it is useful to understand it, so you can debug it!**
+
+### 2021 Special: Downloading CMake
+Again, we have CMake installed in D2, but you'll need to get it for your own machine. You can go get the latest version at [https://cmake.org/](https://cmake.org/).
+
+**Make sure you have it installed, before continuing!**
 
 ### Creating the Solution, with CMake
 If you are unfamiliar with CMake UI; Follow [This guide](https://github.com/edinburgh-napier/aux_guides/blob/master/cmake_guide.pdf)
