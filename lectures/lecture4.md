@@ -78,7 +78,7 @@ School of Computing. Edinburgh Napier University
 - Properties are also a method to allow unique identification of individual objects.  <!-- .element: class="fragment" -->
 - What are the properties of objects you see in other systems?  <!-- .element: class="fragment" -->
 - From our rules (Formal Elements) we have extracted most of our objects and their properties.  <!-- .element: class="fragment" -->
-- Rules (Formal Elements) --> Objects and their Properties.  <!-- .element: class="fragment" -->
+- Rules (Formal Elements) > Objects and their Properties.  <!-- .element: class="fragment" -->
 
 
 ---
@@ -96,7 +96,7 @@ School of Computing. Edinburgh Napier University
  - Behaviours can be complicated.  <!-- .element: class="fragment" -->
 - What object behaviours of objects do you see in other systems?  <!-- .element: class="fragment" -->
 - Rules and Procedures of Formal Elements can help us extract some of the object behaviours.  <!-- .element: class="fragment" -->
- - Rules and Procedures -> Behaviours (Systems)  <!-- .element: class="fragment" -->
+ - Rules and Procedures > Behaviours (Systems)  <!-- .element: class="fragment" -->
 
 
 ---
