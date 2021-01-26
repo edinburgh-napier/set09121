@@ -40,10 +40,6 @@ So, usually we'd have everything you needed installed on the D2 machines. This y
 
 ### Clone it down
 
-{:tip="sshkeys" class="tip"}
-Are you using ssh keys? You should be.
-
-
 If you haven't installed Git on your pc yet, [go here](https://git-scm.com/downloads)
 
 Open a cmd (or git-bash) window somewhere (desktop is best). Now clone
