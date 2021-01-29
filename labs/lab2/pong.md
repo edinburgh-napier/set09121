@@ -18,6 +18,9 @@ The purpose of this exercise is to get you acquainted with SFML. We will come ba
 
 Before we get stuck in, let's cover some of the fundamentals.
 
+{:class="important"}
+**You don't need to do any code in this page, but it is vital you understand the concepts here before you move on!**
+
 ## The Game Loop
 
 The fundamental core of all games, is the game loop. While some engines may hide this away, behind the scenes you can be sure that the code for any game can be stripped away to the fundamental game loop. It looks like this.
