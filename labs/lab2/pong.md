@@ -19,7 +19,7 @@ The purpose of this exercise is to get you acquainted with SFML. We will come ba
 Before we get stuck in, let's cover some of the fundamentals.
 
 {:class="important"}
-**You don't need to do any code in this page, but it is vital you understand the concepts here before you move on!**
+**You don't need to write any code in this page, but it is vital you understand the concepts here before you move on!**
 
 ## The Game Loop
 
@@ -48,22 +48,22 @@ int main () {
 The program starts as all programs do, with the main() function. 
 Here we would load in anything we need at the start of the game, create the window, load settings, and all the usual start-up things you can imagine. If we weren't using SFML we would have to detect the capabilities of the system and enable or disable certain code paths accordingly (or throw an error and quit). SFML does all this work for us, and so we only need to care about loading things directly relevant to our game.
 
-From there we enter a while loop of some kind. This will be based on some boolean value that determines if the game should quit or not. The game logic will set this from true to false when some event has happened (e.g, ESC key pressed, or player presses quit button).  This loop will continuously run two functions, Update and Render.
+From there we enter a while loop of some kind. This will be based on some boolean value that determines if the game should quit or not. The game logic will set this from false to true when some event has happened (e.g, ESC key pressed, or player presses quit button).  This loop will continuously run two functions, Update and Render.
  
-The rate at which we loop through this loop is the games framerate.
+The rate at which we loop through this loop is the game's framerate.
 
 ### The Update Function
-Update is where all game-logic code will go. This includes input processing, physics, content loading/unloading, networking.. etc.
+Update is where all game's logic code will go. This includes input processing, physics, content loading/unloading, networking, etc.
 
-This is also commonly called the game "Tick". While in our games we only do one "Tick" per frame, we could do more. If the game's logic could be executed quickly, and the game relies on fast action, it may be beneficial to do as many updates as you can between frames. While we aren't going to implement this, what you should take away is that:
-The Update function should be decoupled from Render(), so that multiple calls to Update() before a call to  Render() should not break your game.
+This is also commonly called the game "Tick". While in our games we only do one "Tick" per frame, we could do more. If the game's logic could be executed quickly, and the game relies on fast action, it may be beneficial to do as many updates as you can between frames. While we aren't going to implement this, what you should take away is this: <br />
+**The Update function should be decoupled from Render(), so that multiple calls to Update() before a call to  Render() should not break your game.**
 
-Once the Game update has been completed, the game can render a frame.  No rendering will take place during the update function. The simple way of thinking is that the Update function determines where everything is and what it's doing. The render function then draws the results of the update.   
+In our case, we are doing it more simply. Once the update function has been completed, the game can render a frame.  No rendering will take place during the update function. The simple way of thinking of this is that the update function determines where everything is and what it's doing. The render function then draws the results of the update. Remember, we are decoupling the logic and underlying game state from the rendering itself. (This, incidentally, makes it much easier to deal with things we need in the scene but might not want to render, such as triggers)
 
 #### Delta Time  - (Δt)
 
 {:tip="deltatime" class="tip"}
-DetaTime Covered is in more detail here
+DeltaTime Covered is in more detail here - you will want to read this!
 
 Before calling Update, the Delta-Time (DT) is calculated. This is the amount of time that has passed between now and the previous frame. With a game updating at a steady 60fps, dt should be approximately 16ms (1/60).
 To actually calculate DT, you can use inbuilt C++ timers, or just use the handy SFML Clock.
