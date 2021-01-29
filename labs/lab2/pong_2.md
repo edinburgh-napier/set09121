@@ -40,7 +40,7 @@ In this example, we will be overwriting the SFML hello world code you used in th
 
 I'll get you started off with the top of your file. It's the usual imports and namespaces, followed by some variables we will use for game rules, and then 3 shapes, 1 circle for the ball, and 2 rectangles stored in an array for the paddles.
 
-**I recommend you type this in yourself, rather than just copying and pasting. This will get you used to SFML and C++ syntax and common mistakes!** You can, of course, compare your code to the original if Visual Studio complains, but it's a good habit to get in, especially if you've never written C++ before.
+**I recommend you type the code you're given in manually, rather than just copying and pasting. This will get you used to SFML and C++ syntax and common mistakes!** You can, of course, compare your code to the original if Visual Studio complains, but it's a good habit to get in, especially if you've never written C++ before.
 
 We then move onto the Load() function. This is where we would load in assets if we had any (remember this for future)! For now, we setup the game by resizing and moving our shapes.
 
