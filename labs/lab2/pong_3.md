@@ -101,10 +101,10 @@ else if (
 {:class="important"}
 **Spend some time here making sure you can get things feeling right! You might need to adjust some of the values you've been given.**
 
-## Two Player and Validated moves
+## Two Player and Validated Moves
 You should now extend your game logic code to allow for moving both paddles (use the controls array defined at the top of the file). This should simply be a case of adding two extra if statements to the Update() function.
 
-Further to this, players shouldn't be able to move their paddles off of the screen. Given you've already done collision code for the ball, this should be a simple addition for you to complete!
+Further to this, players shouldn't be able to move their paddles off of the screen. Given you've already done collision code for the ball, this should be a simple addition for you to complete! (While your here, you might want to make it so that the serving direction is linked to who just lost a point, too!)
 
 ## AI
 At this stage, we want to keep the code simple, so for AI, the AI paddle will try to match it's position to be the same height as the ball.
