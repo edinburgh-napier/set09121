@@ -36,7 +36,7 @@ void Render() {
 int main () {
 	//initialise and load
 	while(!shouldQuit){
-		//Caluclate DT
+		//Caluclate dt
 		Update(dt);
 		Render();
 		//Wait for Vsync
@@ -60,24 +60,24 @@ This is also commonly called the game "Tick". While in our games we only do one 
 
 In our case, we are doing it more simply. Once the update function has been completed, the game can render a frame.  No rendering will take place during the update function. The simple way of thinking of this is that the update function determines where everything is and what it's doing. The render function then draws the results of the update. Remember, we are decoupling the logic and underlying game state from the rendering itself. (This, incidentally, makes it much easier to deal with things we need in the scene but might not want to render, such as triggers)
 
-#### Delta Time  - (Δt)
+#### Delta Time  - (Δt or dt)
 
 {:tip="deltatime" class="tip"}
-DeltaTime Covered is in more detail here - you will want to read this!
+Delta Time Covered is in more detail here - you will want to read this!
 
-Before calling Update, the Delta-Time (DT) is calculated. This is the amount of time that has passed between now and the previous frame. With a game updating at a steady 60fps, dt should be approximately 16ms (1/60).
-To actually calculate DT, you can use inbuilt C++ timers, or just use the handy SFML Clock.
+Before calling Update, the Delta Time (dt) is calculated. This is the amount of time that has passed between now and the previous frame or tick. With a game updating at a steady 60fps, dt should be approximately 16ms (1/60).
+To actually calculate dt, you can use inbuilt C++ timers, or just use the handy SFML Clock.
 ```cpp
 static sf::Clock clock;
 const float dt = clock.restart().asSeconds();
 ```
 But why do we need this?
 
-Anything in the game logic that does anything with time needs DT to work. Imagine a weapon cooldown, a player can only use it every 10 seconds. A naive approach would be to assume a constant 60fps, so 10 seconds = 600 frames. Then you could have an integer set to 600 and decrement it every frame. This wouldn't work due to small fluctuations in the fps, and while 600 frames have passed, that may not equate to 10 seconds in the real world. If we instead do ```counter -= DT``` each update. now we are relying on time, rather than frames, This is called **frame-rate independence**.
+Anything in the game logic that does anything with time needs dt to work. Imagine a weapon cooldown, a player can only use it every 10 seconds. A naive approach would be to assume a constant 60fps, so 10 seconds = 600 frames. Then you could have an integer set to 600 and decrement it every frame. This wouldn't work due to small fluctuations in the FPS, and while 600 frames have passed, that may not equate to 10 seconds in the real world. If we instead do ```counter -= dt``` each update, we are relying on time directly, rather than on the number of frames. This is called **framerate independence**.
 
-Anytime you are doing game logic that has any link to time, you must use DT. This includes moving the player. This may not seem to be time-based at first. But consider what speed is: Distance over *time*. You don't want the player to move from one side fo the screen to the other in less time if the framerate is higher.
+Any time you are doing game logic that has any link to time, you must use dt. This includes moving the player. This may not seem to be time-based at first, but consider what speed is: Distance over *time*. You don't want the player to move further if framerate is higher.
 
-It's a tricky concept but easy to implement. Usually, just multiply whatever by DT.
+It's a tricky concept but easy to implement. Usually, you can just multiply whatever it is by dt. If you've worked in Unity before, you'll have seen Time.deltaTime, and this is the same idea.
 ```Cpp
 float playerSpeed = 10.0f;
 void Update(double dt) {
@@ -91,37 +91,40 @@ void Update(double dt) {
   }
 }
 ```
+One thing you will need to remember, however, is that all speeds are now **per second**. In other words, in the good example above, the player will move 10 units per second. This actually makes a lot of things easier (e.g. rotating something at a set speed, you can now say "360 degrees per second") but if you are converting old, bad code you might find you need to update your speed values!
 
 ### Render()
 
 The render function does what you would expect, renders everything in the game to screen. There may be additional logic that goes on to do with optimization and sending things back and forth between the GPU, but we are not dealing with any of this for a 2D game in SFML. To us, the render function is simply where we tell SFML to draw to the screen. In a multi-threaded engine, this could be happening alongside an update function (more on this much later). 
 
-#### Vsync
-One other piece of logic that is important the game loop is the "buffer-swap" or "swap-chain" or "Vsync". This is a function that we can call that let's the GPU know that the rendering has finished, and therefore  it's time to send the completed rendered frame to the monitor.
+#### Blitting and VSync
+One other piece of logic that is important to consider in the game loop is the "buffer-swap", "double buffering", "screen blitting", or "swap-chain". There are lots of names for this than all mean slightly different things, but for now you can think of it as a function that we can call that let's the GPU know that the rendering has finished, and therefore it's time to send the completed frame to the monitor.
+
+Normally, we don't draw directly onto the screen because this is a) very slow, and b) can cause incomplete frames to appear on screen which looks horrible. Instead, we render in a memory location that is the same size and shape as the screen. This is much (much) quicker, and means we can wait until we've rendered everything we want before 'blitting' it to the screen itself. Remember, each draw call to the screen is relatively slow, so if we do it for each object our game will stutter to a crawl. This way, we instead only draw to the screen once per frame! With SFML we use the following command:
 
 ```Cpp
 //End the frame - send to monitor - do this every frame
 window.display();
 ```
 
-If we have enabled Vertical-sync (Vsync), the game will limit itself to the refresh rate of the connected monitor (usually 60hz, so 60fps). In this scenario once we have finished rendering everything in under 16ms, and we call window.display(), the game will wait for the remaining time of the frame before continuing. This is a carry-over from low level graphics programming where you don't want to send a new image to the monitor before it has finished drawing the previous (this causes visual Tearing). So if we are rendering faster than 60fps, the game will wait at the end of the render function while the monitor catches up. Before starting again the next frame.
-With vsync disabled, once we have finished rendering a frame, window.display() does not pause after sending the image and we continue to render the next frame immediately.
+If we have enabled Vertical-Sync (VSync), the game will limit itself to the refresh rate of the connected monitor (usually 60hz, so 60fps). In this scenario, once we have finished rendering everything in under 16ms, and we call window.display(), the game will wait for the remaining time of the frame before continuing. This comes from low level graphics programming where you don't want to send a new image to the monitor before it has finished drawing the previous (this causes visual tearing in the scene as you are seeing two different frames in the top and bottom half of the monitor). So, if we are rendering faster than 60fps, the game will wait at the end of the render function while the monitor catches up before starting again the next frame.
+With VSync disabled, once we have finished rendering a frame, window.display() does not pause after sending the image and we continue to render the next frame immediately.
 
 ```Cpp
 // enable or disable vsync - do at start of game, or via options menu
 window.setVerticalSyncEnabled(true/false);	
 ```
 
-An important gotcha that can happen here  is that the graphics drivers can manually override and forcefully enable or disable Vsync. So don't depend on it always being in the state that you set it.
+An important gotcha that can happen here is that the graphics drivers can manually override and forcefully enable or disable VSync. As such, don't depend on it always being in the state that you set it!
 
 **Why do we care about this?**
-If you are measuring the performance of your game, and it seems to be stuck to 30 or 60fps. Vsync is on. Turn it off to see the true performance of your game.
+If you are measuring the performance of your game, and it seems to be stuck to 30 or 60fps. VSync is on. Turn it off to see a more measure of the true performance of your game.
 
 
 ## Next Steps
 You may want to come back here and re-read this page later on. For now, with the basics covered let's get some code written!
 
-Head over to [chapter 2: The Mechanics of Pong](pong2)
+Head over to [Chapter 2: The Mechanics of Pong](pong2)
 
 
 

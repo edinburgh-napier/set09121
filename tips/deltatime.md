@@ -36,7 +36,7 @@ void Update(double dt) {
 Let's look at the maths here.
 * When the game is running slower -- dt gets larger (as it's the time between frames). 
 * When the game is running faster -- dt gets smaller.
-* When the game is running at our ideal rate of 60fps -- dt = 1/60 (0.166...).
+* When the game is running at our ideal rate of 60fps -- dt = 1/60 (0.0166...).
 * If the game drops down to 30fps -- dt = 1/30 (0.033...)
 * When the game is running slower  --  we move the player more per tick.
 * When the game is running faster  --  we move the player less per tick.
