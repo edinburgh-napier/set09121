@@ -74,7 +74,7 @@ void Load() {
     p.setOrigin(paddleSize / 2.f);
   }
   // Set size and origin of ball
-  ball.setRadius(ballRadius - 3);
+  ball.setRadius(ballRadius);
   ball.setOrigin(ballRadius / 2, ballRadius / 2);
   // reset paddle position
   paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
