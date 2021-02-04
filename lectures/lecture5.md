@@ -39,7 +39,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 - Last lecture we examined systems and how games can be viewed as systems.
 - We incorporated our existing Formal Elements of game design into a system model view of a game. <!-- .element: class="fragment" -->
 - We also showed how we can define a game as a system, and some of the similarities with software development. <!-- .element: class="fragment" -->
-- In this lecture we will go into detail about how we can use this model to develop our based game objects. <!-- .element: class="fragment" -->
+- In this lecture we will go into detail about how we can use this model to develop our game objects. <!-- .element: class="fragment" -->
 - What were the parts of a system we defined? <!-- .element: class="fragment" -->
 
 
@@ -147,7 +147,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
     - Texture for 2D game. <!-- .element: class="fragment" -->
     - Geometry for 3D game. <!-- .element: class="fragment" -->
 - We also need basic state information of the entity. <!-- .element: class="fragment" -->
-    - We need a flag to indicate if the game entity is active/up-datable: alive. <!-- .element: class="fragment" -->
+    - We need a flag to indicate if the game entity is active/updatable: alive. <!-- .element: class="fragment" -->
     - We also need a flag to indicate if the entity is visible: visible. <!-- .element: class="fragment" -->
 
 
