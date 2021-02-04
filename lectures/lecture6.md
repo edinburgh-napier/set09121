@@ -59,8 +59,8 @@ School of Computing. Edinburgh Napier University
 
 # Basics of Object-orientation in C++
 
-- You'll have seen plenty of this in the Labs already <!-- .element: class="fragment" -->
-- Now we are going to talk about what some of that means <!-- .element: class="fragment" -->
+- You'll will see plenty of this in the labs <!-- .element: class="fragment" -->
+- Here we are going to talk about what some of that means <!-- .element: class="fragment" -->
 
 ---
 
@@ -69,7 +69,7 @@ School of Computing. Edinburgh Napier University
 - `class` definitions are simple in C++.
 - To define a `class` in C++ we use the `class` keyword followed by the name of the `class`.
 - A `class` is then the members defined between the curly brackets.
-- **Note** -- a semi-colon is required at the end of the definition. This is different to Java and C\#.
+- **Note** - a semi-colon is required at the end of the definition. This is different to Java and C\#.
 
 `class` Definition in C++
 
@@ -171,7 +171,7 @@ public:
 
 # Defining Destructors
 - Destructors determine how an object is destroyed when it goes out of scope.
-    - This is **very** important. C++ is not garbage collected -- you are in control.
+    - This is **very** important. C++ is not garbage collected - you are in control.
 - A destructor is called:
     - whenever an object goes out of scope (i.e. defined between curly brackets).
     - When the object is manually deleted
@@ -199,7 +199,7 @@ public:
 
 # RAII
 
-Our First Rule of Good OO in C++ -- RAII
+Our First Rule of Good OO in C++ - RAII
 - RAII stands for Resource Allocation Is Initialisation. <!-- .element: class="fragment" -->
 - It is a rule used in good C++ code. <!-- .element: class="fragment" -->
 - When an object is created it allocates or takes ownership of its required resources (via the constructor). <!-- .element: class="fragment" -->
@@ -220,7 +220,7 @@ void Main(){
     //--- some time later
     delete mario;
     CloseGame();
-    //Oh no -- we forgot to unload the texture!
+    //Oh no - we forgot to unload the texture!
 }
 ```
 
@@ -264,7 +264,7 @@ RAII : Mario should clean up after himself!
 # Think Back to the Labs
 
 - Have you already done some of these? <!-- .element: class="fragment" -->
-- Remember the Space Invaders example? <!-- .element: class="fragment" -->
+- What about the Space Invaders example? <!-- .element: class="fragment" -->
 - Where have you used these already? <!-- .element: class="fragment" -->
 
 ---
@@ -366,7 +366,7 @@ RAII : Mario should clean up after himself!
 
 # Be Careful!
 
-- **Warning** -- good practice is to avoid deep levels of inheritance. I personally aim for a base-class to provide an **interface** specification to a collection of derived-classes. I try and have single-level inheritance as far as possible.
+- **Warning** - a good practice is to avoid deep levels of inheritance. I personally aim for a base-class to provide an **interface** specification to a collection of derived-classes. I try and have single-level inheritance as far as possible.
 
 ---
 
@@ -426,7 +426,7 @@ RAII : Mario should clean up after himself!
 
 - Polymorphism is the ability of our objects to act as different types.
 
-- Understanding polymorphism is one of the most important aspects of object-oriented development. Having an object provide a known interface the produces different behaviour is fundamental to software reuse.
+- Understanding polymorphism is one of the most important aspects of object-oriented development. Having an object provide a known interface that produces different behaviour is fundamental to software reuse.
 
 ---
 
@@ -469,7 +469,7 @@ RAII : Mario should clean up after himself!
 Converting (Casting) Between Types in C++
 ```
     sparrow *s;
-    // C-style casting.  DON'T DO!
+    // C-style casting.  DON'T DO THIS!
     bird *b = (bird*)s; 
 
     // Proper C++ casting
@@ -524,7 +524,7 @@ Converting (Casting) Between Types in C++
 - A basic form of polymorphism is *ad-hoc polymorphism*.
 - This means we can have the same method name, but with different parameters and return type.
 - Object-orientation generally allows this through method overloading.
-- Not that parameters are the real way of distinguishing methods -- the return type cannot be different for the same parameters.
+- Not that parameters are the real way of distinguishing methods - the return type cannot be different for the same parameters.
 
 ```
 class A
@@ -628,7 +628,7 @@ public:
 
 ---
 
-## **Danger** -- values, references, and pointers
+## **Danger** - values, references, and pointers
 
 ---
 
