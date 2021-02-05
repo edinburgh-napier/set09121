@@ -36,36 +36,38 @@ The working directory is the directory the game will look to as it's default pat
 ### Running the .exe yourself
 
 If you go find the exe and click on it, the working directory *should* be the same directory the .exe lives in.
-[Note: mac users, osx is backwards and complicated and may not do this, good luck]
+[Note: Sorry Mac users, Apple is... complicated and ever changing so may not do this. Good luck?]
 
 
 # Ok, So how do I do it?
 
 ## Method 1 - The wrong way - Hardcoded paths
 
-You're an absolute madman, your game never needs to work on another PC.
+You're an absolute madman and your game never needs to work on another PC?
 ```cpp
 spritesheet.loadFromFile("C:/users/YOU/Desktop/GAMEBUILD/Release/res/img/invaders_sheet.png")
 ```
-This will work great, and is useful for debugging issues, but don't have this as a permanent solution.
+This will work, and is useful for debugging issues, but don't have this as a permanent solution.
+
+**If you do this for your coursework you WILL lose marks**
 
 
 ## Method 2 - Change Working Dir, copy files from source to build 
 
 ```cmake
-set_target_properties(PRACTICAL_2_INVADERS 
+set_target_properties(2_INVADERS 
     PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
 )
 ```
 
-So when we run our game in VS it will look for file in the build folder, just as if we went and ran the .exe ourselves.
+So when we run our game in VS it will look for file in the build folder, just as if we went and ran the .exe ourselves. **You have to add this for each individual project!**
 
-But we still haven't got our resources in the build folder yet, they are still in the source folder. We could build some sort of batch script to do this, but we can tap into some Cmake magic to wrap this all up into our build and compile step.
+But we still haven't got our resources in the build folder yet, they are still in the source folder. That means until you complete the next step, this might break. We could build some sort of batch script to do this, but we can tap into some CMake magic to wrap this all up into our build and compile step.
 
 ### Copy all resources via Custom CMake Target
 
-CMake can add more than just executables to the solution, it can also add \"custom targets\". We just add below, and add a slightly modified version of our copy script within it.
+CMake can add more than just executables to the solution, it can also add \"custom targets\". We just add below, and add a slightly modified version of our copy script within it. **You only need to do this once per CMake file - put it under the External Dependencies**
 
 ```cmake
 add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
@@ -75,12 +77,14 @@ add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND}
 )
 ```
 
-Then for all of your projects, do:
+Then for all of your projects that require things from the res folder, add the following under the set_target_properties command from above:
 ```cmake
- add_dependencies(PRACTICAL_2_INVADERS copy_resources)
+ add_dependencies(2_INVADERS copy_resources)
 ```
 
 If you need to trigger a copy, right click and build on the "copy_resources" project in VS.
+
+**You will need to reconfigure CMake now**
 
 {:class="important"}
 **REMEMBER: DO NOT POINT TO ANYWHERE ON YOUR H DRIVE!!**<br />
