@@ -57,6 +57,8 @@ One annoying caveat of this is that if you try to create a new file from visual 
 We will be loading a bunch of files from disk, you need to make sure the resources are in the right place.
 Take a look here  [Runtime Resources tips and tricks](resources)
 
+**Don't skip this section, it's important**
+
 ## Lib, linking, and cmake.
 
 If you are getting into a mess with you CMake, have a look here [CMake tips](cmake_tips)
@@ -64,7 +66,7 @@ If you are getting into a mess with you CMake, have a look here [CMake tips](cma
 # Sprite-sheets
 
 **Before we get stuck in, you should have already have a standard boiler
-plate gameloop written to open a window and poll for events.**
+plate gameloop written to open a window and poll for events. You can use some of what you wrote for your Pong game!**
 
 A common technique for 2D art assets in games is to combine what would be many separate images into one \"sprite sheet\". This saves time when loading in files, and a small amount of graphics memory. Images are places into tiles within a larger image, sprites are rendered by taking a 'cut out' of the larger image. In terms of optimisation this makes life very easy for the GPU -- as it doesn't have to switch texture units.
 
@@ -85,11 +87,11 @@ The primary benefit of sprite sheets however is sprite-animation. It is commonpl
 
 **Our Space Invaders Sprite-sheet** : It's actually a transparent image - grey background just for clarity.
 
-**Save This image to your repo's resoucres folder**
+**Save This image to your repo's res folder**
 
 (Yeah, I know there are some issues with using the Space Invaders designs. We're using them as they are simple - don't do this in your coursework submission!)
-----
 
+----
 
 ![image](assets/images/minecraft_sheet.png)
 
@@ -122,15 +124,15 @@ void Render() {
 }
 ```
 
-At this stage, you might find your code doesn't run because of the *cerr* call. That's normal, and it is to do with the fact that the cerr is not part of core C++, it's a helper object from the standard (std) library. To explain it fully would be out of the scope of this lab, so you can think of it as being the equivalent of the *System.out.println* or *Debug.Log* functions you might be more used to - it allows us to print to the console. As such, it is IO functionality, and so we need to include the correct library for this to work. I'll leave you to find out which one you need!
+At this stage, you might find your code doesn't run because of the *cerr* call. That's normal, and it is to do with the fact that the cerr is not part of core C++, it's a helper object from the standard (std) library. To explain it fully would be out of the scope of this lab, so you can think of it as being the equivalent of the *System.out.println* or *Debug.Log* functions you might be more used to - it allows us to print to the console. As such, it is IO functionality, and so we need to include the correct library for this to work. **I'll leave you to find out which one you need!**
 
-Totally easy. Take note of this line:
+Take note of this line:
 
 ```cpp
 sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 ```
 
-The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is dived into squares of32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite.
+The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is dived into squares of 32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite. **Remember, you should be looking up the SFML API to find out things like this yourself going forwards**
 
 Note that the invader doesn't take up the whole 32x32 square, it's surrounded by transparent pixels. SFML takes care of doing the rendering with correct modes so as to cuts out the background, but we may have to be careful when it comes to physics and collision code.
 
@@ -148,13 +150,16 @@ You should have a separate project setup and working, and showing this:
 
 ## Oh... it's not working? I'm just getting a white square...
 
-If this happens, it's most likely that you are failing to load the sprite-sheet image properly. Check the other window that opens when you run an application. Is there an error in there? Does it say something like 'Failed to load image'? If so, there are four things to check:
+If this happens, it's most likely that you are failing to load the sprite sheet image properly. Check the other window that opens when you run an application. Is there an error in there? Does it say something like 'Failed to load image'? If so, there are four things to check:
 1. You did actually download the image, right?
 2. You did point your code to the correct name/location of the file, didn't you?
 3. You have updated your CMake code to ensure that your new project's resources are copied correctly, yeah?
 4. It's most likely point 3 that you forgot (speaking from experience), so check again!
 
-For point 3, remember to go and read [Runtime Resources tips and tricks](resources) again. The process should be easier... assuming you imported your fonts correctly in the Pong example!
+For point 3, remember to go and read [Runtime Resources tips and tricks](resources) again. The process should be easier once that is done, compared to the manual process you did with fonts in the Pong example!
+
+{:class="important"}
+**If you've set up everything correctly, you should be able to run the .exe in your build folder directly, without copying files yourself!** 
 
 Previous step: [Pong 3](pong3)
 
