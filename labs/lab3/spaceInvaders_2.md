@@ -319,6 +319,9 @@ You should know how to add in the movement code, it's almost identical to Pong. 
  
 ## Bullets
 
+{:class="important"}
+**This part is hard and requires you to do lots of refactoring of your code! Take it slow, and work with someone if you're really struggling.** 
+
 The game wouldn't be very difficult (or possible) without bullets firing around. Let's look at our requirements:
 - Invaders shoot green bullets downwards
 - The player shoots white bullets upwards
@@ -504,7 +507,7 @@ void Bullet::_Update(const float &dt) {
 };
 ```
 
-This code will require modification to our ship class. Also we need access to a pointer to the player ship so we can determine the types of collisions. My way of doing this would be to add it as another extern in game.h. We need to introduce Explode behaviour into the ship classes. We will add the common functionality to the base Ship class - turning into the explosion sprite. The invader class will extend this by increasing the speed of other invaders, add removing the explosion sprite after a second. The player ship will end the game if explode is called on it which will trigger a game reset.
+This code will require modification to our ship class. Also we need access to a pointer to the player ship so we can determine the types of collisions. My way of doing this would be to add it as another extern in game.h. We need to introduce Explode behaviour into the ship classes. We will add the common functionality to the base Ship class - turning into the explosion sprite. The invader class will extend this by increasing the speed of other invaders, and removing the explosion sprite after a second. The player ship will end the game if explode is called on it which will trigger a game reset.
 
 
 ```cpp 
