@@ -17,16 +17,18 @@ This lab is design to introduce you to: Object Orientation(OO) in C++, Working w
 # Adding another project
 
 
-We will be adding this lab a 'project' to our already existing 'Games Engineering solution'. 
+In this lab, we will be adding a 'project' to our already existing 'Games Engineering solution'. 
 
-Note: this is the vernacular of Visual studio. In CMake Terms we are adding another 'Executable' to the 'project'.
+Note: this is the terminology of Visual Studio. In CMake terms we are adding another 'Executable' to the 'project'. Yeah, tech is fun!
 
--   Create a new folder inside your repo.
+To do this, follow these steps:
+
+-   Create a new folder inside your **repo**.
 
 -   Within that, create a main.cpp, feel free to copy some boilerplate
-    SFML code into it.
+    SFML code into it. (This is why I suggested you keep the green circle example somewhere)
     
--   Add the following to your CMakeLists.txt (Make sure that you use the right folder names in here!)
+-   Add the following to the bottom of your CMakeLists.txt file (Make sure that you use the right folder names in here!)
 ```cmake
 ## Space invaders
 file(GLOB_RECURSE SOURCES 2_invaders/*.cpp 2_invaders/*.h)
@@ -47,13 +49,15 @@ As you know, we have all our source code in the source 'repo' folder, and all th
 
 One annoying caveat of this is that if you try to create a new file from visual studio, it incorrectly puts it in the build directory. You can manually type in the correct directory in the create file dialogue, or create the files manually and re-run CMake. Note: you will have to re-run CMake anyway when adding or removing files in the source directory.
 
+{:class="important"}
+**Don't continue until you have gotten a second project working in Visual Studio and showing a green circle - remember you will have to change the startup project!** 
 
 ## Runtime Resources
 
 We will be loading a bunch of files from disk, you need to make sure the resources are in the right place.
 Take a look here  [Runtime Resources tips and tricks](resources)
 
-##Lib, linking, and cmake.
+## Lib, linking, and cmake.
 
 If you are getting into a mess with you CMake, have a look here [CMake tips](cmake_tips)
 
