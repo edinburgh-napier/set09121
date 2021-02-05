@@ -535,6 +535,19 @@ void Ship::Explode() {
 
 **You will also have to define the is_exploded() getter function!**
 
+#### A Quick Pause
+
+Right, by now you are probably confused with bullet pools! So, let's have a quick rundown of how your code is supposed to work. The basic idea is that our Bullet class should just deal with anything bullety by itself, without external classes needing to know what it is doing. So, all calls to Bullet from outside should be to static funtions. This is so we can ensure we don't get memory leaks, and to make it easier for the rest of our code. An invader doesn't need to know it's shooting bullet 231, after all. Only _Update() is non-static, as that is the function which moves and checks collisions per bullet.
+
+So the general structure should be:
+1. Your main.cpp file should call Bullet::Update(dt) and Bullet::Render() in the appropriate places. These are static functions.
+2. The Bullet class will the interact through all bullets in the array. When updating we call _update() on each bullet, for rendering we call window.draw()
+3. _Update() checks if the bullet is on screen. If so, it moves it up or down as appropriate and looks for collisions with our Ships.
+4. If it hits anything, it calls the Explode() function on it, which should... you know, make it explode.
+5. The Player should check for a key press in it's Update function, and call Bullet::Fire to shoot a bullet.
+6. Bullet:Fire will get the next bullet off the array, set it to the correct position and mode, and assign the correct sprite to it
+7. Now it's on screen, Step 1 will make it move and render!
+
 ### Bullet Timing and Explosion fade
 
 
