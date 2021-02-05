@@ -27,12 +27,12 @@ This means that Ship will have all the same methods as a sf::sprite, including a
 
 ### Create Ship.h
 
-Create a file inside the invaders source folder called "ship.h". **Remember to ensure this new file ends up in your source directory, not the build directory. Check out Part 1 of this lab for a reminder**.
+Create a file inside the invaders source folder called "ship.h". **Remember to ensure this new file ends up in your source directory, not the build directory. Check out Part 1 of this lab for a reminder. You will need to reconfigure CMake again to have it show up in VS too!**.
 
 This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). The reason we do this is to keep the logic of the class stored inside a .cpp file, while any piece of code that wants to access this functionality only needs the header. This concept does not exist inside Java or C#, wherein you provide the full definition of a function inside a class, in the one file. The is parsed for you, and allows other classes to link to it. C++ is not so nice! For example, you might have already noticed in the Pong example that if you put functions *after* those that call them, it will not work. It is totally possible to work in a more C# fashion but, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Instead, we are going to work in the more industry standard style that is likely older than most of you!
 
 
-Anyway, Inside Ship.h write this:
+Anyway, Inside ship.h write this:
 
 ```cpp 
 //ship.h
@@ -97,11 +97,11 @@ extern sf::Texture spritesheet;
 
 We are defining some common variables here as constant, which is fine. The interesting bit is the 'extern spritesheet', this tells anyone that includes game.h that a sprite-sheet exists 'somewhere". That somewhere is main.cpp, and the compiler will figure this out for us when we need to access it from ship.cpp. What do you think you need to do now to fix the errors in the ship.cpp file?
 
-**Remember to reload CMake via Zero\_check to add our new files to the build**
+**Remember to reload CMake via ZERO\_CHECK to add our new files to the build - if this doesn't work you can always do it via the CMake GUI too**
 
 ### Test out the code
 
-As Ship is an abstract class, we can't create one. Ee can only create a concrete class derived from it. We can reference it as pointer however, due to how c++ polymorphism works. Add the following to the top of your main.cpp
+As Ship is an abstract class, we can't create one. We can only create a concrete class derived from it. We can reference it as pointer however, due to how C++ polymorphism works. Add the following to the top of your main.cpp
 
 ```cpp 
 //main.cpp
@@ -112,17 +112,18 @@ std::vector<Ship *> ships;
 
 This should compile without errors.
 
+{:class="important"}
+**Do not move on until all your files appear in VS and it compiles!** 
+
 ## Making the Invader class
 
 
 We could create a new invader.h and invader.cpp to house the invader class. Generally speaking separate files for separate classes is a good idea, although unlike Java we don't *have* to do this. In some situations when certain classes are very similar or just slightly different version of each other it makes sense to host them in the same Header file.
 
-Add the following to code
+Add the following code to ship.h and ship.cpp:
 
 ```cpp 
 //ship.h
-#include "ship.h"
-
 class Invader : public Ship {
 public:
     Invader(sf::IntRect ir, sf::Vector2f pos);
@@ -150,7 +151,8 @@ Now that we have a concrete implementation of a Ship we can create one.
 ```cpp
 //Main.cpp
 
-Load(){...
+Load(){
+...
 Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), {100,100});
 ships.push_back(inv);
 ```
@@ -159,11 +161,11 @@ Up to here, I've been including the include statements you'll need too - from he
 
 Important note, we used the New() operator here, which created the ship on the heap. If we wanted a stack version, we omit the new New and would use Invader 'inv = Invader()'.
 
+As we are going to be storing the invader in a vector that will also later contain the player, this vector itself cannot be of type Invader. Instead, we need to use the base class that both inherit from - the Ship class. The way we have set this up, however, we can't create a vector<Ship>, as that would try to construct an abstract class. Instead, we create a vector of pointers to the objects!
+
 ### Calling Update and Render
 
-As we are storing the invader in a vector that will also later contain the player, this vector cannot be of type Invader. Instead, we need to use the base class that both inherit from - the Ship class. The way we have set this up, however, we can't create a vector<Ship>, as that would try to construct an abstract class. Instead, we create a vector of pointers to the objects!
-
-Anyway, now we need to call the update function for all of our ships every frame. Due to polymorphism this is very simple: as *Update()* is a virtual function, when we call *Update()* on a Ship pointer it will run the *Update()* function of whatever is being pointed to. In other words, if we call *Update()* on an item in a *vector<\*Ship>* collection, and the Ship object that is pointed to is an Invader, then the *Update()* function in the Invader class is called. If it is a Player object, the *Update()* function in the Player class is called. Got that? 
+Now we need to call the update function for all of our ships every frame. Due to polymorphism this is very simple: as *Update()* is a virtual function, when we call *Update()* on a Ship pointer it will run the *Update()* function of whatever is being pointed to. In other words, if we call *Update()* on an item in a *vector<\*Ship>* collection, and the Ship object that is pointed to is an Invader, then the *Update()* function in the Invader class is called. If it is a Player object, the *Update()* function in the Player class is called. Got that? 
 
 Yeah... this can be confusing, especially if you are new to this! Do your best to get your head around it though, as this is core to how much of game engines work. We have a collection of things we need to update in some fashion, so we iterate through that collection and tell each thing to do what they are supposed to. **If you are completely befuddled, please ask in the lab!**
 
@@ -171,7 +173,8 @@ On the plus side, look how simple the code actually is to do the updating of all
 
 ```cpp
 //Main.cpp
-Update(){...
+Update(){
+...
   for (auto &s : ships) {
     s->Update(dt);
   };
@@ -181,13 +184,16 @@ The same ease goes for rendering, with the additional bonus that as we have inhe
 
 ```cpp
 //Main.cpp
-Render() {...
+Render() {
+...
   for (const auto s : ships) {
     window.draw(*s);
   }
 ```
 
-At this stage, you can now add additional Invaders to the screen, at different locations, and with different graphics thanks to the sprite-sheet. Each one you add to the vector should be automagically rendered! Go on, you've probably hurt your brain by this point, so play around with it a bit.
+**PAY ATTENTION TO THE DIFFERENCES HERE** For Update, we are calling something that will change the stage of what we call, and we're calling a function on the object - hence no const, using & and -> as we talked about in lectures. For Render we aren't changing the state of the sprite (so we can use const) and the draw() function requires us to pass a pointer variable, hence the *.
+
+At this stage, you can now add additional Invaders to the screen, at different locations, and with different graphics thanks to the sprite sheet. Each one you add to the vector should be automagically rendered! Go on, you've probably hurt your brain by this point, so play around with it a bit. Remember you can look up the SFML API whenever you need to.
 
 {:class="important"}
 **Do not continue until you have multiple different sprites on your screen!** 
@@ -305,7 +311,7 @@ void Player::Update(const float &dt) {
 }
 ```
 
-You should know how to add in the movement code, it's almost identical to pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time. You could add it to the vector of ships, but rember the hacky line in invader's update: `ships[i]->move(0, 24);`? This would also move the player. Not good. To solve this you can either 
+You should know how to add in the movement code, it's almost identical to Pong. Bonus points for not allowing it to move off-screen. You should construct one player at load time. You could add it to the vector of ships, but rember the hacky line in invader's update: `ships[i]->move(0, 24);`? This would also move the player. Not good. To solve this you can either 
  - A: Have the player seperate from the ship list, and manually update and render it. **Bad option**
  - B: Change the invader update to only move invaders down. **Good option!**
  
@@ -458,7 +464,7 @@ protected:
 I'll let you figure out the changes to the bullet.cpp. Keep in mind the differences between static-and non static functions. The _update() function is given in the next section.
 
 {:class="important"}
-**If you are getting unresolved external symbol errors, remember the top hint from before!**
+**If you are getting unresolved external symbol errors, remember the top hint from before! (Also, make you you have a constructor in bullet.cpp)**
 
 #### Exploding Things
 
@@ -507,7 +513,7 @@ class Ship : public sf::Sprite {
     ...
     protected:
       ...
-      bool _exploded;
+      bool _exploded = false;
     public:
       ...
       bool is_exploded() const;
@@ -517,12 +523,14 @@ class Ship : public sf::Sprite {
 
 
 ```cpp 
-//bullet.cpp
+//ship.cpp
 void Ship::Explode() {
-    setTextureRect(IntRect(128, 32, 32, 32));
+    setTextureRect(IntRect(  128, 32, 32, 32));
     _exploded = true;
 }
 ```
+
+**You will also have to define the is_exploded() getter function!**
 
 ### Bullet Timing and Explosion fade
 
@@ -586,4 +594,4 @@ I'll leave the code for this up to you.
 ---
 Previous step: [Space Invaders 1](spaceinvaders_2)
 
-Next step: [Space Invaders 3](spaceinvaders_3)
+Next step: [Tile Engine 1](tile_engine_1)
