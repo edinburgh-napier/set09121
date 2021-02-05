@@ -541,12 +541,14 @@ Right, by now you are probably confused with bullet pools! So, let's have a quic
 
 So the general structure should be:
 1. Your main.cpp file should call Bullet::Update(dt) and Bullet::Render() in the appropriate places. These are static functions.
-2. The Bullet class will the interact through all bullets in the array. When updating we call _update() on each bullet, for rendering we call window.draw()
-3. _Update() checks if the bullet is on screen. If so, it moves it up or down as appropriate and looks for collisions with our Ships.
-4. If it hits anything, it calls the Explode() function on it, which should... you know, make it explode.
-5. The Player should check for a key press in it's Update function, and call Bullet::Fire to shoot a bullet.
-6. Bullet:Fire will get the next bullet off the array, set it to the correct position and mode, and assign the correct sprite to it
-7. Now it's on screen, Step 1 will make it move and render!
+2. The Bullet class will the interate through all bullets in the array when the appropriate static function is called. When updating we call _update() on each bullet, when rendering we call window.draw()
+3. _Update() checks if the bullet is on screen. If so, it moves it as appropriate and looks for collisions with our Ships.
+4. If it hits an appropriate ship, it calls the Explode() function on it, which should... you know, make it explode.
+5. The Player class should check for a keypress in it's Update function, and call Bullet::Fire to shoot a bullet.
+6. Bullet:Fire will get the next bullet off the array (using bulletPointer to keep track of this), set it to the correct position and mode, and assign the correct sprite to it
+7. Now it's on screen, Step 1 will take over and make it move and render!
+
+Phew! This part is hard, but once you get this working, you'll be able to apply it to lots of different things!
 
 ### Bullet Timing and Explosion fade
 
