@@ -191,7 +191,7 @@ Render() {
   }
 ```
 
-**PAY ATTENTION TO THE DIFFERENCES HERE** For Update, we are calling something that will change the stage of what we call, and we're calling a function on the object - hence no const, using & and -> as we talked about in lectures. For Render we aren't changing the state of the sprite (so we can use const) and the draw() function requires us to pass a pointer variable, hence the *.
+**PAY ATTENTION TO THE DIFFERENCES HERE** For Update, we are calling something that will change the state of what we call, and we're calling a function on the object - hence no const, using & and -> as we talked about in lectures. For Render we aren't changing the state of the sprite (so we can use const) and the draw() function requires us to pass a pointer variable, hence the *.
 
 At this stage, you can now add additional Invaders to the screen, at different locations, and with different graphics thanks to the sprite sheet. Each one you add to the vector should be automagically rendered! Go on, you've probably hurt your brain by this point, so play around with it a bit. Remember you can look up the SFML API whenever you need to.
 
@@ -320,7 +320,7 @@ You should know how to add in the movement code, it's almost identical to Pong. 
 ## Bullets
 
 {:class="important"}
-**This part is hard and requires you to do lots of refactoring of your code! Take it slow, and work with someone if you're really struggling.** 
+**This part is hard and requires you to do lots of refactoring of your code! Take it slow, and work with someone if you're really struggling. You should have a partner by now, right?** 
 
 The game wouldn't be very difficult (or possible) without bullets firing around. Let's look at our requirements:
 - Invaders shoot green bullets downwards
@@ -464,7 +464,7 @@ protected:
 };
 ```
 
-I'll let you figure out the changes to the bullet.cpp. Keep in mind the differences between static-and non static functions. The _update() function is given in the next section.
+I'll let you figure out the changes to the bullet.cpp. Keep in mind the differences between static-and non static functions. The _Update() function is given in the next section.
 
 {:class="important"}
 **If you are getting unresolved external symbol errors, remember the top hint from before! (Also, make you you have a constructor in bullet.cpp)**
@@ -541,7 +541,7 @@ Right, by now you are probably confused with bullet pools! So, let's have a quic
 
 So the general structure should be:
 1. Your main.cpp file should call Bullet::Update(dt) and Bullet::Render() in the appropriate places. These are static functions.
-2. The Bullet class will the interate through all bullets in the array when the appropriate static function is called. When updating we call _update() on each bullet, when rendering we call window.draw()
+2. The Bullet class will the interate through all bullets in the array when the appropriate static function is called. When updating we call _Update() on each bullet, when rendering we call window.draw()
 3. _Update() checks if the bullet is on screen. If so, it moves it as appropriate and looks for collisions with our Ships.
 4. If it hits an appropriate ship, it calls the Explode() function on it, which should... you know, make it explode.
 5. The Player class should check for a keypress in it's Update function, and call Bullet::Fire to shoot a bullet.
