@@ -127,7 +127,7 @@ class Player : public Entity {
 
 For the .cpp, for now we will keep this basic and come back to it!
 
-**You now need to implement code that will move the player around on screen in the Update function.**
+**You now need to implement code that will move the player around on screen in the Update function.** (Hint: you'll need to define inputs, use the speed, and remember to use dt! You can use the functions from Entity, too)
 
 ```cpp
 //player.cpp
@@ -153,12 +153,14 @@ void Player::Render(sf::RenderWindow &window) const {
 }
 ```
 
-Finally, you will need to create a player object, and link it into your update and render code from your game loop in order for it to show!
+Finally, you will need to create a player object, and link it into your Update and Render code from your game loop in order for it to show!
 
+**REMEMBER: DO NOT USE New(), you should be using Smart Pointers!** (Hint: you should store the Player instance as a unique pointer, and the code already given you will show you how to store and make these!)
 
 {:class="important"}
 **At this point you should have a magenta circle moving around a screen. Do not continue on if you haven't got everything working so far.**
 
+Oh, and you can move diagonally... right?
 
 Previous step: [Space Invaders 2](space_invaders_2)
 
