@@ -12,7 +12,7 @@ sidebar: home_sidebar
 This lab is design to introduce you to: Writing C++ Helper Libraries, Tile Based logic and 2D coordinate code.
 We will be starting this practical from the usual game loop basis. 
 
-Create the main.cpp, and add the new project to CMake.
+**Create a new project, add the main.cpp file, and add the new project to CMake.**
 
 ## The Goal
 
@@ -119,14 +119,15 @@ class Player : public Entity {
   float _speed;
 
  public:
-  void update(double dt) override;
+  void Update(double dt) override;
   Player();
-  void render(sf::RenderWindow &window) const override;
+  void Render(sf::RenderWindow &window) const override;
 };
 ```
 
-For the .cpp, for now we will keep this basic and come back to it.
-Implement code that will move the player around on screen in the update.
+For the .cpp, for now we will keep this basic and come back to it!
+
+**You now need to implement code that will move the player around on screen in the Update function.**
 
 ```cpp
 //player.cpp
@@ -134,11 +135,11 @@ Implement code that will move the player around on screen in the update.
 using namespace sf;
 using namespace std;
 
-void Player::update(double dt) {
+void Player::Update(double dt) {
   //Move in four directions based on keys
   ...
   
-  Entity::update(dt);
+  Entity::Update(dt);
 }
 
 Player::Player()
@@ -147,7 +148,7 @@ Player::Player()
   _shape->setOrigin(Vector2f(25.f, 25.f));
 }
 
-void Player::render(sf::RenderWindow &window) const {
+void Player::Render(sf::RenderWindow &window) const {
   window.draw(*_shape);
 }
 ```
