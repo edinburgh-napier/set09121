@@ -49,7 +49,7 @@ From the CMake we can see that we need to put some code in a "lib_tile_level_loa
 Let's get started with our header.
 
 ```cpp 
-//levelsystem.h
+//LevelSystem.h
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -97,10 +97,10 @@ private:
 
 That's quite a lot to begin with. Let's pay attention to the public functions first: this is where we declare what our library can do. The protected variables are the internal state that we need for some calculations later on. The whole LevelSystem is a static class, everything is static so we can access everything within it from anywhere (Downside: we can't inherit from it). I've thrown in a handy \#define macro so we can access everything like \"ls::Render()\".
 
-With our Levelsystem declared, let's define it in levelSystem.cpp
+With our LevelSystem.h declared, let's define it in LevelSystem.cpp
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 #include "LevelSystem.h"
 #include <fstream>
 
@@ -110,7 +110,7 @@ using namespace sf;
 std::unique_ptr<LevelSystem::TILE[]> LevelSystem::_tiles;
 size_t LevelSystem::_width;
 size_t LevelSystem::_height;
-Vector2f LevelSystem::_offset(0.0f, 30.0f);
+Vector2f LevelSystem::_offset(0.0f, 0.0f);
 
 float LevelSystem::_tileSize(100.f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
@@ -131,16 +131,16 @@ void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
 
 ```
 
-We start off by defining all the static member variables declared in the header file. This brings in a C++ data structure that we've not dealt with before, the map. It's statically initialised with two colours, more can be added by the game later. This map is read by the \"getColor\" function which will return a transparent colour if an allocation is not within the map.
+We start off by defining all the static member variables declared in the header file. This brings in a C++ data structure that we've not dealt with before, the map. It's statically initialised with two colours, more can be added by the game later. This map is read by the getColor() function which will return a transparent colour if an allocation is not within the map.
 
-**Important: make sure you use find() for maps if you are searching for an element! If use used *auto it = _colours[t]* then we would CREATE the element if it didn't exist!**
+**Important: make sure you use find() for maps if you are searching for an element! If you used *auto it = _colours[t]* then we would CREATE the element if it didn't exist! Bad!**
 
-You should complete the setColor function. It's super simple, but you may have to look up the c++ docs on the std::map.
+You should complete the setColor function. It's super simple, but you may have to look up the C++ docs/API on the std::map. Again, you should be looking up the API all the time for what you are using. Oh, also note that again we're using smart pointers throughout!
 
 Next up, reading in and parsing the text file.
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
   _tileSize = tileSize;
   size_t w = 0, h = 0;
@@ -208,15 +208,15 @@ The file handling code at the top is nothing special, we read the whole file int
 
 Once the level string has been parsed into a vector of tile types, an array is created with the final dimensions. Keeping within a vector could be valid, but we don't ever want to change the size of it, so an array seems a better fit.
 
-Notice that while the level file is 2D, we store it in a 1D storage type. If we know the width of the level we can extrapolate a 2d position from the 1d array easily. We do this as C++ doesn't have a native 2D array type. We could create an array of arrays which would do the job, but makes the functions we need to write later slightly more difficult.
+Notice that while the level file is 2D, we store it in a 1D storage type. If we know the width of the level we can extrapolate a 2D position from the 1D array easily. We do this as C++ doesn't have a native 2D array type. We could create an array of arrays which would do the job, but makes the functions we need to write later slightly more difficult. Also, 2D arrays in most languages are slower to access/serialise/load anyway.
 
-Our level loader library will do more than just parse in a text file, it will also render the level with SFML. To do this we will build a list of sf::shapes for each tile in our array. The colour of this shape will depend on the colour association stored in our map. We only need to build this list of shapes once, so this function is called at the end of loadLevelFile().
+Our level loader library will do more than just parse in a text file, however, it will also render the level with SFML! To do this we will build a list of sf::shapes for each tile in our array. The colour of this shape will depend on the colour association stored in our map. We only need to build this list of shapes once, so this function is called at the end of loadLevelFile().
 
-**You will have to add accessors for height and width at this stage, these will be useful later!**
+**You will have to add accessors for height and width at this stage, these will be useful later! You'll need to add them to the header file too**
 (This should be pretty easy!)
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 
 void LevelSystem::buildSprites() {
   _sprites.clear();
@@ -235,7 +235,7 @@ void LevelSystem::buildSprites() {
 Note we need yet another function, the getTilePosition().
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 Vector2f LevelSystem::getTilePosition(Vector2ul p) {
   return (Vector2f(p.x, p.y) * _tileSize);
 }
@@ -246,7 +246,7 @@ As we are just doing maths here we don't need to read into the tile array. We co
 There will be times when we need to retrieve the actual tile at a position, both screen-space and grid-space. This is where we must convert 2D coordinates to a single index in our tile array.
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
   if (p.x > _width || p.y > _height) {
     throw string("Tile out of range: ") + to_string(p.x) + "," + to_string(p.y) + ")";
@@ -255,12 +255,14 @@ LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
 }
 ```
 
-Most of this function is taken up by a range check (Where we throw an exception like we have been earlier). The real calculation is in that last line. The secret is to multiply the Y coordinate by the tile map width, and add the X. **Don't continue on unless you understand why and how this works, it gets more difficult from here on out. Remember to ask for help if you need it!**
+Most of this function is taken up by a range check (Where we throw an exception like we have been earlier). The real calculation is in that last line. The secret is to multiply the Y coordinate by the tile map width, and add the X.
+
+**Don't continue on unless you understand why and how this works, it gets more difficult from here on out. Remember to ask for help if you need it!**
 
 Doing the same, but with a screen-space coordinate is not any different. However as we are dealing with floats now, we must check it's a positive number first, then we can convert to grid-space, and call our above function. Again, don't continue on unless you understand why and how this works.
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
   auto a = v - _offset;
   if (a.x < 0 || a.y < 0) {
@@ -273,7 +275,7 @@ LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
 And finally - here lies our Render Function. Nice and Simple.
 
 ```cpp 
-//levelsystem.cpp
+//LevelSystem.cpp
 void LevelSystem::Render(RenderWindow &window) {
   for (size_t i = 0; i < _width * _height; ++i) {
     window.draw(*_sprites[i]);
@@ -289,7 +291,7 @@ While the library can build by itself, that's rather useless to us. We need to l
 target_link_libraries(... lib_tile_level_loader sfml-graphics)
 ```
 
-You probably could have guessed this addition. Just add the library target name to your link_libraries.
+You probably could have guessed this addition. Just add the library target name to your link_libraries, just like we do with SFML. You can add as many as you like, separated by spaces.
 
 
 ## Maths Library
@@ -306,7 +308,7 @@ Instead we will build a small add-on helper library to add in the functions that
 
 ### CMake
 
-Firstly, like we did with our first library, add this to CMake.
+Firstly, like we did with our first library, add this to CMake in Add External Dependencies section:
 
 ``` cmake
 # Maths lib
@@ -323,14 +325,18 @@ This changes some complex library and linker options that are beyond the scope o
 There are many different way to create and link libraries, CMake allows us to change these options from a central point and not worry about digging through IDE options.
 
 
-We need to link the maths library, against the levelsystem library. edit the level systems cmake code to include lib_maths
+We need to link the maths library, against the LevelSystem library. edit the level systems cmake code to include lib_maths
 
 
 ```cmake
-target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
+target_link_libraries(... lib_tile_level_loader lib_maths sfml-graphics)
 ```
 
 As this is a static library - and doesn't produce a compiled output, everything will be in a header. 
+
+**Go create the correctly named filed in the correct folder - you should be able to work it out from the CMake code above!**
+
+If you can't see the file after recompiling CMake, you've probably forgotten to add it to your tile map project in the target_link_libraries link correctly. If done correctly the file will appear in the header file folder IN your project, rather than as a separate project - that's because we used INTERFACE this time. Bear in mind, however, that this is the same file across multiple projects, so changing it in one place will change it all in places!
 
 To extend the functionality of sf::vectors we must first be within the same namespace. From here we can define code as if we were inside the SFML library code itself. Things get a little strange if we want to change or override functions that already exist, but we don't here as we are only creating new functionality. As such, don't worry about it for now!
 
@@ -392,6 +398,10 @@ namespace sf {
 } 
 ```
 
+Once you've fixed all of the bugs, you should be good to use your new vector library!
+
+**Include this library in your LevelSystem.h file, and make sure everything now compiles!**
+
 ## Using the library
 
 Give it a test, Call some library functions from your lab code.
@@ -422,6 +432,8 @@ void Render(RenderWindow &window) {
 ```
 
 That should be all we need to successfully build both our libraries and our game. Give it a go. Build. Run. See if your hard work typing all this has paid off.
+
+**Oh no, did it throw an error about the tile map?** Look at the code for how we test it is all loaded: we only count a line as done when it ends with a new line... can you figure out what is likely missing from your map file?
 
 I know it was lots of work to get here, but you can use loads of what you've just created for your own games!
 
