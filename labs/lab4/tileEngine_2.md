@@ -17,13 +17,13 @@ One approach is to build a "helper class" which is completely separate form the 
 The next step from this approach is to completely separate the code into a library. We are already using several libraries in our project - all the SFML components. Libraries are code that is complied separately to your program and linked in during the link stage. The primary benefit of this is that we don't have to compile libraries again once they are complied (imagine if we had to build SFML every time we needed to build our game code).
 
 
-In certain situations you can download libraries pre-compiled from the internet. This isn't great for C++ as the compile settings need to be near identical for your application as for the downloaded library. Furthermore - we can't step down into source code when debugging. Providing a library with a well maintained CmakeLists.txt is by far the best way to distribute your code when building libraries for other programmers to use.
+In certain situations you can download libraries pre-compiled from the internet. This isn't great for C++ as the compile settings need to be near identical for your application as for the downloaded library. Furthermore - we can't step down into source code when debugging. Providing a library with a well maintained CMakeLists.txt is by far the best way to distribute your code when building libraries for other programmers to use.
 
 ## Static vs dynamic linking -- .lib's and .dll's
 
-When we build a library - it will generate a .lib file. Depending on your build settings (Dynamic/Shared linking) it may also produce a .dll. The situation is more complicated but the simple explanation is that with dynamic linking\" the code for our library lives inside the .dll (.so on linux/mac). When our application starts, it loads the code from the .dll into memory. This means that the .dll has to be somewhere the running program can access. We still need to link with a .lib file, this .lib will be an small file which only describes the .dll.
+When we build a library - it will generate a .lib file. Depending on your build settings (Dynamic/Shared linking) it may also produce a .dll. The situation is more complicated but the simple explanation is that with dynamic linking the code for our library lives inside the .dll (.so on linux/mac). When our application starts, it loads the code from the .dll into memory. This means that the .dll has to be somewhere the running program can access. We still need to link with a .lib file, this .lib will be an small file which only describes the .dll. Also, this explains the errors you might have seen where a program can't find a .dll file - be careful not to run into this with your final submission!
 
-With static linking, the .lib is compiled into our executable. Meaning we don't need to bring any Dlls along. In this case the compiled .lib file contains all the code and will be significantly larger.
+With static linking, the .lib is compiled into our executable. Meaning we don't need to bring any dlls along. In this case the compiled .lib file contains all the code and will be significantly larger.
 
 ## Setting this up
 
@@ -37,9 +37,11 @@ target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/
 target_link_libraries(lib_tile_level_loader sfml-graphics)
 ```
 
-The biggest difference here is the call to "add_library" rather than "add_executable"
+**This should go in the Add External Dependencies section of your CMake file - keeping this file clean makes it much easier to understand and debug!**
 
-From the CMake we can see that we need to put some code in a "lib_tile_level_loader" folder. Library code is exactly the same as wiring any other c++ file, but we don't need a Main() function.
+The biggest difference here is the call to "add_library" rather than "add_executable" as we'd do with a main project.
+
+From the CMake we can see that we need to put some code in a "lib_tile_level_loader" folder. Library code is exactly the same as wiring any other C++ file, but we don't need a main() function.
 
 
 ## Level System Code
