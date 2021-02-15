@@ -97,7 +97,7 @@ School of Computing. Edinburgh Napier University
 
 # GDD Exercise
 
-Researching Design Documents Use Google to search for game design documents. There are quite a few out there and some templates. 
+Research Design Documents! Use Google to search for game design documents. There are quite a few out there and some templates. 
 You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. If you do find a AAA one let us know.
 
 ---
@@ -107,7 +107,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Design History
+# Contents - Design History
 
 - Design History.
     - GDD is a living document.
@@ -119,7 +119,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Audience, Platform, and Marketing
+# Contents - Audience, Platform, and Marketing
 
 - Market research must be undertaken to determine the likely return to the publisher.
     - Unit sales are the most important factor for a publisher.
@@ -128,7 +128,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Audience, Platform, and Marketing 2
+# Contents - Audience, Platform, and Marketing 2
 
 - You need to define the target audience.
     - Who will buy the game?
@@ -142,7 +142,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Legal Analysis
+# Contents - Legal Analysis
 
 - Important that you ensure everything is covered from a legal point of view.
 - Are there any legal or financial implications that come with the game production.
@@ -177,7 +177,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Gameplay
+# Contents - Gameplay
 
 - The description of gameplay is initially one of the largest sections in the game.
 - The game designer puts most of their focus into this section at the start.
@@ -196,11 +196,11 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Gameplay 2
+# Contents - Gameplay 2
 
 
 - Modes and other features.
-    - Single-player, multi-player, etc.
+    - Single player, multiplayer, etc.
     - Other features that may affect gameplay.
 - Levels.
     - Designs for any levels for the game.
@@ -214,7 +214,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Gameplay - Flowcharts are great
+# Contents - Gameplay - Flowcharts are great
 
 ![image](assets/images/flowchart.png)
 
@@ -226,7 +226,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Character Design
+# Contents - Character Design
 
 - Optional part of the design document.
     - Crucial part in AAA game design.
@@ -242,12 +242,12 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Character Types
+# Contents - Character Types
 
 - Generally two types of character in a game.
 - Playable characters.
     - Can have a lot of work spent on them.
-    - Generally very detailed -- particularly in games where you see the character all the time.
+    - Generally very detailed - particularly in games where you see the character all the time.
 - Non-playable characters.
     - Treat these as objects in your game with properties and functionality.
     - Includes:
@@ -266,7 +266,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Story
+# Contents - Story
 
 - Another optional section of the GDD.
 - Can become very large for story driven games.
@@ -290,7 +290,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 ---
 
-# Contents -- Game World
+# Contents - Game World
 
 If required, a description of the game world should be detailed.
  - Overview.
@@ -315,7 +315,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Contents -- Media List
+# Contents - Media List
 
 - You will need a list of the assets that are required by the art and sound team.
 - Descriptions of these assets will need to be provided.
@@ -336,7 +336,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Contents -- Technical Specification
+# Contents - Technical Specification
 
 - The most important section for the technical team.
 - Can sometimes be a separate document.
@@ -347,7 +347,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Contents -- Technical Specification 2
+# Contents - Technical Specification 2
 
 - Key area is a technical analysis of the game.
  - What are the technical challenges of the project?
@@ -361,7 +361,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Contents -- Technical Specification 3
+# Contents - Technical Specification 3
 
 - Some technical requirements to consider:
 - Development platform and tools.
@@ -381,7 +381,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Contents -- Flow Chart's are still great!
+# Contents - Flow Chart's are still great!
 
 ![image](assets/images/flowchart2.png)
 
@@ -393,7 +393,7 @@ If required, a description of the game world should be detailed.
 
 ---
 
-# Contents -- Maintenance
+# Contents - Maintenance
 
 
 - Game Design Document (GDD) is not a sacred object.
