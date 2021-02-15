@@ -60,11 +60,11 @@ Game Programming Patterns - Robert Nystrom
 # When to Use UML
 
 - There are five diagrams I find useful.
-    - Use case diagrams -- overall requirements gathering.
-    - Activity diagrams -- flow chart of behaviour.
-    - Class diagrams -- main system design.
-    - Sequence diagrams -- individual steps and interaction between components.
-    - State diagrams -- model object or system state.
+    - Use case diagrams - overall requirements gathering.
+    - Activity diagrams - flow chart of behaviour.
+    - Class diagrams - main system design.
+    - Sequence diagrams - individual steps and interaction between components.
+    - State diagrams - model object or system state.
 - **Use diagrams whenever possible!** 
  - Working out on paper how something works is **always** easier than banging your head off your code.
  - Trust me, we've all been there.
@@ -114,7 +114,7 @@ Game Programming Patterns - Robert Nystrom
     - Allow control of the relationships between objects.
  - **Behavioural** patterns,
     - Used to control common communication patterns between objects.
-- We have already used a pattern from each of these categories.
+- You'll likely already know at least one pattern from each of these categories.
 
 
 ---
@@ -269,7 +269,7 @@ Game Programming Patterns - Robert Nystrom
 - Also, it can lead to costs in copying objects around.
 - A better idea is to store data objects in data owning objects.
 - A functional object (one that has actual methods) then has access to these objects as required.
-- This makes everything much easier to manage -- although some OO purists think it isn't OO any more
+- This makes everything much easier to manage - although some OO purists think it isn't OO any more
 
 
 ---
