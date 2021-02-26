@@ -468,4 +468,4 @@ bool validmove(Vector2f pos) {
 
 Previous step: [Tile Engine 1](tile_engine_1)
 
-Next step: [Pacman 1](pacman1)
+Next step: [PacMan 1](pacman1)

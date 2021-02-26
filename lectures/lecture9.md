@@ -230,7 +230,7 @@ foo(&v); //pass in the address of v to foo
 
 - Arrays in C can be allocated on the stack or the heap.
 - Stack allocated arrays need a known size at compile time.
-- Heap allocated arrays can have any size -- we just use `malloc`.
+- Heap allocated arrays can have any size - we just use `malloc`.
 - An array is just a pointer to memory where the array starts.
 ```cpp
     // Stack allocated array
@@ -286,8 +286,8 @@ free(y);
 - The main reason we have pointers in C is to allow data to be sent around *without duplicating it*.
 - For large data objects this is a real problem.
  - Create object of 1MB size.
- - Call function with object -- 1MB copy.
-- Pointers overcome this problem nicely -- a pointer is 4 or 8 bytes (32-bit or 64-bit).
+ - Call function with object - 1MB copy.
+- Pointers overcome this problem nicely - a pointer is 4 or 8 bytes (32-bit or 64-bit).
 - Pointers also enable data reuse, referencing, and better use of the heap.
 
 
@@ -329,7 +329,7 @@ delete[] z;
 - C++ adds a reference type.
 - References are like pointers, but have some restrictions.
 - Effectively, we can pass-by-reference instead of pointer.
-- This means we avoid a copy again -- reference is 4 or 8 bytes
+- This means we avoid a copy again - reference is 4 or 8 bytes
 
 ```cpp
 // A value
@@ -422,8 +422,8 @@ for (size_t n = 0; n < 10; ++n)
 # Smart Pointers
 
 - Due to the pattern of allocation, deallocation, and keeping track of resources many programmers created in-house solutions to these problems.
-- This led to many implementations of self-managing pointers -- "smart pointer" -- that would do the work for the programmer.
-- The most popular implementation was seen in the Boost C++ libraries -- Boost is known as the missing C++ API.
+- This led to many implementations of self-managing pointers - "smart pointer" - that would do the work for the programmer.
+- The most popular implementation was seen in the Boost C++ libraries - Boost is known as the missing C++ API.
 - Eventually smart pointers were standardised and added to the C++11 standard.
 - It is now recommended you use smart pointers and not old (raw) pointers as standard.
 
@@ -560,7 +560,7 @@ Update(){
 - So we need a resource manager in our game.
 - Its job:
  - Hide the details of how to load a specific resource.
-  - e.g. we just load -- we don't need to know the individual calls to load a texture.
+  - e.g. we just load - we don't need to know the individual calls to load a texture.
  - Manage allocation and deallocation of resources.
    - Data-driven design.
  - Provide a single point to manage all of this.
@@ -589,7 +589,7 @@ Update(){
 # Storing Resources
 
 - We use lookup tables to store resources.
-- We need some kind of key -- AAA games will do something fancy. If you've used console commands you have seen this.
+- We need some kind of key - AAA games will do something fancy. If you've used console commands you have seen this.
 - The key is just matched to the actual resource.
 - We check that the resource isn't loaded before trying to return it.
 
