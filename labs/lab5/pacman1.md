@@ -52,7 +52,7 @@ struct EntityManager {
 };
 ```
 
-The implementation of the two functions do exactly what you would expect, loop through the vector and update/render all Entities. Replace your Global entity vector in main.cpp with an `EntityManager` called 'em', and insert both the player and ghosts into via `em.list.push_back()`. Swap out the calls to update and render to the pass through the manager instead.
+The implementation of the two functions do exactly what you would expect, loop through the vector and update/render all Entities. Replace your Global entity vector in main.cpp with an `EntityManager` called 'em', and insert both the player and ghosts into via `em.list.push_back()`. Swap out the calls to Update and Render to the pass through the manager instead.
 
 You may be wondering why we even bothered doing this. We took simple code and made it more complex.
 
@@ -148,6 +148,7 @@ Here we have our scene class. It has our usual two Update and Render functions, 
 
 ```cpp
 //scene.h
+#include "Entity.h"
 class Scene {
 public:
   Scene() = default;
@@ -174,6 +175,9 @@ We should instantiate our two scenes. We should do this away from main.cpp -- in
 
 ```cpp
 //pacman.h
+#include <memory>
+#include "scene.h"
+
 extern std::shared_ptr<Scene> gameScene;
 extern std::shared_ptr<Scene> menuScene;
 extern std::shared_ptr<Scene> activeScene;
