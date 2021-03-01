@@ -336,3 +336,7 @@ So, what is the structure of our code now for actually calling update() and rend
 7. When we change scene, we just update the active scene, and then a different `EntityManager` with different `_ents` is called... which means different update() functions are called, and different Entities are put on the `Renderer` queue.
 
 Phew... yeah, it's a bit complicated, and it seems like a lot of work for now, but this will make creating more complicated games later way easier as we've decoupled lots of stuff like sensible developers!
+
+Previous step: [Tile Engine 2](tile_engine_2)
+
+Next step: [PacMan 2](pacman2)
