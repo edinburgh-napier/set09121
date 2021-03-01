@@ -315,4 +315,24 @@ void GameScene::update(double dt) {
 After this long round trip, implementing a new render system, An entity manager class, a Scene class, and creating two scenes, we should be back to where we begun. The game will start to the menu scene, where you should see the text "Almost Pacman" Drawn. Pressing Space will take you into the game scene, where our player and 4 ghosts will be on screen and moving around. Pressing Tab will take us back to the menu. Pressing Escape will close the game down.
 
 {:class="important"}
-Make sure you have got here, and everything is working so far without any errors. Things are going to get a bit wild next. You should commit your code now.
+Make sure you have got here, and everything is working so far without any errors. Things are going to get a bit wild next. You should commit your code now. **READ THE NEXT SECTION, IT'LL HELP I PROMISE**
+
+### Sanity Check
+
+Okay... but do you get what is going on right now? Because I bet a few of you are utterly confused. So, let's summarise this process a little, and have a brief chat about why it's important. Second thing first: why is it important?
+
+Put simply, we can now create and manage scenes incredibly easily. If you've every made anything in a games engine you'll know how important scenes are, almost every single game is broken up into distinct scenes which have their own entities, sounds, textures, models etc. Often this'll be a menu scene and one scene per level, but it depends on how the game is made. But, in the end, they all have the same basic loop: load things, loop through updating and rendering until some end point, unload the things we loaded. Sound familiar? What did we define in our scene.cpp file? load(), update(), render()... but don't forget we have a constructor and deconstuctor too where we can unload things.
+
+What's nice about the way we've done it, however, is that the main gameplay loop doesn't have to care about what scene is currently running - it just calls the right functions at the right time on whatever scene is currently active. What is double nice, is that to change which scene is running (i.e. to change from the menu to the game, or between levels) we just swap out which scene is currently 'active'... and that's really it. Everything else just works because of clever use of inheritance, polymorphism, and all those other nice OO things.
+
+So, what is the structure of our code now for actually calling update() and render()? Sure, we know how we call update() on the right scene, but how does that propagate to all our entities? 
+
+1. All our scenes inherit from our parent scene class, which contains an `EntityManager` struct called `_ents`
+2. Each `_ents` contains a list that stores `Entity` objects within it, and has it's own internal update() and render() functions
+3. These functions both foreach through that list and call the update() and render() functions on each individual Entity (which must inherit from Entity)
+4. The update() functions do our gameplay work on each Entity, the render() functions add each Entity to the `Renderer` queue
+5. Our main.cpp file uses the shared pointer to our active scene and calls update() on it which causes all Entities to be updated as per above
+6. Our main.cpp file then calls the `Renderer` render() function, which goes through everything queued up and renders them all!
+7. When we change scene, we just update the active scene, and then a different `EntityManager` with different `_ents` is called... which means different update() functions are called, and different Entities are put on the `Renderer` queue.
+
+Phew... yeah, it's a bit complicated, and it seems like a lot of work for now, but this will make creating more complicated games later way easier as we've decoupled lots of stuff like sensible developers!
