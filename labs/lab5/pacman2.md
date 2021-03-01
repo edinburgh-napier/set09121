@@ -185,7 +185,7 @@ The extra template we had in the ShapeComponent is unrelated to this process. Th
 
 #### Putting this to use
 
-It's time to kill off our original Entity classes for Ghosts and the player that were in the pacman code. We may need some of the code in there, so instead of deleting the files, just change any `\#includes` pointing to them to point to `ecm.h` instead.
+It's time to kill off our original Entity classes for Ghosts and the player that were in the pacman code. We may need some of the code in there, so instead of deleting the files, just change any `#includes` pointing to them to point to `ecm.h` instead.
 
 Creating Entities now follows this process:
 {% raw  %}
