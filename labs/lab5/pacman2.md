@@ -439,3 +439,7 @@ That was a big change-up in code design. We are no longer using a single classes
 
 {:class="important"}
 Make sure you have got here, and everything is working, compiling and running so far without any errors. You should commit your code now. Have a well-earned break.
+
+Previous step: [PacMan 2](pacman2)
+
+Next step: [PacMan 3](pacman3)

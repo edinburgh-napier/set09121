@@ -270,3 +270,7 @@ void GameScene::respawn() {
 ## Last steps
 
 All that remains now is some form of high score system, and we are done. I'll leave this one up to you. 
+
+Previous step: [PacMan 2](pacman2)
+
+Next step: [Physics](physics)
