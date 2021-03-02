@@ -429,6 +429,6 @@ class Entity {
 # Summary
 
 - Games are complicated systems!
-- This is why we use lots of clever tricks to help simplify the problem
+- This is why we use clever tricks to help simplify the problem
 - ECM is a great way to reuse code
 - But we do have to use C++ templates to do these nicely
