@@ -129,31 +129,31 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- Collision Detection
+# Example - Collision Detection
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/qTV3ZQgTnkg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Example -- Particle Simulation
+# Example - Particle Simulation
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/YeNeod0qfPY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Example -- Rigid Bodies
+# Example - Rigid Bodies
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/LnvtZn2agmA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Example -- Water Simulation
+# Example - Water Simulation
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/zMTzWLGcPEk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Example -- Cloth Simulation
+# Example - Cloth Simulation
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/zt2P-yI5knY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
