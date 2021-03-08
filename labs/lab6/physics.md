@@ -16,7 +16,7 @@ sidebar: home_sidebar
 
 We will be using the [Box2D](http://box2d.org/) physics engine from here on. B2D is relatively robust and well used. Building a 2d physics engine yourself isn't an impossible task, but we don't have time to cover it in this module, so we will be using something that already exists.
 
-When with picking software off the web, chances are it needs some tweaks. B2D doesn't have a well-built CMake Script, but thanks to the process of open-source software, [I've fixed it](https://github.com/dooglz/Box2D/commit/e8d2cafa7f1300f5916a2e22f277d998a739e835). 
+When with picking software off the web, chances are it needs some tweaks. B2D doesn't have a well-built CMake Script, but thanks to the process of open-source software, [Sam fixed it](https://github.com/dooglz/Box2D/commit/e8d2cafa7f1300f5916a2e22f277d998a739e835). 
 
 The fix is still pending in a pull request to the main repo so for now we will use my fork.
 
@@ -50,9 +50,11 @@ Then we can just link with `Box2D` and include `${B2D_INCS}`.
 file(GLOB_RECURSE SOURCES 5_physics/*.cpp 5_physics/*.h)
 add_executable(5_PHYSICS ${SOURCES})
 target_include_directories(5_PHYSICS SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
-target_link_libraries(5_PHYSICS Box2D)
+target_link_libraries(5_PHYSICS Box2D sfml-graphics)
 set(EXECUTABLES ${EXECUTABLES} PRACTICAL_5_PHYSICS)
 ```
+
+Remember you'll have to add multiple things to the target_link_libraries line if you want to use Box2D, SMFL, and our libraries we've created!
 
 ## A standard physics Engine
 
@@ -60,11 +62,11 @@ set(EXECUTABLES ${EXECUTABLES} PRACTICAL_5_PHYSICS)
 A physics System/Engine usually has the following components
 
 - **A World**
-  - A data-structure that contains all the physics objects in the "world\". Usually this also has some global parameters such as "Gravity\". Some physics engines allow you to have multiple "worlds\". Think of this like a \"physics Scene\".
+  - A data-structure that contains all the physics objects in the "world\". Usually this also has some global parameters such as "Gravity\". Some physics engines allow you to have multiple "worlds\". Think of this like a \"Physics Scene\".
 - **An Integrator**
   - This is the algorithm that runs each physics 'Tick' or 'Step', to calculate the acceleration, velocity, and position of all bodies in the world. The More 'ticks', the more accurate the simulation is. We usually don't have any control of the inner workings of this.
 - **Physics Bodies**
-  - Usually called Rigid-bodies (unless dealing with deformable or fluid things). These are things that have mass, inertia, position, and velocity. The physics Integrator moves theses things around based on the rules of physics.
+  - Usually called Rigid Bodies (unless dealing with deformable or fluid things). These are things that have mass, inertia, position, and velocity. The physics Integrator moves these things around based on the rules of physics.
 - **Colliders**
   - These are the physical 'shapes' of bodies. e.g cubes, circles, polygons. They determine how two bodies collide with each other. A body is just an abstract 'thing' that has mass. Colliders give them shapes and behaviour.
 - **Constraints**
@@ -81,7 +83,7 @@ As you can see, we keep the physics world separate from the Game world. We leave
 
 ### Interactivity
 
-So far this works well for an initial scene, but we want interactivity, we want a game. For this we need to feed some gamelogic *into* the physics world.
+So far this works well for an initial scene, but we want interactivity, we want a game. For this we need to feed some game logic *into* the physics world.
 
 We are allowed to manually set the position and velocity of any physics body as a cheap "teleport". Doing this isn't great as it breaks the rules of physics that B2D is trying to stick to. Things don't just teleport in real life. Instead we should use "impulses".
 
@@ -95,7 +97,7 @@ If our game was solely physical bodies moving around realistically, impulses wou
 
 Think of Super Mario, he can jump and fall and collide with things, which obey the rules of physics. However, Mario never rotates. He also jumps very quickly, to a set height, and then falls down rather slowly. He can move at set speed left and right, he never "accelerates" up to that speed.
 
-Figuring out the correct amount of newtons to impulse Mario by when he jumps seems like a complicated step backwards. We just want him to \"jump\" like a video game character. This is the folly of Physics engines, they work so hard to give us a near-perfect physical world, only for us to introduce strange limitations and additions to make it feel fun. It can feel at times like the physics system is working against you, a beast to be tamed that really *really* wants to make things go flying off at light-speed (Cite: any Bethesda game).
+Figuring out the correct amount of newtons to impulse Mario by when he jumps seems like a complicated step backwards. We just want him to \"jump\" like a video game character. This is the folly of physics engines, they work so hard to give us a near-perfect physical world, only for us to introduce strange limitations and additions to make it feel fun. It can feel at times like the physics system is working against you, a beast to be tamed that really *really* wants to make things go flying off at light-speed (Cite: any Bethesda game).
 
 
 ## Working with Box2D
@@ -111,7 +113,7 @@ There are three major factors that we must consider when working with B2D specif
   -  Box2D has a recommended 30 'units' per 1 'pixel' that feels realistic.
 
 
-Converting between sfml 'screenspace' and b2d 'physics world space' requires taking the above 3 factors into account.
+Converting between SMFL 'screen space' and B2D 'physics world space' requires taking the above 3 factors into account.
 
 ### Creating the world
 
@@ -139,6 +141,7 @@ You will need to remeber to add the correct include statements, or the above and
 
 I'll give you five functions. The first 3 are conversion helper functions to deal with translating between the two worlds. The CreatePhysicsBox() is the biggie, inside is all the B2D logic required to add a body to the scene. The last function in an overload of the fourth, which takes in a sf::RectangleShape rather than a position and size.
 
+**Remember you should by now know what you need to include, and what namespaces things come from, so don't forget to add them!**
 
 ```cpp
 //main.cpp
@@ -158,12 +161,12 @@ inline const Vector2f bv2_to_sv2(const b2Vec2& in) {
 inline const b2Vec2 sv2_to_bv2(const Vector2f& in) {
   return b2Vec2(in.x * physics_scale_inv, (in.y * physics_scale_inv));
 }
-//Convert from Screenspce.y to physics.y
+//Convert from screenspace.y to physics.y (as they are the other way around)
 inline const Vector2f invert_height(const Vector2f& in) {
   return Vector2f(in.x, gameHeight - in.y);
 }
 
-//Create a Box3d body with a box fixture
+//Create a Box2D body with a box fixture
 b2Body* CreatePhysicsBox(b2World& World, const bool dynamic, const Vector2f& position, const Vector2f& size) {
   b2BodyDef BodyDef;
   //Is Dynamic(moving), or static(Stationary)
@@ -234,7 +237,8 @@ This is a two step process, 1: Stepping the physics world, and then copying the 
 void Update() {
   static sf::Clock clock;
   float dt = clock.restart().asSeconds();
-  // Step Physics world by Dt (non-fixed timestep)
+  
+  // Step Physics world by dt (non-fixed timestep) - THIS DOES ALL THE ACTUAL SIMULATION, DON'T FORGET THIS!
   world->Step(dt, velocityIterations, positionIterations);
 
   for (int i = 0; i < bodies.size(); ++i) {
@@ -280,8 +284,12 @@ void init() {
   }
   // Create Boxes
   ...
+  bodies.push_back(b);
 }
 ```
+
+A hint: we've defined the vectors in that way so we can store both the central point and size in pairs, hence the slightly different for loop.
+Hint 2: the origin is a bit more tricky to get right, but remember you can divide a vector by a number if you need to!
 
 {:class="important"}
 Don't move on until you have some bouncin' boxes like the gif at the top!
