@@ -105,8 +105,8 @@ What is Artificial Intelligence?
 # AI Techniques for Games
 
 - There are numerous usable AI techniques applicable for games.
-    - Classical AI techniques -- common.
-    - Newer academic techniques -- uncommon.
+    - Classical AI techniques - common.
+    - Newer academic techniques - uncommon.
 - Different techniques accomplish different aspects of behaviour.
     - Movement of entities.
     - Decision making for entities.
@@ -145,8 +145,8 @@ What is Artificial Intelligence?
 - Path finding is the discovery of the route between two points in a game world.
 - Information from path finding can be fed into steering behaviours.
 - Two core techniques:
-    Waypoints: :   most common.
-    Navigation mesh: :   becoming more popular (see image).
+    Waypoints: most common.
+    Navigation mesh: becoming more popular (see image).
 - Two common algorithms:
     - Dijkstra (slow but checks everything).
     - A* (fast).
@@ -196,7 +196,7 @@ What is Artificial Intelligence?
     - Logic design with grey (fuzzy) areas.
     - Fuzzy logic applies some randomness to decisions.
     - It tries to be more in line with how people think.
-    - Not very popular in academia any more -- probability and statistics preferred.
+    - Not very popular in academia any more - probability and statistics preferred.
 
 ![image](assets/images/fuzzy-logic.png) <!-- .element width="30%" -->
 
@@ -311,7 +311,7 @@ What is Artificial Intelligence?
 
 ---
 
-# Goal of AI -- Realism
+# Goal of AI - Realism
 
 - One goal of game AI is to provide a challenge to the player and create a realistic, living world.
 - Examples:
@@ -326,14 +326,7 @@ What is Artificial Intelligence?
 
 ---
 
-# Goal of AI -- Realism
-
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/zaqBBD3QQ_I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
-# Goal of AI -- Realism
+# Goal of AI - Realism
 
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/LRUcpaIAKos" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
