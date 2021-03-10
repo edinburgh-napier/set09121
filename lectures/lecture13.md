@@ -216,7 +216,7 @@ $$r = (\theta - orientation) * rot\_speed$$
 - We will not be creating or using any particular pattern or data structure approach this time.
     - A steering behaviour is just a steering behaviour.
 - If you like you can go further and combine steering behaviours within a single steering behaviour.
-    - See weighted/combined behaviours in the recommended reading. Steering Behaviour Interface
+    - See weighted/combined behaviours in the recommended reading.
 
 
 
@@ -238,8 +238,8 @@ $$r = (\theta - orientation) * rot\_speed$$
 # Steering Output struct
 
 - `steering_output` declares two values.
-- `direction`: :   the vector we want to travel in.
-- `rotation`: :   the angle we want to turn.
+- `direction`:   the vector we want to travel in.
+- `rotation`:   the angle we want to turn.
 - Results from `get_steering` are put in here.
 - We will not use rotation in the practical, but it is there if you need it.
 
@@ -296,7 +296,7 @@ return output;
 
 - Next we are going to discuss decision making and behaviour control using state machines and decision trees.
 - We will be looking at combining these ideas to create a sophisticated looking AI.
-    - We will look at this in more detail next week.
+    - We will look at this in more detail next lecture.
 - The idea we will look at is when we make a decision (via a decision tree) we will change state.
     - For example, if we decide we are under attack we change our state to engage.
 - We can consider that the behavioural states also contain a steering behaviour if necessary.
