@@ -28,7 +28,7 @@ School of Computing. Edinburgh Napier University
 - Artificial Intelligence for Games. Second Edition. Millington and Funge, 2009.
     - A good resource for anyone interested in game AI.
 
-![image](assets/images/physics_book.jpg)<!-- .element width="30%" -->
+![image](assets/images/ai_book.jpg)<!-- .element width="30%" -->
 
 
 ---
