@@ -296,7 +296,7 @@ return output;
 
 - Next we are going to discuss decision making and behaviour control using state machines and decision trees.
 - We will be looking at combining these ideas to create a sophisticated looking AI.
-    - We will look at this in more detail next lecture.
+    - We will look at this in more detail next week.
 - The idea we will look at is when we make a decision (via a decision tree) we will change state.
     - For example, if we decide we are under attack we change our state to engage.
 - We can consider that the behavioural states also contain a steering behaviour if necessary.
