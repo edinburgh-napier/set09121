@@ -35,16 +35,16 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-## Review -- Background Knowledge
+## Review - Background Knowledge
 
 
 ---
 
-# Review -- AI Techniques
+# Review - AI Techniques
 
 - There are numerous usable AI techniques applicable to games development.
-    - Classical, deterministic techniques -- popular.
-    - Academic, non-deterministic techniques -- useful in some areas.
+    - Classical, deterministic techniques - popular.
+    - Academic, non-deterministic techniques - useful in some areas.
 - Different techniques accomplish different aspects of game behaviour.
     - Movement.
     - Decision making.
@@ -55,7 +55,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- Working with Vectors
+# Review - Working with Vectors
 
 - We have dealt with vectors for a long time now.
     - Hopefully you understand them!
@@ -70,7 +70,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- Basic Physics/Movement
+# Review - Basic Physics/Movement
 
 - Steering behaviours work with our physics engine.
 - Steering behaviours output a direction of travel.
@@ -109,20 +109,20 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- Flocking
+# Example - Flocking
 
 
 
 ---
 
-# Example -- Flocking
+# Example - Flocking
 
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/QbUPfMXXQIY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Example -- Game
+# Example - Game
 
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/J2hI_eGGmzg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -161,7 +161,7 @@ $$v = \hat{d} \times speed$$
 
 # Flee
 
-- Also simple -- effectively the inverse of seek.
+- Also simple - effectively the inverse of seek.
 - Run away from a target.
 - Calculation: 
 
@@ -196,7 +196,7 @@ $$ ||d|| > radius \implies v = \hat{d} \times speed $$
 
 - A rotational steer.
 - Turn to face a target.
-- Calculation (simplified -- there are more checks to do):
+- Calculation (simplified - there are more checks to do):
 
 $$d = target - position $$
 
@@ -248,7 +248,7 @@ $$r = (\theta - orientation) * rot\_speed$$
 
 ---
 
-# Example -- Seek
+# Example - Seek
 
 - We have two entities:
     - `target` and `character`.
@@ -270,7 +270,7 @@ return output;
 
 ---
 
-# Example -- Flee
+# Example - Flee
 
 
 - We have two entities:
@@ -305,7 +305,7 @@ return output;
 
 ---
 
-# Example -- The Sophisticated Guard
+# Example - The Sophisticated Guard
 
 - The guard has some basic actions:
     - The guard patrols between point A and point B.
@@ -319,7 +319,7 @@ return output;
 
 ---
 
-# Example -- The Sophisticated Guard Diagram
+# Example - The Sophisticated Guard Diagram
 ![image](assets/images/sophisticated_guard.png)
 
 
