@@ -56,9 +56,9 @@ School of Computing. Edinburgh Napier University
 - Game maps are generally too complicated for simple steering to be in charge.
 - We could hard-code routes through the map, but that is not a scalable strategy.
 - So we need a technique that allows an entity to determine a route to follow to get to its destination.
-- Pathfinding allows us to do this -- it examines map data and provides a set of waypoints to follow by the entity.
+- Pathfinding allows us to do this - it examines map data and provides a set of waypoints to follow by the entity.
 - Pathfinding is just a form of graph search, and there are different methods to do this.
-- We need a fast solution -- A* being the most commonly used.
+- We need a fast solution - A* being the most commonly used.
 
 
 ---
@@ -74,7 +74,7 @@ School of Computing. Edinburgh Napier University
 
 # Pathfinding Costs
 
-- Maps are very big today -- some over $100km^2$.
+- Maps are very big today - some over $100km^2$.
 - If each square metre was a navigation point that's $10^8$ points.
 - If we can travel in eight directions, things get very expensive.
 - Generally we are looking for simplifications to combat this.
@@ -85,7 +85,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-## Underpinning Theory -- Graphs
+## Underpinning Theory - Graphs
 
 
 ---
@@ -102,7 +102,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example Graph -- Node-link Diagram
+# Example Graph - Node-link Diagram
 
 ![image](assets/images/node-link.png)
 
@@ -138,9 +138,9 @@ School of Computing. Edinburgh Napier University
 # Tile Engine and Graphs
 
 - We will be building our pathfinding into our tile engine.
-    - It is just easier -- the data is all there.
+    - It is just easier - the data is all there.
 - We will use the data directly and build up our path incrementally from the level data.
-- The algorithm should be reusable though -- you just need to specify where you are getting the data from.
+- The algorithm should be reusable though - you just need to specify where you are getting the data from.
 
 ![image](assets/images/tile-path.jpg)  <!-- .element width="60%"  -->
 
@@ -190,7 +190,7 @@ School of Computing. Edinburgh Napier University
 - This algorithm is not only used for pathfinding in games.
     - Google Maps will use something similar for moving in road networks.
     - Network routing protocols will use such an algorithm.
-- Dijkstra is rarely used in games -- but the basic principles are.
+- Dijkstra is rarely used in games - but the basic principles are.
 
 ---
 
@@ -219,7 +219,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- Dijkstra at Work
+# Example - Dijkstra at Work
 
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/dhvf9KCAsVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -283,7 +283,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- A* at Work
+# Example - A* at Work
 
 
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/19h1g22hby8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -303,7 +303,7 @@ School of Computing. Edinburgh Napier University
 - Another is Manhattan distance: 
 	$$ d = destination - position $$
 	$$ h = \lvert d.x \rvert + \lvert d.y \rvert $$
-- This might be more useful -- it is movement through a grid (either vertical or horizontal movement, no diagonal). Each movement costs 1 unit.
+- This might be more useful - it is movement through a grid (either vertical or horizontal movement, no diagonal). Each movement costs 1 unit.
 - Chebyshev distance is similar to Manhattan but allows diagonal movement:
 	$$ d = destination - position $$
 	$$ h = \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
@@ -354,8 +354,8 @@ School of Computing. Edinburgh Napier University
 # Other Techniques
 
 - We have only looked at the main technique used in games but there are other considerations.
-- We talked about tactical path planning last week -- A* does let you consider this if your heuristic is done in that manner.
-- There are other tweaks to the pathfinding algorithms that can be done -- see the AI book.
+- We talked about tactical path planning last week - A* does let you consider this if your heuristic is done in that manner.
+- There are other tweaks to the pathfinding algorithms that can be done - see the AI book.
 - There is also some work on pre-processing to better process the data.
 - Diffusion is another technique that works well for parallelisation on the GPU.
 
