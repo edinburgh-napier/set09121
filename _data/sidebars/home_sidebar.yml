@@ -70,7 +70,7 @@ entries:
     output: web
     folderitems:
     - title: Platformer
-      url: /platfomer.html
+      url: /platformer.html
       output: web
   - title: 8 AI - Steering & Pathfinding
     output: web
