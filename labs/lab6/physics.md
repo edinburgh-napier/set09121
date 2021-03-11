@@ -294,3 +294,6 @@ Hint 2: the origin is a bit more tricky to get right, but remember you can divid
 {:class="important"}
 Don't move on until you have some bouncin' boxes like the gif at the top!
 
+Previous step: [PacMan 3](pacman3)
+
+Next step: [Platformer](platformer)

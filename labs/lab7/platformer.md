@@ -1,9 +1,9 @@
 ---
-title: "Platfomer"
-keywords: platfomer
-tags: [platfomer]
-permalink:  platfomer.html
-summary: platfomer
+title: "Platformer"
+keywords: platformer
+tags: [platformer]
+permalink:  platformer.html
+summary: platformer
 sidebar: home_sidebar
 ---
 
