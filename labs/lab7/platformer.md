@@ -255,18 +255,18 @@ Inside you will find:
 
 #### The Player Update
 
-As described in section [Cheating Physics ](/physics.html#cheatphysics), players characters don't obey the rules of physics. They *look* like they do, but they cheat and bend physics to make the game *feel* responsive and fast.
+As described in the lectures, players characters usually don't obey the rules of physics. They *look* like they do, but they cheat and bend physics to make the game *feel* responsive and fast.
 
 See: [Tommy Refenes' on the physics of Super Meat Boy](https://youtu.be/QVpSIdWE0do?t=43m55s)
 
 To make the player *feel* right, we do several things:
 -   Dampen X Movement if not moving left or right (essentially apply handbrake to player if no keys are pressed)
--   Apply impulse to move left or right, only if current going slower than a max Velocity.
--   Jump, if only on the ground.
--   kill all Y velocity at the start of the Jump
--   Jump teleports slightly upwards first, then apply an impulse
+-   Apply impulse to move left or right, only if currently going slower than a max velocity.
+-   Jump, only if on the ground.
+-   Kill all Y velocity at the start of the jump
+-   Jump teleports slightly upwards first, then applies an impulse
 -   If not on the ground - player has no friction
--   After Everything - clamp velocity to a maximum value
+-   After everything - clamp velocity to a maximum value
 
 
 None of these things are an industry standard, it a method that I've adopted after doing this a few times. There are better ways, but this way *works*, but may not work for your game.
@@ -279,10 +279,20 @@ You shouldn't need to edit anything to get the Menu and first level running. Giv
 ## Scene 2
 
 There is some code missing form the scene\_level2.cpp file for you to complete.
-This scene incorporates a non-physics moving abject (using EnemyAIComponent), and a cool new Turret (EnemyTurretComponent) that fires physical bullets. There are two more new components in use here:
+This scene incorporates a non-physics moving object (using EnemyAIComponent), and a cool new Turret (EnemyTurretComponent) that fires physical bullets. There are two more new components in use here:
 -   The BulletComponent is just a countdown timer that deletes \_parent when it reaches 0;
 -   The HurtComponent, check for (fake) collision with the player and kills the player.
 
 ## Scene 3
 
 The same goes for Scene 3. This scene is easier than Scene 2, just the player and physics components to add.
+
+## Phew!
+
+Look at that, you've now going a working game, with multiple levels. Cool, huh? Remember: all of what is here is designed to be modified, broken, fixed, used, altered, changed, tweaked, and generally messed around with. Want a different type of movement for your game? Go add it then! Want new physics objects? Well, you can use Box2D can't ya?
+
+The ball really is in your court from now on: go make something awesome!
+
+Previous step: [Physics](physics)
+
+Next step: [Steering 1](lab8)
