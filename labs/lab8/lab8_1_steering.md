@@ -261,7 +261,9 @@ void SteeringScene::Render() { Scene::Render(); }
 
 All we have to do now is add to `game.h` as below.
 
-``` {caption="Updated game.h"}
+```
+//game.h`
+...
 extern SteeringScene steeringScene;
 ```
 
@@ -492,4 +494,4 @@ You can now run the application and you will have the enemies chase and run away
 
 Previous step: [Platformer](platformer)
 
-Next step: [Pathfinding 1](lab8_1)
+Next step: [Pathfinding 1](lab8_2)
