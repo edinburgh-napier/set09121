@@ -262,14 +262,14 @@ void SteeringScene::Render() { Scene::Render(); }
 All we have to do now is add to `game.h` as below.
 
 ```
-//game.h`
+//game.h
 ...
 extern SteeringScene steeringScene;
 ```
 
 Update `MenuScene::Update` as below.
 
-``` {caption="Updated MenuScene::Update method"}
+```
 void MenuScene::Update(const double &dt){
     if (sf::Keyboard::isKeyPressed(Keyboard::Num1)){
         // New line
