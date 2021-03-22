@@ -355,9 +355,6 @@ void PathfindingScene::Load()
 
 If you run the application now the character will pathfind to the destination.
 
-![Pathfinding in Action]{label="fig:screen-path-final"}](screen-path-final){#fig:screen-path-final width="\textwidth"}
-
-
 ## Adding Mouse Input
 
 Let us now modify the update for the `PathfindingScene` to allow the user to click on a tile to change the location to move to. This requires the following stages:
