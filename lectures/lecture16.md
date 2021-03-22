@@ -35,7 +35,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- Activity Diagrams
+# Review - Activity Diagrams
 
 - Activity diagrams allow us to model the flow through the application from a high-level.
     - Menu screens.
@@ -48,11 +48,11 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- AI Techniques
+# Review - AI Techniques
 
 - There are numerous usable AI techniques applicable to games development.
-    - Classical, deterministic techniques -- popular.
-    - Academic, non-deterministic techniques -- useful in some areas.
+    - Classical, deterministic techniques - popular.
+    - Academic, non-deterministic techniques - useful in some areas.
 - Different techniques accomplish different aspects of game behaviour.
     - Movement.
     - Decision making.
@@ -63,17 +63,17 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- State Machines
+# Review - State Machines
 
-- State machines (or specifically in our case Finite State Machines -- FSM) are one of the most fundamental concepts and cornerstones of computer science.
+- State machines (or specifically in our case Finite State Machines - FSM) are one of the most fundamental concepts and cornerstones of computer science.
 - A state machine is a technique of describing and modelling the state (e.g. behaviour, control, etc.) of a system in a mathematical manner.
 - The system is modelled with a number of states and the transitions between these states.
-    - The idea of a graph of states can come into play here -- remember our description of a graph last week.
+    - The idea of a graph of states can come into play here - remember our description of a graph last week.
 
 
 ---
 
-# Review -- State Machines
+# Review - State Machines
 
 
 - Let us return to the guard concept we presented last week.
@@ -109,7 +109,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Decision Tree -- Example 1
+# Decision Tree - Example 1
 
 - The sophisticated guard.
 - The guard has some basic actions.
@@ -122,7 +122,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Decision Tree -- Diagram 
+# Decision Tree - Diagram 
 
 
 ![image](assets/images/guard_decisions.png) <!-- .element width="85%"  -->
@@ -136,10 +136,10 @@ School of Computing. Edinburgh Napier University
     - Decision points.
 - And a number of transitions.
 - A transition has a condition associated with it.
-    - For example, 88%.
+    - For example, 80%.
 - We travel down the tree, starting at the root node, making decisions based on information, before hitting a final point.
 - Decision trees are used in computers to diagnose problems.
-    - And by call centre operators in a similar manner -- not that I am saying a call centre operator are as simple as a computer when making decisions!
+    - And by call centre operators in a similar manner - not that I am saying a call centre operator are as simple as a computer when making decisions!
 
 
 ---
@@ -155,7 +155,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Decision Tree -- Example 2 
+# Decision Tree - Example 2 
 
 
 ![image](assets/images/decision_tree.png) <!-- .element width="85%"  -->
