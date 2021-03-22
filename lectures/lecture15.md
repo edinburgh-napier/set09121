@@ -36,12 +36,12 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-## Review -- State and State Machines
+## Review - State and State Machines
 
 
 ---
 
-# Review -- State Diagrams
+# Review - State Diagrams
 
 - State modelling is one of (if not the) most important aspect of computing!
     - Software development (object/component state).
@@ -54,7 +54,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- State Diagrams
+# Review - State Diagrams
 
 
 ![image](assets/images/state_diagram.png) <!-- .element width="85%"  -->
@@ -62,12 +62,12 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- State Design Pattern
+# Review - State Design Pattern
 
 - The state design pattern allows us to encapsulate an object's state within another object.
-- We can switch the state object at any time during runtime -- changing the behaviour of the object.
+- We can switch the state object at any time during runtime - changing the behaviour of the object.
 - For example the ghosts in PacMan change behaviour.
-- Different behaviours are programmed in different objects -- the ghost simply calls the state class when it updates.
+- Different behaviours are programmed in different objects - the ghost simply calls the state class when it updates.
 
 
  ![image](assets/images/state.png)
@@ -75,11 +75,11 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Review -- AI Techniques
+# Review - AI Techniques
 
 - There are numerous usable AI techniques applicable to games development.
-    - Classical, deterministic techniques -- popular.
-    - Academic, non-deterministic techniques -- useful in some areas.
+    - Classical, deterministic techniques - popular.
+    - Academic, non-deterministic techniques - useful in some areas.
 - Different techniques accomplish different aspects of game behaviour.
     - Movement.
     - Decision making.
@@ -90,7 +90,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- Batman: Arkham Asylum
+# Example - Batman: Arkham Asylum
 
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/hNs-orQHaKU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -99,10 +99,10 @@ School of Computing. Edinburgh Napier University
 
 # What are State Machines?
 
-- State machines (or specifically in our case Finite State Machines -- FSM) are one of the most fundamental concepts and cornerstones of computer science.
+- State machines (or specifically in our case Finite State Machines - FSM) are one of the most fundamental concepts and cornerstones of computer science.
 - A state machine is a technique of describing and modelling the state (e.g. behaviour, control, etc.) of a system in a mathematical manner.
 - The system is modelled with a number of states and the transitions between these states.
-    - The idea of a graph of states can come into play here -- remember our description of a graph last week.
+    - The idea of a graph of states can come into play here - remember our description of a graph last week.
 
 
 ---
@@ -134,14 +134,14 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- Maze Solving 
+# Example - Maze Solving 
 
 ![image](assets/images/maze.png) <!-- .element width="100%"  -->
 
 
 ---
 
-# Example -- Maze Solving
+# Example - Maze Solving
 
 - To solve a maze we can use a particular trick.
     - This only works if the maze two or more ways in and out of the maze.
@@ -155,7 +155,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example -- Maze Solving 
+# Example - Maze Solving 
 
 
 ![image](assets/images/maze_solve.png) <!-- .element width="85%"  -->
@@ -197,7 +197,7 @@ School of Computing. Edinburgh Napier University
 # `StateMachineComponent` Class
 
 - The `StateMachineComponent` is a `Component` that we can attach to an `Entity`.
-- The class also follows the manager pattern -- it contains and manages a collection of states.
+- The class also follows the manager pattern - it contains and manages a collection of states.
 - The core difference is that `Update` does not apply to all states, just the current state.
 
 
@@ -222,7 +222,7 @@ School of Computing. Edinburgh Napier University
 
 - If a model has two or more properties it is worthwhile looking to see if they are independent.
 - If the properties are independent, it simplifies the logic to separate them into different state machines.
-    - You can do this -- just have two `StateMachineComponent`s attached to an `Entity`.
+    - You can do this - just have two `StateMachineComponent`s attached to an `Entity`.
 - For example:
     - A ranger wanders in the wilderness.
     - If the ranger is hungry, the ranger eats.
@@ -279,4 +279,4 @@ School of Computing. Edinburgh Napier University
 - We've taken a broad look at state machines and how they work.
 - We have also taken a look at how we will implement them in our game engine.
 - Really, the ideas here will be more understandable when you implement the system and play around with the functionality.
-- This can be used to underpin much of the AI behaviour we will look at -- much like steering behaviours.
+- This can be used to underpin much of the AI behaviour we will look at - much like steering behaviours.
