@@ -494,4 +494,4 @@ You can now run the application and you will have the enemies chase and run away
 
 Previous step: [Platformer](platformer)
 
-Next step: [Pathfinding 1](lab8_2)
+Next step: [Pathfinding](lab8_2)

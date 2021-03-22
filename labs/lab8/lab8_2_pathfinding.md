@@ -355,7 +355,8 @@ void PathfindingScene::Load()
 
 If you run the application now the character will pathfind to the destination.
 
-![Pathfinding in Action[]{label="fig:screen-path-final"}](screen-path-final){#fig:screen-path-final width="\textwidth"}
+![Pathfinding in Action]{label="fig:screen-path-final"}](screen-path-final){#fig:screen-path-final width="\textwidth"}
+
 
 ## Adding Mouse Input
 
@@ -399,3 +400,7 @@ You should now be able to click on a new tile to change the path being used.
 ### Exercise
 
 The key thing to try now is to integrate the physics into our movement. Then, try and implement the arrive steering behaviour with pathfinding to create a smoother movement during pathfinding.
+
+Previous step: [Steering](lab8_1)
+
+Next step: [State Machines](lab9_1)

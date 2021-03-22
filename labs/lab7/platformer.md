@@ -295,4 +295,4 @@ The ball really is in your court from now on: go make something awesome!
 
 Previous step: [Physics](physics)
 
-Next step: [Steering 1](lab8_1)
+Next step: [Steering](lab8_1)
