@@ -108,12 +108,6 @@ entries:
   - title: Tips And tricks
     output: web
     folderitems:
-    - title: Installers
-      url: /index2.html
-      output: web
-    - title: Continuous integration
-      url: /index2.html
-      output: web
     - title: SSH keys
       url: /sshkeys.html
       output: web
