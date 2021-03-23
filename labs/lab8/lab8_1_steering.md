@@ -99,10 +99,10 @@ We will use a `game.h` file to allow easy access to the scenes. This is given be
 extern MenuScene menu;
 ```
 
-And finally we need our `main.h` file. This is below.
+And finally we need our `main.cpp` file. This is below.
 
 ```cpp
-//"main.h"
+//"main.cpp"
 #include "engine.h"
 #include "game.h"
 
