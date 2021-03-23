@@ -57,7 +57,7 @@ entries:
     - title: PacMan 2 - ECM
       url: /pacman2.html
       output: web
-    - title: PacMan 2 - AI
+    - title: PacMan 3 - AI
       url: /pacman3.html
       output: web
   - title: 6 Physics
