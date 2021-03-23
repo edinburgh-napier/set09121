@@ -23,7 +23,7 @@ The code you have been given contains:
 -   The skeleton code for lab7
 -   The three libraries we have already written. Ecm, LevelLoader, Maths.
 -   A new Library, the "Engine\". (Fully complete, no code to edit)
--   My completed CMakeLists.txt - for you to check against
+-   My completed CMakeLists.txt - for you to check against (**Note, this will have lots of extra stuff you don't need! Just check and grab extra bits as you need them!**)
 
 ## The Engine
 
