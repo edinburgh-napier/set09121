@@ -28,7 +28,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Bug-Catching 
+# Bug Catching 
 
 ![image](assets/images/portal2_bugs.jpg)
 
@@ -48,27 +48,27 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Bug-Tracking 
+# Bug Tracking 
 
 ![image](assets/images/bug_tracker.png)
 
 ---
 
-# Bug-Catching 
+# Bug Catching 
 
 ![image](assets/images/civ.jpg) <!-- .element width="95%"  -->
 
 
 ---
 
-# Bug-Catching 
+# Bug Catching 
 
 ![image](assets/images/MissingNo.png)
 
 ---
 
 
-# Bug-Catching
+# Bug Catching
 
 [**Gamasutra Article - My Hardest Bug Ever**](https://www.gamasutra.com/blogs/DaveBaggett/20131031/203788/My_Hardest_Bug_Ever.php)
 
@@ -92,7 +92,7 @@ Playtests can be super useful. If you treat them right.
  - are you testing to see if a level is the right difficulty?
  - are you testing to get a general review?
 2. Make a corect environment for your test. <!-- .element: class="fragment" -->
- - Turn off trouble features or levels to isolate the feature you want to test 
+ - Turn off features or levels with issues to isolate just the feature you want to test 
 3. Pick your test canditates, and make sure to inform them accordingly <!-- .element: class="fragment" -->
 4. Be aware of what you do/don't tell test participants beforehand <!-- .element: class="fragment" -->
 5. RECORD THE TEST (Screen capture) <!-- .element: class="fragment" -->
@@ -153,7 +153,7 @@ loading exceeds 60 seconds.
 
 Requirement: Users are not requested or instructed to vigorously shake the wireless controllers with one hand.
 
-Test all on-line activity with a 2000 friend account
+Test all online activity with a 2000 friend account
 
 
 ---
