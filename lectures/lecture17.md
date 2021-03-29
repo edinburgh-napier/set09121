@@ -161,9 +161,9 @@ Benefits
 Disadvantages
 - Can be a bit of a faff to set up...
 
-But this is a *good idea* that most companies of a certain size and above use.
+But this is a *good idea* that most companies of a certain size and above use.<!-- .element: class="fragment" -->
 
-Check out Github Actions for a way to integrate (heh) this into your current workflow
+Check out Github Actions for a way to integrate (heh) this into your current workflow<!-- .element: class="fragment" -->
 
 ---
 
@@ -191,12 +191,12 @@ Check out Github Actions for a way to integrate (heh) this into your current wor
  - Test it on new machines, old machines, fresh machines, 
  - Virtual machines, JKCC/VDS machines, your friends' machines
  
- ---
+---
 
 # BE AWARE
 
 ### IF YOUR CODE DOES NOT RUN ON MY MACHINE WHEN I TEST IT, YOU WILL LOSE MARKS!
 
 Test your code on other machines<!-- .element: class="fragment" -->
-Check you have all the files included in the installer
+Check you have all the files included in the installer<!-- .element: class="fragment" -->
 Check you have the right .dlls<!-- .element: class="fragment" -->
