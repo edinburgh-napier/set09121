@@ -202,5 +202,7 @@ Check out Github Actions for a way to integrate (heh) this into your current wor
 # TOP TIPS
 
 Test your code on other machines
+
 Check you have all the files included in the installer
+
 Check you have the right .dlls
