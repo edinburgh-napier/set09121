@@ -47,7 +47,7 @@ Binary decisions are our simplest decision behaviour, although the nature of the
 `trueNode` :   the branch followed on a "true" decision.
 `falseNode` :   the branch followed on a "false" decision.
 
-As such, we can actually define `makeDecision` for a binary decision point -- we just get the correct branch and call `makeDecision` on it. So we can implement `makeDecision` and provide a new method: `getBranch`. This new method will be the one we use to define specific decisions as needed. The code is below.
+As such, we can actually define `makeDecision` for a binary decision point -- we just get the correct branch and call `makeDecision` on it. So we can implement `makeDecision` we provide a new method: `getBranch`. This new method will be the one we use to define specific decisions as needed. The code is below:
 
 ```cpp
 //cmp_decision_tree.h
@@ -68,7 +68,7 @@ public:
 
 #### Multiple Decision
 
-Multi-decision points are just the same as binary decisions, except we will have a list of nodes. So we can follow the same model as binary decision and provide a `getBranch` method to be implemented.
+Multi-decision points are just the same as binary decisions, except we will have a list of nodes. So we can follow the same model as binary decision, we again provide a `getBranch` method to be implemented.
 ```cpp
 //cmp_decision_tree.h
 class MultiDecision : public DecisionTreeNode
@@ -183,6 +183,7 @@ OK time to combine everything we have done over the last two labs into an AI beh
 To give an idea of the behaviour we are going to implement see this Figure: 
 
 ![Combined State and Decision Diagram](assets/images/combined-state-decision.png)
+
 This combines the decisions and states into a single representation.
 
 ### Defining Steering States
@@ -363,3 +364,7 @@ Running this example will give a new behaviour to our system. Try it out. Hopefu
 <video class="middle" width="600" height="600" loop autoplay>
   <source src="assets/videos/dectree.mp4" type="video/mp4">
 </video>
+
+Previous step: [State Machines](lab9_1)
+
+Next step: [Deploying](lab10_1)
