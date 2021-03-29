@@ -40,7 +40,7 @@ Moving beyond the Green button.
 
 ---
 
-# Runtime-resources 
+# Runtime Resources 
 
 ![image](assets/images/build_folder.png) <!-- .element width="70%"  -->
 
@@ -62,14 +62,14 @@ This should ideally be done automatically <!-- .element: class="fragment" -->
 
 ---
 
-# Runtime-resources 
+# Runtime Resources 
 
 What does your game need, and where does it look for it?
 
 
 ---
 
-# static vs dynamic linking
+# Static vs Dynamic Linking
 
 **Static Linking**
 - Larger .exe file  <!-- .element: class="fragment" -->
@@ -96,7 +96,7 @@ You may use different assets for release, or bundle them up into binary files. <
 
 Offline rendering at higher settings could take place. <!-- .element: class="fragment" -->
 
-This should all be automated -- more on this later <!-- .element: class="fragment" -->
+This should all be automated - more on this later <!-- .element: class="fragment" -->
 
 
 ---
@@ -121,7 +121,7 @@ Windows requires elevated permissions to touch <!-- .element: class="fragment" -
 
 The only time your game should need Admin Privileges is the installer, and it should work without it if a user installs to a non-protected space. <!-- .element: class="fragment" -->
 
-Consider where your save-game files will go. <!-- .element: class="fragment" -->
+Consider where your save game files will go. <!-- .element: class="fragment" -->
 
 Perhaps look at where loads of other games save stuff? <!-- .element: class="fragment" -->
 
@@ -152,7 +152,18 @@ Benefits
 - Ground Truth - no more "works on my machine"
 - Alerts on broken builds - especially useful for multi-platform
 - Signpost to others that your software still works
-- Cool badge
+- Links in well with Unit Testing
+
+---
+
+# Continuous Integration
+
+Disadvantages
+- Can be a bit of a faff to set up...
+
+But this is a *good idea* that most companies of a certain size and above use.
+
+Check out Github Actions for a way to integrate (heh) this into your current workflow
 
 ---
 
@@ -165,7 +176,7 @@ Benefits
 
 1. Make sure your game works in Release
 2. Understand everything your game needs to run.
-3. Make an Installer UnInstaller
+3. Make an Installer & Uninstaller
 4. Test your build automatically in the Cloud
 
 
@@ -178,4 +189,14 @@ Benefits
  - Avoid one-off mistakes, fix it once, it will always work
 - **Test it** 
  - Test it on new machines, old machines, fresh machines, 
- - virtual machines, JKCC machines, your friends machines
+ - Virtual machines, JKCC/VDS machines, your friends' machines
+ 
+ ---
+
+# BE AWARE
+
+### IF YOUR CODE DOES NOT RUN ON MY MACHINE WHEN I TEST IT, YOU WILL LOSE MARKS!
+
+Test your code on other machines<!-- .element: class="fragment" -->
+Check you have all the files included in the installer
+Check you have the right .dlls<!-- .element: class="fragment" -->
