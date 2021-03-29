@@ -330,7 +330,8 @@ The implementation of the state machine system is also easy. We need to implemen
 -   Get state -- will retrieve a value from the map.
 -   Remove state -- will remove a value from the map.
 -   Change state -- will change the current state to the named state by retrieving it from the map.
-That is it. The implementation file is below and you should be able to understand the few lines of code we are using.
+
+That's it. The implementation file is below and you should be able to understand the few lines of code we are using.
 
 ```cpp
 //cmp_state_machine.cpp
@@ -479,3 +480,7 @@ void StateScene::Load()
 The new lines of code are 16-19. If you run the application you will be able to move your player to the enemy dot and see them change colour. 
 
 ![](assets/images/screen-states.png)
+
+Previous step: [Pathfinding](lab8_2)
+
+Next step: [Decision Trees](lab9_2)
