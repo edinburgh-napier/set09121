@@ -163,7 +163,7 @@ Disadvantages
 
 But this is a *good idea* that most companies of a certain size and above use.<!-- .element: class="fragment" -->
 
-Check out Github Actions for a way to integrate (heh) this into your current workflow<!-- .element: class="fragment" -->
+Check out AppVeyor or Github Actions for a way to integrate (heh) this into your current workflow<!-- .element: class="fragment" -->
 
 ---
 
