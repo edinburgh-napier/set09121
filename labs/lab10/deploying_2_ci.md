@@ -10,25 +10,26 @@ sidebar: home_sidebar
 
 ### Building in the Cloud
 
-There are two major free CI services I would recommend:
-1. [AppVeyor](https://ci.appveyor.co) - Windows only
+There are a few major free CI services I would recommend:
+1. [AppVeyor](https://www.appveyor.com/) - Windows only
 2. [Travis-CI](https://travis-ci.org) - Linux/Mac only
+3. [GitHub Actions](https://github.com/features/actions) - Newish GitHub CI
 3. Or host your own service on a server somewhere with Jenkins [Jenkins](https://jenkins.io)
 
 
 ### AppVeyor
 
-AS we are mainly working with Windows, I will only walk through the AppVeyor steps. If you look at the Repo you will see a travis.yml file to see how the configuration differs for travis.
+As we are mainly working with Windows, I will only walk through the AppVeyor steps. If you look at the Repo you will see a travis.yml file to see how the configuration differs for travis.
 
-1. Log into AppVeyor via Github ([)AV only works with publicRepos)
+1. Log into AppVeyor via Github 
 2. Select "New Project" and select your repo. You could work through this using your coursework repo. I'm going to use the main lab repo.
 3. Head over over to the Build settings.
 
 #### AppVeyor Settings
 
-There are two methods for configuring CI. You can change settings using the Website UI, or use a configuration .yml file saved in your repo. If AV sees a configuration file it will use these settings to overwrite the webui settings. Have a look in the Astral Insanity repo and you will see an 'appveyor.yml'. This contains all the settings I have set.
+There are two methods for configuring CI. You can change settings using the Website UI, or use a configuration .yml file saved in your repo. If AV sees a configuration file it will use these settings to overwrite the Web UI settings. Have a look in the Astral Insanity repo and you will see an 'appveyor.yml'. This contains all the settings I have set.
 
-If you prefer to use the Webui, Here is the main settings you need to change to get your project building:
+If you prefer to use the Web UI, Here is the main settings you need to change to get your project building:
 
 - Environment > Build worker image
   - "Visual Studio 2017"
@@ -58,8 +59,6 @@ AppVeyor will be able to build your repo manually, by triggering a build from th
 
 #### Badges
 
-![badges](assets/images/badges.png)
-
 The most important part of CI, is having that amazing "Build Passing" badge on your Repo. The Badge page under the AV settings supplies you with the markdown code. Simply put this in your Repo's README and you will see badge rendered on your github page.
 
 #### Artifacts
@@ -71,3 +70,7 @@ We have set these up in the above config, but what are they? Artifacts are just 
 As you can see from our configuration steps, all we are really doing is automated the steps that we usually do ourselves. You will probably have to tweak some settings somewhere, there is no one size fits all for CI configuration. You will have to play about with settings to get things to work.
 
 Once you have tweaked everything to work properly, export the web settings to a .yml file so you can quickly reference and re-use your hard work.
+
+Previous step: [Deploying](lab10_1)
+
+Next step: [CI](lab11)
