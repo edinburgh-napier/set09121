@@ -48,9 +48,9 @@ School of Computing. Edinburgh Napier University
 
 # Premature Optimisation
 
-Basically, Knuth argues that we should not let performance considerations determine the design of our code -- it makes the code more difficult to work with.
+Basically, Knuth argues that we should not let performance considerations determine the design of our code -  it makes the code more difficult to work with.
 
-I think a good rule for the module is -- get your game working first; then worry about extra features and performance optimisation.
+I think a good rule for the module is -  get your game working first; then worry about extra features and performance optimisation.
 
 A good approach is to design-build-measure-optimise. 
 
@@ -62,10 +62,10 @@ A good approach is to design-build-measure-optimise.
 - You might have heard of this...
 - Pareto Principle (or 80/20 rule) states that 80% of output comes from 20% of input.
 - Applied to programming, we can say that 80% of processor time will happen in 20% of our code.
-- It does make sense -- loops normally are the biggest area of computation in your application.
+- It does make sense -  loops normally are the biggest area of computation in your application.
 
 
- ![image](assets/images/80-20.jpg) <!-- .element width="60%"  -->
+ ![image](assets/images/80-20.jpg) <!-- .element width="60%"  - >
 
 ---
 
@@ -90,7 +90,7 @@ Release mode and run without debug
 
 - Some student's don't understand that a program can execute outside Visual Studio.
 - More don't realise that Visual Studio hooks into an application.
-- Also, debug builds add extra code to interrogate state -- this slows down programs.
+- Also, debug builds add extra code to interrogate state -  this slows down programs.
 - So, don't do it in final builds.
 
 
@@ -107,7 +107,7 @@ Avoid I/O or do it better
 - I/O like this is very slow, requiring your program to interact with the OS and present data.
 - You should avoid this I/O as far as possible in final builds.
 - **IF you must have I/O**, then follow some rules to make things faster:
-    - Don't use C++ I/O (`cin` and `cout`) -- these are slow because of error checking.
+    - Don't use C++ I/O (`cin` and `cout`) -  these are slow because of error checking.
     - Don't use the C++ end-of-line terminator (`endl`) as this also flushes a stream, which is slow.
     - Do use C-style I/O (from the `cstdio` header) such as `printf`, etc. These are low-level and faster.
 
@@ -155,7 +155,7 @@ if (health == 0) {
 
 - Object creation and destruction is very expensive.
 - It involves memory allocation, function calls, grabbing bits and pieces, maybe loading content.
-- It can also lead to objects being scattered around memory -- expensive to jump around.
+- It can also lead to objects being scattered around memory -  expensive to jump around.
 - An object pool fixes that (especially when combined with alive flags):
     - Allocate max number of objects required.
     - When a new object is needed grab from allocated pool and set necessary values.
@@ -215,7 +215,7 @@ if (dirty flag is true) {
 - Spatial partitioning allows us to divide the world up so we only render the parts that are visible.
 - Also used for collision detection optimisation.
 
-![image](assets/images/spatial-partition.png) <!-- .element width="80%"  -->
+![image](assets/images/spatial-partition.png) <!-- .element width="80%"  - >
 
 
 ---
@@ -237,10 +237,10 @@ if (dirty flag is true) {
 
 Allocate Your Required Memory First
 - We have mentioned this a few times now.
-- If you are used to the Java and C\# model of just calling `new` randomly in your code -- stop and think.
+- If you are used to the Java and C\# model of just calling `new` randomly in your code -  stop and think.
 - Memory allocation (and subsequent deallocation) is expensive on the free store.
 - Try and allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
-- Data is also near similar data -- this allows quick processing of blocks during similar operations.
+- Data is also near similar data -  this allows quick processing of blocks during similar operations.
 
 
 ---
@@ -306,12 +306,12 @@ for (int i=0; i < 32; i++)
 
 ---
 
-# Finding Hot Paths -- Using Tools
+# Finding Hot Paths -  Using Tools
 
 Tools do a good job of finding code that is slowing things down.
 
 
-![image](assets/images/hot-path.png) <!-- .element width="80%"  -->
+![image](assets/images/hot-path.png) <!-- .element width="80%"  - >
 
 
 ---
@@ -350,12 +350,12 @@ Tools do a good job of finding code that is slowing things down.
 
 - Function calls have a cost associated with them.
 - Two things have to happen.
-    1.  Set up the parameters on the stack -- copy data.
+    1.  Set up the parameters on the stack -  copy data.
     2.  Jump to the new code position.
 - On return there is a jump back again.
 
 
- ![image](assets/images/function-call.png) <!-- .element width="25%"  -->
+ ![image](assets/images/function-call.png) <!-- .element width="25%"  - >
 
 
 ---
@@ -364,8 +364,8 @@ Tools do a good job of finding code that is slowing things down.
 
 - One of the first optimisations we can do for functions is inlining.
 - An `inline` function is one we have asked the compiler to replace the function call with the actual code.
-- For small functions this is good -- avoid functions.
-- For big functions not so much -- larger executables.
+- For small functions this is good -  avoid functions.
+- For big functions not so much -  larger executables.
 - However, it depends on the frequency the function is called.
 
 
@@ -417,9 +417,9 @@ Tools do a good job of finding code that is slowing things down.
 - If you are from a Java or C\# background you are probably used to using exception calls.
     - `try` and `catch` statements.
 - C++ also uses exception statements.
-- However, an exception catch is very expensive -- sometimes **thousands of instructions**.
+- However, an exception catch is very expensive -  sometimes **thousands of instructions**.
 - A better technique is to set a flag that can be tested.
-    - This is the standard C model -- using a `get_error` function.
+    - This is the standard C model -  using a `get_error` function.
 
 ---
 
@@ -428,7 +428,7 @@ Tools do a good job of finding code that is slowing things down.
 - The `noexcept` keyword can be applied to a function to indicate it won't throw an exception.
 - This serves two purposes:
     1.  The compiler can optimise the code as it knows no exception to be thrown.
-    2.  The function won't throw an exception externally -- allows isolation of an exception.
+    2.  The function won't throw an exception externally -  allows isolation of an exception.
 
 ```cpp
     class my_class
@@ -497,8 +497,8 @@ Tools do a good job of finding code that is slowing things down.
 # Write Better `for` Loops
 
 - For loops are one of the most expensive parts of your application due to the number of iterations.
-- They are also one of the best places to optimise -- we will look at parallelisation here also.
-- One particular point is avoiding doing work that the loop statement can do -- such as the indexer.
+- They are also one of the best places to optimise -  we will look at parallelisation here also.
+- One particular point is avoiding doing work that the loop statement can do -  such as the indexer.
 
 ```cpp
     // Multiply every iteration
@@ -571,11 +571,11 @@ Tools do a good job of finding code that is slowing things down.
 
 # Don't Lock it Down
 
-- Some of you may be doing Fundamentals of Parallel Systems at the moment.
+- Some of you will do Concurrent and Parallel Systems next year!
 - This module uses synchronous behaviour to manage concurrency.
 - Anything involving locking one thread from progress is very expensive.
 - Also, locking means no work being done.
-- Aim to have asynchronous tasks which you wait for all to complete -- this will allow best performance.
+- Aim to have asynchronous tasks which you wait for all to complete -  this will allow best performance.
 
 
 ---
