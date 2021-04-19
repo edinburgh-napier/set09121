@@ -65,7 +65,7 @@ A good approach is to design-build-measure-optimise.
 - It does make sense -  loops normally are the biggest area of computation in your application.
 
 
- ![image](assets/images/80-20.jpg) <!-- .element width="60%"  - >
+ ![image](assets/images/80-20.jpg) <!-- .element width="60%"  -->
 
 ---
 
@@ -215,7 +215,7 @@ if (dirty flag is true) {
 - Spatial partitioning allows us to divide the world up so we only render the parts that are visible.
 - Also used for collision detection optimisation.
 
-![image](assets/images/spatial-partition.png) <!-- .element width="80%"  - >
+![image](assets/images/spatial-partition.png) <!-- .element width="80%"  -->
 
 
 ---
@@ -311,7 +311,7 @@ for (int i=0; i < 32; i++)
 Tools do a good job of finding code that is slowing things down.
 
 
-![image](assets/images/hot-path.png) <!-- .element width="80%"  - >
+![image](assets/images/hot-path.png) <!-- .element width="80%"  -->
 
 
 ---
@@ -355,7 +355,7 @@ Tools do a good job of finding code that is slowing things down.
 - On return there is a jump back again.
 
 
- ![image](assets/images/function-call.png) <!-- .element width="25%"  - >
+ ![image](assets/images/function-call.png) <!-- .element width="25%"  -->
 
 
 ---
