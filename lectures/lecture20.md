@@ -84,9 +84,9 @@ School of Computing. Edinburgh Napier University
 - Layer 7 :   your browser works with HTTP.
 - Layer 6 :   defines the Secure Socket Layer (SSL) now standard for HTTPS.
 - Layer 5 :   defines ports (e.g. port 80 for web traffic).
-- Layer 4 :   defines TCP -- interface between application and hardware. Breaks data sent into lots of individual packets.
-- Layer 3 :   defines IP -- allows individual machines to be addressed.
-- Layer 2 :   defines MAC addresses -- allows the switch to identify physical machines.
+- Layer 4 :   defines TCP - interface between application and hardware. Breaks data sent into lots of individual packets.
+- Layer 3 :   defines IP - allows individual machines to be addressed.
+- Layer 2 :   defines MAC addresses - allows the switch to identify physical machines.
 - Layer 1 :   actual electrical current between the switch and machine (e.g. cable or wireless).
 
 
@@ -108,7 +108,7 @@ School of Computing. Edinburgh Napier University
 
 - TCP provides means of breaking down data into separate packets.
 - Each data chunk is given a sequence number to allow the data to be reformed.
-- TCP guarantees acknowledgement of sent data -- this means we know that data has arrived if we don't get an error.
+- TCP guarantees acknowledgement of sent data - this means we know that data has arrived if we don't get an error.
 - TCP is the most common distributed application protocol because of its guarantees.
 
 
@@ -285,7 +285,7 @@ School of Computing. Edinburgh Napier University
 
 - We can also change how we service connections.
 - Typically, we wait on a connection until data arrives.
-- This would impact our frame time -- we need to service the connection only when data is ready.
+- This would impact our frame time - we need to service the connection only when data is ready.
 - Asynchronous socket communication means we perform an operation whenever a communication event occurs.
 - This allows the game to continue on and another thread can update as needed based on communication.
 
