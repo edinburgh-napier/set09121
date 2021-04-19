@@ -13,7 +13,7 @@ This lab is a little different form the others, it's less of a step by-step guid
 
 ### Get the Code
 
-For this Lab you won't need to write any C++ code. This is all provided for you on the Git Repo. Grab the code, add to CMake and load it up.
+For this Lab you won't need to write any C++ code. This is all provided for you on the Git Repo. Grab the code, add to CMake and load it up: https://github.com/dooglz/Astral_Insanity/
 
 Notice how it's only a quaint 43 lines of code. That's how we know we've built a good engine. The game code only contains game logic.
 
@@ -147,3 +147,6 @@ This is where things get confusing. CMake has "INSTALL" Targets. These specify a
 
 What we actually Want is the PACKAGE Target. This is CPack, and running it will generate the installer. How does CPack know what we want to add to the installer? It looks at the INSTALL targets, Confusing and backwards, I know. So even though we don't want any install targets, we have to build them so CPack knows what to bring along. To stop the Install targets accidentally running, we change the INSTALL directory (CMAKE_INSTALL_PREFIX) to the a temp folder in build folder.
 
+Previous step: [Decision Trees](lab9_2)
+
+Next step: [CI](lab10_2)
