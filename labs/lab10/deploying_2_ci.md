@@ -73,4 +73,4 @@ Once you have tweaked everything to work properly, export the web settings to a 
 
 Previous step: [Deploying](lab10_1)
 
-Next step: [CI](lab11)
+Next step: [Networking](lab11)
