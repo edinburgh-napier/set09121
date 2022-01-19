@@ -257,7 +257,7 @@ School of Computing. Edinburgh Napier University
   <div style="float: left; width:60%">
     <p>Game Design Workshop: A Playcentric Approach to Creating Innovative Games.  Tracy Fullerton.</p>
     <p>Game design elements of the module come from here.</p>
-    <p>This book will make you look differently at games.</p>
+    <p>This book will make you look differently at games. (See Reading list)</p>
   </div>
   <div>
     <img src="assets/images/gdw_book.jpg" alt="book" style="float: right; width:30%">
@@ -269,7 +269,7 @@ School of Computing. Edinburgh Napier University
   <div style="float: left; width:60%">
     <p>C++ Primer.  Lippman, Lajoie, and Moo.</p>
     <p>If your C++ needs some work this is a reasonable book to pick-up.</p>
-    <p>Covers most aspects of C++ that you will require.</p>
+    <p>Covers most aspects of C++ that you will require. (See Reading list)</p>
   </div>
   <div>
     <img src="assets/images/cpp_primer_book.jpg" alt="book" style="float: right;  width:30%">
@@ -281,7 +281,7 @@ School of Computing. Edinburgh Napier University
   <div style="float: left; width:60%">
     <p>Artificial Intelligence for Games. Millington and Funge.</p>
     <p>Very good book covering the algorithms and techniques used within game AI.</p>
-    <p>Lots more in here than we cover in the module.</p>
+    <p>Lots more in here than we cover in the module. (See Reading list)</p>
   </div>
   <div>
     <img src="assets/images/ai_book.jpg" alt="book" style="float: right;  width:30%">
@@ -293,7 +293,7 @@ School of Computing. Edinburgh Napier University
   <div style="float: left; width:60%">
     <p>Beginning Math and Physics for Game Programmers.  Wendy Stahler.</p>
     <p>A basic book really, but if your maths is not great this should give you enough to solve common problems.</p>
-    <p>Anyone with a reasonable grasp of "games" maths should instead look towards...</p>
+    <p>Anyone with a reasonable grasp of "games" maths should instead look towards... (See Reading list)</p>
   </div>
   <div>
     <img src="assets/images/basic_math_book.jpg" alt="book" style="float: right;  width:30%">
@@ -305,7 +305,7 @@ School of Computing. Edinburgh Napier University
   <div style="float: left; width:60%">
     <p>Mathematics for 3D Game Programming and Computer Graphics. Eric Lengyel.</p>
     <p>Has a number of good bits of information and techniques. Easy enough to translate 3D to 2D.</p>
-    <p>If you want to get better at "games" mathematics I recommend this book.</p>
+    <p>If you want to get better at "games" mathematics I recommend this book. (Don't currently have a digital copy)</p>
   </div>
   <div>
     <img src="assets/images/hard_math_book.jpg" alt="book" style="float: right;  width:30%">
