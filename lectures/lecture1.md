@@ -59,6 +59,8 @@ School of Computing. Edinburgh Napier University
 
 * No, really. Engine teams are still a huge employment area <!-- .element: class="fragment" -->
 
+* Unity has an office in Edinburgh now! <!-- .element: class="fragment" -->
+
 * It's important for everyone to understand how engines work <!-- .element: class="fragment" -->
 
 * It will help you even if you use a pre-made engine <!-- .element: class="fragment" -->
@@ -87,8 +89,8 @@ School of Computing. Edinburgh Napier University
 # Structure – Lectures
 
 - Two one-hour lectures a week.  <!-- .element: class="fragment" -->
-    - Tuesday @ 9am on WebEx Meetings  
-    - Tuesday @ 10am WebEx Meetings.  
+    - Monday @ 2pm in D02  
+    - Tuesday @ 3pm in D02.  
 - Attendance at both lectures is mandatory - this is not a repeat lecture.  <!-- .element: class="fragment" -->
 - Lectures will cover:  <!-- .element: class="fragment" -->
     - Game design concepts. 
@@ -102,8 +104,8 @@ School of Computing. Edinburgh Napier University
 # Structure – Practical Sessions
 
 - Two-hour practical session. <!-- .element: class="fragment" -->
-    - Tuesday @ 11am (straight after the lectures)
-- Practicals take place on WebEx Trainings. <!-- .element: class="fragment" -->
+    - Monday @ 4pm (straight after the lectures)
+- Practicals take place in D02. Bring your laptop or use the lab PCs. <!-- .element: class="fragment" -->
 - Labs will help you develop the engine you need to use for the coursework. <!-- .element: class="fragment" -->
     - 2D development with SFML.
     - Physics with Box2D.
