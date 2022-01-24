@@ -297,9 +297,9 @@ When you scale up onto bigger projects you add more to suit the
 development workflow. <!-- .element: class="fragment" -->
 
 There is one rule to rule them all: <!-- .element: class="fragment" -->
-** Never break Master ** <!-- .element: class="fragment" -->
+** Never break Main ** <!-- .element: class="fragment" -->
 
-- **Development / Master**
+- **Development / Master / Main**
     - Merge your feature branches into here
 - **Testing**
     - Dev merges into here, get tested before merge to Release
