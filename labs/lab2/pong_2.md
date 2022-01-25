@@ -77,7 +77,7 @@ void Load() {
   ball.setRadius(ballRadius);
   ball.setOrigin(...); //Should be half the ball width and height
   // reset paddle position
-  paddles[0].setPosition(sf::Vector2(10.f + paddleSize.x / 2.f, gameHeight / 2.f));
+  paddles[0].setPosition(Vector2(10.f + paddleSize.x / 2.f, gameHeight / 2.f));
   paddles[1].setPosition(...);
   // reset Ball Position
   ball.setPosition(...);
@@ -118,7 +118,7 @@ void Update(RenderWindow &window) {
   if (Keyboard::isKeyPressed(controls[1])) {
     direction++;
   }
-  paddles[0].move(sf::Vector2(0.f, direction * paddleSpeed * dt));
+  paddles[0].move(Vector2(0.f, direction * paddleSpeed * dt));
 }
 ```
 
@@ -172,7 +172,7 @@ If you find yourself a little lost now, re-read this page, look up the SFML API 
 
 #### An API Update
 
-It seems that SFML have updated their  APIs so you can no longer pass separate x and y values into many of the calls – instead you need to pass sf::Vector2(). This will no doubt be an optimisation, but it means that some 'legacy' code (like what you will get later in this module) will not work by default.
+It seems that SFML have updated their  APIs so you can no longer pass separate x and y values into many of the calls – instead you need to pass sf::Vector2() (or make sure you are using sf like we are in this file). This will no doubt be an optimisation, but it means that some 'legacy' code (like what you will get later in this module) will not work by default.
 
 Thankfully it's an easy fix, and I'll be fixing it for most of the code we give you in the labs, but just remember this for if you find errors later. After all, I might miss one!
 
