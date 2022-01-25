@@ -402,6 +402,16 @@ Note any similarities, particularly in games of the same genre.
 
 ---
 
+# Conflict
+
+- It is **NOT** just "My players will shoot something".
+- How will they shoot the thing?
+- What makes it possible?
+- What makes it difficult?
+- Is there a challenge to it? Where does it come from?
+
+---
+
 <!-- .slide: data-background="https://i.redd.it/opkdxg3ag1my.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white;" -->
 
 
