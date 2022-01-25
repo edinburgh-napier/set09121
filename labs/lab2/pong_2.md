@@ -44,7 +44,7 @@ I'll get you started off with the top of your file. It's the usual imports and n
 
 We then move onto the Load() function. This is where we would load in assets if we had any (remember this for future)! For now, we setup the game by resizing and moving our shapes.
 
-The last two lines are left incomplete for you to complete later. 
+The ... lines are left incomplete for you to complete. There are hints about what should go there, in comments and other code, but you should start thinking about what these lines should do, and how to use the SMFL API!
 
 ```cpp
 #include <SFML/Graphics.hpp>
@@ -118,7 +118,7 @@ void Update(RenderWindow &window) {
   if (Keyboard::isKeyPressed(controls[1])) {
     direction++;
   }
-  paddles[0].move(0, direction * paddleSpeed * dt);
+  paddles[0].move(sf::Vector2(0.f, direction * paddleSpeed * dt));
 }
 ```
 
@@ -169,6 +169,12 @@ Once you've typed all of the above in, filled in the gaps, and debugged any typi
 If it doesn't look like that image, then you should go back and figure out why and fix your code. Also, you'll find that the left paddle will move, but the right paddle and ball won't yet - don't worry, we'll get there in the next section!
 
 If you find yourself a little lost now, re-read this page, look up the SFML API and/or ask for help. Skipping onwards without a good understanding of what we did here is a one-way ticket to confusion town!
+
+#### An API Update
+
+It seems that SFML have updated their  APIs so you can no longer pass separate x and y values into many of the calls – instead you need to pass sf::Vector2(). This will no doubt be an optimisation, but it means that some 'legacy' code (like what you will get later in this module) will not work by default.
+
+Thankfully it's an easy fix, and I'll be fixing it for most of the code we give you in the labs, but just remember this for if you find errors later. After all, I might miss one!
 
 [When you are ready, carry on to Chapter 3](pong3)
 
