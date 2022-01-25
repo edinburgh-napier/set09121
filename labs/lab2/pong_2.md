@@ -75,9 +75,9 @@ void Load() {
   }
   // Set size and origin of ball
   ball.setRadius(ballRadius);
-  ball.setOrigin(ballRadius / 2, ballRadius / 2);
+  ball.setOrigin(...); //Should be half the ball width and height
   // reset paddle position
-  paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
+  paddles[0].setPosition(sf::Vector2(10.f + paddleSize.x / 2.f, gameHeight / 2.f));
   paddles[1].setPosition(...);
   // reset Ball Position
   ball.setPosition(...);
