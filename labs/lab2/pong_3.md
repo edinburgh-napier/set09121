@@ -49,12 +49,12 @@ Add the following to the Update(). There is no functional purpose for the *bx* a
     // bottom wall
     ballVelocity.x *= 1.1f;
     ballVelocity.y *= -1.1f;
-    ball.move(0, -10);
+    ball.move(Vector2(0.f, -10.f));
   } else if (by < 0) { //top wall
     // top wall
     ballVelocity.x *= 1.1f;
     ballVelocity.y *= -1.1f;
-    ball.move(0, 10);
+    ball.move(Vector2(0.f, -10.f));
   } 
 ```
 
@@ -133,7 +133,7 @@ text.setString(...);
 text.setPosition((gameWidth * .5f) - (text.getLocalBounds().width * .5f),0);
 ```
 
-Finally, you need to actually keep track of the score, and then you need to add some code to your Render() function. I'll let you figure out what!
+Finally, you need to actually keep track of the score, and then you need to add some code to your Render() function and some variables to deal with these new elements. I'll let you figure those out!
 
 ## Runtime Resources
 If you have written your code correctly, you will get an error during runtime. That is because your game can't find the font file specified.
