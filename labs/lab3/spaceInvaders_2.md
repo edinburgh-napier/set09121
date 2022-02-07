@@ -298,8 +298,8 @@ Pretty basic. Over in the ship.cpp we now define this code.
 
 ```cpp 
 //ship.cpp
-Player::Player() : Ship(IntRect(160, 32, 32, 32)) {
-    setPosition({gameHeight * .5f, gameHeight - 32.f});
+Player::Player() : Ship(IntRect(Vector2(160, 32), Vector2(32, 32))) {
+    setPosition({ gameWidth * .5f, gameHeight - 32.f });
 }
 
 void Player::Update(const float &dt) {
@@ -330,7 +330,7 @@ The game wouldn't be very difficult (or possible) without bullets firing around.
 
 If we look at our sprite-sheet we have two different bullet sprites. SFML can do some colour replacement, so if we wanted we could use the same white sprites for both bullet types and get SFML to colour them differently. As we want the two bullet types to look physically different, however, we will use two different sprites. Whatever visuals we decide to go with, for our software design we will be inheriting from sf::Sprite again.
 
-That's the plan for rendering out of the way, so now just movement and explosions to figure out! It would be tempting to do as we did with Ship and have two sublcasses for invader and player bullets. But as they are both so similar (the only difference being the direction they travel and who they collide with) having a three class structure would be overkill. Sometimes rigorously following OO patterns isn't the best way forward, especially with games. So instead we will build just bullet class.
+That's the plan for rendering out of the way, so now just movement and explosions to figure out! It would be tempting to do as we did with Ship and have two sublcasses for invader and player bullets. But as they are both so similar (the only difference being the direction they travel and who they collide with) having a three class structure would be overkill. Sometimes rigorously following OO patterns isn't the best way forward, especially with games. So instead we will build just a single bullet class.
 
 Create a bullet.h and bullet.cpp and add the following:
 
@@ -362,7 +362,7 @@ using namespace std;
 //...
 
 void Bullet::Update(const float &dt) {
-    move(0, dt * 200.0f * (_mode ? 1.0f : -1.0f));
+	move(Vector2f(0, dt * 200.0f * (_mode ? 1.0f : -1.0f)));
 }
 ```
 
@@ -444,12 +444,14 @@ We will need to change our Firing mechanism, we now don't want to ever construct
 //bullet.h
 class Bullet : public sf::Sprite {
 public:
-  //updates All bullets
+  //updates all bullets (by calling _Update() on all bullets in the pool)
   static void Update(const float &dt);
-  //Render's All bullets
+  //Render's all bullets (uses a similar trick to the ship renderer but on the bullet pool)
   static void Render(sf::RenderWindow &window);
   //Chose an inactive bullet and use it.
   static void Fire(const sf::Vector2f &pos, const bool mode);
+  //Set all the bullets to -100, -100, set the spritesheet, set origin
+  static void Init();
   
   ~Bullet()=default;
 protected:
@@ -467,7 +469,7 @@ protected:
 I'll let you figure out the changes to the bullet.cpp. Keep in mind the differences between static-and non static functions. The _Update() function is given in the next section.
 
 {:class="important"}
-**If you are getting unresolved external symbol errors, remember the top hint from before! (Also, make you you have a constructor in bullet.cpp)**
+**If you are getting unresolved external symbol errors, remember that all variables in headers MUST be delared somewhere (usually in a cpp file)**
 
 #### Exploding Things
 
@@ -482,7 +484,7 @@ void Bullet::_Update(const float &dt) {
         //off screen - do nothing
         return;
     } else {
-        move(0, dt * 200.0f * (_mode ? 1.0f : -1.0f));
+        move(Vector2f(0, dt * 200.0f * (_mode ? 1.0f : -1.0f)));
         const FloatRect boundingBox = getGlobalBounds();
         
         for (auto s : ships) {
@@ -499,7 +501,7 @@ void Bullet::_Update(const float &dt) {
                   //Explode the ship
                   s->Explode();
                   //warp bullet off-screen
-                  setPosition(-100, -100);
+				  setPosition(Vector2f(-100, -100));
                   return;
             }
         }
@@ -528,7 +530,7 @@ class Ship : public sf::Sprite {
 ```cpp 
 //ship.cpp
 void Ship::Explode() {
-    setTextureRect(IntRect(  128, 32, 32, 32));
+	setTextureRect(IntRect(Vector2(128, 32), Vector2(32, 32)));
     _exploded = true;
 }
 ```
@@ -565,7 +567,7 @@ void Player::Update(const float &dt) {
   firetime -= dt;
   ...
   if (firetime <= 0 && Keyboard::isKeyPressed(controls[2])) {
-      Bullet::fire(getPosition(), false);
+      Bullet::Fire(getPosition(), false);
       firetime = 0.7f;
     }
 }
