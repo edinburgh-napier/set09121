@@ -29,7 +29,7 @@ This means that Ship will have all the same methods as a sf::sprite, including a
 
 Create a file inside the invaders source folder called "ship.h". **Remember to ensure this new file ends up in your source directory, not the build directory. Check out Part 1 of this lab for a reminder. You will need to reconfigure CMake again to have it show up in VS too!**.
 
-This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). The reason we do this is to keep the logic of the class stored inside a .cpp file, while any piece of code that wants to access this functionality only needs the header. This concept does not exist inside Java or C#, wherein you provide the full definition of a function inside a class, in the one file. The is parsed for you, and allows other classes to link to it. C++ is not so nice! For example, you might have already noticed in the Pong example that if you put functions *after* those that call them, it will not work. It is totally possible to work in a more C# fashion but, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Instead, we are going to work in the more industry standard style that is likely older than most of you!
+This will be our Header file for the Ship class. Header files contain the declaration of our class, i.e only the function declarations. Headers shouldn't contain any code (some common exemptions apply). The reason we do this is to keep the logic of the class stored inside a .cpp file, while any piece of code that wants to access this functionality only needs the header. This concept does not exist inside Java or C#, wherein you provide the full definition of a function inside a class, in the one file. This is parsed for you, and allows other classes to link to it. C++ is not so nice! For example, you might have already noticed in the Pong example that if you put functions *after* those that call them, it will not work. It is totally possible to work in a more C# fashion but, we get into issues regarding name-space collisions, scope issues, multiple declarations, and code bloat. Instead, we are going to work in the more industry standard style that is likely older than most of you!
 
 
 Anyway, Inside ship.h write this:
@@ -137,7 +137,7 @@ public:
 Invader::Invader() : Ship() {}
 
 Invader::Invader(sf::IntRect ir, sf::Vector2f pos) : Ship(ir) {
-    setOrigin(16, 16);
+    setOrigin(Vector2f(16.f, 16.f));;
     setPosition(pos);
 }
 
@@ -153,7 +153,7 @@ Now that we have a concrete implementation of a Ship we can create one.
 
 Load(){
 ...
-Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), {100,100});
+Invader* inv = new Invader(sf::IntRect(Vector2(0, 0), Vector2(32, 32)), { 100,100 });
 ships.push_back(inv);
 ```
 
@@ -165,7 +165,7 @@ As we are going to be storing the invader in a vector that will also later conta
 
 ### Calling Update and Render
 
-Now we need to call the update function for all of our ships every frame. Due to polymorphism this is very simple: as *Update()* is a virtual function, when we call *Update()* on a Ship pointer it will run the *Update()* function of whatever is being pointed to. In other words, if we call *Update()* on an item in a *vector<\*Ship>* collection, and the Ship object that is pointed to is an Invader, then the *Update()* function in the Invader class is called. If it is a Player object, the *Update()* function in the Player class is called. Got that? 
+Now we need to call the update function for all of our ships every frame. Due to polymorphism this is very simple: as *Update()* is a virtual function, when we call *Update()* on a Ship pointer it will run the *Update()* function of whatever is being pointed to. In other words, if we call *Update()* on an item in a *vector<Ship\*>* collection, and the Ship object that is pointed to is an Invader, then the *Update()* function in the Invader class is called. If it is a Player object, the *Update()* function in the Player class is called. Got that? 
 
 Yeah... this can be confusing, especially if you are new to this! Do your best to get your head around it though, as this is core to how much of game engines work. We have a collection of things we need to update in some fashion, so we iterate through that collection and tell each thing to do what they are supposed to. **If you are completely befuddled, please ask in the lab!**
 
@@ -234,13 +234,13 @@ Invaders Update() to include some movement code.
 void Invader::Update(const float &dt) {
     Ship::Update(dt);
 
-    move(dt * (direction ? 1.0f : -1.0f) * speed, 0);
+	move(Vector2f(dt * (direction ? 1.0f : -1.0f) * speed, 0.0f));
     
     if ((direction && getPosition().x > gameWidth - 16) ||
         (!direction && getPosition().x < 16)) {
             direction = !direction;
                 for (int i = 0; i < ships.size(); ++i) {
-                    ships[i]->move(0, 24);
+					ships[i]->move(Vector2f(0.0f, 24.0f));
                 }
     }
 }
