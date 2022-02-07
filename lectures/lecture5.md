@@ -45,11 +45,11 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
-# Review -- Objects
+# Review - Objects
 
 - A system is made up of a collection of objects.
  - Examples: Mario, mushroom, blocks.
-- Objects are the key component of interest -- from a game point of view we want to work at the level of objects.
+- Objects are the key component of interest - from a game point of view we want to work at the level of objects.
 
 
 ![image](assets/images/mario.jpg) <!-- .element width="70%"  -->
@@ -57,7 +57,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
-# Review -- Properties
+# Review - Properties
 
 - Objects will have properties associated with them.
 - The properties determine the values associated with individual objects.
@@ -68,7 +68,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
-# Review -- Behaviours
+# Review - Behaviours
 
 - Objects also have behaviours which define what actions an object performs.
  - In object-orientation we call these behaviours methods.
@@ -79,7 +79,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
-# Review -- Relationships
+# Review - Relationships
 
 - The most difficult aspect of a system to define is the relationship between the objects.
 - Relationships allow the objects to interact and therefore provide a more complex system. <!-- .element: class="fragment" -->
@@ -99,14 +99,14 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
-# Example Game -- Starcraft II 
+# Example Game - Starcraft II 
 
 <iframe width="760" height="515" src="https://www.youtube.com/embed/yaqeZ9Snt4E" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Engineering a Game -- Objects as Entities
+# Engineering a Game - Objects as Entities
 - The first thing to do when considering Starcraft II as a system is to consider the objects.
  - Soldiers. <!-- .element: class="fragment" -->
  - Vehicles. <!-- .element: class="fragment" -->
@@ -121,7 +121,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 
 ---
 
-# Example Game -- Pong 
+# Example Game - Pong 
 
 ![image](assets/images/pong.gif)
 
@@ -168,7 +168,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 
 ---
 
-# Back to Pong -- Behaviours
+# Back to Pong - Behaviours
 
 - What sort of behaviours do the Pong entities have?
     - What actions do they perform during the game?
@@ -220,13 +220,13 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 - From a system point of view, we need to define the following:
 - Objects / Entities
 - Object Properties
- - Abstract level -- position, graphic, alive, visible.
+ - Abstract level - position, graphic, alive, visible.
 - Object Behaviours
  - Abstract level - constructor, update, render, destructor.
 - Relationships between Objects.
  - More on this shortly.
 - Interaction with the system.
- - External system control -- not modelled.
+ - External system control - not modelled.
 
 ---
 
