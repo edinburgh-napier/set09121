@@ -116,7 +116,7 @@ void Load() {
     cerr << "Failed to load spritesheet!" << std::endl;
   }
   invader.setTexture(spritesheet);
-  invader.setTextureRect(sf::IntRect(0, 0, 32, 32));
+  invader.setTextureRect(IntRect(Vector2(0, 0), Vector2(32, 32)));
 }
 
 void Render() {
@@ -129,7 +129,7 @@ At this stage, you might find your code doesn't run because of the *cerr* call. 
 Take note of this line:
 
 ```cpp
-sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+sprite.setTextureRect(IntRect(Vector2(0, 0), Vector2(32, 32)));
 ```
 
 The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is dived into squares of 32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite. **Remember, you should be looking up the SFML API to find out things like this yourself going forwards**
@@ -156,7 +156,15 @@ If this happens, it's most likely that you are failing to load the sprite sheet 
 3. You have updated your CMake code to ensure that your new project's resources are copied correctly, yeah?
 4. It's most likely point 3 that you forgot (speaking from experience), so check again!
 
-For point 3, remember to go and read [Runtime Resources tips and tricks](resources) again. The process should be easier once that is done, compared to the manual process you did with fonts in the Pong example!
+For point 3, remember to go and read [Runtime Resources tips and tricks](resources) again. The process should be easier once that is done, compared to the manual process you did with fonts in the Pong example! Remember, you don't need to replicate the following part:
+
+```cmake
+add_custom_target(copy_resources...
+```
+
+That is like a method (kinda) in CMake. You DO, however, have to call that method and set the working directory for each project (set_target_properties() and add_dependencies()). **Make sure you remember to rename the PRACTICAL_1 parts in the new CMake lines to the right name**
+
+You can (and should) have all your projects defined in a single CMakesList file!
 
 {:class="important"}
 **If you've set up everything correctly, you should be able to run the .exe in your build folder directly, without copying files yourself!** 
