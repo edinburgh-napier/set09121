@@ -264,7 +264,7 @@ RAII : Mario should clean up after himself!
 # Think Back to the Labs
 
 - Have you already done some of these? <!-- .element: class="fragment" -->
-- What about the Space Invaders example? <!-- .element: class="fragment" -->
+- What about the Pong or Space Invaders example? <!-- .element: class="fragment" -->
 - Where have you used these already? <!-- .element: class="fragment" -->
 
 ---
@@ -524,7 +524,7 @@ Converting (Casting) Between Types in C++
 - A basic form of polymorphism is *ad-hoc polymorphism*.
 - This means we can have the same method name, but with different parameters and return type.
 - Object-orientation generally allows this through method overloading.
-- Not that parameters are the real way of distinguishing methods - the return type cannot be different for the same parameters.
+- Note that parameters are the real way of distinguishing methods - the return type cannot be different for the same parameters.
 
 ```
 class A
