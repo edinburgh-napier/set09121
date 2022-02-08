@@ -98,7 +98,7 @@ School of Computing. Edinburgh Napier University
 # GDD Exercise
 
 Research Design Documents! Use Google to search for game design documents. There are quite a few out there and some templates. 
-You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. If you do find a AAA one let us know.
+You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. Also there is some argument about the utility of them these days!
 
 ---
 
@@ -149,8 +149,8 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
     - Licence agreements.
     - Copyright considerations.
     - Engine/library terms and conditions.
-- Typically, Intellectual Property Rights (IPR) will be with the publisher, not the studio.
-- Game engines typically require statements of use, are expensive, and may require a per unit sale cost.
+- Typically, Intellectual Property (IP) will be with the publisher, not the studio.
+- Game engines typically require statements of use, are expensive, and may require a per unit sale cost (for big games).
 - Legal & IP agreements with your Team/Contractors also needs to be considered. 
 
 ---
@@ -249,7 +249,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
     - Can have a lot of work spent on them.
     - Generally very detailed - particularly in games where you see the character all the time.
 - Non-playable characters.
-    - Treat these as objects in your game with properties and functionality.
+    - Treat these as objects in your game with properties and functionality (see 'baguette boy').
     - Includes:
         - Monsters and enemies.
         - Friends and allies.
