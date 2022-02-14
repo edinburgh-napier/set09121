@@ -416,7 +416,7 @@ Give it a test, Call some library functions from your lab code.
 
 void load() {
   ...
-  ls::loadLevelFile("res/maze_2.txt");
+  ls::loadLevelFile("res/levels/maze.txt");
 
   // Print the level to the console
   for (size_t y = 0; y < ls::getHeight(); ++y) {
