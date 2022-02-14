@@ -56,6 +56,7 @@ Let's get started with our header.
 #include <memory>
 #include <string>
 #include <vector>
+#include <map>
 
 #define ls LevelSystem
 
@@ -103,6 +104,7 @@ With our LevelSystem.h declared, let's define it in LevelSystem.cpp
 //LevelSystem.cpp
 #include "LevelSystem.h"
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -232,7 +234,7 @@ void LevelSystem::buildSprites() {
 }
 ```
 
-Note we need yet another function, the getTilePosition().
+You need to define getHeight() and getWidth(). we also need yet another function, the getTilePosition().
 
 ```cpp 
 //LevelSystem.cpp
@@ -400,7 +402,7 @@ namespace sf {
 
 Once you've fixed all of the bugs, you should be good to use your new vector library!
 
-**Include this library in your LevelSystem.h file, and make sure everything now compiles!**
+**Include this library in your LevelSystem.h file, and make sure everything now compiles! You will need to use a relative path.**
 
 ## Using the library
 
