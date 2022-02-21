@@ -84,7 +84,7 @@ Do we need them?
 
 After all we didn't always have them? <!-- .element: class="fragment" -->
 
-Q: How complex do you think a game needs to before you think you need to sperate Engine Code? <!-- .element: class="fragment" -->
+Q: How complex do you think a game needs to before you think you need to separate Engine Code? <!-- .element: class="fragment" -->
 
 - Err... <!-- .element: class="fragment" -->
 - A: Once your code gets abstract enough <!-- .element: class="fragment" -->
