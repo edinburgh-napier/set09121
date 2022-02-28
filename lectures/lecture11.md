@@ -153,12 +153,6 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Example - Cloth Simulation
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/zt2P-yI5knY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
 ## Fundamentals - Laws of Motion
 
 

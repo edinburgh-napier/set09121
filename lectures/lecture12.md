@@ -315,21 +315,13 @@ What is Artificial Intelligence?
 
 - One goal of game AI is to provide a challenge to the player and create a realistic, living world.
 - Examples:
-    - GTA IV
+    - GTA V/RDR 2
     - Assassin's Creed Origins
 - Notice:
     - People walking around.
     - Reaction to environment effects (e.g. rain).
     - Enemies attacking in realistic looking manners.
     - etc.
-
-
----
-
-# Goal of AI - Realism
-
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/LRUcpaIAKos" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 ---
 
@@ -340,19 +332,13 @@ What is Artificial Intelligence?
 
 # Bad AI
 
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/WzYEZVI46Uw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/Vk3aruZIZyo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
 # Bad AI
 <iframe width="1400" height="800" src="https://www.youtube.com/embed/bc5BwK3iNh0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
-# Bad AI - Path finding problems
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/lw9G-8gL5o0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
