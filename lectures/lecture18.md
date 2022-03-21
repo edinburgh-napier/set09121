@@ -70,7 +70,7 @@ School of Computing. Edinburgh Napier University
 
 # Bug Catching
 
-[**Gamasutra Article - My Hardest Bug Ever**](https://www.gamasutra.com/blogs/DaveBaggett/20131031/203788/My_Hardest_Bug_Ever.php)
+[**Game Developer Article - My Hardest Bug Ever**](https://www.gamedeveloper.com/programming/my-hardest-bug-ever)
 
 The symptom was that you'd go to save your progress and it would access the memory card, and almost all the time, it worked normally
 
