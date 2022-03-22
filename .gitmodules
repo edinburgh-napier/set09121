@@ -1,0 +1,6 @@
+[submodule "code/lib/sfml"]
+	path = code/lib/sfml
+	url = https://github.com/SFML/SFML.git
+[submodule "code/lib/b2d"]
+	path = code/lib/b2d
+	url = https://github.com/dooglz/Box2D.git

@@ -57,7 +57,7 @@ void Level2Scene::Load() {
     auto s = turret->addComponent<ShapeComponent>();
     s->setShape<sf::CircleShape>(16.f, 3);
     s->getShape().setFillColor(Color::Red);
-    s->getShape().setOrigin(16.f, 16.f);
+    s->getShape().setOrigin(Vector2f(16.f, 16.f));
     turret->addComponent<EnemyTurretComponent>();
   }
 

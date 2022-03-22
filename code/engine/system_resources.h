@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <memory>
 #include <string>
+#include <map>
 
 namespace Resources {
 

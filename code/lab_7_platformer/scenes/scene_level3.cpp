@@ -79,7 +79,7 @@ void Level3Scene::Update(const double& dt) {
     auto s = rock->addComponent<ShapeComponent>();
     s->setShape<sf::CircleShape>(40.f);
     s->getShape().setFillColor(Color::Cyan);
-    s->getShape().setOrigin(40.f, 40.f);
+    s->getShape().setOrigin(Vector2f(40.f, 40.f));
     auto p = rock->addComponent<PhysicsComponent>(true, Vector2f(75.f, 75.f));
     p->setRestitution(.4f);
     p->setFriction(.0001f);
