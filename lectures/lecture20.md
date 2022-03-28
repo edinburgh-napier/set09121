@@ -137,9 +137,9 @@ School of Computing. Edinburgh Napier University
 
 - Applications communicate using sockets.
 - A socket is just an encapsulation of the following:
-    Address :   typically an IP address.
-    Protocol :   for example TCP.
-    Port :   allows an individual application to be addressed on the network.
+    - Address: typically an IP address.
+    - Protocol: for example TCP.
+    - Port: allows an individual application to be addressed on the network.
 - These are provided by layers 3-5 of our model.
 - A socket is therefore a software abstraction that allows an application to send and receive data with other applications.
 - Each socket thus has both a source port and a destination port.
