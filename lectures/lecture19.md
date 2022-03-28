@@ -290,7 +290,7 @@ for (int i=0; i < 32; i++)
 
 - As stated, memory is organised so the second dimension is the one that matches sequential layout.
 - When we do need to transition across the first dimension, we need to help the compiler and processor.
-- Wasting some memory by having the outer dimension as a power-of-two helps.
+- Wasting some memory by having this dimension as a power-of-two helps.
 - The processor and compiler can make optimised jumps and do so without a multiply (bitshift operations are fast).
 
 ```cpp
@@ -446,7 +446,7 @@ Tools do a good job of finding code that is slowing things down.
 
 #  `const` What You Can
 
-- Basically the rules same as `noexcept`.
+- Basically set everything you can to `const`.
 - A `const` method is one that will not change the object.
 - Therefore the compiler can optimise the code based on access again.
 
