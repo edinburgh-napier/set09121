@@ -14,9 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Thomas Methven
+Babis Koniaris
 <br>
-(Original material by Kevin Chalmers and Sam Serrels)
+
 
 School of Computing. Edinburgh Napier University
 

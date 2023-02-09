@@ -6,7 +6,7 @@ permalink:  lecture4.html
 summary: lecture4
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
----
+--- 
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
@@ -14,9 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Thomas Methven
+Babis Koniaris
 <br>
-(Original material by Kevin Chalmers and Sam Serrels)
+
 
 School of Computing. Edinburgh Napier University
 
@@ -44,7 +44,7 @@ School of Computing. Edinburgh Napier University
 
 
 - An example of a system is an engine.
- - This is why we are building an engine in the module.  <!-- .element: class="fragment" -->
+ - Real, or a software one, like what we are going to build in the module.  <!-- .element: class="fragment" -->
 - An engine is a system with a particular objective.  <!-- .element: class="fragment" -->
  - That objective is to power some form of manual action.  <!-- .element: class="fragment" -->
 - We can apply our formal elements into thinking about systems.  <!-- .element: class="fragment" -->
@@ -77,8 +77,7 @@ School of Computing. Edinburgh Napier University
 - Properties are the descriptive data that can be analysed, extracted or modified.  <!-- .element: class="fragment" -->
 - Properties are also a method to allow unique identification of individual objects.  <!-- .element: class="fragment" -->
 - What are the properties of objects you see in other systems?  <!-- .element: class="fragment" -->
-- From our rules (Formal Elements) we have extracted most of our objects and their properties.  <!-- .element: class="fragment" -->
-- Rules (Formal Elements) > Objects and their Properties.  <!-- .element: class="fragment" -->
+- From our rules (Formal Elements) we can extract most of our objects and their properties.  <!-- .element: class="fragment" -->
 
 
 ---
@@ -89,14 +88,13 @@ School of Computing. Edinburgh Napier University
 
 - Behaviours are the actions that an object undertakes.  <!-- .element: class="fragment" -->
  - Object-orientation calls these methods.  <!-- .element: class="fragment" -->
- - Some of the behaviours are on the state of the object.  <!-- .element: class="fragment" -->
+ - Many of the behaviours are interlinked with the state of the object.  <!-- .element: class="fragment" -->
   - An engine requires fuel to be turned on.  <!-- .element: class="fragment" -->
   - We will look at state and state management later in the module.  <!-- .element: class="fragment" -->
   - Remember: our formal rules can restrict our formal procedures.  <!-- .element: class="fragment" -->
  - Behaviours can be complicated.  <!-- .element: class="fragment" -->
 - What object behaviours of objects do you see in other systems?  <!-- .element: class="fragment" -->
 - Rules and Procedures of Formal Elements can help us extract some of the object behaviours.  <!-- .element: class="fragment" -->
- - Rules and Procedures > Behaviours (Systems)  <!-- .element: class="fragment" -->
 
 
 ---
@@ -106,7 +104,7 @@ School of Computing. Edinburgh Napier University
 **Relationships**
 
 - Once we have a collection of objects we can define some rudimentary systems.
-- Objects themselves do not form a system. Systems are relationship between the objects.  <!-- .element: class="fragment" -->
+- Objects themselves do not form a system. Systems are the relationships between the objects.  <!-- .element: class="fragment" -->
  - Depend on the context of use.
      - A car engine turns wheels.
      - A jet engine propels a plane.
@@ -145,7 +143,7 @@ School of Computing. Edinburgh Napier University
 
 # Spelunky
 
-- Spelunky is one of the best examples of inheritance in games
+- Spelunky is one of the best (?) examples of inheritance in games
 
 - Olmec, a boss, inherits from a push block
 
@@ -351,13 +349,6 @@ Keep it abstract, but consider how you would program these.
 
 ---
 
-# What systems does an Economy need?
-
- ![image](assets/images/economics.png)
-
-
----
-
 # Emergent Systems
 
 - Emergent systems exhibit behavior not explicitly programmed. The behavior emerges from the rules placed on the objects.
@@ -388,14 +379,6 @@ Keep it abstract, but consider how you would program these.
 # Software System
 
  ![image](assets/images/uml.png) 
-
-
----
-
-# Back to Donkey Kong 
-
-<iframe width="760" height="515" src="https://www.youtube.com/embed/Pp2aMs38ERY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 ---
 
@@ -441,7 +424,7 @@ Keep it abstract, but consider how you would program these.
 
 OO is a great way of describing and building systems of objects (games)  <!-- .element: class="fragment" -->
 
-However; in practice, actually programming these systems can be tricky. There are other extensions to OO that we will cover later. But designing and planning the OO way is a great way to design systems that will exist as software.  <!-- .element: class="fragment" -->
+However; in practice, actually programming these systems can be tricky. But designing and planning the OO way is a great way to design systems that will exist as software.  <!-- .element: class="fragment" -->
 
 ---
 

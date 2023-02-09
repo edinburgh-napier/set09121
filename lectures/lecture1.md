@@ -16,9 +16,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### Welcome
 
 <br><br>
-Thomas Methven
+Babis Koniaris
 <br>
-(Original material by Kevin Chalmers and Sam Serrels)
+(Original material by Kevin Chalmers/Sam Serrels/Thomas Methven)
 
 School of Computing. Edinburgh Napier University
 
@@ -55,13 +55,18 @@ School of Computing. Edinburgh Napier University
 
 # Why Not Just Use Unity/Unreal?
 
+
 * Because some people need to make Unity/Unreal! <!-- .element: class="fragment" -->
+
 
 * No, really. Engine teams are still a huge employment area <!-- .element: class="fragment" -->
 
+
 * Unity has an office in Edinburgh now! <!-- .element: class="fragment" -->
 
+
 * It's important for everyone to understand how engines work <!-- .element: class="fragment" -->
+
 
 * It will help you even if you use a pre-made engine <!-- .element: class="fragment" -->
 
@@ -89,9 +94,7 @@ School of Computing. Edinburgh Napier University
 # Structure – Lectures
 
 - Two one-hour lectures a week.  <!-- .element: class="fragment" -->
-    - Monday @ 2pm in D02  
-    - Tuesday @ 3pm in D02.  
-- Attendance at both lectures is mandatory - this is not a repeat lecture.  <!-- .element: class="fragment" -->
+    - Friday @ 9am-11am in G21  
 - Lectures will cover:  <!-- .element: class="fragment" -->
     - Game design concepts. 
     - Software engineering for games.  
@@ -104,7 +107,7 @@ School of Computing. Edinburgh Napier University
 # Structure – Practical Sessions
 
 - Two-hour practical session. <!-- .element: class="fragment" -->
-    - Monday @ 4pm (straight after the lectures)
+    - Friday @ 12pm (after the lectures)
 - Practicals take place in D02. Bring your laptop or use the lab PCs. <!-- .element: class="fragment" -->
 - Labs will help you develop the engine you need to use for the coursework. <!-- .element: class="fragment" -->
     - 2D development with SFML.
@@ -154,7 +157,7 @@ School of Computing. Edinburgh Napier University
 - The coursework requires working in pairs which will require some organisation outside class time.
     - Use Discord/Slack/Whatsapp to communicate (make sure you book regular meetings).
 - Keep up with the practical work!  There is one every week.
-    - There is no reading week so we will not be pausing.  The practicals build the engine you need.  Falling behind one week means trying to catch up the next!
+    - The practicals build the engine you need.  Falling behind one week means trying to catch up the next!
 
 
 ---
@@ -324,9 +327,9 @@ School of Computing. Edinburgh Napier University
 
      Box2D provides the physics system for our game engine.  Again, you will need to use this resource when working with Box2D.
 
-- **C++ Resources Network:** http://www.cplusplus.com
+- **C++:** http://www.learncpp.com
 
-     The goto place for C++
+     Modern C++ tutorials. Unofficial reference at http://www.cppreference.com
 
 - **Game Programming Patterns:** http://gameprogrammingpatterns.com
 
@@ -343,7 +346,7 @@ School of Computing. Edinburgh Napier University
 
 MY  EMAIL 
 
-**T.Methven@Napier.ac.uk**
+**b.koniaris@napier.ac.uk**
 
 
 - The best time to ask for help is during the practical sessions.
@@ -360,7 +363,7 @@ MY  EMAIL
 - We brought this back as we thought it was fundamental for the Games Development students.
 - But for everyone else we hope you will learn:
     - How games work and how you can put them together.
-    - How to do software engineering properly (from Kevin, Tom and Sam's point of view!)
+    - How to do software engineering properly (from our point of view!)
 
 		
 

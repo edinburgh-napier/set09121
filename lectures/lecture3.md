@@ -14,9 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Thomas Methven
+Babis Koniaris
 <br>
-(Original material by Kevin Chalmers and Sam Serrels)
+
 
 School of Computing. Edinburgh Napier University
 
@@ -86,7 +86,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 - What happens if people join in without invitation?
 
-- Example time!
+- Any examples from games you play?
 
 ---
 
@@ -122,7 +122,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 - You need to define what the player's task is in the game.
 - Traditional board and card games had everyone with the same role, more or less.
-    - Some players had multiple roles -- Dungeons and Dragons, Monopoly, etc. <!-- .element: class="fragment" -->
+    - Some players had multiple roles -- e.g. Dungeons and Dragons. <!-- .element: class="fragment" -->
 - Video games follow this tradition. <!-- .element: class="fragment" -->
     - Again, there are exceptions such as Team Fortress 2, Neverwinter Nights, etc. <!-- .element: class="fragment" -->
 - Roles can also be defined by how the players react to the rules and procedures of the game. <!-- .element: class="fragment" -->
@@ -148,7 +148,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 # Objectives: providing drive and challenge to the player
 
-- If players are the heart of the game experience, then objectives drive the heart.
+- Players are the heart of the game experience, objectives drive the experience.
 - **Objectives** provide a challenge to the player that should be achievable.
 - Objectives also set the overall feel of the game: <!-- .element: class="fragment" -->
     - FPS: killing and survival. <!-- .element: class="fragment" -->
@@ -176,7 +176,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 # Common Objective Types
 
-- There are a collection of common objective types:
+- There is a collection of common objective types:
     - Capture / destroy
     - Chase
     - Race
@@ -332,7 +332,7 @@ A **resource** is an asset that provides the player with an advantage, allows th
 - Resources are ubiquitous in games:
  - Monopoly has money and property.
  - Command & Conquer has Tiberium.
- - Halo has health, ammunition, and sheilds.
+ - Halo has health, ammunition, and shields.
 
  ![BorderlandsLootBox](http://lootmaster.weebly.com/uploads/3/8/1/3/38139257/7052736.jpg) <!-- .element height="250px" -->
  ![UThealthPack](assets/images/uthealthpack.jpg) <!-- .element height="250px" -->

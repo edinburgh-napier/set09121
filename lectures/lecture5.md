@@ -14,9 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Thomas Methven
+Babis Koniaris
 <br>
-(Original material by Kevin Chalmers and Sam Serrels)
+
 
 School of Computing. Edinburgh Napier University
 
@@ -265,16 +265,15 @@ Games have lots of Entities
 # Data Structure Approach
 
 - The simplest method: use a suitable data structure. <!-- .element: class="fragment" -->
-    - Array, list, or map. <!-- .element: class="fragment" -->
+    - Array, vector, list, or map. <!-- .element: class="fragment" -->
 - Then we can just tell them all to update and draw as required. <!-- .element: class="fragment" -->
     - For each entity in the list call Update(). <!-- .element: class="fragment" -->
     - For each entity in the list call Render(). <!-- .element: class="fragment" -->
 - However, this has limitations. <!-- .element: class="fragment" -->
     - How do we find a single entity in the list? <!-- .element: class="fragment" -->
-    - How do we remove entities from the list if we want to? <!-- .element: class="fragment" -->
-    - How do we pass the list around the program? <!-- .element: class="fragment" -->
-    - What about general efficiency? <!-- .element: class="fragment" -->
-- Therefore we will adopt a software engineering approach to the problem by using a manager class. <!-- .element: class="fragment" -->
+    - How do we add or remove entities to/from the list if we want to? <!-- .element: class="fragment" -->
+    - How do we access this list throughout the program? <!-- .element: class="fragment" -->
+- Therefore we will adopt a software engineering approach to tackle this problem: we'll use a manager class. <!-- .element: class="fragment" -->
 
 
 
@@ -282,8 +281,8 @@ Games have lots of Entities
 
 # Software Engineering Approach
 
-- By using a manager component we can: <!-- .element: class="fragment" --> 
-    - Manage the logic of our application in discrete parts. <!-- .element: class="fragment" -->
+- By using a manager class we can: <!-- .element: class="fragment" --> 
+    - Manage the logic of our application in discrete parts, each with their own responsibility. <!-- .element: class="fragment" -->
     - Manage access to our collection of entities. <!-- .element: class="fragment" -->
     - Allow communication between the entities. <!-- .element: class="fragment" -->
 
@@ -317,4 +316,4 @@ Games have lots of Entities
     - Add required relationships.
     - Add the entity to the game world.
 
-- By using an entity based approach and a manager we can focus on individual entity behaviour in the first instance.
+- By using an entity based approach and a manager we can focus on individual entity behaviours.

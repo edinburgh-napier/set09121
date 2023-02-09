@@ -14,9 +14,9 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Thomas Methven
+Babis Koniaris
 <br>
-(Original material by Kevin Chalmers and Sam Serrels)
+
 
 School of Computing. Edinburgh Napier University
 
@@ -69,9 +69,8 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 - Local - You don't *need* to push anywhere
 - Run your own git server
 - GitHub - The de facto for open-source code.
-- Bitbucket - Meh
+- Bitbucket - By Atlassian - more for private projects
 - Gitlab - when you need multiple repos and project management
-- [https://gitgud.napier.ac.uk](https://gitgud.napier.ac.uk) - unlimited private repos, napier hosted.
 
 
 ---
@@ -89,7 +88,7 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 
 # Git Hosts
 
-Honestly I'd just recommend using GitHub Destop these days!
+Honestly I'd just recommend using GitHub Desktop these days!
 It's the nicest one to use for basic stuff...
 
 ---
@@ -194,14 +193,14 @@ Commit selectively - don't just cram in files.
 
 <br>
 
-### Git is not for Binary files <!-- .element: class="fragment" -->
+### Git is not for Binary Files <!-- .element: class="fragment" -->
 
 ## Keep The Repo Clean <!-- .element: class="fragment" -->
 
 
 ---
 
-# What goes into a code repository
+# What typically goes into a code repository
 
 - Source code files. (.cpp, .h, .java)
 - README.md
@@ -213,7 +212,7 @@ Commit selectively - don't just cram in files.
 
 ---
 
-# What does not go into a code repository
+# What does typically not go into a code repository
 
 - Binary files (.wav, .mp3, .jpg, .pdf)  [ok for small things] <!-- .element: class="fragment" -->
 - Compiled Code (.exe, .dll, .lib, .so, .obj) <!-- .element: class="fragment" -->
@@ -272,7 +271,6 @@ If you can't; then it shows that you don't understand your own work. <!-- .eleme
 Advanced trick: You can do "Squash and Rebase" technique to make this
 look neater.
 
-
 ---
 
 # Merging 2 
@@ -315,20 +313,6 @@ There is one rule to rule them all: <!-- .element: class="fragment" -->
 GitHub, like many companies, is in the process of changing the name of the 'Master' branch. It seems to be in progress at time of writing, so you might see it called 'Main', 'Default', or 'Origin' in some tools!
 
 (Don't worry, just remember to **Never break the main branch**)
-
----
-
-# Branches
-
-![image](assets/images/gitflowworkflow.png) <!-- .element height="100%" width="100%" -->
-
-
----
-
-# Branches
-
-![image](assets/images/gitexample3.png) <!-- .element height="100%" width="100%" -->
-
 
 ---
 
@@ -445,8 +429,8 @@ Where we get into trouble is when hardware and system calls.
 - Input
 - Graphics
 - Sound
-- Threading
-- Time
+- Threading (native since C++11)
+- Time (native since C++11)
 - Maths
 
 <!-- .element: class="fragment" -->
@@ -461,29 +445,24 @@ e.g SFML, GLFW, SDL.
 ---
 
 <!-- .slide: class="leftalign" -->
-# C++ Dependancy Hell
-In the past you may have downloaded a precompiled .lib/.dll for external Libs.
+# C++ Package (Mis)Management
 
-We will be building our libraries from source, right from github.
+No native way of package management. So, how to include external libraries?
+We can build from source (with submodules), or we can include external libraries in the repository.
 
-Pros: 
-- Newest code. Git Submodules keep it updated <!-- .element: class="fragment" -->
-- Better performance - Compiler has more code to optimise. <!-- .element: class="fragment" -->
-- Debugging - breakpoint and step though 3rd party code. <!-- .element: class="fragment" -->
-- Repo size - no  .dlls in repo <!-- .element: class="fragment" -->
-- Portability - can build for different architectures. <!-- .element: class="fragment" -->
-- Compatibility* - no need to have specific libs versions (x32/x64) <!-- .element: class="fragment" -->
+Differences:
+- Source allows access to newest code, external libraries are built with fixed settings/version
+- Source allows us to debug through code, external libraries need to explicitly provide extra files
+- Source results in better compatibility, as code is built with same settings as your other projects
+- Setting up building from source is more complicated and brittle
 
-
-Cons:
-- Getting it to work is hard
-  - *Every library is different and may not have clear build guides.
+Header-only libraries are popular, because it's the best of both worlds, but typically slower to compile
 
 <!-- .element: class="fragment" -->
 
 ---
 
-# The solution
+# Our build system
 
 ![image](assets/images/cmake.png)  <!-- .element height="100%" width="100%" -->
 
@@ -499,8 +478,6 @@ Write **one**  CMakeLists.txt config file, dictating what your application needs
 CMake processes this and generates solution files relevent to the platform you are working on.
 
 Not all C++ projects use CMake or have a working config. <!-- .element: class="fragment" -->
-
-SFML and Box2D do. So we are all set. <!-- .element: class="fragment" -->
 
 CMake is covered more in depth in the labs. <!-- .element: class="fragment" -->
 
