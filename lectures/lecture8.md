@@ -59,12 +59,12 @@ Game Programming Patterns - Robert Nystrom
 
 # When to Use UML
 
-- There are five diagrams I find useful.
-    - Use case diagrams - overall requirements gathering.
-    - Activity diagrams - flow chart of behaviour.
-    - Class diagrams - main system design.
-    - Sequence diagrams - individual steps and interaction between components.
-    - State diagrams - model object or system state.
+- Five useful diagrams:
+    - **Use case** diagrams: overall requirements gathering.
+    - **Activity** diagrams: flow chart of behaviour.
+    - **Class** diagrams: main system design.
+    - **Sequence** diagrams: individual steps and interaction between components.
+    - **State** diagrams: model object or system state.
 - **Use diagrams whenever possible!** 
  - Working out on paper how something works is **always** easier than banging your head off your code.
  - Trust me, we've all been there.
@@ -86,17 +86,6 @@ Game Programming Patterns - Robert Nystrom
 - When we look at our software development problems from a high enough abstraction level we will see lots of areas of reuse.
 
 ![image](assets/images/software_development.png) <!-- .element width="45%"  -->
- 
-
----
-
-# Reading UML for Patterns
-
-- The important factor we are going to cover is our ability to recognise and implement patterns from UML.
-- We're not expecting you to find patterns online, try to determine if they are useful, and then try and integrate them.
-
-![image](assets/images/patterns.png) <!-- .element width="100%"  -->
-
 
 ---
 
@@ -111,7 +100,7 @@ Game Programming Patterns - Robert Nystrom
  - **Creational** patterns
     - Used for, or dictate, object creation mechanisms.
  - **Structural** patterns,
-    - Allow control of the relationships between objects.
+    - Used to dictate how objects are composed to form larger structures.
  - **Behavioural** patterns,
     - Used to control common communication patterns between objects.
 - You'll likely already know at least one pattern from each of these categories.
@@ -206,14 +195,13 @@ Game Programming Patterns - Robert Nystrom
 
 # State Pattern
 
-- Allows us to encapsulate an object's state within another object.
-- We can switch the state object at any time during runtime.
-    - Effectively changing the behaviour of the object.
+- Allows us to change the behaviour of the object when its internal state changes
 - For example the ghost in PacMan.
     - Current state is chase PacMan.
     - When PacMan eats a power pill the ghost changes state to evade PacMan.
     - When power pill timer runs out state changes back to chase PacMan.
-- The different behaviours are programmed in different objects. The ghost simply calls the state class when it updates.
+- The different behaviours can be programmed in different objects. 
+- The ghost uses the behaviour specified in the state object when it updates.
 
 
 ---
@@ -227,11 +215,13 @@ Game Programming Patterns - Robert Nystrom
 
 # Strategy Pattern
 
-- Sometimes we want to maintain a set of algorithms that an object can execute at given times.
+- Sometimes we want to choose from a set of algorithms for an object's particular behaviour
 - In general the algorithms that need to be used are not known until runtime.
     - The PacMan example previously code equally be achieved by the strategy pattern.
-- Again this is a good AI pattern allowing us to interchange behaviours at given points.
-- Notice that the state and strategy patterns are also very similar (structurally identical). They have different purposes but can be used fairly interchangeably.
+- Again this is a good AI pattern allowing us to change behaviours at given points.
+- Notice that the state and strategy patterns are also very similar (structurally identical). 
+    - State: behaviour depending on internal state
+	- Strategy: behaviour based on a choice we've made
 
 
 ---
@@ -249,28 +239,27 @@ Game Programming Patterns - Robert Nystrom
 - The manager object keeps track of objects of a particular type and maintains them in a data collection.
 - The manager object also performs group operations on the collection of objects when required.
 - The manager pattern is something we've identified when making the game engine.
-    - There are similar patterns such as the Boss pattern.
-    - We are free to define our own patterns.
-
 
 ---
 
-# Data-driven Design Pattern 
+# Data-oriented Design
 
 ![image](assets/images/data-driven-uml.png) <!-- .element width="95%"  -->
 
 
 ---
 
-# Data-driven Design Pattern
+# Data-oriented Design
 
-- Having each object contain its own data is not-necessarily efficient.
-- Data layout in memory means certain functions are going to jump around memory, which is expensive.
-- Also, it can lead to costs in copying objects around.
-- A better idea is to store data objects in data owning objects.
-- A functional object (one that has actual methods) then has access to these objects as required.
-- This makes everything much easier to manage - although some OO purists think it isn't OO any more
-
+- OOP design and principles can result in poor data locality
+    - entity lists are "arrays of structures" (AoS)
+    - cache issues: processing physics for data-heavy entities
+- Copying objects can also be expensive
+- Alternative: structure of arrays (SoA)
+    - "PhysicsData" array, "RenderingData" array, "AiData" array, etc
+    - each entity stores indices in those arrays
+- Problem (?): it's not OOP anymore
+- Typical example: Entity Component System architecture (ECS)
 
 ---
 

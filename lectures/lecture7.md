@@ -98,7 +98,7 @@ School of Computing. Edinburgh Napier University
 # GDD Exercise
 
 Research Design Documents! Use Google to search for game design documents. There are quite a few out there and some templates. 
-You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. Also there is some argument about the utility of them these days!
+You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. 
 
 ---
 
@@ -179,7 +179,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 # Contents - Gameplay
 
-- The description of gameplay is initially one of the largest sections in the game.
+- The description of gameplay is initially one of the largest sections.
 - The game designer puts most of their focus into this section at the start.
 - This section will focus on how the game plays.
 - The Formal Elements and systems view will be useful here.
@@ -190,7 +190,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
     - A detailed description of how the game plays.
 - Controls section:
     - User interfaces.
-    - Rules (including some from Formal Elements).
+    - Rules and procedures (including some from Formal Elements).
     - Scoring / winning conditions.
 
 
@@ -350,7 +350,7 @@ If required, a description of the game world should be detailed.
 # Contents - Technical Specification 2
 
 - Key area is a technical analysis of the game.
- - What are the technical challenges of the project?
+ - What are the technical challenges of the project? (Portal)
   - Important for costing the project.
  - Is any new technology required?
  - What are the major software development taks?
@@ -379,12 +379,6 @@ If required, a description of the game world should be detailed.
 - System parameters.
  - e.g. max players, connectivity, etc
 
----
-
-# Contents - Flow Chart's are still great!
-
-![image](assets/images/flowchart2.png)
-
 
 ---
 
@@ -396,7 +390,7 @@ If required, a description of the game world should be detailed.
 # Contents - Maintenance
 
 
-- Game Design Document (GDD) is not a sacred object.
+- Game Design Document (GDD) is not a carved in stone.
     - Living document.
     - Updates made as development progresses.
 - GDD can also get quite large.
@@ -418,7 +412,7 @@ If required, a description of the game world should be detailed.
 - Repository systems can also be used.
  - Combine document maintenance with code maintenance.
  - Could also be storing assets.
-- Using tools allows for a structured and managed approach to the development process.
+- Tools provide a structured and managed approach to the development process.
  - Collaboration.
  - Communication.
 - Use tools as necessary throughout your development process.
