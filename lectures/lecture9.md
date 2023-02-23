@@ -43,7 +43,7 @@ School of Computing. Edinburgh Napier University
 # Different Memory Types
 
 - C++ (and applications in general) have three types of memory.
- - global (static) :   memory where global and static values are stored.
+ - static (global) :   memory where global and static values are stored.
  - stack :   working memory.
  - heap (free-store) :   the rest of memory.
 - Each has a different purpose and features.
@@ -106,8 +106,7 @@ void function(int param_scope){
 - Memory is obviously just one big chunk.
 - Addressed from `0x00000000` (0) to `0xFFFFFFFF` (4,294,967,295 in 32 bit systems).
 - Memory is separated: stack at the top and the heap at the bottom.
-- The processor can optimise memory streams to improve performance (and also cache).
-- Jumping around the heap can be a major source of performance reduction.
+- Jumping around the heap can be a major source of performance reduction (cache miss)
 
 ![image](assets/images/mem-layout.png)
 
@@ -119,7 +118,6 @@ void function(int param_scope){
 - The CPU is fastest when accessing adjacent memory.
 - If we jump around things slow down - sometimes dramatically.
 - Consider a multi-dimensional array:
-- The dimensions place memory in the continuous block differently.
 - Access time difference between approach A and C can be 100x.
  - i.e. accessing all members using approach A could be 300ns; approach C 30000ns.
 
@@ -144,7 +142,7 @@ matrix[1][0][0] = 1; // 40000 byte jump
 
 - The CPU also reads memory in fixed chunks.
 - If a value is not aligned to these chunks, extra reads occur.
-- Generally, the C++ compiler will fix this for you, but you can help.
+- Unless you do Weird Stuff with pointers and allocation, this will not be an issue
 
 ![image](assets/images/mem-align.jpg) <!-- .element width="95%"  -->
 
@@ -371,7 +369,7 @@ int main(int argc, char **argv) {
     my_data y;
     // Copy constructor called on y
     // Move assignment operator called on return value
-    // Deconstructor called on return value
+    // Destructor called on return value
     my_data z = do_work(y);
     return 0;
 } // Destructor called on y and z
@@ -498,10 +496,10 @@ do_work(move(ptr));
 
 # RAII
 
-- Resource Allocation is Initialisation.
-- Always give ownership to an allocated resource to an object.
-- As long as each resource has one explicit owner, when the owner is removed the resource is freed.
-- So...
+- Resource Acquisition is Initialisation.
+    - On object's construction, object acquires resource.
+    - On object's destruction, object frees up resource
+- But!
     - **Do not** give an entity a resource such as a loaded texture or audio clip.
     - **Do** give an entity a pointer or reference to such a resource.
     - Keep track of resources via central pools (we will look at a resource manager soon).
@@ -513,7 +511,6 @@ do_work(move(ptr));
 # Data Sharing
 
 - Although referencing is efficient to reduce memory usage, it can be more expensive for memory access.
-    - The memory adjacency problem.
 - It is common to copy data between different contexts to improve efficiency.
 - For example having position data in the entity and the physics object.
 
@@ -562,7 +559,6 @@ Update(){
  - Hide the details of how to load a specific resource.
   - e.g. we just load - we don't need to know the individual calls to load a texture.
  - Manage allocation and deallocation of resources.
-   - Data-driven design.
  - Provide a single point to manage all of this.
     - Manager pattern, maybe singleton.
 - So we just apply our design pattern thinking to the problem.
@@ -581,7 +577,6 @@ Update(){
 - Depending on your approach:
  - You can have a singleton with typed loads, unloads, and storage
  - You can have a different resource manager for each type.
-- Either approach uses basically the same memory.
 
 
 ---
@@ -589,18 +584,19 @@ Update(){
 # Storing Resources
 
 - We use lookup tables to store resources.
-- We need some kind of key - AAA games will do something fancy. If you've used console commands you have seen this.
+- We need some kind of key, like a name.
 - The key is just matched to the actual resource.
 - We check that the resource isn't loaded before trying to return it.
 
 
 ```cpp
-unordered_map<string, texture> textures;
+std::unordered_map<std::string, texture> textures;
 
-texture load_resource(const std::string &file){
-    if (textures.find(string) != textures.end()){
-        return textures.find(string).second();
-    }else{
+texture load_resource(const std::string& file){
+	auto it = textures.find(file);
+    if (it != textures.end()){
+        return it->second;
+    } else {
         // Don't care how this works
         texture t = load_texture(file);
         textures[file] = t;

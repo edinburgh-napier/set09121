@@ -27,7 +27,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# What does a game need? From a Programmers POV:
+# What does a game need? From a Programmer's POV:
 
 - **Content**
  - 3d Models, Shaders, Textures, Text, Fonts, Music, Video, Saves, Levels/Game State etc.. <!-- .element: class="fragment" -->
@@ -35,12 +35,6 @@ School of Computing. Edinburgh Napier University
  - Rendering, User input, Networking, Audio, Loading/Unloading/Streaming  <!-- .element: class="fragment" -->
 - **Logic and Mechanics**
  - Physics, AI, Gameplay rules. <!-- .element: class="fragment" -->
-
-
-Question:  When does a game need any of the above? <!-- .element: class="fragment" -->
-
-**A: Right Now (and without warning)**  <!-- .element: class="fragment" -->
-
 
 ---
 
@@ -51,8 +45,13 @@ Question:  When does a game need any of the above? <!-- .element: class="fragmen
 
 # Complexity
 
-<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture.png)</a> <!-- .element height="760px"  -->
+<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture_b.png)</a> <!-- .element height="760px"  -->
 
+---
+
+# Complexity
+
+<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture_a.png)</a> <!-- .element height="760px"  -->
 
 ---
 
@@ -61,8 +60,8 @@ Question:  When does a game need any of the above? <!-- .element: class="fragmen
 - Game Codebases Get Big Fast <!-- .element: class="fragment" -->
 - Taming and maintaing it tests your ability as a Software Engineer <!-- .element: class="fragment" -->
 - We've covered some Software Patterns that you can pull out of your toolbox to help. These help solve small isolated design problems. <!-- .element: class="fragment" -->
-- When it comes to pulling it all together as one giant moving thing, you need to think about the grand design of your Engine <!-- .element: class="fragment" -->
-- This means separating your gameplay logic from the Generic Engine logic. <!-- .element: class="fragment" -->
+- Use standard approaches to deal with complexity: abstraction, decoupling, encapsulation <!-- .element: class="fragment" -->
+- E.g. separating your gameplay logic (jump!) from the core engine logic (load a file!). <!-- .element: class="fragment" -->
 
 
 ---
@@ -84,18 +83,17 @@ Do we need them?
 
 After all we didn't always have them? <!-- .element: class="fragment" -->
 
-Q: How complex do you think a game needs to before you think you need to separate Engine Code? <!-- .element: class="fragment" -->
+Q: When do you think you need to separate engine code? <!-- .element: class="fragment" -->
 
-- Err... <!-- .element: class="fragment" -->
-- A: Once your code gets abstract enough <!-- .element: class="fragment" -->
-- A: From the start <!-- .element: class="fragment" -->
-- A: Never, and write some crazy fast/bad code <!-- .element: class="fragment" -->
+- A: From the beginning <!-- .element: class="fragment" -->
+- A: Later, when you identify things that can be abstracted <!-- .element: class="fragment" -->
+- A: Never! Who's got the time for that <!-- .element: class="fragment" -->
 
-Not all Games Need an 'engine' <!-- .element: class="fragment" -->
+Not all games need an 'engine' <!-- .element: class="fragment" -->
 
 - Some are simplistic enough to not need it. <!-- .element: class="fragment" -->
 - We already have an engine somewhat: SFML.  <!-- .element: class="fragment" -->
- - This is already isolated from our code. But it doesn't do everything we need. <!-- .element: class="fragment" -->
+- This is already isolated from our code. But it doesn't do everything we need. <!-- .element: class="fragment" -->
 
 ---
 
@@ -129,11 +127,11 @@ Enter: The Evil Tree Problem <!-- .element: class="fragment" -->
 
 # Possible Evil Tree Solutions
 
-To Fix this We need either:
-- Multiple Inheritance (Which C++ doesn't have) <!-- .element: class="fragment" -->
-- Or Interfaces (Which C++ doesn't have) <!-- .element: class="fragment" -->
- 
-C++ as a language doesn't have these natively, but it doesn't stop us from adding it ourselves. <!-- .element: class="fragment" -->
+To fix this we need to either:
+- Use multiple Inheritance (Danger Zone, bugs) <!-- .element: class="fragment" -->
+- Use interfaces (which C++ can emulate, tediously) <!-- .element: class="fragment" -->
+- Throw our design in the bin, unceremoniously, and... <!-- .element: class="fragment" -->
+- **USE COMPOSITION, NOT INHERITANCE** <!-- .element: class="fragment" -->
 
 
 ---
@@ -147,7 +145,7 @@ C++ as a language doesn't have these natively, but it doesn't stop us from addin
 
 # ECM 
 
-ECM enables Data Orientated design.
+ECM enables Data Oriented design.
 
 ![image](assets/images/ecs2.png)
 
@@ -196,10 +194,10 @@ class Entity {
     virtual void render();
 
     template <typename T, typename... Targs>
-    std::shared_ptr<T> addComponent(Targs... params)
+    std::shared_ptr<T> addComponent(Targs... params);
 
     template <typename T>
-    const std::vector<std::shared_ptr<T>>& getComponents() const 
+    const std::vector<std::shared_ptr<T>>& getComponents() const;
     
     void removeComponent(std::shared_ptr<Component>);
 };
@@ -255,7 +253,8 @@ class Entity {
 
   public:
     //templated:
-    std::shared_ptr<T> addComponent(Targs... params){}
+	//template <typename T>
+    //std::shared_ptr<T> addComponent(Targs... params){}
     //Or no templates:
     Component* addComponent(Component*){}
 }
@@ -265,11 +264,11 @@ class Entity {
 auto pl = make_shared<Entity>();
 
 ShapeComponent* sc = new ShapeComponent();
-auto s = pl->addComponent<sc>();
+auto s = pl->addComponent(sc);
 
 // later on...
 //Uh oh
-pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
+//pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
 //We would have to do something like this:
 pl->getComponentsOfType(PlayerMovementComponent)[0]->setSpeed(150.f);
 //Not *So* bad, but how would that function work?
@@ -290,16 +289,13 @@ getComponentsOftype(ComponentType CT){
 }
 ```
 
-OR
+That's what we have to do, due to C++ lack of reflection. <!-- .element: class="fragment" -->
 
-Save a static string in each component class and compare this way at runtime.
+It's verbose, ugly and slow. <!-- .element: class="fragment" -->
 
-Either way : Lots of Icky Code, and we have less functionality: 
+Templates are verbose, ugly and fast. <!-- .element: class="fragment" -->
 
-No parameter passing, no constructing with one method.
-
-Templates give us more for less code. It's worth learning the weird syntax.
-
+They are worth delving deeper to, eventually. <!-- .element: class="fragment" -->
 
 ---
 
@@ -316,7 +312,7 @@ class Entity {
     return sp;
   }
 
-}
+};
 ```
 
 
@@ -327,25 +323,25 @@ class Entity {
 ```cpp
 class Entity {
 
-  //template <typename T, typename... Targs>
+  template <typename T, typename... Targs>
   std::shared_ptr<T> addComponent(Targs... params) {
-    //static_assert(std::is_base_of<Component, T>::value, "T != component");
+    static_assert(std::is_base_of<Component, T>::value, "T != component");
     std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
     _components.push_back(sp);
     return sp;
   }
 
-}
+};
 ```
 
 
 ```cpp
 class Component {
   private: 
-    Entity*_parent
+    Entity* _parent;
   public:
     Component(Entity* const p);
-}
+};
 
 class PickupComponent : public Component {
 private: 
@@ -353,7 +349,7 @@ private:
 public:
   PickupComponent() = delete;
   PickupComponent(Entity* p, bool big = false);
-}
+};
 ```
 <!-- .element: class="fragment" -->
 
@@ -371,16 +367,16 @@ class Entity {
     _components.push_back(sp);
     return sp;
   }
-}
+};
 ```
 
 ```cpp
 class Component {
   private: 
-    Entity*_parent
+    Entity* _parent;
   public:
     Component(Entity* const p);
-}
+};
 
 class PickupComponent : public Component {
 private: 
@@ -388,7 +384,7 @@ private:
 public:
   PickupComponent() = delete;
   PickupComponent(Entity* p, bool big = false);
-}
+};
 ```
 
 ---
@@ -399,11 +395,11 @@ With Old Raw Pointers
 ```cpp
 class Entity {
   PickupComponent* addPickupComponent(bool big) {
-    PickupComponent* sp new PickupComponent(this, big);
+    PickupComponent* sp = new PickupComponent(this, big);
     _components.push_back(sp);
     return sp;
   }
-}
+};
 ```
 
 with New Safe Smart Pointers.
@@ -415,7 +411,7 @@ class Entity {
     _components.push_back(sp);
     return sp;
   }
-}
+};
 ```
 <!-- .element: class="fragment" -->
 
