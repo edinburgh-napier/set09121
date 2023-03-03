@@ -85,7 +85,7 @@ School of Computing. Edinburgh Napier University
 - Collision detection is not strictly part of a physics engine.
 - The physics engine concerns itself with resolving collisions.
     - So we need to be able to detect them in the first place.
-- There are numerous techniques to detect collisions in 2D and 3D - from fast and course-grained to slow and fine-grained.
+- There are numerous techniques to detect collisions in 2D and 3D - from fast and more approximate to slow and more accurate.
 
 ![image](assets/images/collision-detection.png) <!-- .element width="50%" -->
 
@@ -96,7 +96,7 @@ School of Computing. Edinburgh Napier University
 
 
 - Particle simulation forms the basis of many physics engines.
-- Particles are simply simulated elements that we can apply the Laws of Motion to.
+- Particles are simply simulated elements (points) that we can apply the Laws of Motion to.
     - The have a position, velocity, acceleration, etc.
 - Particles are use for numerous graphical effects.
     - For example, smoke, fire, explosions, water, etc.
@@ -163,9 +163,9 @@ School of Computing. Edinburgh Napier University
 - Game physics are underpinned by Newton's Three Laws of Motion.
     - First described by Isaac Newton in the 17th century.
 - Newton's laws are:
-    1.  An object in motion stays in motion unless an external force is applied to it.
-    2.  A force applied to an object causes an acceleration in that direction, multiplied by the inverse mass of the object.
-    3.  For any action there is an equal, but opposite reaction.
+    1.  Law of inertia
+    2.  Force produces motion ($F = ma$)
+    3.  Law of action and reaction
 - There are also Euler's Two Laws of Rigid Body Motion which we won't discuss here.
 
 
@@ -174,8 +174,9 @@ School of Computing. Edinburgh Napier University
 # Newton's First Law of Motion
 
 
-- An object in motion stays in motion unless a force is applied to it.
-- Basically, if there is no force there is no change in acceleration or velocity.
+- Law of inertia:
+    - A body remains at rest, or in motion at a constant speed in a straight line, unless acted upon by a force.
+- Basically, if there is no force there is no change in velocity.
 
 - If $F_{net} = 0$ then there is no **change** in motion.
 - Where:
@@ -188,7 +189,8 @@ School of Computing. Edinburgh Napier University
 # Newton's Second Law of Motion
 
 
-- A force applied to an object causes an acceleration in that direction multiplied by the inverse mass of the object.
+- Force produces motion
+    - When a body is acted upon by a force, it accelerates proportionally to its mass and the force applied, towards the direction of the force
 
 - This is an important calculation, and normally underpins most of the force calculation work in a physics engine.
 
@@ -201,10 +203,9 @@ Or: `$$a = \frac{F}{m}$$`
 
 # Newton's Third Law of Motion
 
-
-- For any action, there is an equal but opposite reaction.
+- Law of action and reaction
+    - If two bodies exert forces on each other, these forces have the same magnitude but opposite directions.
 - The law comes into play when working with collision resolution.
-- A similar looking force is the normal force which cancels out the force of gravity on a resting object.
 
 ![image](assets/images/normal-force.png)
 
@@ -246,12 +247,9 @@ Or: `$$a = \frac{F}{m}$$`
 
 # Simple Gravity
 
-- We will define some basic values and principles that are useful when considering motion.
-- The first value we shall define is gravity, $g$.
-- On Earth, $g$ is a downward force applied to an object.
-- $g$ at sea level is equal to $9.82m/s$.
+- On a planet, gravity is a downward force applied to an object.
+- Gravitational acceleration $g$ at sea level is equal to $9.82m/s^2$.
     - As a 2D vector this is $<0, -9.82>$.
-- This value for $g$ is commonly low in a 2D game world (as pixels are do not represent metres) so you will probably want to increase it.
 
 
 ---
@@ -275,7 +273,7 @@ Where: $w$ is weight, $m$ is mass, $g$ is gravity.
 
 
 - Weight is a force. A force is considered to be any influence that can affect the velocity of an object.
-- As we saw with $g$, a force is defined as a vector, having a direction and magnitude.
+- Like acceleration $g$, a force is also defined as a vector, having a direction and magnitude.
 - A Newton is a standard unit of force applied to an object.
 - Many physic engines will try and deal in Newtons to ensure calculations are uniform.
 
@@ -301,29 +299,25 @@ On Earth: $$g = 9.8 m/s^2$$ so: $$1N = 0.102kg $$ $$ 1kg = 9.8N $$
 - Springs are commonly used for a number of effects - they do exactly what you think.
 - In games, springs are used for deformable shapes and balls.
 
-Hook's Law: $$F = -k\Delta l$$ where $k$ is the stiffness of the spring and $l$ the length.
+Hooke's Law: $$F = -k\Delta s$$ where $k$ is the stiffness of the spring and $s$ the displacement from the resting length.
 
-- Drag is another force that is caused by air resistance.
+- Drag is another force that is caused by air resistance (or any other medium, e.g. liquid)
 - Games will use a simplified model of drag, such as shown.
 
 Simplified drag:
-$$F_{drag} = \hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rVert^2)$$
+$$F_{drag} = -\hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rVert^2)$$
 
 
 ---
 
 # Impulses
 
-- Forces are a simple way of managing object movement.
-    - A force is applied to the object.
-    - The force affects the object's acceleration.
-    - The acceleration affects the velocity of the object.
-- Sometimes we want to modify velocity directly, for example in collision resolution.
-    - The amount of force applied after collision may not be enough to move the object.
-- Therefore we use impulses to calculate direct changes in velocity.
-
-Impulses are Cheat forces. We implement them by directly modifying velocity. You can't do this in real life.
-
+- Impulses are changes in an object's momentum
+    - "Force acting over time"
+    - Momentum: $p = mv$
+- We can use them instead of forces to handle collision resolution
+	- ... Because forces are not constant 
+	- ... Because otherwise the calculations would be too expensive
 
 ---
 
@@ -339,15 +333,6 @@ Impulses are Cheat forces. We implement them by directly modifying velocity. You
     - Impulse divided by mass is added to the velocity.
     - Use the new velocity multiplied by time to move the object.
 
-
----
-
-# Impulse Example
-
-- Normally we would calculate a force as follows: $$ F_{net} \mathrel{{+}{=}} F $$
-- For an impulse, the change is far more sudden, and we just add a value directly to the velocity. $$ p.v \mathrel{{+}{=}} I $$
-- Particle uses new velocity at next update.
-
 ---
 
 # Summary
@@ -356,7 +341,7 @@ Impulses are Cheat forces. We implement them by directly modifying velocity. You
 
 - Physics effects look good in your game, provide nicer looking movement, and can be used for gameplay. However...
 - Physics calculations can be expensive.
-    - They also don't always scale well also due to the object interactions.
+    - They also don't always scale well due to the potential number of object interactions.
 - Collision detection is also expensive.
 - Be smart! Don't have lots of physical effects on the screen at one time - this can really hit performance!
 

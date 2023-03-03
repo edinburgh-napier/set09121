@@ -145,11 +145,11 @@ What is Artificial Intelligence?
 - Path finding is the discovery of the route between two points in a game world.
 - Information from path finding can be fed into steering behaviours.
 - Two core techniques:
-    Waypoints: most common.
-    Navigation mesh: becoming more popular (see image).
+    - Waypoints: "Where to go" -- points
+    - Navigation mesh: "Where can we go" -- area
 - Two common algorithms:
     - Dijkstra (slow but checks everything).
-    - A* (fast).
+    - A* (variation of Dijkstra with heuristics: fast).
 
 ![image](assets/images/waypoint-mesh.jpg)
 
@@ -164,14 +164,14 @@ What is Artificial Intelligence?
 
 - We are going to look at two types.
 	- State Machines
-	- Decision Tress
+	- Decision Trees
 
 ---
 
 # State machines
 
 - Similar to the idea of state modelling in UML.
-- Character has a number of possible states.
+- AI character has a number of possible states.
     - e.g. attack, hide, run, etc.
 - Character determines current state based on any number of conditions.
 - Character will change state when a particular action occurs.
@@ -205,8 +205,8 @@ What is Artificial Intelligence?
 
 # Other Decision Making Techniques
 
-- Behavioural trees
-	- Chaining tasks and decisions together to form complicated behaviours.
+- Behaviour trees
+	- Model for plan execution, using modular components/nodes.
 - Markov systems
 	- Similar to fuzzy logic but works with probability or priority of transitions.
 - Goal-oriented behaviour
@@ -234,7 +234,7 @@ What is Artificial Intelligence?
 
 - Areas of the map are marked for tactical significance.
     - For example cover positions, sniper positions, etc.
-- The AI determines which waypoint to head for based on an algorithm.
+- The AI determines which waypoint to go to, based on an algorithm.
 - This allows strategic looking behaviour from the game characters.
 - This technique is used extensively in FPS and similar games.
 - Tactical path finding.
@@ -250,21 +250,6 @@ What is Artificial Intelligence?
 
 ---
 
-# Tactical Analysis
-
-- Essentially a more complicated version of the previous idea.
-- The map is marked up with values to help determine where characters should move to.
-- An algorithm analyses the data to determine the action to take.
-- For example:
-    - Consider a RTS game.
-    - There is a base located on the map.
-    - The base area is given a high target value.
-    - This makes the game AI try to control this base area.
-- Adding dynamic data means that the AI will dynamically respond to the player's actions.
-
-
----
-
 ## Learning
 
 ---
@@ -273,8 +258,8 @@ What is Artificial Intelligence?
 
 - Neural networks are a popular nature inspired technique. 
 - They are modelled on a simplified idea of the brain.
-    - Neurons input a signal.
-    - Output signal to other neurons.
+    - Neurons get signal input (e.g. through senses).
+    - Signal gets transformed and distributed to other neurons
 - Can have learning developed over time.
 - Academia and hobbyists see it as a method of believable learning.
 - So far fallen short on game projects (see Creatures, Fable II).
@@ -327,6 +312,11 @@ What is Artificial Intelligence?
 
 ## Bad AI
 
+---
+
+# Bad AI
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/AUDwZj-A6Ck" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ---
 
@@ -362,15 +352,13 @@ What is Artificial Intelligence?
     - Hence you normally get large doorways and corridors.
 - Unfortunately, the AI, NPCs, and levels are normally designed by different teams.
     - So it doesn't normally work first time.
-    - At some point comprises have to be made.
+    - At some point compromises have to be made.
 - If the NPC is on the player's side you need to make sure it does not let them down.
-    - Halo was notorious for this. Fallout 4 has problems also.
+    - Halo, Fallout 4, Oblivion, all show examples of this
 
 ---
 
 # 'Protect Natalya'
-
-These words still make me grumpy...
 
 ![image](assets/images/GoldenEye-Natalya.png) 
 
@@ -413,7 +401,6 @@ These words still make me grumpy...
 	- This was the case in Farcry 1
 	- Most Backgammon games get accused of this too
 - This is partly why most FPS baddies shout what they are doing
-	- (Although this is often also a lie, see F.E.A.R. 1)
 
 ---
 
