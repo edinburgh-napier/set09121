@@ -182,9 +182,9 @@ $$v = \hat{d} \times speed$$
 
 $$d = target - position $$
 
-$$ ||d|| \leq radius \implies v = 0 $$
+$$ \left\lVert d \right\rVert \leq radius \implies v = 0 $$
 
-$$ ||d|| > radius \implies v = \hat{d} \times speed $$
+$$ \left\lVert d \right\rVert > radius \implies v = \hat{d} \times speed $$
 
 
 ![image](assets/images/arrive.png)
@@ -200,9 +200,9 @@ $$ ||d|| > radius \implies v = \hat{d} \times speed $$
 
 $$d = target - position $$
 
-$$\theta = \arctan(y, x) $$
+$$\theta = \arctan(d_y, d_x) $$
 
-$$r = (\theta - orientation) * rot\_speed$$
+$$r = (\theta - orientation) * rot\_{speed}$$
 
 ![image](assets/images/face.png)
 
@@ -213,8 +213,6 @@ $$r = (\theta - orientation) * rot\_speed$$
 
 - We want to build a reusable technique for steering behaviours.
     - We want reusable so we can program as many steering behaviours as we like.
-- We will not be creating or using any particular pattern or data structure approach this time.
-    - A steering behaviour is just a steering behaviour.
 - If you like you can go further and combine steering behaviours within a single steering behaviour.
     - See weighted/combined behaviours in the recommended reading.
 
@@ -225,7 +223,8 @@ $$r = (\theta - orientation) * rot\_speed$$
 
 # Steering Behaviour Interface
 
-- `steering_behaviour` is our base interface (or virtual class in C++ terms).
+- `steering_behaviour` is our abstract base class 
+    - would be interface in C#/Java
 - It only declares one pure virtual method:
     - `get_steering`
 - `get_steering` performs the necessary calculation for the defined steering behaviour and outputs a `steering_output`.
@@ -237,9 +236,9 @@ $$r = (\theta - orientation) * rot\_speed$$
 
 # Steering Output struct
 
-- `steering_output` declares two values.
-- `direction`:   the vector we want to travel in.
-- `rotation`:   the angle we want to turn.
+- `steering_output` contains two values.
+    - `direction`:   the vector we want to travel in.
+    - `rotation`:   the angle we want to turn.
 - Results from `get_steering` are put in here.
 - We will not use rotation in the practical, but it is there if you need it.
 

@@ -76,7 +76,7 @@ School of Computing. Edinburgh Napier University
 
 - Maps are very big today - some over $100km^2$.
 - If each square metre was a navigation point that's $10^8$ points.
-- If we can travel in eight directions, things get very expensive.
+- If we can travel in any direction, things get very expensive.
 - Generally we are looking for simplifications to combat this.
 
 
@@ -120,10 +120,11 @@ School of Computing. Edinburgh Napier University
 # Weighted Graphs
 
 - For pathfinding we are concerned with the cost.
-- The cost of a path is dependant on some factors (in games normally the distance) that allows us to determine what the cheapest path is.
+- The cost of a path is dependent on some factors that allows us to determine what the cheapest path is.
+    - Game factors: distance, underlying terrain, obstacles
 - We consider that an edge has a cost associated with it (weight)
-- To traverse an edge means to incur the cost of that traversal
-- In our pathfinding each traversal will have a cost of one
+- To traverse an edge means to incur the cost of that traversal.
+- In our pathfinding each traversal will have a cost of 1.
 
 
 ![image](assets/images/weighted-graph.png) <!-- .element width="60%"  -->
@@ -165,22 +166,6 @@ School of Computing. Edinburgh Napier University
     - $\lvert V \rvert$ is the size of the node (vertex) set.
 - So don't convert your massive million by million tile world into a pathfinding nightmare.
 
-
----
-
-## Wait A Minute!
-
----
-
-# What?
-
-- Before you do 'live' pathfinding, you should consider whether you absolutely need it!
-- What if all your agents are only pathing to a single location?
-	- If so, then you can precalculate it and have hundreds of agents!
-	- Each tile simply contains which direction to go from it...
-	- We can do this with a modified floodfill
-- For this module, however, you should be including 'live' pathfinding!
-
 ---
 
 ## Dijkstra
@@ -198,7 +183,7 @@ School of Computing. Edinburgh Napier University
 - This algorithm is not only used for pathfinding in games.
     - Google Maps will use something similar for moving in road networks.
     - Network routing protocols will use such an algorithm.
-- Dijkstra is rarely used in games - but the basic principles are.
+- Dijkstra is typically too expensive to use in games
 
 ---
 
@@ -206,7 +191,7 @@ School of Computing. Edinburgh Napier University
 1.  Mark all nodes as initially unvisited. Use this to create the set of *unvisited* nodes.
 2.  Set distances for the nodes:
     - Initial node (current node) distance is 0.
-    - Other nodes set to infinity.
+    - Other node distances set to infinity.
 3.  For the current node look at connected neighbours. Use to determine a tentative distance from the current node. Update the neighbours distances if the new route is shorter.
 4.  Mark current node as visited (remove from *unvisited* set). We will not visit this node again.
 5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite distance, stop.
@@ -217,8 +202,10 @@ School of Computing. Edinburgh Napier University
 
 # Dijkstra's Algorithm
 
-- Dijkstra is called a breadth-first search.
-- It iterates through nodes based on which one has the shortest distance from the start node.
+- Dijkstra guarantees that the path found is going to be the shortest
+    - Unlike approaches such as BFS, DFS
+	- BFS: special case of Dijkstra without weights or priority queue
+- Dijkstra iterates through nodes based on which one has the shortest distance from the start node.
 - This means it is not actively searching for the destination but doing a traversal of the graph until it happens to find it.
 
 
@@ -242,6 +229,20 @@ School of Computing. Edinburgh Napier University
 - This leads to an algorithmic complexity of $\mathcal{O}(\lvert V \rvert^2)$.
 - So we need a better technique that tries to find our destination node.
 
+---
+
+# Dijkstra for many entities going to the same place
+
+- What if all your agents are only pathing to a single location?
+	- E.g. enemies swarming the player
+- If so, then you can precalculate it and have hundreds of agents!
+- Precalculate the costs to the goal(s) using Dijkstra from any point in the map
+    - E.g. goal is player position
+- When calculating the path, for each agent:
+    - Look at cost at current position
+    - Look at costs at neighbouring positions
+    - Pick the neighbour position with lower cost
+- Not needed for this module, but it's food for thought!
 
 ---
 
@@ -260,21 +261,19 @@ School of Computing. Edinburgh Napier University
 - We can use different heuristics to evaluate these costs.
     - We will just use Euclidean (straight-line) distance.
 
-
 ---
 
-#  A* also has 6 steps:
+# A* Similarity to Dijkstra
 
-1.  Mark all nodes as initially unvisited. Use this to create the set of *unvisited* nodes.
-2.  Set values for the nodes:
-    - Initial node (current node) set to heuristic value.
-    - Other nodes set to 0.
-3.  For the current node look at all the connected neighbours. Use this to determine a tentative cost (based on a heuristic). 
-    - Update the neighbours heuristic value if the new route is better. 
-4.  Mark current node as visited (remove from *unvisited* set). We will not visit this node again.
-5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite value, stop.
-6.  Else select unvisited node with best heuristic value and set as current node. Go to step 3.
-
+- Dijkstra is a special case of A*, where the heuristic is zero
+- The algorithm is identical to Dijkstra, except a few points:
+    - The priority queue uses a *combined cost*
+	- The combined cost is the sum of the total travel cost from start to point, plus the heuristic
+	- The heuristic is the estimated cost from point to goal
+- Typical terminology: f/g/h
+	- h: heuristic function
+	- g-score: tentative cost from start to current node
+	- f-score: g-score plus the heuristic value
 
 ---
 
@@ -301,8 +300,9 @@ School of Computing. Edinburgh Napier University
 # Heuristics
 
 - There are different heuristics we can use to make the pathfinding act in a different manner.
-- The one we will use is Euclidean distance (straightline):
+- The one we will use is Euclidean distance (straight line):
     $$h = destination - position $$
+- Use if you're not limited to grid-based movement
 
 ---
 
@@ -311,10 +311,11 @@ School of Computing. Edinburgh Napier University
 - Another is Manhattan distance: 
 	$$ d = destination - position $$
 	$$ h = \lvert d.x \rvert + \lvert d.y \rvert $$
-- This might be more useful - it is movement through a grid (either vertical or horizontal movement, no diagonal). Each movement costs 1 unit.
+	- Use when you can only move in a cardinal direction on a grid
 - Chebyshev distance is similar to Manhattan but allows diagonal movement:
 	$$ d = destination - position $$
 	$$ h = \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
+	- Use when you can only move in cardinal or diagonal directions on a grid
 
 ---
 
@@ -349,7 +350,7 @@ School of Computing. Edinburgh Napier University
 - The basic idea is that we have a starting position and a target position.
 - We use pathfinding to make a decision about how to move to the target position.
 - The list of nodes to visit then allows us to traverse the map using a steering behaviour.
-- The simplest approach is just to use an arrive behaviour for each node. Seeking will give you a wobble.
+- The simplest approach is just to use an arrive behaviour for each node. Seeking might cause bouncing.
 - Combining steering behaviours, pathfinding, and physics will give you all the movement behaviour you need.
 
 
@@ -362,11 +363,12 @@ School of Computing. Edinburgh Napier University
 # Other Techniques
 
 - We have only looked at the main technique used in games but there are other considerations.
-- We talked about tactical path planning last week - A* does let you consider this if your heuristic is done in that manner.
-- There are other tweaks to the pathfinding algorithms that can be done - see the AI book.
-- There is also some work on pre-processing to better process the data.
-- Diffusion is another technique that works well for parallelisation on the GPU.
+- Jump Point Search: optimisation to A* for uniform-cost grids
+    - Algorithm considers "jumps" along straight lines in the grid
+- HPA*: hierarchical variant
+    - Break map into chunks, identify chunk entries/exits, precompute paths per chunk and run a multi-resolution search at runtime
 
+![image](assets/images/hpastar.png) <!-- .element width="40%"  -->
 
 ---
 
