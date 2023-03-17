@@ -43,7 +43,7 @@ School of Computing. Edinburgh Napier University
 
 # Review - State Diagrams
 
-- State modelling is one of most important aspect of computing!
+- State modelling is one of most the important aspects in computing!
     - Software development (object/component state).
     - AI (state machines).
     - Networking (protocol and hardware development).
