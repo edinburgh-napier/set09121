@@ -43,7 +43,7 @@ School of Computing. Edinburgh Napier University
 
 # Review - State Diagrams
 
-- State modelling is one of (if not the) most important aspect of computing!
+- State modelling is one of most important aspect of computing!
     - Software development (object/component state).
     - AI (state machines).
     - Networking (protocol and hardware development).
@@ -99,10 +99,10 @@ School of Computing. Edinburgh Napier University
 
 # What are State Machines?
 
-- State machines (or specifically in our case Finite State Machines - FSM) are one of the most fundamental concepts and cornerstones of computer science.
 - A state machine is a technique of describing and modelling the state (e.g. behaviour, control, etc.) of a system in a mathematical manner.
 - The system is modelled with a number of states and the transitions between these states.
     - The idea of a graph of states can come into play here - remember our description of a graph last week.
+- Finite number of states &rarr; Finite State Machine (FSM)
 
 
 ---
@@ -144,7 +144,7 @@ School of Computing. Edinburgh Napier University
 # Example - Maze Solving
 
 - To solve a maze we can use a particular trick.
-    - This only works if the maze two or more ways in and out of the maze.
+    - This only works if the maze has no shortcuts
 - The basic algorithm is:
     - Walk forward from the entrance until you hit a wall.
     - Turn left.

@@ -10,7 +10,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 16 - Decision Trees?
+# Lecture 16 - Decision Trees
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -133,24 +133,23 @@ School of Computing. Edinburgh Napier University
 # Diagram Explanation
 
 - A decision tree is made up of a number of nodes.
-    - Decision points.
+    - Nodes &rarr; decision points, edges &rarr; results
 - And a number of transitions.
-- A transition has a condition associated with it.
-    - For example, 80%.
-- We travel down the tree, starting at the root node, making decisions based on information, before hitting a final point.
-- Decision trees are used in computers to diagnose problems.
-    - And by call centre operators in a similar manner - not that I am saying a call centre operator are as simple as a computer when making decisions!
-
+	- A transition has a condition associated with it, e.g. 80%
+- We traverse the tree, starting at the root node, making decisions based on information, before arriving at a leaf.
+- Decision trees are used to diagnose problems and guide through options in different contexts
+    - E.g. call centres, support helplines, etc
+	- Windows troubleshooting: "try reinstalling windows"
 
 ---
 
 # Using Activity Diagrams
 
-- We have used state diagrams to help us model state machines for our previous look into AI.
+- We have previously seen state diagrams used for modelling state machines
 - We can undertake a similar approach with activity diagrams for decision trees.
-- Activity diagrams provide us with guarded transitions.
-    - The guard is simply a decision.
-- Activity diagrams also provide a choice or branch symbol.
+- Activity diagrams provide us with guarded transitions (edges)
+    - The "guard" is simply a decision.
+- Activity diagrams also provide a choice or branch symbol (nodes)
 - If you want, you can use the action states as the actual actions to take.
 
 ---
@@ -167,8 +166,7 @@ School of Computing. Edinburgh Napier University
 
 - Our aim is to implement basic, reusable decision tree behaviour within our engine.
     - We want reusable so that is is simple for us to extend functionality if required.
-- We will be using a tree like data structure to implement the decision tree behaviour.
-    - Those of you doing algorithms and data structures will see how we do this.
+- We will be using a tree-like data structure to implement the decision tree behaviour.
 - Each decision point will be tested to determine which path to follow. The end decision will result in an action.
 
 
@@ -287,7 +285,7 @@ decisionTree = make_shared<PlayerVisibleDecision>(
 
 # Summary
 
-- Decision trees are a useful diagrammatic and implementation technique to create AI that can make decisions.
+- Decision trees are a useful diagrammatic technique and algorithm to create AI that can make decisions.
     - We still need to determine the decisions to program though.
 - We can work with activity diagrams to model our decision trees.
 - We can also combine decision trees and state machines to create more complex data.
