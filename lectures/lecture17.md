@@ -53,8 +53,7 @@ Tidy up before you ship
 
 - Hide CMD window <!-- .element: class="fragment" -->
 - Don't assume resolution <!-- .element: class="fragment" -->
-- Launch windowed <!-- .element: class="fragment" -->
-- Pipe Exceptions to an error window <!-- .element: class="fragment" -->
+- Pipe Exceptions to an error popup window <!-- .element: class="fragment" -->
 - Turn off any developer cheats <!-- .element: class="fragment" -->
 
 This should ideally be done automatically <!-- .element: class="fragment" -->
@@ -86,18 +85,32 @@ What does your game need, and where does it look for it?
 
 ---
 
-# Asset Pipeline 
+# Asset Pipeline During Development Vs Release
 
-AAA studios do complicated things here.
+* During **development**: 
+	* Assets need to be frequently iterated on/edited
+	* Assets need to be in an artist-friendly form
+	* Heavy/slow compression hurts iteration times
 
-But even UE4/Unity have complicated final "cooking" steps that you will want to do.
+* At **release**:
+	* Assets are not modified anymore
+	* Assets need to be in optimal form for game execution
+	* Heavy compression is fine, as long as decompression does not hurt load times
+	
+* Examples: 
+	* texture/mesh/sound compression
+	* ... or conversion	to game-ready formats
+---
 
-You may use different assets for release, or bundle them up into binary files. <!-- .element: class="fragment" -->
+# Asset Pipeline Out There
 
-Offline rendering at higher settings could take place. <!-- .element: class="fragment" -->
+* AAA studios do complicated things here. 
 
-This should all be automated - more on this later <!-- .element: class="fragment" -->
+* Even UE4/Unity have complicated final "cooking" steps. 
 
+* This should all be automated - more on this later 
+
+* You probably do not need a custom asset pipeline
 
 ---
 
@@ -115,9 +128,9 @@ Why?  You could just deploy your game as a Zip file
 
 # Running as Admin 
 
-### HINT - This was a big issue last year.  <!-- .element: class="fragment" -->
+### HINT - This has been a recurring issue.  
 
-Windows requires elevated permissions to touch <!-- .element: class="fragment" --> `C:\ProgramFiles` <!-- .element: class="fragment" -->
+Windows requires elevated permissions to touch `C:\Program Files` <!-- .element: class="fragment" -->
 
 The only time your game should need Admin Privileges is the installer, and it should work without it if a user installs to a non-protected space. <!-- .element: class="fragment" -->
 
@@ -146,9 +159,8 @@ Make sure they work, and are added to Windows correctly.
 
 ---
 
-# Continuous Integration
+# Continuous Integration Benefits
 
-Benefits
 - Ground Truth - no more "works on my machine"
 - Alerts on broken builds - especially useful for multi-platform
 - Signpost to others that your software still works
@@ -156,14 +168,14 @@ Benefits
 
 ---
 
-# Continuous Integration
+# Continuous Integration Disadvantages
 
-Disadvantages
+- Might cost you! You're using someone else's computer to do work
 - Can be a bit of a faff to set up...
 
-But this is a *good idea* that most companies of a certain size and above use.<!-- .element: class="fragment" -->
-
-Check out AppVeyor or Github Actions for a way to integrate (heh) this into your current workflow<!-- .element: class="fragment" -->
+but...
+- It is a *good idea* that most companies of a certain size and above use.
+- Check out AppVeyor or Github Actions for a way to integrate (heh) this into your current workflow
 
 ---
 
