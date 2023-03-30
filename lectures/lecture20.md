@@ -66,7 +66,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# The Seven Layer Model
+# The Seven Layer OSI Model
 
 - Networking works on a layered model.
     - Application data at the top layer.
@@ -76,31 +76,16 @@ School of Computing. Edinburgh Napier University
 
 ![image](assets/images/osi_layers.jpg) <!-- .element width="95%"  -->
 
-
----
-
-# Packets
-
-- Layer 7 :   your browser works with HTTP.
-- Layer 6 :   defines the Secure Socket Layer (SSL) now standard for HTTPS.
-- Layer 5 :   defines ports (e.g. port 80 for web traffic).
-- Layer 4 :   defines TCP - interface between application and hardware. Breaks data sent into lots of individual packets.
-- Layer 3 :   defines IP - allows individual machines to be addressed.
-- Layer 2 :   defines MAC addresses - allows the switch to identify physical machines.
-- Layer 1 :   actual electrical current between the switch and machine (e.g. cable or wireless).
-
-
 ---
 
 # Addressing and Switching
 
 - Networking works like a mail system.
-- Each individual packet has an address (IP address) which the switch has to look at.
-- The switch must work out if it can send the data directly to the addressed machine (on the local network) or where it must send it if not.
-- The switch has a lookup table matching the local IP addresses to MAC addresses. This is how the switch sees the world.
-- The more switches a packet must pass through, the more hops it makes. A packet has a maximum number of hops. If it doesn't make it it dies.
-- This is how the entire Internet works (well, kinda).
-
+- We send data via packets (video file: lots of packets, text file: few packets)
+- Each individual packet has an address (IP address) which routers and switches have to look at.
+- Routers forward packets to different computer networks
+- Switches forward packets to the correct device in a network
+- Not all packets arrive at the destination
 
 ---
 
@@ -110,7 +95,7 @@ School of Computing. Edinburgh Napier University
 - Each data chunk is given a sequence number to allow the data to be reformed.
 - TCP guarantees acknowledgement of sent data - this means we know that data has arrived if we don't get an error.
 - TCP is the most common distributed application protocol because of its guarantees.
-
+- However, it also introduces higher latency. When this is an issue, we use UDP.
 
 ---
 
@@ -123,7 +108,7 @@ School of Computing. Edinburgh Napier University
 
 - The most common application model in networking is the client-server.
 - A client connects to a server machine via some form of universal addressing.
-- The sever can now communicate directly with that client.
+- The server can now communicate directly with that client.
 - A server may have multiple clients that it is communicating with.
 
 
@@ -224,7 +209,7 @@ School of Computing. Edinburgh Napier University
 # Peer-to-peer Lockstep
 
 - The original approach to solving networking for games was a peer-to-peer lockstep.
-- Here, each client would update it's move to the other clients.
+- Here, each client would update its move to the other clients.
 - The game would wait until everyone has updated before moving onto the next move.
 - It was slow as you can guess.
 
@@ -237,10 +222,10 @@ School of Computing. Edinburgh Napier University
 
 # Client-side Prediction
 
-- Nowadays games will try and predict movement.
-- Given that in a single "server" tick we know what the client has moved, we can interpolate the move by the next tick.
-- Propagate this amongst all clients and we should have a close approximation to reality.
-- Every so often send more complete data.
+- Nowadays games use prediction algorithms to counter latency
+- Client handles input locally, and sends it to server
+- After server game state update, clients gets update too
+- If new state different from predicted state: smooth/interpolate
 
 
  ![image](assets/images/client-prediction.png)
@@ -254,42 +239,25 @@ School of Computing. Edinburgh Napier University
 - As we are now predicting movements and locations, we can occasionally lose information without much concern.
 - Therefore, we do not need packet guarantees. TCP is no longer needed.
 - UDP is an alternate protocol which is connectionless. We just send data to a location.
-- The receiver will read its data packet as often as it can, and only those it receives.
+- The receiver will keep looking for new data packets as often as it can.
 - Basically, we can improve performance considerably by not acknowledging data sends.
 
 
 ---
 
-# TCP
+# TCP vs UDP Header
 
-![image](assets/images/packet.jpg) <!-- .element width="60%"  -->
-
-
----
-
-# UDP
-
-![image](assets/images/udp_packet.png) <!-- .element width="80%"  -->
+![image](assets/images/tcp_udp_header.jpg) <!-- .element width="60%"  -->
 
 
 ---
 
-# TCP
+# Synchronous vs Asynchronous Polling
 
-![image](assets/images/tcp_joke.png) <!-- .element width="60%"  -->
-
-
----
-
-# Synchronous versus Asynchronous Polling
-
-- We can also change how we service connections.
-- Typically, we wait on a connection until data arrives.
-- This would impact our frame time - we need to service the connection only when data is ready.
-- Asynchronous socket communication means we perform an operation whenever a communication event occurs.
-- This allows the game to continue on and another thread can update as needed based on communication.
-
-
+- We can also choose how we receive data from connections.
+- Typically, we **wait** on a connection until data arrives. Really bad if done in main thread.
+- Asynchronous socket communication means we don't wait: we just read otherwise we move on.
+- This allows the game to continue on and we can check again later.
 
 ---
 
@@ -313,18 +281,16 @@ School of Computing. Edinburgh Napier University
 
 # Initial State
 
-- When a scene is loaded or started, the client needs to know as much of the game world as possible.
-- This will require sending a lot of data to the clients when they start.
-- This is OK as the game hasn't really started for them yet.
-- It also allows other information such as unique content to be shared if need be (although this is slow).
-- Use this loading time appropriately.
-
+- Scenes/levels are typically the same for all clients, only starting parameters differ
+- We only need to share what is different:
+	- Player start position: ok
+	- Position of some random tree: **unnecessary**
 
 ---
 
 # Scene Updates
 
-- Every "server" tick you need to communicate data between the client and server.
+- At every network "tick" you need to communicate data between the client and server.
 - The communication must update the server with information the client has on scene updates.
 - The communication must update the client with information the server has on scene updates.
 - Every so often, the client and server must do a more complete update to normalise their information.
@@ -333,24 +299,24 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Object Serialization
+# Object Serialisation
 
-- When it comes to sending data in object-oriented languages serialization is the go-to approach.
-- Serialization is a technique where an object is converted into a textual or binary representation for communication and storage.
-- The managed languages (e.g. Java and C#) have these capabilities built in.
-- C++ does not, and actually it is hard to convert local memory between two machines.
-- Serialization is also a slow process as it has to deeply interrogate the object.
-- Therefore, serialization is not a good approach for games in general.
+- The process of converting a data object into a series of bytes
+- Deserialise: opposite process
+- Can be text (e.g. JSON, XML) or binary
+- Several managed languages have good built-in serialisation because of their support for reflection.
+- Reflection is the capability to inspect type information at runtime
+- C++ has poor reflection support, and poor built-in serialisation capabilities
 
 
 ---
 
 # Designing a Protocol
 
-- A better technique is to build a protocol.
-- Design your message types and the data that will go into the message.
-- This will allow simple messaging that can be managed easily with a few case statements.
-
+- Limit serialisation: build a communication protocol
+- Design your message types and the data that will go into the message
+- This will allow simple messaging that can be easily managed
+- Here is a one-size-fits-all message:
 
  ![image](assets/images/protocol.png)
 

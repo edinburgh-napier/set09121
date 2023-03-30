@@ -88,11 +88,9 @@ A good approach is to design-build-measure-optimise.
 
 Release mode and run without debug
 
-- Some student's don't understand that a program can execute outside Visual Studio.
-- More don't realise that Visual Studio hooks into an application.
-- Also, debug builds add extra code to interrogate state -  this slows down programs.
-- So, don't do it in final builds.
-
+- A debug build is far slower than a release build
+- Running with "Debugging" mode on in a build is far costlier than without debugging
+- To identify the true performance: build with Release, execute without debugging
 
  ![image](assets/images/run-no-debug.JPG)
 
@@ -106,11 +104,9 @@ Avoid I/O or do it better
 - During debugging, we often output values to the console to check behaviour.
 - I/O like this is very slow, requiring your program to interact with the OS and present data.
 - You should avoid this I/O as far as possible in final builds.
-- **IF you must have I/O**, then follow some rules to make things faster:
-    - Don't use C++ I/O (`cin` and `cout`) -  these are slow because of error checking.
-    - Don't use the C++ end-of-line terminator (`endl`) as this also flushes a stream, which is slow.
-    - Do use C-style I/O (from the `cstdio` header) such as `printf`, etc. These are low-level and faster.
-
+- When using `cout`, avoid the end-of-line terminator (`endl`), as this also flushes a stream, which is slow.
+- `cout` might be slower than `printf` by default, but that's fixable with `std::ios::sync_with_stdio(false);`
+- Easy debug-only code execution: `#ifdef _DEBUG`
 
 ---
 
@@ -240,16 +236,15 @@ Allocate Your Required Memory First
 - If you are used to the Java and C\# model of just calling `new` randomly in your code -  stop and think.
 - Memory allocation (and subsequent deallocation) is expensive on the free store.
 - Try and allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
-- Data is also near similar data -  this allows quick processing of blocks during similar operations.
+- Data should also be near similar data -  this allows quick processing of blocks during similar operations.
 
 
 ---
 
 # `constexpr` What You Can
 
-- `const` values are typically replaced by the actual value in compiled code.
-    - Less lookup time.
-- `constexpr` values are replaced, and can be calculated at compile time.
+- `const` is a qualifier used for readability, maintenance and performance
+- `constexpr` takes this further: expression is calculated at compile time
     - So you can produce certain functions that are compile time processed.
 - Compile time means the code is not processed during runtime.
 
@@ -276,28 +271,12 @@ constexpr int Nfav = factorial(N);
 ```cpp
 for (int i=0; i < 32; i++)
     for (int j=0; j < 32; j++)
-        total += myArray[i][j];
+        total += myArray[i][j]; // GOOD! Fast!
 
 for (int i=0; i < 32; i++)
     for (int j=0; j < 32; j++)
-        total += myArray[j][i];
+        total += myArray[j][i]; // BAD! Slow!
 ```
-
-
----
-
-# Optimise Multi-dimensional Arrays
-
-- As stated, memory is organised so the second dimension is the one that matches sequential layout.
-- When we do need to transition across the first dimension, we need to help the compiler and processor.
-- Wasting some memory by having this dimension as a power-of-two helps.
-- The processor and compiler can make optimised jumps and do so without a multiply (bitshift operations are fast).
-
-```cpp
-    int N[80][25];
-    int N_optimised[80][32];
-```
-
 
 ---
 
@@ -463,38 +442,38 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 6 - Use low-level techniques
+## Step 6 - Use low-level techniques (WARNING!)
 
 
 ---
 
-#  Avoid Branching
+#  Branching
 
 - A branch (an `if` statement of loop) has a cost to check and a cost to jump.
-- The jump cost might be unavoidable.
-- However, do you need the `else`? This is a second jump that might be unnecessary.
+- If possible, use a switch statement instead of if/else if/else if/...
 
 ```cpp
-    if (alive)
-    {
-        // Do work
-    }
-    ...
-    if (what)
-    {
-        // Do work
-    }
-    else
-    {
-        // Do work
-    }
+    if (value == sth) { /* Do work */ }
+	else if (value == sth_else) { /* Do other work */ }
+	...
+	else { /*fallback*/}
+	// OR
+	switch(value)
+	{
+		case sth: /*do work*/ 
+			break;
+		case sth_else: /*do other work*/ 
+			break;
+		default:
+			break;
+	}
 ```
 
 
 
 ---
 
-# Write Better `for` Loops
+# `for` Loops
 
 - For loops are one of the most expensive parts of your application due to the number of iterations.
 - They are also one of the best places to optimise -  we will look at parallelisation here also.
@@ -512,11 +491,12 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-# Use Bitwise Operators When You Can
+# Bitwise Operators
 
 - Remembering that the CPU works in binary can be beneficial.
 - Certain operations can be done using bitshift, bitwise and, and bitwise or.
 - These operations are much faster than a multiply, equality, etc.
+- Compiler is smart enough to detect this, so you write readable code
 
 ```cpp
     x = y * 8;
@@ -527,11 +507,11 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-# Write Some Assembly
+# Assembly
 
 - **FOR THE BRAVE!**
 - The compiler will do its best to produce optimised code.
-- However, it is not also going to do it as well as some hand-tuned code.
+- However, it is not also going to do it as well as some hand-tuned code **from an expert, in some cases**
 - There are tricks that can be done in assembly that will allow you to gain those few precious cycles each frame.
 
 
@@ -544,39 +524,19 @@ Tools do a good job of finding code that is slowing things down.
 
 # Just Throw Some Threads at the Problem!?
 
-- A simple solution may be to use more of the hardware.
-- Multi-core means running multiples parts of the program at once is an option.
-- There are different techniques: OpenMP, parallel execution (C++17), and compiler specific options for `for` loops are easy wins.
-
-```cpp    parallel_for(size_t(0), size, &(size_t i)
-    {
-        do_work(i);
-    });
-```
-
+- A simple solution may be to use more of your hardware resources.
+- Multi-core means you can execute code in parallel in different cores at the same time
+- There are different techniques: OpenMP, parallel STL algorithms (C++17), async, threads, etc
+    - More on SET10108: Concurrent and Parallel Systems
 
 ---
 
 # Cost of Threads
 
-- Threads do have a cost.
-- Each thread uses CPU time as well as needing about 1MB of memory.
-- For the CPU to switch between threads, a number of operations have to happen. This is very expensive.
-- It gets worse when the thread switches core.
-- If you can, mapping threads to hardware can make your life easier.
-- Generally using no more threads than you can physically support is a good rule.
-
-
----
-
-# Don't Lock it Down
-
-- Some of you will do Concurrent and Parallel Systems next year!
-- This module uses synchronous behaviour to manage concurrency.
-- Anything involving locking one thread from progress is very expensive.
-- Also, locking means no work being done.
-- Aim to have asynchronous tasks which you wait for all to complete -  this will allow best performance.
-
+- Threads do have costs: performance, cognitive and maintenance
+- They require memory, and switching between threads costs time
+- They can easily introduce bugs into your application
+- Keeping track of application workflow with threads is harder
 
 ---
 
@@ -587,9 +547,10 @@ Tools do a good job of finding code that is slowing things down.
 
 # Summary
 
-- We've looked at a number of techniques for optimisation, and there are many more.
-- Some of these techniques are C and C++ specific, although many can be used across languages.
-- Being thoughtful when writing code can be useful.
-- But basically, use tools to find issues and try and fix them.
-- Parallelisation is a good solution to performance problems... if you do it correctly.
-- We have a module in fourth year that examines this.
+- Performance optimisation is important, but you need to be careful. 
+- Premature optimisation is the root of all evil, but think of your algorithm choices.
+- Use tools to identify bottlenecks. Fix if needed.
+- Most impactful optimisation is not running code at all (dirty/alive flags, etc).
+- Low-level optimisations are typically an illusion that makes your code less readable.
+- High-level optimisations can have the greatest effect, and they happen "on paper".
+- Parallelisation is great, and is also a can of worms. Tread carefully.
