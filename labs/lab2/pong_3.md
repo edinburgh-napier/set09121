@@ -11,12 +11,14 @@ sidebar: home_sidebar
 Add the following to the declarations at the start of the file.
 ```cpp
 Vector2f ballVelocity;
-bool server = false;
+bool isPlayer1Serving = false;
+const float initialVelocityX = 100.f;
+const float initialVelocityY = 60.f;
 ```
 
 Add this to the Load() function
 ```cpp
-ballVelocity = {(server ? 100.0f : -100.0f), 60.0f};
+ballVelocity = { (isPlayer1Serving ? initialVelocityX : -initialVelocityX), initialVelocityY };
 ```
 
 Add this to the Update() function (after the event handling)
@@ -30,32 +32,37 @@ What we have done here is store a 2D vector of the **velocity** (speed & directi
 
 This is just simple physics, but remember that we've used Delta Time to ensure the ball moves at a constant rate.
 
-I've introduced another piece of logic, the 'server' boolean. This decided which direction the ball starts moving at the start of the game. 
-The weird piece of code that you added to the load function is an 'inline if statement'. It's just the same as a if block, but in one line. If the statement before the ? is true, then ballVelocity.x is set to 100.0f, if server is false, ballVelocity.x = -100.0f. Note that ballVelocity.y is always the same at 60.0f!
+I've introduced another piece of logic, the 'isPlayer1Serving' boolean. This boolean decides which player is serving the ball and hence, which direction the ball starts moving at the start of the game. 
+The weird piece of code that you added to the load function is an 'inline if statement'. It's just the same as an if block, but in one line. If the statement before the ? is true, then ballVelocity.x is set to 100.0f, if server is false, ballVelocity.x = -100.0f. Note that ballVelocity.y is always the same at 60.0f!
 
 
 ## Ball collision
 
 "Bouncing" the ball is one of those cheap tricks that looks harder than it is. As we are storing the ball velocity as a vector, negating it with respect to the wall it bounced off is as easy as multiplying the right element (X or Y) by -1. We actually multiply by -1.1, and 1.1 here so the ball not only bounces, but gets faster. All in two lines of code. Maths *is* fun. Note, this trick only works for perfectly horizontal or vertical walls!
 
-In a perfect word that would be fine, but if the ball was flying super fast, it might get "stuck within the wall" where the collision code will constantly negate it's velocity, while speeding it up. This will cause the ball to stop, wiggle, then form a black hole of big numbers, usually resulting in it firing out like an angry bee from a cannon! This is bad. To get around this, we cheat and teleport the ball out of the colliding surface by 10 units. Pong is a fast paced game so no one will notice. (This foreshadows some of the nastiness that happens when trying to write good physics code, which we will talk about much later)
+To make it easy to tweak the factor of 1.1, we can just declare another constant at the start of the file:
+```cpp
+const float velocityMultiplier = 1.1f;
+```
+
+In a perfect world that would be fine, but if the ball was flying super fast, it might get "stuck within the wall" where the collision code will constantly negate it's velocity, while speeding it up. This will cause the ball to stop, wiggle, then form a black hole of big numbers, usually resulting in it firing out like an angry bee from a cannon! This is bad. To get around this, we cheat and teleport the ball out of the colliding surface by 10 units. Pong is a fast paced game so no one will notice. (This foreshadows some of the nastiness that happens when trying to write good physics code, which we will talk about much later)
 
 Add the following to the Update(). There is no functional purpose for the *bx* and *by* variables, but as we are going to use them a lot it's nicer to have them to keep our code small. Oh, you probably want to make sure you add any collision code **after** the movement code too, otherwise people might get upset that the ball can miss paddles that look like they should hit!
 ```cpp
-  // check ball collision
-  const float bx = ball.getPosition().x;
-  const float by = ball.getPosition().y;
-  if (by > gameHeight) { //bottom wall
+// check ball collision
+const float bx = ball.getPosition().x;
+const float by = ball.getPosition().y;
+if (by > gameHeight) { //bottom wall
     // bottom wall
-    ballVelocity.x *= 1.1f;
-    ballVelocity.y *= -1.1f;
+    ballVelocity.x *= velocityMultiplier;
+    ballVelocity.y *= -velocityMultiplier;
     ball.move(Vector2(0.f, -10.f));
-  } else if (by < 0) { //top wall
+} else if (by < 0) { //top wall
     // top wall
-    ballVelocity.x *= 1.1f;
-    ballVelocity.y *= -1.1f;
-    ball.move(Vector2(0.f, -10.f));
-  } 
+    ballVelocity.x *= velocityMultiplier;
+    ballVelocity.y *= -velocityMultiplier;
+    ball.move(Vector2(0.f, 10.f));
+} 
 ```
 
 ### Left and right "Score walls"
@@ -68,13 +75,13 @@ You should pull out some of the logic form the Load() function and then call Res
 Once your ready, add this code:
 
 ```cpp
-  else if (bx > gameWidth) {
+else if (bx > gameWidth) {
     // right wall
     Reset();
-  } else if (bx < 0) {
+} else if (bx < 0) {
     // left wall
     Reset();
-  }
+}
 ```
 
 ### Collision with paddles
@@ -85,17 +92,17 @@ Add, and then complete, the code below. Remember, you might need the collision t
 
 ```cpp
 else if (
-	//ball is inline or behind paddle
-	bx < paddleSize.x && 
-	//AND ball is below top edge of paddle
-	by > paddles[0].getPosition().y - (paddleSize.y * 0.5) &&
-	//AND ball is above bottom edge of paddle
-	by < paddles[0].getPosition().y + (paddleSize.y * 0.5)
-	) {
+	  //ball is inline or behind paddle AND
+	  bx < paddleSize.x + paddleOffsetWall && 
+	  //ball is below top edge of paddle AND
+	  by > paddles[0].getPosition().y - (paddleSize.y * 0.5) &&
+	  //ball is above bottom edge of paddle
+	  by < paddles[0].getPosition().y + (paddleSize.y * 0.5))
+{
     // bounce off left paddle
-  } else if (...) {
+} else if (...) {
     // bounce off right paddle
-  }
+}
 ```
 
 {:class="important"}
@@ -130,7 +137,7 @@ Add the following to your Reset()
  // Update Score Text
 text.setString(...);
 // Keep Score Text Centered
-text.setPosition((gameWidth * .5f) - (text.getLocalBounds().width * .5f),0);
+text.setPosition((gameWidth * .5f) - (text.getLocalBounds().width * .5f), 0);
 ```
 
 Finally, you need to actually keep track of the score, and then you need to add some code to your Render() function and some variables to deal with these new elements. I'll let you figure those out!
