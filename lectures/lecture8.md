@@ -41,7 +41,7 @@ Game Programming Patterns - Robert Nystrom
 # What is UML?
 
 - UML stands for the Unified Modelling Language.
-- UML allows us to model software from various viewpoints.
+- UML allows us to model software from various viewpoints. <!-- .element: class="fragment" -->
     - The structure of the software.
         - Class diagram.
     - The behaviour of the software.
@@ -50,10 +50,10 @@ Game Programming Patterns - Robert Nystrom
         - State diagram.
     - The interaction within the software.
         - Sequence diagram.
-- UML can be integrated into any software development process.
+- UML can be integrated into any software development process. <!-- .element: class="fragment" -->
     - Analysis and requirements gathering.
     - System design.
-- UML essentially provides a schematic of our software.
+- UML essentially provides a schematic of our software. <!-- .element: class="fragment" -->
 
 ---
 
@@ -65,32 +65,27 @@ Game Programming Patterns - Robert Nystrom
     - **Class** diagrams: main system design.
     - **Sequence** diagrams: individual steps and interaction between components.
     - **State** diagrams: model object or system state.
-- **Use diagrams whenever possible!** 
- - Working out on paper how something works is **always** easier than banging your head off your code.
- - Trust me, we've all been there.
-
+- **Use diagrams whenever possible!**
 
 ---
 
 # What are Design Patterns?
-
 
 ---
 
 # What are Design Patterns?
 
 - A design pattern is a reusable solution to a commonly occurring problem when designing software.
-- Reusable is the key here.
+- Reusable is the key here. <!-- .element: class="fragment" -->
     - Engineering is about reusing existing solutions whenever possible.
     - Other engineering disciplines have reusable solutions to given problems.
-- When we look at our software development problems from a high enough abstraction level we will see lots of areas of reuse.
+- When we look at our software development problems from a high enough abstraction level we will see lots of areas of reuse. <!-- .element: class="fragment" -->
 
 ![image](assets/images/software_development.png) <!-- .element width="45%"  -->
 
 ---
 
 # Useful Design Patterns for Games
-
 
 ---
 
@@ -105,17 +100,9 @@ Game Programming Patterns - Robert Nystrom
     - Used to control common communication patterns between objects.
 - You'll likely already know at least one pattern from each of these categories.
 
-
 ---
 
 # Singleton
-
-
----
-
-# Singleton Pattern 
-![image](assets/images/singleton.png) <!-- .element width="80%"  -->
-
 
 ---
 
@@ -129,6 +116,44 @@ Game Programming Patterns - Robert Nystrom
     - Almost like providing a global attribute.
 - There are numerous approaches to ensure Singleton behaviour.
 
+---
+
+# Singleton Pattern 
+
+![image](assets/images/singleton.png) <!-- .element width="80%"  -->
+
+(Source: https://en.wikipedia.org/wiki/Singleton_pattern)
+
+---
+
+# Singleton Pattern 
+
+```CS
+class EntityManager {
+    private static EntityManager instance;
+
+    private EntityManager() {}
+
+    public static EntityManager getInstance() {
+        if (instance == null) {
+            instance = new EntityManager();
+        }
+        return instance;
+    }
+}
+```
+
+---
+
+# Composite Pattern
+
+- The Composite pattern allows us to treat objects and compositions of objects in a uniform manner.
+- For example, elements in a UI can be a single element, called a **leaf** (e.g., a button), or a collection of other Elements, called a **composite** (e.g., a panel with buttons, etc.)
+    - This creates a **hierarchy** of UI elements.
+    - We tell the top UI element to update.
+    - The top UI element will tell the child elements to update, if it is a composite.
+    - Thanks to a common interface, we don't need to know whether we are dealing with a composite or leaf.
+- Do not confuse the component in the composite pattern with the component in a Entity Component Model!
 
 ---
 
@@ -136,24 +161,35 @@ Game Programming Patterns - Robert Nystrom
 
 ![image](assets/images/composite.png) <!-- .element width="80%"  -->
 
+(Source: https://en.wikipedia.org/wiki/Composite_pattern)
 
 ---
 
-# Composite Pattern
+# Composite Pattern 
 
-- The Composite pattern allows us to treat objects and compositions of objects in a uniform manner.
-- We tell our game to update, it tells the entity manager to update, which tells the entities to update, etc.
-- A pure compositional pattern has components and compositions of components that look the same.
-    - In Object-Oriented Software Development you could add buttons to panels, and panels to other panels or windows. The window just treats the panel as any other component.
-- We take a less pure approach but we are still composing groups of objects with uniform interfaces.
+```CS
+interface UIElement { // Component
+    public void update(); // Operation
+}
 
+class Panel : UIElement { // Composite
+    List<UIElement> panelElements = new List<UIElement>();
 
----
+    public void update() { 
+        for (UIElement element in panelElements) {
+            element.update();
+        }
+    }
+    
+    // add(), remove(), getChild()...
+}
 
-# Iterator Pattern 
-
-![image](assets/images/iterator.png) <!-- .element width="80%"  -->
-
+class Button : UIElement { // Leaf
+    public void update() {
+        ...
+    }
+}
+```
 
 ---
 
@@ -164,13 +200,29 @@ Game Programming Patterns - Robert Nystrom
     - Create a collection.
     - Add objects to collection.
     - Iterate through collection when needed and perform individual actions.
-
+- If you don't create your own collection, you most likely do not have to create your own iterator.
 
 ---
 
-# Mediator Pattern 
-![image](assets/images/mediator.png) <!-- .element width="80%"  -->
+# Iterator Pattern 
 
+![image](assets/images/iterator.png) <!-- .element width="80%"  -->
+
+(Source: https://en.wikipedia.org/wiki/Iterator_pattern)
+
+---
+
+# Iterator Pattern 
+
+```CS
+QuerySolution solution = QueryEngine.Query("SELECT name, address FROM customers");
+
+while (solution.hasNext()) {
+    Bindings bindings = solution.next();
+
+    // Do something with the bindings.
+}
+```
 
 ---
 
@@ -184,12 +236,41 @@ Game Programming Patterns - Robert Nystrom
     - Message passing. 
 - The mediator pattern is useful for building messaging systems as it detaches the components. It is a loose coupling approach.
 
+---
+
+# Mediator Pattern 
+
+![image](assets/images/mediator.png) <!-- .element width="80%"  -->
+
+(Source: https://javadevcentral.com/mediator-design-pattern)
 
 ---
 
-# State Pattern 
-![image](assets/images/state.png) <!-- .element width="80%"  -->
+# Mediator Pattern 
 
+```CS
+class ChatRoom {
+    private List<User> users = new List<User>();
+
+    public void send(string message, string sender) {
+        for (User user in users) {
+            user.receive(message, sender);
+        }
+    }
+
+    // register(), remove(), etc.
+}
+
+class User {
+    public void receive(string message, string sender) {
+        // Display message
+    }
+
+    public void send(string message) {
+        mediator.send(message, Name);
+    }
+}
+```
 
 ---
 
@@ -203,63 +284,129 @@ Game Programming Patterns - Robert Nystrom
 - The different behaviours can be programmed in different objects. 
 - The ghost uses the behaviour specified in the state object when it updates.
 
+---
+
+# State Pattern 
+
+![image](assets/images/state.png) <!-- .element width="80%"  -->
+
+(Source: https://en.wikipedia.org/wiki/State_pattern)
+
 
 ---
 
-# Strategy Pattern 
+# State Pattern 
 
-![image](assets/images/strategy.png) <!-- .element width="80%"  -->
+```CS
+interface State {
+    void handle();
+}
 
+class ChaseState : State {
+    public void handle() {
+        // Chase PacMan
+    }
+}
+
+class EvadeState : State {
+    public void handle() {
+        // Evade PacMan
+    }
+}
+
+class Enemy {
+    State behaviourState;
+
+    public void update() {
+        behaviourState.handle();
+    }
+}
+```
 
 ---
 
 # Strategy Pattern
 
-- Sometimes we want to choose from a set of algorithms for an object's particular behaviour
-- In general the algorithms that need to be used are not known until runtime.
-    - The PacMan example previously code equally be achieved by the strategy pattern.
-- Again this is a good AI pattern allowing us to change behaviours at given points.
-- Notice that the state and strategy patterns are also very similar (structurally identical). 
-    - State: behaviour depending on internal state
-	- Strategy: behaviour based on a choice we've made
-
-
----
-
-# Manager Pattern 
-
-![image](assets/images/manager.png) <!-- .element width="80%"  -->
-
+- The strategy pattern has the identical structure as the state pattern.
+- We use the strategy pattern when we want to use a different algorithm (strategy) to achieve **the same thing**.
+    - State pattern: change to a **different behaviour** at run-time.
+    - Strategy pattern: change the **implementation** of the **same behaviour** at run-time.
+- A good example of the strategy pattern is different numerical integration method for physics simulation.
+    - They all achieve the same thing, but have different trade-offs in accuracy and performance.
+    - Games like Universe Sandbox allow the player to change the integration method at run-time.
 
 ---
 
-# Manager Pattern
+# Strategy Pattern
+
+```CS
+interface Integrator {
+    void step(float h);
+}
+
+class LeapFrog : Integrator {
+    public void step(float h) {
+        // Calculate forces
+    }
+}
+
+class Euler : Integrator {
+    public void step(float h) {
+        // Calculate forces
+    }
+}
+
+class Simulator {
+    Integrator integrationMethod;
+
+    public void update(float h) {
+        integrationMethod.step(h);
+    }
+}
+```
+
+---
+
+# Observer Pattern
 
 - We want to have a centralised repository and control point for a collection of objects.
-- The manager object keeps track of objects of a particular type and maintains them in a data collection.
-- The manager object also performs group operations on the collection of objects when required.
-- The manager pattern is something we've identified when making the game engine.
+- The **subject** keeps track of all objects, the **observers**, and performs operations on them.
+- Example: An entity manger that keeps track of all entities in a game.
+    - Entity manager is the subject.
+    - The entities are the observers.
+    - The entity manger calls methods like `update()` and `render()` each frame. 
 
 ---
 
-# Data-oriented Design
+# Observer Pattern 
 
-![image](assets/images/data-driven-uml.png) <!-- .element width="95%"  -->
+![image](assets/images/observerPattern.png) <!-- .element width="80%"  -->
 
+(Source: https://en.wikipedia.org/wiki/Observer_pattern)
 
 ---
 
-# Data-oriented Design
+# Observer Pattern 
 
-- OOP design and principles can result in poor data locality
-    - entity lists are "arrays of structures" (AoS)
-    - cache issues: processing physics for data-heavy entities
-- Copying objects can also be expensive
-- Alternative: structure of arrays (SoA)
-    - "PhysicsData" array, "RenderingData" array, "AiData" array, etc
-    - each entity stores indices in those arrays
-- Problem (?): it's not OOP anymore
-- Typical example: Entity Component System architecture (ECS)
+```CS
+class EntityManager { // Subject
+    List<Entity> entities = new List<Entity>();
+
+    public void update(float dt) {
+        for (Entity entity in entities) {
+            entity.update(dt);
+        }
+    } 
+
+    // register(), unregister(), etc.
+}
+
+class Entity { // Observer
+    public void update(float dt) {
+        // ...
+    }
+}
+```
 
 ---
 
