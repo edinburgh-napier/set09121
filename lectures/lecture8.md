@@ -371,6 +371,7 @@ class Simulator {
 
 - We want to have a centralised repository and control point for a collection of objects.
 - The **subject** keeps track of all objects, the **observers**, and performs operations on them.
+- The subjects are registered at runtime. 
 - Example: An entity manger that keeps track of all entities in a game.
     - Entity manager is the subject.
     - The entities are the observers.
