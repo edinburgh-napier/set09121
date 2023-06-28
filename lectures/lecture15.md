@@ -57,7 +57,7 @@ School of Computing. Edinburgh Napier University
 # Review - State Diagrams
 
 
-![image](assets/images/state_diagram.png) <!-- .element width="85%"  -->
+![image](assets/images/state_diagram.png) <!-- .element height="70%"  -->
 
 
 ---
@@ -69,9 +69,11 @@ School of Computing. Edinburgh Napier University
 - For example the ghosts in PacMan change behaviour.
 - Different behaviours are programmed in different objects - the ghost simply calls the state class when it updates.
 
+---
+
+# Review - State Design Pattern
 
  ![image](assets/images/state.png)
-
 
 ---
 
@@ -144,13 +146,14 @@ School of Computing. Edinburgh Napier University
 # Example - Maze Solving
 
 - To solve a maze we can use a particular trick.
-    - This only works if the maze has no shortcuts
+    - This only works if the maze has simply connected, i.e., all the walls are connected to each other (taking into account the outer boundary).
 - The basic algorithm is:
     - Walk forward from the entrance until you hit a wall.
     - Turn left.
     - Now keep your right hand on a wall at all times.
     - You will eventually reach the other exit.
         - Although it will not necessarily be the fastest route.
+- This obviously also works if you swap left and right.
 
 
 ---
@@ -158,7 +161,7 @@ School of Computing. Edinburgh Napier University
 # Example - Maze Solving 
 
 
-![image](assets/images/maze_solve.png) <!-- .element width="85%"  -->
+![image](assets/images/maze_solve.png) <!-- .element width="100%"  -->
 
 
 ---
@@ -166,7 +169,7 @@ School of Computing. Edinburgh Napier University
 # State Machines in Our Game Engine
 
 - We will be implementing a basic, reusable state machine behaviour in our game engine.
-    - We want reusable so that it is simple for us to extend functionality if required.
+    - We want reusablility so that it is simple for us to extend the functionality, if required.
 - We have already identified the state design pattern as a likely candidate for implementation of state machine behaviour.
 - What we need to do is implement this pattern in a manner that works in our game engine.
 
@@ -175,7 +178,7 @@ School of Computing. Edinburgh Napier University
 
 # State Pattern in Our Engine
 
-![image](assets/images/game_state_pattern.png) <!-- .element width="90%"  -->
+![image](assets/images/state-class-diagram.png) <!-- .element width="100%"  -->
 
 
 ---
@@ -185,11 +188,11 @@ School of Computing. Edinburgh Napier University
 - The `State` interface only defines one method:
     - `Execute`
 - This method executes the behaviour associated with that state upon the owner of the state.
-    - So the state needs to be told the entity to work on.
-    - Allows simple state reuse if this is desired.
+    - We pass as arguments the `Entity` that owns the state and the delta time `dt`.
+    - This way, the state can operate on the owner in each frame.
 
 
- ![image](assets/images/state_interface.png)
+ ![image](assets/images/state_interface_no_template.png)
 
 
 ---
@@ -197,11 +200,10 @@ School of Computing. Edinburgh Napier University
 # `StateMachineComponent` Class
 
 - The `StateMachineComponent` is a `Component` that we can attach to an `Entity`.
-- The class also follows the manager pattern - it contains and manages a collection of states.
-- The core difference is that `Update` does not apply to all states, just the current state.
+- The component contains and manages a collection of states.
+- The component calls the `execute` method on the current state.
 
-
- ![image](assets/images/state_machine.png)
+ ![image](assets/images/state_machine_no_template.png)
 
 
 ---
@@ -213,7 +215,7 @@ School of Computing. Edinburgh Napier University
     - Execute the current state.
 - We call `ChangeState` to change the current state.
 - We call `Update` to execute the current state.
-- Although simple, the key work we have done is separate out and encapsulated the different object behaviours.
+- Although simple, the key work we have done is to separate out and encapsulate the different behaviours into different objects.
 
 
 ---
@@ -258,7 +260,7 @@ School of Computing. Edinburgh Napier University
 # State Machines for Game Control
 
 - We can extend our state machine implementation to work as a game controller.
-    - All you need is an update and render for state, and call these when in the main game's relevant method.
+    - All you need is an update and a render method for each state, and call these in the main game's relevant method.
 - This allows you to trivially implement game screens:
     - Menu.
     - Main gameplay.
