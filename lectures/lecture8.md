@@ -130,11 +130,9 @@ Game Programming Patterns - Robert Nystrom
 
 ```CS
 class EntityManager {
-    private static EntityManager instance;
+    static EntityManager instance;
 
-    private EntityManager() {}
-
-    public static EntityManager getInstance() {
+    static EntityManager getInstance() {
         if (instance == null) {
             instance = new EntityManager();
         }
@@ -169,13 +167,13 @@ class EntityManager {
 
 ```CS
 interface UIElement { // Component
-    public void update(); // Operation
+    void update(); // Operation
 }
 
 class Panel : UIElement { // Composite
     List<UIElement> panelElements = new List<UIElement>();
 
-    public void update() { 
+    void update() { 
         for (UIElement element in panelElements) {
             element.update();
         }
@@ -185,7 +183,7 @@ class Panel : UIElement { // Composite
 }
 
 class Button : UIElement { // Leaf
-    public void update() {
+    void update() {
         ...
     }
 }
@@ -250,9 +248,9 @@ while (solution.hasNext()) {
 
 ```CS
 class ChatRoom {
-    private List<User> users = new List<User>();
+    List<User> users = new List<User>();
 
-    public void send(string message, string sender) {
+    void send(string message, string sender) {
         for (User user in users) {
             user.receive(message, sender);
         }
@@ -262,11 +260,11 @@ class ChatRoom {
 }
 
 class User {
-    public void receive(string message, string sender) {
+    void receive(string message, string sender) {
         // Display message
     }
 
-    public void send(string message) {
+    void send(string message) {
         mediator.send(message, Name);
     }
 }
@@ -303,13 +301,13 @@ interface State {
 }
 
 class ChaseState : State {
-    public void handle() {
+    void handle() {
         // Chase PacMan
     }
 }
 
 class EvadeState : State {
-    public void handle() {
+    void handle() {
         // Evade PacMan
     }
 }
@@ -317,7 +315,7 @@ class EvadeState : State {
 class Enemy {
     State behaviourState;
 
-    public void update() {
+    void update() {
         behaviourState.handle();
     }
 }
@@ -345,13 +343,13 @@ interface Integrator {
 }
 
 class LeapFrog : Integrator {
-    public void step(float h) {
+    void step(float h) {
         // Calculate forces
     }
 }
 
 class Euler : Integrator {
-    public void step(float h) {
+    void step(float h) {
         // Calculate forces
     }
 }
@@ -359,7 +357,7 @@ class Euler : Integrator {
 class Simulator {
     Integrator integrationMethod;
 
-    public void update(float h) {
+    void update(float h) {
         integrationMethod.step(h);
     }
 }
@@ -393,7 +391,7 @@ class Simulator {
 class EntityManager { // Subject
     List<Entity> entities = new List<Entity>();
 
-    public void update(float dt) {
+    void update(float dt) {
         for (Entity entity in entities) {
             entity.update(dt);
         }
@@ -403,7 +401,7 @@ class EntityManager { // Subject
 }
 
 class Entity { // Observer
-    public void update(float dt) {
+    void update(float dt) {
         // ...
     }
 }
