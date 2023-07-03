@@ -100,10 +100,9 @@ School of Computing. Edinburgh Napier University
 - Decision trees provide us with an approach to modelling a decision.
 - The decision structure is formed into a tree.
     - We traverse different branches based on the decision we wish to make.
-- The decision to go down a branch can be determined by a number of factors:
-    - Variable checking.
-    - Probability.
-    - Chance.
+- The decision to go down a branch can be determined by:
+    - The current state of the game. (E.g., testing some value)
+    - Randomly, by drawing a value from a distribution.
 - At the end of a branch, a decision is made, and therefore an action is undertaken.
 
 
@@ -137,15 +136,12 @@ School of Computing. Edinburgh Napier University
 - And a number of transitions.
 	- A transition has a condition associated with it, e.g. 80%
 - We traverse the tree, starting at the root node, making decisions based on information, before arriving at a leaf.
-- Decision trees are used to diagnose problems and guide through options in different contexts
-    - E.g. call centres, support helplines, etc
-	- Windows troubleshooting: "try reinstalling windows"
 
 ---
 
 # Using Activity Diagrams
 
-- We have previously seen state diagrams used for modelling state machines
+- We have previously seen state diagrams used for modelling state machines.
 - We can undertake a similar approach with activity diagrams for decision trees.
 - Activity diagrams provide us with guarded transitions (edges)
     - The "guard" is simply a decision.
