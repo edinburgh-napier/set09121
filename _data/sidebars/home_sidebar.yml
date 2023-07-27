@@ -171,7 +171,7 @@ entries:
     - title: Lecture 15 - State Machines
       url: /lecture15.html
       output: web
-    - title: Lecture 16 - Decision Trees
+    - title: Lecture 16 - Behavior Trees
       url: /lecture16.html
       output: web
     - title: Lecture 17 - Releasing your game
