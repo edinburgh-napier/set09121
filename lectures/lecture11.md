@@ -23,13 +23,13 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Recommended Reading
+# Recommended Reading (Optional)
 
 
 - Game Physics Engine Development, Millington.
 - If you ever want to build your own physics engine this is the book.
 - It does introduce some of the physics concepts well.
-- Unless you need to know this information, it isn't necessary.
+- Not required for this module.
 
 ![image](assets/images/physics_book.jpg) <!-- .element width="30%" -->
 
@@ -52,7 +52,6 @@ School of Computing. Edinburgh Napier University
 
 # Game Physics
 
-- Showing a couple of examples is fine, but what is game physics and how do we use it?
 - Game physics is really only a small subset of academic physics - it is not theoretical.
 - Game physics uses classical mechanics to provide the basic movement of objects in the game world.
     - We will look at the Laws of Motion for example.
@@ -120,7 +119,7 @@ School of Computing. Edinburgh Napier University
 
 # Bringing them Together
 
-- Collision detection (intersection testing) lets us find our which bodies have come into contact.
+- Collision detection (intersection testing) lets us find out which bodies have come into contact.
 - Particle physics allow us to control the motion of objects without taking into account their size and shape.
 - Rigid body dynamics let us model how geometric objects interact.
 - Rigid body dynamics also let us determine what happens when two objects collide: **Collision resolution**
@@ -194,9 +193,13 @@ School of Computing. Edinburgh Napier University
 
 - This is an important calculation, and normally underpins most of the force calculation work in a physics engine.
 
-`$$ F = ma $$` Where: $m$ is the mass, $a$ is the acceleration.
+`$$ F = ma $$`
 
-Or: `$$a = \frac{F}{m}$$`
+where: $m$ is the mass, $a$ is the acceleration.
+
+Or:
+
+`$$a = \frac{F}{m}$$`
 
 
 ---
@@ -214,6 +217,7 @@ Or: `$$a = \frac{F}{m}$$`
 
 # Equations of Motion
 
+- These equations apply when `$$a$$` is constant.
 
 <div style="float: left;width: 40%;" > 
 
@@ -275,7 +279,6 @@ Where: $w$ is weight, $m$ is mass, $g$ is gravity.
 - Weight is a force. A force is considered to be any influence that can affect the velocity of an object.
 - Like acceleration $g$, a force is also defined as a vector, having a direction and magnitude.
 - A Newton is a standard unit of force applied to an object.
-- Many physic engines will try and deal in Newtons to ensure calculations are uniform.
 
 $$1N = 1kg \times m/s^2$$
 On Earth: $$g = 9.8 m/s^2$$ so: $$1N = 0.102kg $$ $$ 1kg = 9.8N $$
@@ -302,9 +305,8 @@ On Earth: $$g = 9.8 m/s^2$$ so: $$1N = 0.102kg $$ $$ 1kg = 9.8N $$
 Hooke's Law: $$F = -k\Delta s$$ where $k$ is the stiffness of the spring and $s$ the displacement from the resting length.
 
 - Drag is another force that is caused by air resistance (or any other medium, e.g. liquid)
-- Games will use a simplified model of drag, such as shown.
+- Games will use a simplified model of drag:
 
-Simplified drag:
 $$F_{drag} = -\hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\rVert^2)$$
 
 
@@ -315,9 +317,8 @@ $$F_{drag} = -\hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\r
 - Impulses are changes in an object's momentum
     - "Force acting over time"
     - Momentum: $p = mv$
-- We can use them instead of forces to handle collision resolution
-	- ... Because forces are not constant 
-	- ... Because otherwise the calculations would be too expensive
+- We can use them instead of forces to handle collision resolution.
+- This allows us to transfer momentum instantenously without dealing with infinit forces acting over an infinte small amount of time.
 
 ---
 
@@ -328,7 +329,7 @@ $$F_{drag} = -\hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\r
     - Force divided by object's mass is added to object's acceleration.
     - Acceleration is then multiplied by time (typically a fraction of a second) and is added to the velocity of the object.
     - The new velocity, multiplied by time, is used to move the object.
-- Impulse forces are far more sudden.
+- Exchange of impulses are instanteneous.
     - Impulse is calculated.
     - Impulse divided by mass is added to the velocity.
     - Use the new velocity multiplied by time to move the object.
@@ -347,7 +348,7 @@ $$F_{drag} = -\hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\r
 
 ---
 
-**Warning Pt 2**
+**Warning (cont.)**
 
 - Physics engines are not always the best way to make your game *fun*.
 - This is particularly true if your engine is not deterministic. <!-- .element: class="fragment" -->

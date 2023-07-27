@@ -77,8 +77,7 @@ What is Artificial Intelligence?
 - PacMan is recognised as one of the earliest examples of AI in games.
 - PacMan AI relied on state machine behaviour.
     - We will look at state machines in a separate lecture.
-- This was in 1979...
-- ...game AI did not change much until the mid 1990s.
+- Game AI did not change much between PacMan in 1979 until the mid 1990s.
 
 ![image](assets/images/pacman.gif) <!-- .element width="30%" -->
 
@@ -131,7 +130,7 @@ What is Artificial Intelligence?
         - Seek, flee.
     - Or can be more general:
         - Patrol, wander.
-- Steering behaviours are an the base of most game AI.
+- Steering behaviours are at the base of most game AI.
     - It allows us to move entities in a certain manner.
 - Steering behaviours can also be combined to create more complex behaviour.
     - Look into flocking behaviour to get an idea.
@@ -145,11 +144,11 @@ What is Artificial Intelligence?
 - Path finding is the discovery of the route between two points in a game world.
 - Information from path finding can be fed into steering behaviours.
 - Two core techniques:
-    - Waypoints: "Where to go" -- points
-    - Navigation mesh: "Where can we go" -- area
+    - Waypoints: Points indicating where the agent can go to.
+    - Navigation mesh: A surface that determines areas where the agent can walk.
 - Two common algorithms:
-    - Dijkstra (slow but checks everything).
-    - A* (variation of Dijkstra with heuristics: fast).
+    - Dijkstra (slower but also works with zero weights).
+    - A* (faster, but requires a good heuristic).
 
 ![image](assets/images/waypoint-mesh.jpg)
 
@@ -400,7 +399,7 @@ What is Artificial Intelligence?
 - If your AI is too good, people will think it cheats.
 	- This was the case in Farcry 1
 	- Most Backgammon games get accused of this too
-- This is partly why most FPS baddies shout what they are doing
+- This is partly why most FPS enemies shout what they are doing
 
 ---
 
@@ -416,7 +415,7 @@ What is Artificial Intelligence?
 
 ---
 
-# Remember...
+# Remember
 
 - AI can sometimes not work how the player (or designer) wants.
     - Bad AI

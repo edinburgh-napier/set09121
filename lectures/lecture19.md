@@ -114,7 +114,7 @@ Avoid I/O or do it better
 
 - Let's define metrics that allow us to talk about performance .
 - FPS: Frames-Per-Second. 
-    - The key measure most gamers like to talk about. The typical FPS displayed is **average** the number of frames processes per second. 
+    - The key measure most gamers like to talk about. The typical FPS displayed is the **average** of the number of frames processed per second. 
 - Frame Time:  
     - This is actually what we are interested in. How long does it take the game to produce and render a **single** frame? Typically we aim for 16.7ms (60FPS) or 33.3ms (30FPS).
 - Speedup
@@ -132,8 +132,7 @@ Avoid I/O or do it better
 
 - The first tactic we can use to improve processing is to flag if processing something can be skipped.
 - An alive flag is a typical technique to indicate that an object should not be processed.
-- This can be extended into other parts of the system:
-    - If entity in base for example.
+
 ```cpp
 if (alive) {
     DoSuperExpensiveOperation();
@@ -233,7 +232,6 @@ if (dirty flag is true) {
 
 Allocate Your Required Memory First
 - We have mentioned this a few times now.
-- If you are used to the Java and C\# model of just calling `new` randomly in your code -  stop and think.
 - Memory allocation (and subsequent deallocation) is expensive on the free store.
 - Try and allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
 - Data should also be near similar data -  this allows quick processing of blocks during similar operations.
@@ -265,7 +263,7 @@ constexpr int Nfav = factorial(N);
 
 # Memory Alignment and Cache Coherence
 - We talked about this during our memory and resource management lectures.
-- Memory alignment means that data is aligned in memory, allowing the minimal reads to occur to access the data we need.
+- Memory alignment means that data is aligned in memory to minimize the reads to access the data that we need.
 - For cache coherency we discussed the difference in processing a multi-dimensional array using different indices, due to memory layout. For example, the first `for` loop below is faster than the second.
 
 ```cpp
@@ -339,25 +337,6 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-# `inline` Function Calls
-
-- One of the first optimisations we can do for functions is inlining.
-- An `inline` function is one we have asked the compiler to replace the function call with the actual code.
-- For small functions this is good -  avoid functions.
-- For big functions not so much -  larger executables.
-- However, it depends on the frequency the function is called.
-
-
-```cpp
-    inline int add(int x, int y)
-    {
-        return x + y;
-    }
-```
-
-
----
-
 # `static` Local Functions
 
 - A `static` function is one that exists within a certain context or
@@ -391,38 +370,6 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-# Exceptions are the Enemy
-
-- If you are from a Java or C\# background you are probably used to using exception calls.
-    - `try` and `catch` statements.
-- C++ also uses exception statements.
-- However, an exception catch is very expensive -  sometimes **thousands of instructions**.
-- A better technique is to set a flag that can be tested.
-    - This is the standard C model -  using a `get_error` function.
-
----
-
-# `noexcept` What You Can
-
-- The `noexcept` keyword can be applied to a function to indicate it won't throw an exception.
-- This serves two purposes:
-    1.  The compiler can optimise the code as it knows no exception to be thrown.
-    2.  The function won't throw an exception externally -  allows isolation of an exception.
-
-```cpp
-    class my_class
-    {
-    public:
-        void do_work() noexcept
-        {
-            // Do something
-        }
-    };
-```
-
-
----
-
 #  `const` What You Can
 
 - Basically set everything you can to `const`.
@@ -442,7 +389,7 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-## Step 6 - Use low-level techniques (WARNING!)
+## Step 6 - Branching and Loops
 
 
 ---
@@ -488,32 +435,6 @@ Tools do a good job of finding code that is slowing things down.
     for (int i = 0; i < 100; i += 10)
         cout << i << endl;
 ```
-
----
-
-# Bitwise Operators
-
-- Remembering that the CPU works in binary can be beneficial.
-- Certain operations can be done using bitshift, bitwise and, and bitwise or.
-- These operations are much faster than a multiply, equality, etc.
-- Compiler is smart enough to detect this, so you write readable code
-
-```cpp
-    x = y * 8;
-    x = y << 3;
-```
-
-
-
----
-
-# Assembly
-
-- **FOR THE BRAVE!**
-- The compiler will do its best to produce optimised code.
-- However, it is not also going to do it as well as some hand-tuned code **from an expert, in some cases**
-- There are tricks that can be done in assembly that will allow you to gain those few precious cycles each frame.
-
 
 ---
 

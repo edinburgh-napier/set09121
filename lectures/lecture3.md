@@ -25,45 +25,33 @@ School of Computing. Edinburgh Napier University
 
 # Recommended Reading
 
-Game Design Workshop. 3rd Edition. Fullerton (2014).
+Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - Read Chapter 3 on Formal Elements.
+- Digital copies are available in the library.
 
-- Physical books in the library & a digital copy through Safari
 ![GameDesignWorkshopBook](assets/images/gdw_book.jpg)
-
 
 ---
 
 # What are the Formal Elements of Games?
 
-- Fullerton defines eight elements.
- -  Players
- -  Objectives
- -  Procedures
- -  Rules
- -  Resources
- -  Conflict
- -  Boundaries
- -  Outcome
-
+- Structure of the game. Without them, the game is not a game anymore.
+- Fullerton defines eight elements:
+    -  Players
+    -  Objectives
+    -  Procedures
+    -  Rules
+    -  Resources
+    -  Conflict
+    -  Boundaries
+    -  Outcome
 - The Formal Elements help us define games from a design perspective
 - ** We can also use these elements to scope the technical features**
 
-
 ---
 
-<!-- .slide: data-background="assets/images/players.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white; text-align: left;" -->
-
-- ** -- Players**
-- Objectives
-- Procedures
-- Rules
-- Resources
-- Conflict
-- Boundaries
-- Outcome
-
+# Players
 
 ---
 
@@ -75,146 +63,214 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
     - Cinemas dim their lights. <!-- .element: class="fragment" -->
     - A book uses a cover. <!-- .element: class="fragment" -->
     - A game has a title screen or introduction video. <!-- .element: class="fragment" -->
-- What about the games you play? What made you buy them? <!-- .element: class="fragment" -->
 
 
 ---
 
-# Social Games
+# Mulitplayer games
 
-- What about a game in an exhibit space? Where is the invitation?
-
-- What happens if people join in without invitation?
-
-- Any examples from games you play?
+- The invitation to play can become quite complicated in multiplayer games.
+- Can you name unique challenges when inviting players to a multiplayer online game?
+    - You need to check how many players want to join and how many are needed. <!-- .element: class="fragment" -->
+    - Are all of them ready? <!-- .element: class="fragment" -->
+    - Which role is assigned to which player? <!-- .element: class="fragment" -->
+    - Are there any teams? <!-- .element: class="fragment" -->
 
 ---
 
 # Player Interaction Patterns
 
-- A **Player Interaction Pattern** helps us define how players play  the games.
-
-- There are seven key types: <!-- .element: class="fragment" -->
-    - Single-player versus the game. <!-- .element: class="fragment" -->
-    - Multiple individual players versus the game. <!-- .element: class="fragment" -->
-    - Player versus player. <!-- .element: class="fragment" -->
-    - Unilateral competition. <!-- .element: class="fragment" -->
-    - Multilateral competition. <!-- .element: class="fragment" -->
-    - Cooperative play. <!-- .element: class="fragment" -->
-    - Team competition. <!-- .element: class="fragment" -->
-- What about the games you normally play? What are the common interaction patterns that you engage with? <!-- .element: class="fragment" -->
-
+- A **Player Interaction Pattern** helps us define how players play the games.
+- There are seven key types:
+    - Single-player versus the game.
+    - Multiple individual players versus the game.
+    - Player versus player.
+    - Unilateral competition.
+    - Multilateral competition.
+    - Cooperative play.
+    - Team competition.
 
 ---
 
-# Guess the Interaction Pattern
+# Single-player versus the game
 
-![image](assets/images/witcher3.jpg)<!-- .element height="40%" width="45%" -->
-![image](assets/images/wow.jpg)<!-- .element height="40%" width="45%" -->
+- A single player competes against the game system.
 
-![image](assets/images/hearthstone.jpg) <!-- .element height="40%" width="45%" -->
-![image](assets/images/overwatch.jpg) <!-- .element height="40%" width="45%" -->
+![SinglePlayerVersusGame](assets/images/SinglePlayerVersusGame.png)
 
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Multiple individual players versus the game
+
+- Multiple players competes against the game system.
+- They do not compete against each other and the action is not directed at other players.
+
+![MultipleIndividualsVsGame](assets/images/MultipleIndividualsVsGame.png)
+
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Player versus player
+
+- Two players directly compete.
+- Within games, the term "Player versus Player" might be used differently.
+
+![PlayerVsPlayer](assets/images/PlayerVsPlayer.png) 
+
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Unilateral competition
+
+- Two or more players compete against one single player.
+
+![UnilateralCompetition](assets/images/UnilateralCompetition.png)
+
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Multilateral competition
+
+- Three or more players compete against each other.
+
+![MultilateralCompetition](assets/images/MultilateralCompetition.png)
+
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Cooperative play.
+
+- Two or more players cooperate against the game system.
+
+![CooperativePlay](assets/images/CooperativePlay.png)
+
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Team competition.
+
+- Two or more groups compete against each other.
+
+![TeamCompetition](assets/images/TeamCompetition.png)
+
+(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
+
+---
+
+# Example: Witcher 3
+
+- What is the Player Interaction Pattern?
+
+![Wither3](assets/images/witcher3.jpg)<!-- .element height="60%" width="45%" -->
+
+- Single-player versus the game <!-- .element: class="fragment" -->
+
+---
+
+# Example: World of Warcraft
+
+- What is the Player Interaction Pattern?
+
+![WorldOfWarcraft](assets/images/wow.jpg)<!-- .element height="60%" width="45%" -->
+
+- Multiple individual players versus the game. <!-- .element: class="fragment" -->
+- Player versus player. <!-- .element: class="fragment" -->
+- Cooperative play. <!-- .element: class="fragment" -->
+- Team competition. <!-- .element: class="fragment" -->
+
+---
+
+# Example: Fortnite
+
+- What is the Player Interaction Pattern?
+
+![Fortnite](assets/images/fortnite_win.jpg)<!-- .element height="60%" width="45%" -->
+
+- Multilateral competition <!-- .element: class="fragment" -->
+- Team competition <!-- .element: class="fragment" -->
 
 ---
 
 # Player Roles
 
-- You need to define what the player's task is in the game.
-- Traditional board and card games had everyone with the same role, more or less.
-    - Some players had multiple roles -- e.g. Dungeons and Dragons. <!-- .element: class="fragment" -->
-- Video games follow this tradition. <!-- .element: class="fragment" -->
-    - Again, there are exceptions such as Team Fortress 2, Neverwinter Nights, etc. <!-- .element: class="fragment" -->
-- Roles can also be defined by how the players react to the rules and procedures of the game. <!-- .element: class="fragment" -->
-    - Players can be collectors, explorers, killers, etc. <!-- .element: class="fragment" -->
-    - See Fullerton for further discussion. <!-- .element: class="fragment" -->
-    - Consider the type of player that you are aiming for. <!-- .element: class="fragment" -->
-
+- You need to define what the player's task is in the game. <!-- .element: class="fragment" -->
+- Some games offer different roles for the player to choose from. <!-- .element: class="fragment" -->
+    - A Game Master in Dungeons and Dragons has a different role than the other players. <!-- .element: class="fragment" -->
+    - One team member might be the party leader. <!-- .element: class="fragment" -->
+- Different roles might have different rules associated with them. <!-- .element: class="fragment" -->
 
 ---
 
-<!-- .slide: data-background="assets/images/fortnite_win.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white; text-align: left;" -->
-
-- Players
-- ** -- Objectives**
-- Procedures
-- Rules
-- Resources
-- Conflict
-- Boundaries
-- Outcome
+# Objectives
 
 ---
 
 # Objectives: providing drive and challenge to the player
 
-- Players are the heart of the game experience, objectives drive the experience.
-- **Objectives** provide a challenge to the player that should be achievable.
+- Players are the heart of the game experience, objectives drive the experience. <!-- .element: class="fragment" -->
+- Objectives provide a challenge to the player that should be achievable. <!-- .element: class="fragment" -->
 - Objectives also set the overall feel of the game: <!-- .element: class="fragment" -->
     - FPS: killing and survival. <!-- .element: class="fragment" -->
-    - RPG: exploration. <!-- .element: class="fragment" -->
+    - The Sims: Manage the lives of simulated people. <!-- .element: class="fragment" -->
 - Objectives may also be made up of sub-objectives. <!-- .element: class="fragment" -->
     - Side quests are similar, but normally distinct. <!-- .element: class="fragment" -->
-
-
-
----
-
-# Fullerton: six questions for objectives
-
-- Fullerton poses six questions to help determine the objectives of a game:
-    - What are some of the objectives of the games you have played? <!-- .element: class="fragment" -->
-    - What impact do these objectives have on the tone of the game? <!-- .element: class="fragment" -->
-    - Do certain genres of play lend themselves to certain objectives? <!-- .element: class="fragment" -->
-    - What about multiple objectives? <!-- .element: class="fragment" -->
-    - Do objectives have to be explicit? <!-- .element: class="fragment" -->
-    - What about player determined objectives? <!-- .element: class="fragment" -->
-- You should pose these questions to yourself when coming up with your game idea. <!-- .element: class="fragment" -->
-
 
 ---
 
 # Common Objective Types
 
-- There is a collection of common objective types:
-    - Capture / destroy
-    - Chase
-    - Race
-    - Alignment
-    - Rescue / escape
-    - Forbidden act
-    - Construction
-    - Exploration
-    - Solution
-    - Outwit
-- Again, see Fullerton for more information.
+- Capture  <!-- .element: class="fragment" -->
+    - Take or destroy soemthing from the oponent.  <!-- .element: class="fragment" -->
+- Chase  <!-- .element: class="fragment" -->
+    - Catch an opponunt or elude one.  <!-- .element: class="fragment" -->
+- Race <!-- .element: class="fragment" -->
+    - Reach the goal before all other players. <!-- .element: class="fragment" -->
+- Alignment <!-- .element: class="fragment" -->
+    - Arrange pieces in certain configurations or categories. <!-- .element: class="fragment" -->
+- Rescue / escape <!-- .element: class="fragment" -->
+    - Get a designated unit to safety. <!-- .element: class="fragment" -->
+- Forbidden act <!-- .element: class="fragment" -->
+    - Try to make other players perform a forbidden action (laughing, say a word, etc.). <!-- .element: class="fragment" -->
+
+---
+
+# Common Objective Types (cont.)
+
+- Construction <!-- .element: class="fragment" -->
+    - Build, maintain, and manage objects. <!-- .element: class="fragment" -->
+- Exploration <!-- .element: class="fragment" -->
+    - Explore different game areas. <!-- .element: class="fragment" -->
+- Solution <!-- .element: class="fragment" -->
+    - Solve a problem or puzzle. <!-- .element: class="fragment" -->
+- Outwit <!-- .element: class="fragment" -->
+    - Gain and use knowledge to defeat the other players. <!-- .element: class="fragment" -->
 
 ---
 
 # Exercise
 
-- Describe the objectives in the games you normally play. Think about your favorite games in particular.
-- Discuss any similarities you find.
+- What is the objective in Super Mario Bros?
 
+![SuperMarioBros](assets/images/mario.jpg) <!-- .element height="60%" width="45%" -->
 
----
-
-
-<!-- .slide: data-background="assets/images/ed_controls.png" style="background-color: rgba(0, 0, 0, 0.5); color: white; text-align: left;" -->
-
-- Players
-- Objectives
-- ** -- Procedures**
-- Rules
-- Resources
-- Conflict
-- Boundaries
-- Outcome
-
+- Saving the princess?
+- Reaching the end of the level?
+- Jumping on enemies?
 
 ---
 
-# Procedures: how we interact with and control the game
+# Procedures
+
+---
+
+# Procedures: How we Interact with and Control the Game
 
 - **Procedures** describe how we interact with the game world and how we can act within the game world.
 - Video games typically define procedures via the input control mechanisms.
@@ -238,11 +294,9 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 # System Procedures
 
 - Video games are complex systems.
-- Numerous background processes are running in a game.
+- Numerous procedures are running behind the scenes to respond to player actions.
     - Compare Dungeons and Dragons to a video game RPG.
-- Physics, AI, etc. are all procedures within a game.
-- The game engine we are developing will feature these background procedures.
-- Systems are examined in the next lecture.
+- Example: Calculating the damage based on attributes and random rolls.
 
 ![image](assets/images/dnd.jpg) <!-- .element width="40%"  -->
 ![image](assets/images/neverwinter.jpg) <!-- .element width="40%"  -->
@@ -250,76 +304,48 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 
 ---
 
-<!-- .slide: data-background="assets/images/portal2.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white; text-align: left;" -->
-
-- Players
-- Objectives
-- Procedures
-- ** -- Rules**
-- Resources
-- Conflict
-- Boundaries
-- Outcome
+# Rules
 
 ---
 
-# Rules: defining objects and actions
+# Rules: Defining Objects and Restric Actions
 
-- **Rules** define the objects and their possible actions in the game.
-
-- Fullerton again poses some questions for defining rules: 
-    - How do players learn the rules? <!-- .element: class="fragment" -->
-    - How are the rules enforced? <!-- .element: class="fragment" -->
-    - What kinds of rules work best in certain situations? <!-- .element: class="fragment" -->
-    - Are there patterns to rule sets? <!-- .element: class="fragment" -->
-    - What can we learn from these patterns? <!-- .element: class="fragment" -->
-- Consider the rules for the game you want to develop: <!-- .element: class="fragment" -->
-    - Are your game rules obvious, or do you have to provide instructions? <!-- .element: class="fragment" -->
-    - Are your rules correct for the type of gameplay experience you are aiming for? <!-- .element: class="fragment" -->
+- **Rules** define the objects and restrict actions in the game.
+- In chess, the rules define different objects: <!-- .element: class="fragment" -->
+    - King: Can only move one tile in any direction. <!-- .element: class="fragment" -->
+    - Bishop: Can only move diagonal. <!-- .element: class="fragment" -->
+- In a RTS game, rules define different unit types: <!-- .element: class="fragment" -->
+    - A tank might have more HP than infantry. <!-- .element: class="fragment" -->
+    - The type and amount of damage might be different. <!-- .element: class="fragment" -->
+- A rule can restrict what you can do in a city builder: <!-- .element: class="fragment" -->
+    - You can only build a building if you have enough money. <!-- .element: class="fragment" -->
+    - You can only build an airport when you reached a population of 100 000. <!-- .element: class="fragment" -->
 
 ---
 
-# Defining Objects and Actions
+# Example: Rules Defining a shotgun
 
-- Rules can help us define the game objects within our game world.
-    - We will discuss entities next week.
 - Consider a shotgun in a FPS:
     - Cost: $500, Damage: 20 <!-- .element: class="fragment" -->
     - Spread: 10, Range: 5 <!-- .element: class="fragment" -->
     - Ammo: 2, Magazine: 12 <!-- .element: class="fragment" -->
-- We can directly implement this idea in our game -- it is just an object definition. <!-- .element: class="fragment" -->
 - We can also use rules to restrict certain actions for progression purposes. <!-- .element: class="fragment" -->
-    - For example: Assassin's Creed series, Batman Arkham series.
+    - The shotgun will be available for purchase only after finishing chapter 1 of the campaign.
 - Providing all capabilities at once can confuse and frustrate the player. <!-- .element: class="fragment" -->
 
-
 ---
 
-# Determining Effects
+# Rules Determining Effects
 
-- Rules that trigger events or effects are very useful when
-    considering the procedures of our game.
+- Rules that trigger events or effects are very useful when considering the procedures of our game.
 - We can boil down such rules to a collection of `if` statements:
     - `if player’s health == 0 then player dies.`
-    - `if player pickup apple; health += 10.`
+    - `if player picks up apple then health += 10.`
     - etc.
-- It is likely that most of your rules will be effect based.
-
 
 ---
 
-<!-- .slide: data-background="assets/images/blands_inventory.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white; text-align: left;" -->
-
-
-- Players
-- Objectives
-- Procedures
-- Rules
-- ** -- Resources**
-- Conflict
-- Boundaries
-- Outcome
-
+# Resources
 
 ---
 
@@ -330,128 +356,82 @@ A **resource** is an asset that provides the player with an advantage, allows th
 
 
 - Resources are ubiquitous in games:
- - Monopoly has money and property.
- - Command & Conquer has Tiberium.
- - Halo has health, ammunition, and shields.
+    - Monopoly has money and property.
+    - Command & Conquer has Tiberium.
+    - Halo has health, ammunition, and shields.
 
  ![BorderlandsLootBox](http://lootmaster.weebly.com/uploads/3/8/1/3/38139257/7052736.jpg) <!-- .element height="250px" -->
  ![UThealthPack](assets/images/uthealthpack.jpg) <!-- .element height="250px" -->
 
 ---
 
-# Resource Types
+# Examples of Resource Types
 
+Try to name some examples of resources.
 
-**Obvious Resources**
-
-- Lives
-- Units
-- Health
-- Currency
-- Inventory
-- Special terrain
-
-
-**Not Obvious Resources**
-
-- Actions
-- Power-ups
-- Time
-
-
-
----
-
-# List Resources in the Games You Play 
-
-List the five games you have played most recently and list the resources available in each. 
-
-Note any similarities, particularly in games of the same genre.
-
-
----
-
-<!-- .slide: data-background="https://i.imgur.com/nAfAZLr.gif" style="background-color: rgba(0, 0, 0, 0.5); color: white; text-align: left;" -->
-
-- Players
-- Objectives
-- Procedures
-- Rules
-- Resources
-- ** -- Conflict**
-- Boundaries
-- Outcome
-
-
----
-
-# Conflict: the contradiction in objectives, procedures, rules, and resources
-
-- **Conflict** occurs due to the contradiction between the objectives, the procedures, the rules, and the resources.
-    - A great example is golf.
-    - The objective is simple: put the ball in the hole ...
-    - ...but the hole and ball are small ...
-    - ...and you can only move the ball with a little stick ...
-    - ...and the hole is away over there!
-- Conflict increases challenge, which increases the fun.
-- Some Conflict examples:
-    - Obstacles: physical or conceptual.
-    - Opponents: NPCs or other players.
-    - Dilemmas: putting real choice in a game.
-
+- Lives <!-- .element: class="fragment" -->
+- Units <!-- .element: class="fragment" -->
+- Health <!-- .element: class="fragment" -->
+- Currency <!-- .element: class="fragment" -->
+- Inventory <!-- .element: class="fragment" -->
+- Special terrain <!-- .element: class="fragment" -->
+- Actions <!-- .element: class="fragment" -->
+- Power-ups <!-- .element: class="fragment" -->
+- Time <!-- .element: class="fragment" -->
 
 ---
 
 # Conflict
 
-- It is **NOT** just "My players will shoot something".
-- How will they shoot the thing?
-- What makes it possible?
-- What makes it difficult?
-- Is there a challenge to it? Where does it come from?
+---
+
+# Conflict: Clash between Objectives, Procedures, Rules, and Resources
+
+- **Conflict** occurs due to a clash between the objectives, the procedures, the rules, and the resources.
+- A great example is golf. <!-- .element: class="fragment" -->
+    - The objective is simple: put the ball in the hole ... <!-- .element: class="fragment" -->
+    - ...but the hole and ball are small ... <!-- .element: class="fragment" -->
+    - ...and you can only move the ball with a little stick ... <!-- .element: class="fragment" -->
+    - ...and the hole is away over there! <!-- .element: class="fragment" -->
+- Conflict increases the challenge, which increases the fun. <!-- .element: class="fragment" -->
+- Some Conflict examples: <!-- .element: class="fragment" -->
+    - Obstacles: physical or conceptual.
+    - Opponents: NPCs or other players.
+    - Dilemmas: putting real choice in a game.
 
 ---
 
-<!-- .slide: data-background="https://i.redd.it/opkdxg3ag1my.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white;" -->
+# Example: Starcraft 2
 
+- What is the conflict here?
 
-- Players
-- Objectives
-- Procedures
-- Rules
-- Resources
-- Conflict
-- ** -- Boundaries**
-- Outcome
+ ![Starcraft2](assets/images/Starcraf2.png) <!-- .element height="60%" width="45%" -->
 
+ - Obstacles: Limits on how many units you can build. <!-- .element: class="fragment" -->
+ - Opponents: AI or other players. <!-- .element: class="fragment" -->
+ - Dilemmas: On what unit or tech should I spend my resources? <!-- .element: class="fragment" -->
+
+---
+
+# Boundaries
 
 ---
 
 # Boundaries
 
 - **Boundaries** define where the game is taking place.
-- Games exist in a world where the formal elements exist.
+- Games exist in a world where the formal elements exist. <!-- .element: class="fragment" -->
     - Sometimes called the magic circle.
-- Boundaries can be physical.
+- Boundaries can be physical. <!-- .element: class="fragment" -->
     - The normal approach in video games.
     - Screen boundaries, 3D world boundaries, etc. are all examples of this.
-- Boundaries can be conceptual.
+- Boundaries can be conceptual. <!-- .element: class="fragment" -->
     - The players make an agreement to stay within the rules of the game.
 
 
 ---
 
-<!-- .slide: data-background="https://i.imgur.com/pS3Pk58.jpg" style="background-color: rgba(0, 0, 0, 0.5); color: white;" -->
-
-- Players
-- Objectives
-- Procedures
-- Rules
-- Resources
-- Conflict
-- Boundaries
-- ** -- Outcome**
-
+# Outcome
 
 ---
 
@@ -475,10 +455,8 @@ Note any similarities, particularly in games of the same genre.
 
 # Try Describing a Game Using the Formal Elements
 
-- After class, try and describe a game (board, video, or social) using the vocabulary of formal elements.
-
+- After the class, try and describe a game (board, video, or social) using the vocabulary of formal elements.
 - Try to go into some real depth: it will help you understand games more.
-
 - Think about the formal elements whenever you play a game. Try and pick apart the individual elements of the game to get a better understanding of how it is put together.
 
 
@@ -486,11 +464,11 @@ Note any similarities, particularly in games of the same genre.
 
 # Summary
 
-- **Players**: who is playing our game?
-- **Objectives**: what is the goal of playing the game?
-- **Procedures**: how is the game played?
-- **Rules**: what are the restrictions on how the game is played?
-- **Resources**: what assets are available in the game?
+- **Players**: Who is playing our game?
+- **Objectives**: What is the goal of playing the game?
+- **Procedures**: How is the game played?
+- **Rules**: What are the restrictions on how the game is played?
+- **Resources**: What assets are available in the game?
 - **Conflict**: How do the objectives, procedures, rules, and resources constrain each other?
-- **Boundaries**: where is the game played?
-- **Outcome**: how is the game resolved?
+- **Boundaries**: Where is the game played?
+- **Outcome**: How is the game resolved?
