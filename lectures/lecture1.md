@@ -360,7 +360,6 @@ School of Computing. Edinburgh Napier University
 		
 - I hope you have fun during the module.
 - The module has been designed to be challenging but with effort everyone can succeed.
-- We brought this back as we thought it was fundamental for the Games Development students.
 - But for everyone else we hope you will learn:
     - How games work and how you can put them together.
     - How to do software engineering properly (from our point of view!)
