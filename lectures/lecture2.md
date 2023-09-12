@@ -115,7 +115,7 @@ It's the nicest one to use for basic stuff...
 - For example: 
     - Fixing two different bugs should produce two separate commits. <!-- .element: class="fragment" -->
 - Small commits make it easier for other team members to understand the changes and roll them back if something went wrong. <!-- .element: class="fragment" -->
-- Use tools like the staging area and stage only parts of a file, to create very granular commits. <!-- .element: class="fragment" -->
+- Use tools like the staging area and stage only what is necessary, to create very granular commits. <!-- .element: class="fragment" -->
 
 
 ---
