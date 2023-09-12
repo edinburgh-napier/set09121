@@ -345,8 +345,9 @@ School of Computing. Edinburgh Napier University
 ### Contact details:
 
 
-**b.koniaris@napier.ac.uk**
-**t.grubenmann@napier.ac.uk**
+Babis: **b.koniaris@napier.ac.uk**
+
+Tobias: **t.grubenmann@napier.ac.uk**
 
 
 - The best time to ask for help is during the practical sessions.
