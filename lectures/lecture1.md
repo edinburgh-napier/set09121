@@ -344,9 +344,9 @@ School of Computing. Edinburgh Napier University
 
 ### Contact details:
 
-MY  EMAIL 
 
 **b.koniaris@napier.ac.uk**
+**t.grubenmann@napier.ac.uk**
 
 
 - The best time to ask for help is during the practical sessions.
