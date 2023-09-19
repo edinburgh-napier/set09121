@@ -44,7 +44,7 @@ I'll get you started off with the top of your file. It's the usual imports and n
 
 We then move onto the Load() function. This is where we would load in assets if we had any (remember this for future)! For now, we setup the game by resizing and moving our shapes.
 
-The ... lines are left incomplete for you to complete. There are hints about what should go there, in comments and other code, but you should start thinking about what these lines should do, and how to use the SMFL API!
+The ... lines are left incomplete for you to complete. There are hints about what should go there, in comments and other code, but you should start thinking about what these lines should do, and how to use the SFML API!
 
 ```cpp
 #include <SFML/Graphics.hpp>
@@ -63,24 +63,25 @@ const float ballRadius = 10.f;
 const int gameWidth = 800;
 const int gameHeight = 600;
 const float paddleSpeed = 400.f;
+const float paddleOffsetWall = 10.f;
 
 CircleShape ball;
 RectangleShape paddles[2];
 
 void Load() {
-  // Set size and origin of paddles
-  for (auto &p : paddles) {
-    p.setSize(paddleSize - Vector2f(3, 3));
-    p.setOrigin(paddleSize / 2.f);
-  }
-  // Set size and origin of ball
-  ball.setRadius(ballRadius);
-  ball.setOrigin(...); //Should be half the ball width and height
-  // reset paddle position
-  paddles[0].setPosition(Vector2(10.f + paddleSize.x / 2.f, gameHeight / 2.f));
-  paddles[1].setPosition(...);
-  // reset Ball Position
-  ball.setPosition(...);
+    // Set size and origin of paddles
+    for (auto &p : paddles) {
+        p.setSize(paddleSize);
+        p.setOrigin(paddleSize / 2.f);
+    }
+    // Set size and origin of ball
+    ball.setRadius(ballRadius);
+    ball.setOrigin(...); //Should be half the ball width and height
+    // reset paddle position
+    paddles[0].setPosition(Vector2f(paddleOffsetWall + paddleSize.x / 2.f, gameHeight / 2.f));
+    paddles[1].setPosition(...);
+    // reset Ball Position
+    ball.setPosition(...);
 }
 ```
 
@@ -93,32 +94,32 @@ We will come back and add to this, but you don't need to edit anything just now.
 
 ```cpp
 void Update(RenderWindow &window) {
-  // Reset clock, recalculate deltatime
-  static Clock clock;
-  float dt = clock.restart().asSeconds();
-  // check and consume events
-  Event event;
-  while (window.pollEvent(event)) {
-    if (event.type == Event::Closed) {
-      window.close();
-      return;
+    // Reset clock, recalculate deltatime
+    static Clock clock;
+    float dt = clock.restart().asSeconds();
+    // check and consume events
+    Event event;
+    while (window.pollEvent(event)) {
+        if (event.type == Event::Closed) {
+            window.close();
+            return;
+        }
     }
-  }
 
-  // Quit Via ESC Key
-  if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-    window.close();
-  }
+    // Quit Via ESC Key
+    if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+        window.close();
+    }
 
-  // handle paddle movement
-  float direction = 0.0f;
-  if (Keyboard::isKeyPressed(controls[0])) {
-    direction--;
-  }
-  if (Keyboard::isKeyPressed(controls[1])) {
-    direction++;
-  }
-  paddles[0].move(Vector2(0.f, direction * paddleSpeed * dt));
+    // handle paddle movement
+    float direction = 0.0f;
+    if (Keyboard::isKeyPressed(controls[0])) {
+        direction--;
+    }
+    if (Keyboard::isKeyPressed(controls[1])) {
+        direction++;
+    }
+    paddles[0].move(Vector2f(0.f, direction * paddleSpeed * dt));
 }
 ```
 
@@ -130,22 +131,22 @@ Add this to the bottom of your main.cpp file:
 
 ```cpp
 void Render(RenderWindow &window) {
-  // Draw Everything
-  window.draw(paddles[0]);
-  window.draw(paddles[1]);
-  window.draw(ball);
+    // Draw Everything
+    window.draw(paddles[0]);
+    window.draw(paddles[1]);
+    window.draw(ball);
 }
 
 int main() {
-  RenderWindow window(VideoMode(gameWidth, gameHeight), "PONG");
-  Load();
-  while (window.isOpen()) {
-    window.clear();
-    Update(window);
-    Render(window);
-    window.display();
-  }
-  return 0;
+    RenderWindow window(VideoMode(gameWidth, gameHeight), "PONG");
+    Load();
+    while (window.isOpen()) {
+        window.clear();
+        Update(window);
+        Render(window);
+        window.display();
+    }
+    return 0;
 }
 ```
 
@@ -172,7 +173,7 @@ If you find yourself a little lost now, re-read this page, look up the SFML API 
 
 #### An API Update
 
-It seems that SFML have updated their  APIs so you can no longer pass separate x and y values into many of the calls – instead you need to pass sf::Vector2() (or make sure you are using sf like we are in this file). This will no doubt be an optimisation, but it means that some 'legacy' code (like what you will get later in this module) will not work by default.
+It seems that SFML have updated their  APIs so you can no longer pass separate x and y values into many of the calls – instead you need to pass sf::Vector2f() (or make sure you are using sf like we are in this file). This will no doubt be an optimisation, but it means that some 'legacy' code (like what you will get later in this module) will not work by default.
 
 Thankfully it's an easy fix, and I'll be fixing it for most of the code we give you in the labs, but just remember this for if you find errors later. After all, I might miss one!
 

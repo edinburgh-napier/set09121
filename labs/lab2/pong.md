@@ -118,7 +118,7 @@ window.setVerticalSyncEnabled(true/false);
 An important gotcha that can happen here is that the graphics drivers can manually override and forcefully enable or disable VSync. As such, don't depend on it always being in the state that you set it!
 
 **Why do we care about this?**
-If you are measuring the performance of your game, and it seems to be stuck to 30 or 60fps. VSync is on. Turn it off to see a more measure of the true performance of your game.
+If you are measuring the performance of your game, and it seems to be stuck to 30 or 60fps. VSync is on. Turn it off to see a more accurate measure of the true performance of your game.
 
 
 ## Next Steps
