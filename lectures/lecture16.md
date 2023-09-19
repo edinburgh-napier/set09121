@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris, Tobias Grubenmann
+Babis Koniaris/Tobias Grubenmann
 <br>
 
 
