@@ -146,7 +146,7 @@ School of Computing. Edinburgh Napier University
 # Example - Maze Solving
 
 - To solve a maze we can use a particular trick.
-    - This only works if the maze has simply connected, i.e., all the walls are connected to each other (taking into account the outer boundary).
+    - This only works if the maze is simply connected, i.e., all the walls are connected to each other (taking into account the outer boundary).
 - The basic algorithm is:
     - Walk forward from the entrance until you hit a wall.
     - Turn left.
