@@ -161,6 +161,7 @@ This is a light-speed gloss over what version control can do for you. If this is
 If you want to work on another PC, or at home. You obviously don't need to create a new repo.
 The steps you need to do are simply:
 1. Clone/Pull the repo down from your github
+1. Get/update SFML by running: ```git submodule update --init --recursive```
 1. Run CMake to generate your build folder
 
 The key here is that you only need to version control your **source** folder.
