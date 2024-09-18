@@ -16,7 +16,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### Welcome
 
 <br><br>
-Babis Koniaris/Tobias Grubenmann
+Babis Koniaris
 <br>
 (Original material by Kevin Chalmers/Sam Serrels/Thomas Methven)
 
