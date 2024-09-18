@@ -154,7 +154,7 @@ School of Computing. Edinburgh Napier University
 - You __**WILL**__ have to work around 14 hours per week on the module.
     - 4 hours of contact (lectures and practicals).
     - 10 hours of self-study.
-- The coursework requires working in pairs which will require some organisation outside class time.
+- The coursework requires working in groups which will require some organisation outside class time.
     - Use Discord/Slack/Whatsapp to communicate (make sure you book regular meetings).
 - Keep up with the practical work!  There is one every week.
     - The practicals build the engine you need.  Falling behind one week means trying to catch up the next!
