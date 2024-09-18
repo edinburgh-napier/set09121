@@ -125,7 +125,7 @@ School of Computing. Edinburgh Napier University
 - Develop a game using the game engine.
     - **You cannot use one of our samples and just change the graphics**, or likewise with samples for SFML, Box2D, etc. – this will be a **FAIL**!
 
-- You will work with a partner, think who you might want to work with.
+- You will work with two partners, think who you might want to work with.
 
 - Coursework has four submissions.
     - [Week ~4:] Game pitch presentation.
