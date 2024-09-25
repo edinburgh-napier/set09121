@@ -67,7 +67,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 ---
 
-# Mulitplayer games
+# Multiplayer games
 
 - The invitation to play can become quite complicated in multiplayer games.
 - Can you name unique challenges when inviting players to a multiplayer online game?
@@ -227,9 +227,9 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 # Common Objective Types
 
 - Capture  <!-- .element: class="fragment" -->
-    - Take or destroy soemthing from the oponent.  <!-- .element: class="fragment" -->
+    - Take or destroy something from the opponent.  <!-- .element: class="fragment" -->
 - Chase  <!-- .element: class="fragment" -->
-    - Catch an opponunt or elude one.  <!-- .element: class="fragment" -->
+    - Catch an opponent or elude one.  <!-- .element: class="fragment" -->
 - Race <!-- .element: class="fragment" -->
     - Reach the goal before all other players. <!-- .element: class="fragment" -->
 - Alignment <!-- .element: class="fragment" -->
@@ -308,7 +308,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 ---
 
-# Rules: Defining Objects and Restric Actions
+# Rules: Defining Objects and Restrict Actions
 
 - **Rules** define the objects and restrict actions in the game.
 - In chess, the rules define different objects: <!-- .element: class="fragment" -->
@@ -330,8 +330,9 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
     - Spread: 10, Range: 5 <!-- .element: class="fragment" -->
     - Ammo: 2, Magazine: 12 <!-- .element: class="fragment" -->
 - We can also use rules to restrict certain actions for progression purposes. <!-- .element: class="fragment" -->
-    - The shotgun will be available for purchase only after finishing chapter 1 of the campaign.
+    - Special items in Legend of Zelda series
 - Providing all capabilities at once can confuse and frustrate the player. <!-- .element: class="fragment" -->
+    - Same applies with tutorials, and any form of learning
 
 ---
 
