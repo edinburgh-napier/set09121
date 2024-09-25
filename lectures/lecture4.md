@@ -271,8 +271,8 @@ Keep it abstract, but consider how you would program these.
 - What can the player control?  <!-- .element: class="fragment" -->
     - This has a huge impact on the top-level experience of the game.
 - What feedback occurs within the system?  <!-- .element: class="fragment" -->
-    - Positive (reinforcing) feedback forces a system towards one extreme.
-    - Negative (balancing) feedback forces a system towards equilibrium. 
+    - Positive (reinforcing) feedback forces a system towards one extreme. (Morrowind potions)
+    - Negative (balancing) feedback forces a system towards equilibrium. (Oblivion level scaling)
 - How do these considerations affect the gameplay?  <!-- .element: class="fragment" -->
 
 ---
