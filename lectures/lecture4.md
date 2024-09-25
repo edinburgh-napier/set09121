@@ -167,6 +167,7 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 - To turn a set of objects into a system, we need relationships between them. <!-- .element: class="fragment" -->
     - The steering wheel of a car is connected to the wheels.
     - The position of chess pieces on the board determines how pieces can interact with each other.
+    - The position of Tetris pieces determine if lines are cleared, and where falling pieces stop.
 - Some relationships between objects can be changed by the player. <!-- .element: class="fragment" -->
     - I can move the chess pieces to a different location.
 - Some relationships can be based on the current state.  <!-- .element: class="fragment" -->
@@ -221,8 +222,8 @@ Keep it abstract, but consider how you would program these.
 # De-constructing Chess
 
 - Chess is a significantly more complex and strategic game than Tic-Tac-Toe.
- - **Objects**: squares, pieces.
- - **Properties**: colour, rank, and location of the piece.
+ - **Objects**: board, pieces.
+ - **Properties**: colour, rank, and location of a piece.
  - **Behaviours**: move a piece.
  - **Relationships**: location of pieces relative to other pieces.
 
