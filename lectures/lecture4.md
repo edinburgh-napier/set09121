@@ -49,8 +49,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Games as Systems
 
-- When we consider games as systems, we focuse on the following elements:
-    - **Objects** that interact with each other according to their **properties**, **behaviors**, **relationships**.
+- When we consider games as systems, we focus on **objects** that interact with each other according to their **properties**, **behaviors**, **relationships**.
 
 ---
 
@@ -59,7 +58,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 - Objects are the basic elements of a system. Consider the objects you define in object-oriented development.
 - For example: an engine, steering wheel, and wheels interact together to allow a car to operate. <!-- .element: class="fragment" -->
 - The complexity of the underlying system is hidden behind an interface. For a car, this is the steering wheels and pedals. <!-- .element: class="fragment" -->
-- Objects are defined by their properties, behaviors, and relationship with each other. <!-- .element: class="fragment" -->
+- Objects are defined by their properties, behaviors, and relationships with each other. <!-- .element: class="fragment" -->
 - In games the most basic of object is usually called an Entity, Actor, or Game Object. <!-- .element: class="fragment" -->
 - Almost everything in a game is an object. <!-- .element: class="fragment" -->
     - For example: players, opponents, environment. <!-- .element: class="fragment" -->
@@ -119,7 +118,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Behaviours (cont.)
 
-- We are normally thinking about what can happen during the update step. <!-- .element: class="fragment" -->
+- Behaviours (==actions) "happen" during the update step. <!-- .element: class="fragment" -->
  - For example, when B is pressed the player should jump. <!-- .element: class="fragment" -->
  - Player's actions are normally based on the controls (Procedures from Formal Elements). <!-- .element: class="fragment" -->
  - Computer controlled actions are normally supplied via some form of Artificial Intelligence (System procedures, objectives, rules).  <!-- .element: class="fragment" -->
