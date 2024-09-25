@@ -168,7 +168,7 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
     - The position of chess pieces on the board determines how pieces can interact with each other.
     - The position of Tetris pieces determine if lines are cleared, and where falling pieces stop.
 - Some relationships between objects can be changed by the player. <!-- .element: class="fragment" -->
-    - I can move the chess pieces to a different location.
+    - Chess pieces can be moved to a different location.
 - Some relationships can be based on the current state.  <!-- .element: class="fragment" -->
     - If a character is wanted then guards will chase them on sight.
 
@@ -177,14 +177,6 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 # What Relationships are Here? 
 
 ![image](assets/images/cities_skylines.jpg)
-
----
-
-**Describe your favourite game as a system.** 
-
-Pick one of your favourite games and described the objects, their properties and their behaviours.
-
-Keep it abstract, but consider how you would program these.
 
 ---
 
