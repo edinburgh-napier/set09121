@@ -273,7 +273,6 @@ Keep it abstract, but consider how you would program these.
 - What feedback occurs within the system?  <!-- .element: class="fragment" -->
     - Positive (reinforcing) feedback forces a system towards one extreme. (Morrowind potions)
     - Negative (balancing) feedback forces a system towards equilibrium. (Oblivion level scaling)
-- How do these considerations affect the gameplay?  <!-- .element: class="fragment" -->
 
 ---
 
