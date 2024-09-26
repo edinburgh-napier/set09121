@@ -46,14 +46,14 @@ Open a cmd (or git-bash) window somewhere (desktop is best). Now clone
 your repo
 
 ```bash
-git clone git@github.com:you/yourRepo.git
+git clone https://github.com/yourUsername/yourRepo.git
 ```
 
-This will create a folder named set09121\_labs (or whatever you called you repo). 
+This will create a folder named yourRepo (or whatever you called you repo). 
 Let's move into that folder in the terminal
 
 ```bash
-cd set09121_labs
+cd yourRepo
 ```
 
 Now if you run
@@ -90,9 +90,9 @@ We will be doing this via Git Submodules, which makes it look  like the SFML cod
 git submodule add https://github.com/SFML/SFML.git lib/sfml
 git submodule init
 git submodule update
-cd lib\sfml
+cd lib/sfml
 git checkout 2.6.1
-cd ..\..
+cd ../..
 ```
 **Note, you need to be in the root directory of your repository for this to work!**
 
