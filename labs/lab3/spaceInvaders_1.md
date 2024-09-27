@@ -116,7 +116,7 @@ void Load() {
     cerr << "Failed to load spritesheet!" << std::endl;
   }
   invader.setTexture(spritesheet);
-  invader.setTextureRect(IntRect(Vector2(0, 0), Vector2(32, 32)));
+  invader.setTextureRect(IntRect(Vector2i(0, 0), Vector2i(32, 32)));
 }
 
 void Render() {
@@ -129,7 +129,7 @@ At this stage, you might find your code doesn't run because of the *cerr* call. 
 Take note of this line:
 
 ```cpp
-sprite.setTextureRect(IntRect(Vector2(0, 0), Vector2(32, 32)));
+sprite.setTextureRect(IntRect(Vector2i(0, 0), Vector2i(32, 32)));
 ```
 
 The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is dived into squares of 32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite. **Remember, you should be looking up the SFML API to find out things like this yourself going forwards**
