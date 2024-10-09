@@ -501,30 +501,30 @@ void EvadeState::handle(Context& context) {
 
 # Strategy Pattern
 
-```CS
-interface Integrator {
-    void step(float h);
-}
+```cpp
+class Integrator {
+public:
+    virtual void step(float h) = 0;
+};
 
 class LeapFrog : Integrator {
-    void step(float h) {
-        // Calculate forces
-    }
-}
+public:
+    void step(float h) override {} // use leapfrog verlet
+};
 
 class Euler : Integrator {
-    void step(float h) {
-        // Calculate forces
-    }
-}
+public:
+    void step(float h) override {} // use explicit euler
+};
 
 class Simulator {
-    Integrator integrationMethod;
-
+public:
     void update(float h) {
-        integrationMethod.step(h);
+        integrationMethod->step(h);
     }
-}
+private:
+    Integrator * integrationMethod;
+};
 ```
 
 ---
@@ -532,12 +532,12 @@ class Simulator {
 # Observer Pattern
 
 - We want to have a centralised repository and control point for a collection of objects.
-- The **subject** keeps track of all objects, the **observers**, and performs operations on them.
+- The **subject** keeps track of all objects, the **observers**, and notifies them of any state changes.
 - The subjects are registered at runtime. 
-- Example: An entity manger that keeps track of all entities in a game.
+- Example: An entity manager that keeps track of all entities in a game.
     - Entity manager is the subject.
     - The entities are the observers.
-    - The entity manger calls methods like `update()` and `render()` each frame. 
+    - The entity manager calls methods like `update()` and `render()` each frame
 
 ---
 
@@ -551,24 +551,36 @@ class Simulator {
 
 # Observer Pattern 
 
-```CS
-class EntityManager { // Subject
-    List<Entity> entities = new List<Entity>();
-
-    void update(float dt) {
-        for (Entity entity in entities) {
-            entity.update(dt);
-        }
-    } 
-
-    // register(), unregister(), etc.
-}
-
+```cpp
 class Entity { // Observer
+public:
+    void update(float dt) {}
+    void render() {}
+};
+
+class EntityManager { // Subject
+    std::vector<Entity*> entities;
+
     void update(float dt) {
-        // ...
+        for (Entity* entity : entities) {
+            entity->update(dt);
+        }
     }
-}
+
+    void render() {
+        for (Entity* entity : entities) {
+            entity->render();
+        }
+    }
+
+    void registerEntity(Entity * entity) {
+        entities.push_back(entity);
+    }
+
+    void unregisterEntity(Entity* entity) {
+        // ... remove entity from entities vector
+    }
+};
 ```
 
 ---
