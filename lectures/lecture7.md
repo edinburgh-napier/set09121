@@ -316,7 +316,7 @@ Maps can be very helpful to get an overview of the gameworld.
 
 # Maintenance
 
-- Game Design Document (GDD) is not a carved in stone. <!-- .element: class="fragment" -->
+- Game Design Document (GDD) is not carved in stone. <!-- .element: class="fragment" -->
     - Living document.
     - Updates made as development progresses.
 - GDD can also get quite large. <!-- .element: class="fragment" -->
