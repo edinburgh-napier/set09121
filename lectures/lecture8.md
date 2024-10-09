@@ -128,17 +128,19 @@ Game Programming Patterns - Robert Nystrom
 
 # Singleton Pattern 
 
-```CS
-class EntityManager {
-    static EntityManager instance;
-
-    static EntityManager getInstance() {
-        if (instance == null) {
-            instance = new EntityManager();
-        }
+```cpp
+class EntityManager
+{
+public:
+    static EntityManager& getInstance()
+    {
+        static EntityManager instance;
         return instance;
     }
-}
+private:
+    EntityManager(){}
+    EntityManager(const EntityManager&) = delete;
+};
 ```
 
 ---
@@ -165,28 +167,29 @@ class EntityManager {
 
 # Composite Pattern 
 
-```CS
-interface UIElement { // Component
-    void update(); // Operation
-}
+```cpp
+class UIElement { // Component
+public:
+    virtual void update()=0; // Operation
+};
 
-class Panel : UIElement { // Composite
-    List<UIElement> panelElements = new List<UIElement>();
+class Panel : public UIElement { // Composite
+    std::vector<std::shared_ptr<UIElement>> panelElements;
 
-    void update() { 
-        for (UIElement element in panelElements) {
-            element.update();
+    void update() override {
+        for (std::shared_ptr<UIElement>& element : panelElements) {
+            element->update();
         }
     }
-    
-    // add(), remove(), getChild()...
-}
 
-class Button : UIElement { // Leaf
-    void update() {
+    // add(), remove(), getChild()...
+};
+
+class Button : public UIElement { // Leaf
+    void update() override {
         ...
     }
-}
+};
 ```
 
 ---
