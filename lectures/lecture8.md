@@ -315,28 +315,81 @@ return 0;
 
 # Mediator Pattern 
 
-```CS
-class ChatRoom {
-    List<User> users = new List<User>();
+```cpp
+class Colleague;
 
-    void send(string message, string sender) {
-        for (User user in users) {
-            user.receive(message, sender);
+class Mediator {
+public:
+    virtual void broadcastMessage(const std::string& message, Colleague* sender) = 0;
+};
+
+class Colleague {
+public:
+    Colleague(Mediator* mediator, const std::string& name) : mediator(mediator), name(name) {}
+
+    void sendMessage(const std::string& message) {
+        mediator->broadcastMessage(message, this);
+    }
+
+    void receiveMessage(const std::string& message) {
+        std::cout << name << " received: " << message << std::endl;
+    }
+
+    std::string getName() const {
+        return name;
+    }
+private:
+    Mediator* mediator;
+    std::string name;
+};
+```
+
+---
+
+# Mediator Pattern 
+
+```cpp
+// Concrete Mediator (Chat Room)
+class ChatRoom : public Mediator {
+public:
+    void addParticipant(Colleague* colleague) {
+        participants.push_back(colleague);
+    }
+
+    void broadcastMessage(const std::string& message, Colleague* sender) override {
+        for (Colleague* participant : participants) {
+            if (participant != sender) {
+                participant->receiveMessage(sender->getName() + ": " + message);
+            }
         }
     }
+private:
+    std::vector<Colleague*> participants;
+};
+```
 
-    // register(), remove(), etc.
-}
+---
 
-class User {
-    void receive(string message, string sender) {
-        // Display message
-    }
+# Mediator Pattern 
 
-    void send(string message) {
-        mediator.send(message, Name);
-    }
-}
+```cpp
+// Create a mediator (chat room)
+ChatRoom chatRoom;
+
+// Create participants (colleagues)
+Colleague alice(&chatRoom, "Alice");
+Colleague bob(&chatRoom, "Bob");
+Colleague charlie(&chatRoom, "Charlie");
+
+// Add participants to the chat room
+chatRoom.addParticipant(&alice);
+chatRoom.addParticipant(&bob);
+chatRoom.addParticipant(&charlie);
+
+// Participants send messages through the mediator
+alice.sendMessage("Hello, everyone!");
+bob.sendMessage("Hi Alice!");
+charlie.sendMessage("Good morning, folks!");
 ```
 
 ---
@@ -364,30 +417,72 @@ class User {
 
 # State Pattern 
 
-```CS
-interface State {
-    void handle();
-}
+```cpp
+class Context; // Forward declaration
 
-class ChaseState : State {
-    void handle() {
-        // Chase PacMan
+// State Interface
+class State {
+public:
+    virtual void handle(Context& context) = 0;
+    virtual ~State() = default;
+};
+
+class ChaseState : public State { // Concrete state
+public:
+    void handle(Context& context) override;
+};
+
+class EvadeState : public State {
+public:
+    void handle(Context& context) override;
+};
+
+```
+
+---
+
+# State Pattern 
+
+```cpp
+class Context { // Context class that holds the current state
+public:
+    Context(State * initialState) : state(initialState) {}
+
+    void setState(State* newState) {
+        state = newState;
     }
-}
 
-class EvadeState : State {
-    void handle() {
-        // Evade PacMan
+    void tick() {
+        state->handle(*this);  // Delegate behavior to the current state
     }
+private:
+    State * state;  // The current state
+};
+
+void ChaseState::handle(Context& context) {
+    if (pacmanJustAtePowerPill)
+            context.setState(new EvadeState());  // Transition to evade state
 }
 
-class Enemy {
-    State behaviourState;
-
-    void update() {
-        behaviourState.handle();
-    }
+void EvadeState::handle(Context& context) {
+    if(timeElapsedSinceEvadeStarted < evasionDuration)
+        context.setState(new ChaseState());  // Transition to chase state
 }
+```
+
+---
+
+# State Pattern 
+
+```cpp
+ Context pacman(new PacmanState());
+ Context ghost(new EvadeState());
+
+ while (true)
+ {
+     pacman.tick();
+     ghost.tick();
+ }
 ```
 
 ---
