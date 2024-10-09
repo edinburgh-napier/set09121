@@ -589,8 +589,8 @@ class EntityManager { // Subject
 
 - You will be surprised how often design patterns pop-up when developing software.
 - Some patterns are even built into languages and frameworks that you have used.
-    - `foreach` in C# is an iterator.
-    - C# also has delegates.
+    - Range-based for-loop in C++ uses iterators provided by the collection
+    - C# has events.
     - Python has decorators.
     - Java provides the observer pattern.
 - To recognise a pattern you need to first recognise the problem you are trying to solve.
