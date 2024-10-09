@@ -215,14 +215,80 @@ class Button : public UIElement { // Leaf
 
 # Iterator Pattern 
 
-```CS
-QuerySolution solution = QueryEngine.Query("SELECT name, address FROM customers");
+```cpp
+// Iterator interface
+class Iterator {
+public:
+    virtual int next() = 0;
+    virtual bool hasNext() = 0;
+};
 
-while (solution.hasNext()) {
-    Bindings bindings = solution.next();
+// Concrete Iterator
+class ConcreteIterator : public Iterator {
+public:
+    ConcreteIterator(const std::vector<int>& items) : items(items), position(0) {}
 
-    // Do something with the bindings.
+    int next() override {
+        if (hasNext()) {
+            return items[position++];
+        }
+        throw std::out_of_range("No more elements.");
+    }
+
+    bool hasNext() override {
+        return position < items.size();
+    }
+private:
+    const std::vector<int>& items;
+    size_t position;
+};
+```
+
+---
+
+# Iterator Pattern 
+
+```cpp
+// Aggregate interface
+class Aggregate {
+public:
+    virtual std::unique_ptr<Iterator> createIterator() const = 0;
+    virtual ~Aggregate() = default;
+};
+
+// Concrete Aggregate
+class ConcreteAggregate : public Aggregate {
+public:
+    void addItem(int item) {
+        items.push_back(item);
+    }
+
+    std::unique_ptr<Iterator> createIterator() const override {
+        return std::make_unique<ConcreteIterator>(items);
+    }
+private:
+    std::vector<int> items;
+};
+```
+
+---
+
+# Iterator Pattern 
+
+```cpp
+ConcreteAggregate numbers;
+numbers.addItem(10);
+numbers.addItem(20);
+numbers.addItem(30);
+numbers.addItem(40);
+
+std::unique_ptr<Iterator> iterator = numbers.createIterator();
+
+while (iterator->hasNext()) {
+    std::cout << iterator->next() << " ";
 }
+std::cout << std::endl;
+return 0;
 ```
 
 ---
