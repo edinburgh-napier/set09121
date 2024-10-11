@@ -180,7 +180,7 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 # Flowcharts
 
-Flowcharts can help visualise the gamplay
+Flowcharts can help visualise the gameplay
 
 ![image](assets/images/flowchart.png)
 
