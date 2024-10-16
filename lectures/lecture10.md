@@ -240,20 +240,14 @@ pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
 # Why not just use classes?
 
 ```cpp
-class Component {
-};
-
-class ShapeComponent : public Component{
-} //no change
+class Component {};
+class ShapeComponent : public Component{} //no change
 
 class Entity {
-
   protected:
     std::vector<std::shared_ptr<Component>> _components; //No change
-
   public:
-    //templated:
-	//template <typename T>
+    //template <typename T>
     //std::shared_ptr<T> addComponent(Targs... params){}
     //Or no templates:
     Component* addComponent(Component*){}
@@ -262,7 +256,6 @@ class Entity {
 
 ```cpp
 auto pl = make_shared<Entity>();
-
 ShapeComponent* sc = new ShapeComponent();
 auto s = pl->addComponent(sc);
 
@@ -280,9 +273,7 @@ for(int i=0;i < pl->getComponentNum(); ++i)
     }
 }
 // The main problem is that we can't generalize this code (by wrapping into a function) so support more component types
-// It's verbose, ugly and slow
 ```
-
 
 ---
 
@@ -323,12 +314,6 @@ class Entity {
   // ... (more code)
 };
 ```
-
-Now we generalised to any type. <!-- .element: class="fragment" -->
-
-Templates are verbose, ugly and fast. <!-- .element: class="fragment" -->
-
-They are worth delving deeper to, eventually. <!-- .element: class="fragment" -->
 
 ---
 
