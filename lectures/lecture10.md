@@ -266,32 +266,65 @@ auto pl = make_shared<Entity>();
 ShapeComponent* sc = new ShapeComponent();
 auto s = pl->addComponent(sc);
 
-// later on...
-//Uh oh
-//pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
-//We would have to do something like this:
-pl->getComponentsOfType(PlayerMovementComponent)[0]->setSpeed(150.f);
-//Not *So* bad, but how would that function work?
+// later on, we want to get the first-found PlayerMovement component, to set the speed...
+// With templates, it could look like this
+//     pl->getComponent<PlayerMovementComponent>()->setSpeed(150.f);
+// Without templates, we would have to do something like this:
+for(int i=0;i < pl->getComponentNum(); ++i)
+{
+    PlayerMovementComponent playerMovementComponent = std::dynamic_cast<PlayerMovementComponent>(pl->getComponent(i));
+    if( playerMovementComponent != null)
+    {
+        playerMovementComponent->setSpeed(150.0f);
+        break;
+    }
+}
+// The main problem is that we can't generalize this code (by wrapping into a function) so support more component types
+// It's verbose, ugly and slow
 ```
 
 
 ---
 
-# ECM without templates
+# ECM: generalising with templates
 
 ```cpp
-getComponentsOftype(ComponentType CT){
-  foreach(c in component){
-    attempt to cast C to CT;
-    did it work?
-      return C; 
-  }
+enum class ComponentType
+{
+    PlayerMovement,
+    AI,
+    Rendering
 }
+
+class Component
+{
+public:
+    virtual ComponentType componentType() const=0;
+};
+
+class PlayerMovementComponent : public Component
+{
+public:
+    static const ComponentType kComponentType = ComponentType::PlayerMovement;
+    ComponentType componentType() const override { return kComponentType; }
+}
+
+class Entity {
+  // ... (more code)
+  template <typename T>
+  std::shared_ptr<T> getComponent() {
+    for(int i=0;i < getComponentNum(); ++i)
+    {
+        auto component = getComponent(i);
+	if(component->componentType() == T::kComponentType)
+            return component;
+    }
+  }
+  // ... (more code)
+};
 ```
 
-That's what we have to do, due to C++ lack of reflection. <!-- .element: class="fragment" -->
-
-It's verbose, ugly and slow. <!-- .element: class="fragment" -->
+Now we generalised to any type. <!-- .element: class="fragment" -->
 
 Templates are verbose, ugly and fast. <!-- .element: class="fragment" -->
 
