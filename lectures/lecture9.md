@@ -155,7 +155,7 @@ You must consider the limits you have in memory.
  - **stack size** - depends on compiler and OS, can be set.
   - Windows is ~1MB.
  - **thread stack size** -  as above, but normally smaller.
- - **main memory** -  commonly ranges from 4GB to 16GB at present.
+ - **main memory** -  commonly ranges from 8GB to 32GB at present.
  - **virtual memory** -  if main memory runs out, the (slow) HDD used.
   - 64bit OS can address ~16.8 million petabytes of memory.
   - If you are using virtual memory you shouldn't be.
