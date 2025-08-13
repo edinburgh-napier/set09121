@@ -1,6 +1,10 @@
-[submodule "code/lib/sfml"]
-	path = code/lib/sfml
+[submodule "labs/lib/sfml"]
+	path = labs/lib/
 	url = https://github.com/SFML/SFML.git
+	branch = 3.0.0
 [submodule "code/lib/b2d"]
 	path = code/lib/b2d
 	url = https://github.com/dooglz/Box2D.git
+[submodule "code/lib/SFML"]
+	path = code/lib/SFML
+	url = https://github.com/SFML/SFML.git

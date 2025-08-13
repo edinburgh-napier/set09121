@@ -10,7 +10,7 @@ sidebar: home_sidebar
 # Moving the ball 
 Add the following to the declarations at the start of the file.
 ```cpp
-Vector2f ballVelocity;
+sf::Vector2f ballVelocity;
 bool isPlayer1Serving = false;
 const float initialVelocityX = 100.f;
 const float initialVelocityY = 60.f;
@@ -56,12 +56,12 @@ if (by > gameHeight) { //bottom wall
     // bottom wall
     ballVelocity.x *= velocityMultiplier;
     ballVelocity.y *= -velocityMultiplier;
-    ball.move(Vector2(0.f, -10.f));
+    ball.move(sf::Vector2f(0.f, -10.f));
 } else if (by < 0) { //top wall
     // top wall
     ballVelocity.x *= velocityMultiplier;
     ballVelocity.y *= -velocityMultiplier;
-    ball.move(Vector2(0.f, 10.f));
+    ball.move(sf::Vector2f(0.f, 10.f)); 
 } 
 ```
 
