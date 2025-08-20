@@ -7,16 +7,23 @@ summary: Let's start at the beginning
 sidebar: home_sidebar
 ---
 
-For your first practical, we will be going back to the most basic of basic. Creating the classic arcade game PONG. For this we will be chucking some of the software practices you may be used to out the window. We will be using one single main.cpp file, no classes, no OO at all. You should be able to have a working pong game, with AI, in under 200 lines of code. 
+For this second practical, we will be going back to the most basic of basic. Creating the classic arcade game PONG. For this we will be chucking some of the software practices you may be used to out the window. We will be using one single main.cpp file, no classes, no OO at all. You should be able to have a working pong game in under 200 lines of code. 
 
 <video class="middle" width="400" height="300" loop autoplay>
   <source src="assets/videos/pong.mp4" type="video/mp4">
 </video>
 
+First, create a new project and copy the main.cpp and CMakeLists.txt from the previous practical. We will start from those files. We will do so for each practical: using files from the previous practical and start from them to build step by step our game engine. 
+
+{:class="important"}
+**Make sure you keep a back up of that code, as it will be useful to test CMake when you create new projects in later labs!**
 
 The purpose of this exercise is to get you acquainted with SFML. We will come back to the exercise often as an example of simple software design, as it useful as a base to compare more complex approaches.
 
 Before we get stuck in, let's cover some of the fundamentals.
+
+{:class="important"} 
+**You don't need to write any code in this page, but it is vital you understand the concepts here before you move on!**
 
 ## Structure of the main.cpp and the Game Loop
 
@@ -46,7 +53,7 @@ int main () {
     //initialise and load
 	init();
 	while(!window.isOpen()){
-		//Caluclate dt
+		//Calculate dt
 		...
 		window.clear();
 		update(dt);

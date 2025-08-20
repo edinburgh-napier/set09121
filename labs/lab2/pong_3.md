@@ -10,20 +10,20 @@ sidebar: home_sidebar
 # Moving the ball 
 Add the following to the declarations at the start of the file.
 ```cpp
-Vector2f ballVelocity;
-bool isPlayer1Serving = false;
-const float initialVelocityX = 100.f;
-const float initialVelocityY = 60.f;
+sf::Vector2f ball_velocity;
+bool is_player_serving = true;
+const float initial_velocity_x = 100.f; //horizontal velocity
+const float initial_velocity_y = 60.f; //vertical velocity
 ```
 
-Add this to the Load() function
+Add this to the load() function
 ```cpp
-ballVelocity = { (isPlayer1Serving ? initialVelocityX : -initialVelocityX), initialVelocityY };
+ball_velocity = { (isPlayer1Serving ? initialVelocityX : -initialVelocityX), initialVelocityY };
 ```
 
-Add this to the Update() function (after the event handling)
+Add this to the update() function (after the event handling)
 ```cpp
-ball.move(ballVelocity * dt);
+ball.move(ball_velocity * dt);
 ```
 
 What we have done here is store a 2D vector of the **velocity** (speed & direction) of the ball. SFML stores the **position** of the ball internally, so we don't need an extra variable for that. In our update function we then move the ball by it's velocity. If we were coding the move function manually it would look like this:
@@ -33,7 +33,9 @@ What we have done here is store a 2D vector of the **velocity** (speed & directi
 This is just simple physics, but remember that we've used Delta Time to ensure the ball moves at a constant rate.
 
 I've introduced another piece of logic, the 'isPlayer1Serving' boolean. This boolean decides which player is serving the ball and hence, which direction the ball starts moving at the start of the game. 
-The weird piece of code that you added to the load function is an 'inline if statement'. It's just the same as an if block, but in one line. If the statement before the ? is true, then ballVelocity.x is set to 100.0f, if server is false, ballVelocity.x = -100.0f. Note that ballVelocity.y is always the same at 60.0f!
+The weird piece of code that you added to the load function is a conditional operator which works as an 'inline if statement'. It's just the same as an if block, but in one line. If the statement before the ? is true, then ballVelocity.x is set to 100.0f, if server is false, ballVelocity.x = -100.0f. Note that ballVelocity.y is always the same at 60.0f!
+
+```condition ? if true do this : if false do that```
 
 
 ## Ball collision
@@ -42,12 +44,12 @@ The weird piece of code that you added to the load function is an 'inline if sta
 
 To make it easy to tweak the factor of 1.1, we can just declare another constant at the start of the file:
 ```cpp
-const float velocityMultiplier = 1.1f;
+const float velocity_multiplier = 1.1f; //how much the ball will speed up everytime it hits a paddle. Here, 10% every time.
 ```
 
 In a perfect world that would be fine, but if the ball was flying super fast, it might get "stuck within the wall" where the collision code will constantly negate it's velocity, while speeding it up. This will cause the ball to stop, wiggle, then form a black hole of big numbers, usually resulting in it firing out like an angry bee from a cannon! This is bad. To get around this, we cheat and teleport the ball out of the colliding surface by 10 units. Pong is a fast paced game so no one will notice. (This foreshadows some of the nastiness that happens when trying to write good physics code, which we will talk about much later)
 
-Add the following to the Update(). There is no functional purpose for the *bx* and *by* variables, but as we are going to use them a lot it's nicer to have them to keep our code small. Oh, you probably want to make sure you add any collision code **after** the movement code too, otherwise people might get upset that the ball can miss paddles that look like they should hit!
+Add the following to the update(). There is no functional purpose for the *bx* and *by* variables, but as we are going to use them a lot it's nicer to have them to keep our code small. Oh, you probably want to make sure you add any collision code **after** the movement code too, otherwise people might get upset that the ball can miss paddles that look like they should hit!
 ```cpp
 // check ball collision
 const float bx = ball.getPosition().x;
@@ -70,17 +72,17 @@ if (by > gameHeight) { //bottom wall
 This is a very easy check. We will be extending on the previous section of code with more else if statements.
 What is different here, is that if we have collided with these walls, then we don't bounce. We reset the balls and the paddles, and increment the score. Ignore score for now, but **you now need to implement a reset function.** 
 
-You should pull out some of the logic form the Load() function and then call Reset() at the beginning of the game. Repeated code is bad code! Remember, you DON'T need all of the code from Load() in Reset(). Only take what you need.
+You should pull out some of the logic form the load() function and then call reset() at the beginning of the game. Repeated code is bad code! Remember, you DON'T need all of the code from load() in reset(). Only take what you need.
 
 Once your ready, add this code:
 
 ```cpp
 else if (bx > gameWidth) {
     // right wall
-    Reset();
+    reset();
 } else if (bx < 0) {
     // left wall
-    Reset();
+    reset();
 }
 ```
 
@@ -92,12 +94,12 @@ Add, and then complete, the code below. Remember, you might need the collision t
 
 ```cpp
 else if (
-	  //ball is inline or behind paddle AND
-	  bx < paddleSize.x + paddleOffsetWall && 
-	  //ball is below top edge of paddle AND
-	  by > paddles[0].getPosition().y - (paddleSize.y * 0.5) &&
-	  //ball is above bottom edge of paddle
-	  by < paddles[0].getPosition().y + (paddleSize.y * 0.5))
+	//ball is inline or behind paddle AND
+	bx < paddle_size.x + paddle_offset_wall && 
+	//ball is below top edge of paddle AND
+	by > paddles[0].getPosition().y - (paddle_size.y * 0.5) &&
+	//ball is above bottom edge of paddle
+	by < paddles[0].getPosition().y + (paddle_size.y * 0.5)){
 {
     // bounce off left paddle
 } else if (...) {
@@ -113,16 +115,12 @@ You should now extend your game logic code to allow for moving both paddles (use
 
 Further to this, players shouldn't be able to move their paddles off of the screen. Given you've already done collision code for the ball, this should be a simple addition for you to complete! (While your here, you might want to make it so that the serving direction is linked to who just lost a point, too!)
 
-## AI
-At this stage, we want to keep the code simple, so for AI, the AI paddle will try to match it's position to be the same height as the ball.
-However, to keep it fair, the AI should always play by the same rules as the player. The AI paddle should move at the same speed as the player, and not teleport to the correct position!
-
-I've not given you any code for this, you should try to implement this yourself. I'd recommend adding a toggle so you can switch between 1P and 2P modes too! Oh, and remember to use delta time!
-
 ## Adding score text
 Loading and displaying text is super easy with SFML. First, you will need to find a font.ttf file somewhere. Google Fonts is a great source of fonts with permissive licenses. Remember, anything you use in your game project for this module **must be used legally and within its license**.
 
-Anyway, add the following to Load()
+You will need to add two more global variable: a text and a font. Check the SFML API to find their types.
+
+Anyway, add the following to load()
 ```cpp
  // Load font-face from res dir
 font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
@@ -132,7 +130,7 @@ text.setFont(font);
 text.setCharacterSize(24);
 ```
 
-Add the following to your Reset()
+Add the following to your reset()
 ```cpp
  // Update Score Text
 text.setString(...);
@@ -151,6 +149,13 @@ Take a look here for how to fix this [Runtime Resources tips and tricks](resourc
 
 ## Done
 At this point you should have a fully featured Pong game. If you've got here quickly, you should spend some time adding more features to get used to SFML and C++. Just remember, the point of this exercise was to make a simple game with as few lines code as possible. It's refreshing to be able to work in these conditions, without having to think about software design and large scale functionality. The next projects we will work though will get progressively more complex until we are building an entire games engine. So keep your simple Pong game around, as something to look back on fondly as a statement of how easy it can be sometime to make great games!
+
+
+## EXTRA: AI for the second player
+At this stage, we want to keep the code simple, so for AI, the AI paddle will try to match it's position to be the same height as the ball.
+However, to keep it fair, the AI should always play by the same rules as the player. The AI paddle should move at the same speed as the player, and not teleport to the correct position!
+
+I've not given you any code for this, you should try to implement this yourself. I'd recommend adding a toggle so you can switch between 1P and 2P modes too! Oh, and remember to use delta time!
 
 ---
 Previous step: [Pong 2](pong2)

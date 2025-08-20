@@ -32,12 +32,6 @@ I'm going to give you the code here verbatim, with lines left for you to complet
 
 This exercise isn't following best practices, and isn't how you or I would go about building a game in the future. This is a thought exercise in how basic a game can get and to get you making something interactive quickly.
 
-### practical_1/main.cpp
-In this example, we will be overwriting the SFML hello world code you used in the last lab. This is to save you some faff time with CMake.
-
-{:class="important"}
-**Make sure you take a back up of that code, as it will be useful to test CMake when you create new projects in later labs!**
-
 I'll get you started off with the top of your file. It's the usual imports and namespaces, followed by some variables we will use for game rules, and then 3 shapes, 1 circle for the ball, and 2 rectangles stored in an array for the paddles.
 
 **I recommend you type the code you're given in manually, rather than just copying and pasting. This will get you used to SFML and C++ syntax and common mistakes!** You can, of course, compare your code to the original if Visual Studio complains, but it's a good habit to get in, especially if you've never written C++ before.
@@ -49,28 +43,29 @@ The ... lines are left incomplete for you to complete. There are hints about wha
 ```cpp
 #include <SFML/Graphics.hpp>
 
-using namespace sf;
-using namespace std;
-
-const Keyboard::Key controls[4] = {
-    Keyboard::A,   // Player1 UP
-    Keyboard::Z,   // Player1 Down
-    Keyboard::Up,  // Player2 UP
-    Keyboard::Down // Player2 Down
+const sf::Keyboard::Key controls[4] = {
+    sf::Keyboard::A,   // Player1 UP
+    sf::Keyboard::Z,   // Player1 Down
+    sf::Keyboard::Up,  // Player2 UP
+    sf::Keyboard::Down // Player2 Down
 };
-const Vector2f paddleSize(25.f, 100.f);
+
+//Parameters
+const sf::Vector2f paddleSize(25.f, 100.f);
 const float ballRadius = 10.f;
 const int gameWidth = 800;
 const int gameHeight = 600;
 const float paddleSpeed = 400.f;
 const float paddleOffsetWall = 10.f;
+const float time_step = 0.017f; //60 fps
 
-CircleShape ball;
-RectangleShape paddles[2];
+//Objects of the game
+sf::CircleShape ball;
+sf::RectangleShape paddles[2];
 
-void Load() {
+void init() {
     // Set size and origin of paddles
-    for (auto &p : paddles) {
+    for (sf::RectangleShape &p : paddles) {
         p.setSize(paddleSize);
         p.setOrigin(paddleSize / 2.f);
     }
@@ -78,7 +73,7 @@ void Load() {
     ball.setRadius(ballRadius);
     ball.setOrigin(...); //Should be half the ball width and height
     // reset paddle position
-    paddles[0].setPosition(Vector2f(paddleOffsetWall + paddleSize.x / 2.f, gameHeight / 2.f));
+    paddles[0].setPosition(paddleOffsetWall + paddleSize.x / 2.f, gameHeight / 2.f);
     paddles[1].setPosition(...);
     // reset Ball Position
     ball.setPosition(...);
@@ -93,24 +88,7 @@ From there we are free to do whatever we want, and what we want to do is make Po
 We will come back and add to this, but you don't need to edit anything just now. Add this to your file, under the load function from before.
 
 ```cpp
-void Update(RenderWindow &window) {
-    // Reset clock, recalculate deltatime
-    static Clock clock;
-    float dt = clock.restart().asSeconds();
-    // check and consume events
-    Event event;
-    while (window.pollEvent(event)) {
-        if (event.type == Event::Closed) {
-            window.close();
-            return;
-        }
-    }
-
-    // Quit Via ESC Key
-    if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-        window.close();
-    }
-
+void Update(float dt){
     // handle paddle movement
     float direction = 0.0f;
     if (Keyboard::isKeyPressed(controls[0])) {
@@ -123,32 +101,21 @@ void Update(RenderWindow &window) {
 }
 ```
 
-#### Render and Main
+#### Render
 Our last section of the file is our super simple render function. I mean, just look at it! Isn't SFML awesome?
-Then we have our standard main entry point, with our game loop. Not much to see here, it should be pretty obvious what it's doing by now.
-
-Add this to the bottom of your main.cpp file:
 
 ```cpp
-void Render(RenderWindow &window) {
+void render(sf::RenderWindow &window) {
     // Draw Everything
     window.draw(paddles[0]);
     window.draw(paddles[1]);
     window.draw(ball);
 }
-
-int main() {
-    RenderWindow window(VideoMode(gameWidth, gameHeight), "PONG");
-    Load();
-    while (window.isOpen()) {
-        window.clear();
-        Update(window);
-        Render(window);
-        window.display();
-    }
-    return 0;
-}
 ```
+
+#### Main function
+
+For the main function, just look back at the previous page. You should find everything.
 
 #### Filling in the Gaps
 We left a few parts for you to fill in here, now is the time for you to go and fill them in. Hopefully by now you should be able to find errors within your code using Visual Studio. If you can't remember what you need to fill in, use those to hunt them down.
