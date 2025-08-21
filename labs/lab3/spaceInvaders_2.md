@@ -67,7 +67,7 @@ Similarly to the global variables, we need to put our main system functions in s
 ```cpp
 //game_system.hpp
 struct GameSystem{
-    //The globale variables goes here
+    //The global variables goes here
     ...
 
     //game system functions
