@@ -14,26 +14,17 @@ or: Engine Abstraction and the Entity Component Model
 </video>
 
 
-## First Steps
+The goal of this practical is create our first a engine library and and then apply the entity component model to implement pacman.
 
-1.  Create a new project folder and add to CMake
-2.  Start with the usual blank gameloop example.
-3.  Create an abstract Entity Class.
-4.  Create a player class that inherits from Entity
-    - moves around screen with keyboard keys
-     should be drawn as a yellow sf::shape
-5.  Create a \"ghost\" class, inherits from Entity.
-    - should move around the screen randomly
-    - should be a different colour to the player.
-6.  Main.cpp should create one player, and four ghosts, and store all in a `vector<Entity*>`
-    - should only call Update() and Render() on vector
-    - all entity logic should be inside the entity classes (player and ghost).
 
-The player and ghosts don't need any functional game logic behind them right now. Just make sure they are rendering and moving about before continuing on.
+## Part I: Engine Abstraction
 
-## Engine Abstraction
 
 This lab is where our game code starts to look more like a game *engine*. This is inevitable once a game reaches a certain level of complexity. Pacman just tips over that threshold where we can justify using some major-league game software architecture.
+
+The first step will be to create a new folder *engine* and move the *game_system.hpp* and *cpp* in it. Then, you will create a new library called engine in the CMakeLists.txt. Exaclty like we did with the tile level library in the previous lab. 
+
+Then, we will add two new elements: an **entity manager** and a **renderer**
 
 ### Entity Management
 
@@ -44,7 +35,7 @@ What we are going to go for in this lab is collating all the entities by the sce
 To move pacman to this paradigm is not going to take much of a change in code. Here's it is:
 
 ```cpp
-//Entity.h
+//entity.hpp
 struct EntityManager {
   std::vector<std::shared_ptr<Entity>> list;
   void update(double dt);
