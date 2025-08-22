@@ -74,7 +74,7 @@ Once this process completed, we sent it all to SFML all at once.
 
 The benefits to this is that we can keep track of how many things we are rendering per frame easily. More importantly it allows us to do optimisations. If z-order were important we could re-order the list to draw background objects first. Or do some form of debug-culling to stop certain object types of rendering. All useful stuff.
 
-Again, if we were working with OpenGL or a more complex render system, this is were we would do some serious work. The reality is that SFML does almost everything for us so we don' actually have much to do here.
+Again, if we were working with OpenGL or a more complex render system, this is were we would do some serious work. The reality is that SFML does almost everything for us so we don't actually have much to do here.
 
 ```cpp
 //system_renderer.h
@@ -83,7 +83,7 @@ Again, if we were working with OpenGL or a more complex render system, this is w
 
 namespace Renderer {
     void initialise(sf::RenderWindow &);
-    sf::RenderWindow &getWindow();
+    sf::RenderWindow &get_window();
     
     void shutdown();
     void update(const double &);
@@ -105,7 +105,7 @@ static RenderWindow *rw;
 
 void Renderer::initialise(sf::RenderWindow &r) { rw = &r; }
 
-sf::RenderWindow &Renderer::getWindow() { return *rw; }
+sf::RenderWindow &Renderer::get_window() { return *rw; }
 
 void Renderer::shutdown() {
   while (!sprites.empty())
@@ -138,50 +138,6 @@ Renderer::queue(&text);
 {:class="important"}
 You might need to use .get() on the unique_ptr in your player or ghost.cpp if you are following along correctly!
 
-## Scene Management
-
-As mentioned above, we will have two 'scenes'. What is a Scene? Mainly it's a collection of Entities. All of the game logic will mainly be inside the Entities, but there will be some global game logic that needs to run, and the scene class is where it shall be.
-
-The scene should also be responsible for loading and unloading content that it needs. This is where we could implement a loading screen. This would run while a scene loads, and then display the scene once finished. We shouldn't be working with anything that will need a loading screen, simply freezing for a few frames while we transition scenes is acceptable (for now ... hint hint).
-
-Here we have our scene class. It has our usual two Update and Render functions, and an internal EntityManager. Additionally we have a Load() function and a public getter to the entity list.
-
-```cpp
-//scene.h
-#include "Entity.h"
-class Scene {
-public:
-  Scene() = default;
-
-  virtual ~Scene() = default;
-  virtual void update(double dt);
-  virtual void render();
-  virtual void load() = 0;
-  std::vector<std::shared_ptr<Entity>> &getEnts();
-
-protected:
-  EntityManager _ents;
-};
-```
-
-hint: Here's the base Scene render(). You should be able to define the other functions yourself.
-
-```cpp
-//pacman.cpp
-void Scene::render() { _ents.render(); }
-```
-
-We should instantiate our two scenes. We should do this away from main.cpp -- in a separate header that contains only Pacman related things: `pacman.h`. As these are extern'd, define them in `pacman.cpp`.
-
-```cpp
-//pacman.h
-#include <memory>
-#include "scene.h"
-
-extern std::shared_ptr<Scene> gameScene;
-extern std::shared_ptr<Scene> menuScene;
-extern std::shared_ptr<Scene> activeScene;
-```
 
 ### The Menu scene
 
@@ -190,7 +146,7 @@ We've declared the two scenes we need as pointers to the base Scene class, when 
 We will bring along any gameplay variables that would normally be in the global scope of main.cpp, and have them as private properties in each scene. For the Menu, this is just a single sf::Text.
 
 ```cpp
-//pacman.h
+//scenes.hpp
 
 class MenuScene : public Scene {
 private:
@@ -205,7 +161,7 @@ public:
 ```
 
 ```cpp
-//pacman.cpp
+//scenes.cpp
 void MenuScene::update(double dt) {
   Scene::update(dt);
   text.setString("Almost Pacman");

@@ -172,7 +172,7 @@ As Ship is an abstract class, we can't create one. We can only create a concrete
 #include <memory>
 #include "ship.hpp"
 struct GameSystem{
-  //The globale variables goes here
+  //The global variables goes here
   static std::vector<std::shared_ptr<Ship>> ships; //vector of shared pointers to Ships.
 ...
 }
@@ -658,10 +658,10 @@ Right, by now you are probably confused with bullet pools! So, let's have a quic
 So the general structure should be:
 1. Your game_system.cpp file should call Bullet::update(dt) and Bullet::render() in the appropriate places. These are static functions.
 2. The Bullet class will iterate through all bullets in the array when the appropriate static function is called. When updating we call _update() on each bullet, when rendering we call window.draw()
-3. _Update() checks if the bullet is on screen. If so, it moves it as appropriate and looks for collisions with our Ships.
-4. If it hits an appropriate ship, it calls the Explode() function on it, which should... you know, make it explode.
-5. The Player class should check for a keypress in it's Update function, and call Bullet::Fire to shoot a bullet.
-6. Bullet:Fire will get the next bullet off the array (using bulletPointer to keep track of this), set it to the correct position and mode, and assign the correct sprite to it
+3. _update() checks if the bullet is on screen. If so, it moves it as appropriate and looks for collisions with our Ships.
+4. If it hits an appropriate ship, it calls the explode() function on it, which should... you know, make it explode.
+5. The Player class should check for a keypress in it's update function, and call Bullet::fire to shoot a bullet.
+6. Bullet:fire will get the next bullet off the array (using bulletPointer to keep track of this), set it to the correct position and mode, and assign the correct sprite to it
 7. Now it's on screen, Step 1 will take over and make it move and render!
 
 Phew! This part is hard, but once you get this working, you'll be able to apply it to lots of different things!
