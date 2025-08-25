@@ -7,50 +7,73 @@ summary: Let's start at the beginning
 sidebar: home_sidebar
 ---
 
-For your first practical, we will be going back to the most basic of basic. Creating the classic arcade game PONG. For this we will be chucking some of the software practices you may be used to out the window. We will be using one single main.cpp file, no classes, no OO at all. You should be able to have a working pong game, with AI, in under 200 lines of code. 
+For this second practical, we will be going back to the most basic of basic. Creating the classic arcade game PONG. For this we will be chucking some of the software practices you may be used to out the window. We will be using one single main.cpp file, no classes, no OO at all. You should be able to have a working pong game in under 200 lines of code. 
 
 <video class="middle" width="400" height="300" loop autoplay>
   <source src="assets/videos/pong.mp4" type="video/mp4">
 </video>
 
+First, create a new project and copy the main.cpp and CMakeLists.txt from the previous practical. We will start from those files. We will do so for each practical: using files from the previous practical and start from them to build step by step our game engine. 
+
+{:class="important"}
+**Make sure you keep a back up of that code, as it will be useful to test CMake when you create new projects in later labs!**
 
 The purpose of this exercise is to get you acquainted with SFML. We will come back to the exercise often as an example of simple software design, as it useful as a base to compare more complex approaches.
 
 Before we get stuck in, let's cover some of the fundamentals.
 
-{:class="important"}
+{:class="important"} 
 **You don't need to write any code in this page, but it is vital you understand the concepts here before you move on!**
 
-## The Game Loop
+## Structure of the main.cpp and the Game Loop
 
 The fundamental core of all games, is the game loop. While some engines may hide this away, behind the scenes you can be sure that the code for any game can be stripped away to the fundamental game loop. It looks like this.
 ```Cpp
-void Update(double dt) {
+#include <SFML/Graphics.cpp>
+
+void init(){
+	// initialise all the objects needed for the game. 
+}
+
+void update(float dt) {
 	// Update Everything
 }
 
-void Render() {
+void render(sf::RenderWindow &window) {
 	// Draw Everything
 }
 
+void clean(){
+	//free up the memory if necessary.
+}
+
 int main () {
-	//initialise and load
-	while(!shouldQuit){
-		//Caluclate dt
-		Update(dt);
-		Render();
+	//create the window
+	sf::RenderWindow window(sf::VideoMode({game_width, game_height}), "PONG");
+    //initialise and load
+	init();
+	while(!window.isOpen()){
+		//Calculate dt
+		...
+		window.clear();
+		update(dt);
+		render(window);
+		//wait for the time_step to finish before displaying the next frame.
+		sf::sleep(time_step);
 		//Wait for Vsync
+		window.display()
 	}
 	//Unload and shutdown
+	clean();
 }
 ```
 
 The program starts as all programs do, with the main() function. 
-Here we would load in anything we need at the start of the game, create the window, load settings, and all the usual start-up things you can imagine. If we weren't using SFML we would have to detect the capabilities of the system and enable or disable certain code paths accordingly (or throw an error and quit). SFML does all this work for us, and so we only need to care about loading things directly relevant to our game.
+Here we would load in anything we need at the start of the game, create the window, load game assets, initialise game objects, and all the usual start-up things you can imagine. If we weren't using SFML we would have to detect the capabilities of the system and enable or disable certain code paths accordingly (or throw an error and quit). SFML does all this work for us, and so we only need to care about loading things directly relevant to our game.
 
-From there we enter a while loop of some kind. This will be based on some boolean value that determines if the game should quit or not. The game logic will set this from false to true when some event has happened (e.g, ESC key pressed, or player presses quit button).  This loop will continuously run two functions, Update and Render.
+From there we enter a while loop. This will be based on some boolean value that determines if the game should quit or not (here with SFML: if the window is still open). The game logic will set this from false to true when some event has happened (e.g, ESC key pressed, or player presses quit button).  This loop will continuously run two functions, Update and Render.
  
-The rate at which we loop through this loop is the game's framerate.
+The rate at which we loop through this loop is the game's framerate. The framerate is fixed by the sleep function with a fixed time step. This insure that regardless the system or number of calculation the game will run with a fixed framerate.
 
 ### The Update Function
 Update is where all game's logic code will go. This includes input processing, physics, content loading/unloading, networking, etc.
@@ -65,15 +88,17 @@ In our case, we are doing it more simply. Once the update function has been comp
 {:tip="deltatime" class="tip"}
 Delta Time Covered is in more detail here - you will want to read this!
 
-Before calling Update, the Delta Time (dt) is calculated. This is the amount of time that has passed between now and the previous frame or tick. With a game updating at a steady 60fps, dt should be approximately 16ms (1/60).
+Before calling Update, the Delta Time (dt) is calculated. This is the amount of time that has passed between now and the previous frame or tick. With a game updating at a steady 60fps, dt should be approximately 17ms (1/60).
 To actually calculate dt, you can use inbuilt C++ timers, or just use the handy SFML Clock.
 ```cpp
 static sf::Clock clock;
 const float dt = clock.restart().asSeconds();
 ```
+These two lines should go at the start of the while loop.
+
 But why do we need this?
 
-Anything in the game logic that does anything with time needs dt to work. Imagine a weapon cooldown, a player can only use it every 10 seconds. A naive approach would be to assume a constant 60fps, so 10 seconds = 600 frames. Then you could have an integer set to 600 and decrement it every frame. This wouldn't work due to small fluctuations in the FPS, and while 600 frames have passed, that may not equate to 10 seconds in the real world. If we instead do ```counter -= dt``` each update, we are relying on time directly, rather than on the number of frames. This is called **framerate independence**.
+Anything in the game logic that does anything with time needs dt to work. Imagine a weapon cooldown, a player can only use it every 10 seconds. A naive approach would be to assume a constant 60fps, so 10 seconds = 600 frames. Then you could have an integer set to 600 and decrement it every frame. This wouldn't work due to small fluctuations in the FPS or if you want your game to run at different FPS settings, and while 600 frames have passed, that may not equate to 10 seconds in the real world. If we instead do ```counter -= dt``` each update, we are relying on time directly, rather than on the number of frames. This is called **framerate independence**.
 
 Any time you are doing game logic that has any link to time, you must use dt. This includes moving the player. This may not seem to be time-based at first, but consider what speed is: Distance over *time*. You don't want the player to move further if framerate is higher.
 

@@ -64,7 +64,7 @@ With a simple text editor, create a **CMakeLists.txt** file in the **root** fold
 ```CMake
 cmake_minimum_required(VERSION 3.11)
 # Require modern C++
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(Games_Engineering)

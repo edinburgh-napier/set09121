@@ -7,37 +7,18 @@ summary: OO
 sidebar: home_sidebar
 ---
 
-
 <video class="middle" width="400" height="300" loop autoplay>
   <source src="assets/videos/space_invaders.mp4" type="video/mp4">
 </video>
 
 This lab is design to introduce you to: Object Orientation(OO) in C++, Working with C++ header files, and a small amount of memory and resource management.
 
-# Adding another project
+# Create a new project
 
-
-In this lab, we will be adding a 'project' to our already existing 'Games Engineering solution'. 
-
-Note: this is the terminology of Visual Studio. In CMake terms we are adding another 'Executable' to the 'project'. Yeah, tech is fun!
-
-To do this, follow these steps:
-
--   Create a new folder inside your **repo**.
-
--   Within that, create a main.cpp, feel free to copy some boilerplate
-    SFML code into it. (This is why I suggested you keep the green circle example somewhere)
-    
--   Add the following to the bottom of your CMakeLists.txt file (Make sure that you use the right folder names in here!)
-```cmake
-## Space invaders
-file(GLOB_RECURSE SOURCES 2_invaders/*.cpp 2_invaders/*.h)
-add_executable(2_INVADERS ${SOURCES} )
-target_include_directories(2_INVADERS SYSTEM PRIVATE ${SFML_INCS})
-target_link_libraries(2_INVADERS sfml-graphics)
-```
-
--   Configure and generate from CMake.
+- Copy and paste the files from the previous lab.
+- Rename the project ``` project(space_invaders) ```
+- Change the name of the executable ``` add_executable(space_invaders main.cpp) ```
+- Don't forget to change the name of executable everywere it is mentionned.
 
 ## Helpful hint: on Re-configuring CMake
 
@@ -107,24 +88,29 @@ The primary benefit of sprite sheets however is sprite-animation. It is commonpl
 Working with Sprite-sheets in SFML couldn't be easier. Take a look at this:
 
 ```cpp
-//Main.cpp
+//main.cpp
 sf::Texture spritesheet;
 sf::Sprite invader;
 
-void Load() {
+void init() {
   if (!spritesheet.loadFromFile("res/img/invaders_sheet.png")) {
-    cerr << "Failed to load spritesheet!" << std::endl;
+    std::cerr << "Failed to load spritesheet!" << std::endl;
   }
   invader.setTexture(spritesheet);
   invader.setTextureRect(IntRect(Vector2i(0, 0), Vector2i(32, 32)));
 }
 
-void Render() {
+void render() {
   window.draw(invader);
 }
 ```
 
-At this stage, you might find your code doesn't run because of the *cerr* call. That's normal, and it is to do with the fact that the cerr is not part of core C++, it's a helper object from the standard (std) library. To explain it fully would be out of the scope of this lab, so you can think of it as being the equivalent of the *System.out.println* or *Debug.Log* functions you might be more used to - it allows us to print to the console. As such, it is IO functionality, and so we need to include the correct library for this to work. **I'll leave you to find out which one you need!**
+At this stage, you might find your code doesn't run because of the *cerr* call. That's normal, and it is to do with the fact that the cerr is not part of core C++, it's a helper object from the standard (std) library. To explain it fully would be out of the scope of this lab, so you can think of it as being the equivalent of the *System.out.println* or *Debug.Log* functions you might be more used to - it allows us to print to the console. As such, it is IO functionality, and so we need to include the correct library for this to work: ``` #include <iostream>```
+
+```cpp
+std::cout << "print on the standard output of the console" <<  std::endl; //end of line
+std::cerr << "print on the error output of the console" << std::endl; 
+```
 
 Take note of this line:
 
@@ -132,12 +118,9 @@ Take note of this line:
 sprite.setTextureRect(IntRect(Vector2i(0, 0), Vector2i(32, 32)));
 ```
 
-The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is dived into squares of 32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite. **Remember, you should be looking up the SFML API to find out things like this yourself going forwards**
+The rectangle structure takes the form of (Left, Top, Width, Height). Our sprite-sheet is devided into squares of 32x32 pixels. So this line of code set the 'cut' do be the top left square in the image, aka. The first invader sprite. **Remember, you should be looking up the SFML API to find out things like this yourself going forwards**
 
 Note that the invader doesn't take up the whole 32x32 square, it's surrounded by transparent pixels. SFML takes care of doing the rendering with correct modes so as to cuts out the background, but we may have to be careful when it comes to physics and collision code.
-
-
-
 
 # Checkpoint
 
