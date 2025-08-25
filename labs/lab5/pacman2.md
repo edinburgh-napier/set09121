@@ -15,17 +15,7 @@ It's time to bring in the big-guns, standard inheritance and OO can only get us 
 
 ### The ECM Library
 
-The code we are about to write will be generic in nature, and we will want to use it again, so we will spin it out to it's own library.
-In case you've forgotten, here's the CMake: Remember to add it to the linked libraries of our lab executable too.
-
-```CMake
-file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)
-add_library(lib_ecm STATIC ${SOURCE_FILES})
-target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm" )
-target_link_libraries(lib_ecm PRIVATE lib_maths)
-```
-
-Inside the lib_ecm folder we will have ecm.h and ecm.cpp. Move your Entity class that you've already written into the ecm library, and include it in the relevant places in the pacman code. 
+The code we are about to write will be generic in nature, and we will want to use it again, so we will add it to the engine library.
 
 {:class="important"}
 **Check that everything still compiles and works before continuing**
@@ -35,7 +25,7 @@ We're going to add some new stuff to the basic Entity:
 Here's what your entity class should look like:
 
 ```cpp
-//"ecm.h"
+//"ecm.hpp"
 #pragma once
 #include "maths.h"
 #include <algorithm>
@@ -46,30 +36,29 @@ Here's what your entity class should look like:
 class Component; //forward declare
 
 class Entity {
+public:
+  Entity();
+  virtual ~Entity();
+  virtual void update(const float &dt);
+  virtual void render();
 
+  const sf::Vector2f &get_position() const;
+  void set_position(const sf::Vector2f &_position);
+  bool is_for_deletion() const;
+  float get_rotation() const;
+  void set_rotation(float _rotation);
+  bool is_alive() const;
+  void set_alive(bool _alive);
+  void set_for_delete();
+  bool is_visible() const;
+  void set_visible(bool _visible);
 protected:
   std::vector<std::shared_ptr<Component>> _components;
   sf::Vector2f _position;
   float _rotation;
   bool _alive;       // should be updated
   bool _visible;     // should be rendered
-  bool _fordeletion; // should be deleted
-public:
-  Entity();
-  virtual ~Entity();
-  virtual void update(double dt);
-  virtual void render();
-
-  const sf::Vector2f &getPosition() const;
-  void setPosition(const sf::Vector2f &_position);
-  bool is_fordeletion() const;
-  float getRotation() const;
-  void setRotation(float _rotation);
-  bool isAlive() const;
-  void setAlive(bool _alive);
-  void setForDelete();
-  bool isVisible() const;
-  void setVisible(bool _visible);
+  bool _for_deletion; // should be deleted
 };
 ```
 
@@ -82,65 +71,61 @@ Remember, you will have to ensure that the Entity calls the Render method of all
 In the same header file, we are now going to define the component class. The code is remarkably simple.
 
 ```cpp
-//"ecm.h"
+//"ecm.hpp"
 class Component { 
- protected:
-   Entity *const _parent;
-   bool _fordeletion; // should be removed
-   explicit Component(Entity *const p);
- 
- public:
+public:
    Component() = delete;
-   bool is_fordeletion() const;
-   virtual void update(double dt) = 0;
+   bool is_for_deletion() const;
+   virtual void update(const float &dt) = 0;
    virtual void render() = 0;
    virtual ~Component();
+protected:
+   Entity *const _parent;
+   bool _for_deletion; // should be removed
+   explicit Component(Entity *const p);
 };
 ```
 
-When a component is constructed, an Entity must be passed to the constructor. This is so each component knows who it's parent is. Other than that, it's just our usual two friendly update and render() functions again. There is also a _fordeletion flag, we'll come back to this later.
+When a component is constructed, an Entity must be passed to the constructor. This is so each component knows who it's parent is. Other than that, it's just our usual two friendly update and render() functions again. There is also a _for_deletion flag, we'll come back to this later.
 
 ## Shape component
 
-Before we add the rest of the functionality it would be useful to work with an example of a component. Here is a ShapeComponent. Add it to the Pacman code folder for now. While it may be a good idea to have some generic components in the ecm library, we're not sure what we are going to need in the future. So we will keep components in the paceman code for now and have the library just be the definitions for the base Entity and Component.
-
-
+Before we add the rest of the functionality it would be useful to work with an example of a component. Here is a ShapeComponent. Add it to the Pacman code folder for now. While it may be a good idea to have some generic components in the ecm library, we're not sure what we are going to need in the future. So we will keep components in the pacman code for now and have the library just be the definitions for the base Entity and Component.
 ```cpp
-//"cmp_sprite.h"
+//"components.hpp"
 class ShapeComponent : public Component {
-protected:
-  std::shared_ptr<sf::Shape> _shape;
 public:
   ShapeComponent() = delete;
-  explicit ShapeComponent(Entity *p);
+  explicit ShapeComponent(Entity *const p);
 
-  void update(double dt) override;
+  void update(const float &dt) override;
   void render() override;
 
-  sf::Shape &getShape() const;
+  sf::Shape &get_shape() const;
 
   template <typename T, typename... Targs>
-  void setShape(Targs... params) {
+  void set_shape(Targs... params) {
     _shape.reset(new T(params...));
   }
+protected:
+  std::shared_ptr<sf::Shape> _shape;
 };
+
 ```
 
-We'll talk about that setShape template in a bit.
-
+We'll talk about that set_shape template in a bit.
 
 There's nothing funky in the definition .cpp. Components are remarkably simple when built correctly.
 
 ```cpp
-//"cmp_sprite.cpp"
-
-void ShapeComponent::update(double dt) {
-  _shape->setPosition(_parent->getPosition());
+//"components.cpp"
+void ShapeComponent::update(const float &dt) {
+  _shape->setPosition(_parent->get_position());
 }
 
 void ShapeComponent::render() { Renderer::queue(_shape.get()); }
 
-sf::Shape& ShapeComponent::getShape() const { return *_shape; }
+sf::Shape& ShapeComponent::get_shape() const { return *_shape; }
 
 ShapeComponent::ShapeComponent(Entity* p) : Component(p), _shape(std::make_shared<sf::CircleShape>()) {}
 ```
@@ -153,9 +138,9 @@ So how do we add a shape component to an entity? There are many different approa
 
 The approach we will take is to go down (but not too far) the templated code route. Take a gander at this crazy thing:
 ```cpp
-//"ecm.h"
+//"ecm.hpp"
 template <typename T, typename... Targs>
-std::shared_ptr<T> addComponent(Targs... params) {
+std::shared_ptr<T> add_component(Targs... params) {
   static_assert(std::is_base_of<Component, T>::value, "T != component");
   std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
   _components.push_back(sp);
@@ -163,13 +148,13 @@ std::shared_ptr<T> addComponent(Targs... params) {
 }
 ```
 
-This is added to the Entity class in ecm.h.
+This is added to the Entity class in ecm.hpp.
 
 This is called like so:
 
 ```cpp
-auto s = ghost->addComponent<ShapeComponent>();
-s->setShape<sf::CircleShape>(12.f);
+std::shared_ptr<ShapeComponent> s = ghost->add_component<ShapeComponent>();
+s->set_shape<sf::CircleShape>(12.f);
 ```
 
 We use templates here to do four major things.
@@ -194,16 +179,13 @@ Creating Entities now follows this process:
 #define GHOSTS_COUNT 4
 ...
 void GameScene::load() {
-
   {
-    auto pl = make_shared<Entity>();
-
-    auto s = pl->addComponent<ShapeComponent>();
-    s->setShape<sf::CircleShape>(12.f);
-    s->getShape().setFillColor(Color::Yellow);
-    s->getShape().setOrigin(Vector2f(12.f, 12.f));
-
-    _ents.list.push_back(pl);
+    std::shared_ptr<Entity> player = std::make_shared<Entity>();
+    std::shared_ptr<ShapeComponent> shape = player->add_component<ShapeComponent>();
+    shape->set_shape<sf::CircleShape>(param::entity_size);
+    shape->get_shape().setFillColor(sf::Color::Yellow);
+    shape->get_shape().setOrigin(sf::Vector2f(param::entity_size, param::entity_size));  
+    _entities.list.push_back(player);
   }
 
   const sf::Color ghost_cols[]{{208, 62, 25},    // red Blinky
@@ -211,14 +193,14 @@ void GameScene::load() {
                                {70, 191, 238},   // cyan Inky
                                {234, 130, 229}}; // pink Pinky
 
-  for (int i = 0; i < GHOSTS_COUNT; ++i) {
-    auto ghost = make_shared<Entity>();
-    auto s = ghost->addComponent<ShapeComponent>();
-    s->setShape<sf::CircleShape>(12.f);
-    s->getShape().setFillColor(ghost_cols[i % 4]);
-    s->getShape().setOrigin(Vector2f(12.f, 12.f));
-    
-    _ents.list.push_back(ghost);
+for(int i = 0; i < param::ghost_count; i++){
+    std::shared_ptr<Entity> ghost = std::make_shared<Entity>();
+    std::shared_ptr<ShapeComponent> shape = ghost->add_component<ShapeComponent>();
+    shape->set_shape<sf::CircleShape>(param::entity_size);
+    shape->get_shape().setFillColor(ghost_cols[i % param::number_ghosts]);
+    shape->get_shape().setOrigin(
+      sf::Vector2f(param::entity_size,param::entity_size));
+    _entities.list.push_back(ghost);
   }
  ...
 ```
@@ -241,79 +223,68 @@ For moving things around we will define 3 components. A base "Actor Movement" Co
 I'll give you the complete listing for the base Component:
 
 ```cpp
-//"cmp_actor_movement.h"
-  #pragma once
-  #include <ecm.h>
-  
-  class ActorMovementComponent : public Component {
-  protected:
-    bool validMove(const sf::Vector2f&);
-    float _speed;
-  
-  public:
-    explicit ActorMovementComponent(Entity* p);
-    ActorMovementComponent() = delete;
-  
-    float getSpeed() const;
-    void setSpeed(float _speed);
-  
-    void move(const sf::Vector2f&);
-    void move(float x, float y);
-  
-    void render() override {}
-    void update(double dt) override;
-  };
+//"components.hpp"
+class ActorMovementComponent : public Component {
+public:
+  explicit ActorMovementComponent(Entity* p);
+  ActorMovementComponent() = delete;
+
+  float get_speed() const;
+  void set_speed(float _speed);
+
+  void move(const sf::Vector2f&);
+  void move(float x, float y);
+
+  void render() override {}
+  void update(const float &dt) override;
+protected:
+  bool _valid_move(const sf::Vector2f&);
+  float _speed;
+};
 ```
 
 Some lines are missing from the definition, for you to fill in.
 
 ```cpp
-//"cmp_actor_movement.cpp"
-#include "cmp_actor_movement.h"
-#include <LevelSystem.h>
-
-using namespace sf;
-
-void ActorMovementComponent::update(double dt) {}
+//"components.cpp"
+void ActorMovementComponent::update(const float &dt) {}
 
 ActorMovementComponent::ActorMovementComponent(Entity* p)
     : _speed(100.0f), Component(p) {}
 
-bool ActorMovementComponent::validMove(const sf::Vector2f& pos) {
-  return (LevelSystem::getTileAt(pos) != LevelSystem::WALL);
+bool ActorMovementComponent::_valid_move(const sf::Vector2f& pos) {
+  return (ls::get_tile_at(pos) != ls::WALL);
 }
 
 void ActorMovementComponent::move(const sf::Vector2f& p) {
-  auto pp = _parent->getPosition() + p;
-  if (validMove(pp)) {
-   ...
+  sf::Vector2f new_pos = _parent->get_position() + p;
+  if (valid_move(new_pos)) {
+    _parent->set_position(new_pos);
   }
 }
 
 void ActorMovementComponent::move(float x, float y) {
-  move(Vector2f(x, y));
+  move(sf::Vector2f(x, y));
 }
-float ActorMovementComponent::getSpeed() const { ... }
-void ActorMovementComponent::setSpeed(float speed) { ... }
+float ActorMovementComponent::get_speed() const { ... }
+void ActorMovementComponent::set_speed(float speed) { ... }
 ```
 
 {:class="important"}
-You will need to comment out the validMove test for now! We will come back to this...
+You will need to comment out the _valid_mode test for now! We will come back to this...
 
 #### Player Movement Component
 
-This is super simple, inherit from ActorMovementComponent and add the usual keyboard controls to the Update();
+This is super simple, inherit from ActorMovementComponent and add the usual keyboard controls to the update();
 
-You will also have to ensure you add the constructor in, so it works correctly. You will need to add it into the .h file, and the .cpp should have something like this in it, calling the parent class:
+You will also have to ensure you add the constructor in, so it works correctly. You will need to add it into the .hpp file, and the .cpp should have something like this in it, calling the parent class:
 
-```
-
+```cpp
 PlayerMovementComponent::PlayerMovementComponent(Entity* p)
 	: ActorMovementComponent(p) {}
-
 ```
 
-**REMEMBER: You have to call the Update() method on all the components - you will likely want to check whether the Entity is alive here too!**
+**REMEMBER: You have to call the update() method on all the components - you will likely want to check whether the Entity is alive here too!**
 
 
 
@@ -330,20 +301,20 @@ Adding the new components we just made to our player and ghosts follows the same
 void GameScene::load() {
 ...
   {
-    auto pl = make_shared<Entity>();
+    std::shared_ptr<Entity> player = std::make_shared<Entity>();
     ...
     
-    pl->addComponent<PlayerMovementComponent>();
+    player->addComponent<PlayerMovementComponent>();
     
     ...
   }
 
   ...
 
-  for (int i = 0; i < GHOSTS_COUNT; ++i) {
+  for (int i = 0; i < param::ghost_count; ++i) {
     ...
     
-    ghost->addComponent<EnemyAIComponent>();
+    ghost->add_component<EnemyAIComponent>();
     
    ...
   }
@@ -357,7 +328,7 @@ We have already covered the templated code that creates a component, as a refres
 ```cpp
 //"ecm.h - addComponent"
 template <typename T, typename... Targs>
-std::shared_ptr<T> addComponent(Targs... params) {
+std::shared_ptr<T> add_component(Targs... params) {
     static_assert(std::is_base_of<Component, T>::value, "T != component");
     std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
     _components.push_back(sp);
@@ -370,13 +341,13 @@ This function returns a `shared_ptr` to the newly created component, so we can a
 What we want is something like this:
 
 ```cpp
-Entity-> getComponent<MovementComponent>();
+Entity->get_component<MovementComponent>();
 ```
 
 It could be the case that there are multiple MovementComponent's on an Entity, so the function should probably return a vector. So what we are looking for is a function declaration like this:
 
 ```cpp
-const std::vector<std::shared_ptr<T>> getComponents() const;
+const std::vector<std::shared_ptr<T>> get_components() const;
 ```
 
 But how do we build this?
@@ -389,12 +360,12 @@ Fortunately, the C++ runtime has us covered for this, with a very handy function
 
 `typeid()` returns an arbitrary number, so it can't tell us outright what type of class an object is, but we can compare it with the id of a known class to discover this. So our process to find components of a given type is to loop through all components on an entity and compare the `typeid()` with the `typeid()` of the type we want. When we find a component that matches, we add it to a vector that we will return.
 
-#### getComponents<T>()
+#### get_components<T>()
 
-Here it is, isn't it pretty:
+Here it is:
 
 ```cpp
-//ecm.h - getComponents<T>()
+//ecm.hpp - get_components<T>()
 template <typename T>
 const std::vector<std::shared_ptr<T>> get_components() const {
   static_assert(std::is_base_of<Component, T>::value, "T != component");
@@ -420,7 +391,7 @@ Here it is:
 //ecm.h - getCompatibleComponent$T>()"
 // Will return a T component, or anything derived from a T component.
 template <typename T>
-const std::vector<std::shared_ptr<T>> GetCompatibleComponent() {
+const std::vector<std::shared_ptr<T>> get_compatible_component() {
   static_assert(std::is_base_of<Component, T>::value, "T != component");
   std::vector<std::shared_ptr<T>> ret;
   for (auto c : _components) {

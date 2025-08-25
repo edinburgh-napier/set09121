@@ -321,6 +321,7 @@ Finally, the main function should look like this.
 //main.cpp
 int main(){
   Scenes::maze = std::make_shared<MazeScene>();
+  Scenes::maze->load();
   std::static_pointer_cast<MazeScene>(Scenes::maze)->set_file_path(param::maze_1);
   GameSystem::set_active_scene(Scenes::maze);
   GameSystem::start(param::game_width,param::game_height,"tile_maze");
@@ -332,6 +333,14 @@ int main(){
 **At this point you should have a magenta circle moving around a screen. Do not continue on if you haven't got everything working so far.**
 
 Oh, and you can move diagonally... right?
+
+## Sanity Check
+
+Okay... but do you get what is going on right now? Because I bet a few of you are utterly confused. So, let's summarise this process a little, and have a brief chat about why it's important. Second thing first: why is it important?
+
+Put simply, we can now create and manage scenes incredibly easily. If you've every made anything in a games engine you'll know how important scenes are, almost every single game is broken up into distinct scenes which have their own entities, sounds, textures, models etc. Often this'll be a menu scene and one scene per level, but it depends on how the game is made. But, in the end, they all have the same basic loop: load things, loop through updating and rendering until some end point, unload the things we loaded. Sound familiar? What did we define in our scene.cpp file? load(), update(), render()... but don't forget we have a constructor and deconstuctor too where we can unload things.
+
+What's nice about the way we've done it, however, is that the main gameplay loop doesn't have to care about what scene is currently running - it just calls the right functions at the right time on whatever scene is currently active. What is double nice, is that to change which scene is running (i.e. to change from the menu to the game, or between levels) we just swap out which scene is currently 'active'... and that's really it. Everything else just works because of clever use of inheritance, polymorphism, and all those other nice OO things.
 
 Previous step: [Space Invaders 2](space_invaders_2)
 

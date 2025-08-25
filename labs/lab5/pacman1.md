@@ -43,7 +43,7 @@ struct EntityManager {
 };
 ```
 
-The implementation of the two functions do exactly what you would expect, loop through the vector and update/render all Entities. Replace your Global entity vector in main.cpp with an `EntityManager` called 'em', and insert both the player and ghosts into via `em.list.push_back()`. Swap out the calls to Update and Render to the pass through the manager instead.
+The implementation of the two functions do exactly what you would expect, loop through the vector and update/render all Entities. Replace your entity vector *_entities* in the *Scene* class of  game_system.hpp with an `EntityManager` called 'em', and insert both the player and ghosts into via `em.list.push_back()`. Swap out the calls to Update and Render to the pass through the manager instead.
 
 You may be wondering why we even bothered doing this. We took simple code and made it more complex.
 
@@ -57,9 +57,9 @@ An annoying feature of our code right now is how we render Entities. Passing a r
 
 In most game engines, the system that handles rendering things is usually the largest and arguably the most important. For us, we only need to pass what we want to draw to SFML and it handles it all. You can bet the internals window.draw() function is pretty damn impressive (it is, go and look). We don't *need* a complex rendering system on-top of, but we'll build something anyway, if only to point out how a more complex system would do things. If we weren't using SFML this is where things would get real complicated quickfast.
 
-Our Render system will have a simplified Render() function that will take in a sf::Drawable object (e.g sprite,shape,text), and add this to a list of things to render.
+Our Render system will have a simplified render() function that will take in a sf::Drawable object (e.g sprite,shape,text), and add this to a list of things to render.
 
-The big difference here is that things won't be rendered immediately. The list will be built up of objects as each Render() function is called on all the Entities.
+The big difference here is that things won't be rendered immediately. The list will be built up of objects as each render() function is called on all the Entities.
 
 Once this process completed, we sent it all to SFML all at once.
 
@@ -68,7 +68,7 @@ The benefits to this is that we can keep track of how many things we are renderi
 Again, if we were working with OpenGL or a more complex render system, this is were we would do some serious work. The reality is that SFML does almost everything for us so we don't actually have much to do here.
 
 ```cpp
-//system_renderer.h
+//renderer.hpp
 #pragma once
 #include <SFML/Graphics.hpp>
 
@@ -77,15 +77,15 @@ namespace Renderer {
     sf::RenderWindow &get_window();
     
     void shutdown();
-    void update(const double &);
+    void update(const float &);
     void queue(const sf::Drawable *s);
     void render();
 }; 
 ```
 
 ```cpp
-//system_renderer.cpp
-#include "system_renderer.h"
+//renderer.cpp
+#include "renderer.hpp"
 #include <queue>
 
 using namespace std;
@@ -129,6 +129,7 @@ Renderer::queue(&text);
 {:class="important"}
 You might need to use .get() on the unique_ptr in your player or ghost.cpp if you are following along correctly!
 
+Now we have our *renderer* and *entity manager*, we need to modify our *Scene* and *GameSystem* classes to use them. the render and update function from Renderer need to be called in the update and render functions of the game system. The render functions of Scene and GameSystem does not need to take the window as argument. I let you find all the other changes.
 
 ### The Menu scene
 
@@ -138,14 +139,13 @@ We will bring along any gameplay variables that would normally be in the global 
 
 ```cpp
 //scenes.hpp
-
 class MenuScene : public Scene {
 private:
   sf::Text text;
 
 public:
   MenuScene() = default;
-  void update(double dt) override;
+  void update(const float &dt) override;
   void render() override;
   void load()override;
 };
@@ -153,7 +153,7 @@ public:
 
 ```cpp
 //scenes.cpp
-void MenuScene::update(double dt) {
+void MenuScene::update(const float &dt) {
   Scene::update(dt);
   text.setString("Almost Pacman");
 }
@@ -165,6 +165,7 @@ void MenuScene::render() {
 
 void MenuScene::load() {
 //Set up the text element here!
+...
 }
 ```
 
@@ -176,7 +177,7 @@ Remember! For the text to show you will have to load and assign a font! Remember
 For the main game-play scene, we will have an extra method: Respawn() and a scoreClock. This is all we need for global game logic in the scene, the entities handle everything else.
 
 ```cpp
-//pacman.h
+//scenes.hpp
 class GameScene : public Scene {
 private:
   sf::Text text;
@@ -185,13 +186,13 @@ private:
 
 public:
   GameScene() = default;
-  void update(double dt) override;
+  void update(const float &dt) override;
   void render() override;
   void load() override;
 };
 ```
 
-The ghosts and player that are still stored in a global EntityManager should now be moved into the GameScene. Each scene has it's own EntityManager, stored privately as `_ents`. Do the Entity creation in the Load() function. I.e:
+The ghosts and player that are still stored in a global EntityManager should now be moved into the GameScene. Each scene has it's own EntityManager, stored privately as *_entities*. Do the Entity creation in the Load() function. I.e:
 
 ```cpp
 void GameScene::load() {
@@ -207,51 +208,39 @@ void GameScene::load() {
 ```
 ### Instantiating the scenes
 
-All that's left to do is actually Instantiate the two scenes, we do this in the main Load function. We can really start to see how we are separating out the logic to the different systems, with main.cpp becoming a small part that glues it all together.
+All that's left to do is actually instantiate the two scenes, we do this like in the previous practical. We can really start to see how we are separating out the logic to the different systems, with main.cpp becoming a small part that glues it all together.
 
 ```cpp
 //main.cpp
-void Load() {
-  // Load Scene-Local Assets
-  gameScene.reset(new GameScene());
-  menuScene.reset(new MenuScene());
-  gameScene->load();
-  menuScene->load();
-  // Start at main menu
-  activeScene = menuScene;
+int main(){
+  Scenes::menu = std::make_shared<MenuScene>();
+  Scenes::menu->load();
+  Scenes::game = std::make_shared<GameScene>();
+  Scenes::game->load();
+  GameSystem::set_active_scene(Scenes::menu);
+  GameSystem::start(param::game_width,param::game_height,"pacman");
+  return 0;
 }
-...
-void Update() {
-  static Clock clock;
-  float dt = clock.restart().asSeconds();
-  activeScene->update(dt);
-}
-...
-void Render(RenderWindow &window) {
-  activeScene->render();
-  // flush to screen
-  Renderer::render();
-}
-```
+``` 
 
 ### Changing scenes
 
-Switching between the scenes is done with the variable 'activeScene'.
+Like in the previous lab, switching between the scenes is done the setter *GameSystem::set_active_scene()*.
 
 ```cpp
 //pacman.cpp
 void MenuScene::update(double dt) {
-    if (Keyboard::isKeyPressed(Keyboard::Space)) {
-        activeScene = gameScene;
-    }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+      gs::set_active_scene(Scenes::game);
+  }
     Scene::update(dt);
     text.setString("Almost Pacman");
 }
 ...
 void GameScene::update(double dt) {
-    if (Keyboard::isKeyPressed(Keyboard::Tab)) {
-        activeScene = menuScene;
-    }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab)) {
+      gs::set_active_scene(Scenes::menu);
+  }
     Scene::update(dt);  
     ...
 }
@@ -259,28 +248,22 @@ void GameScene::update(double dt) {
 
 ### Checkpoint
 
-After this long round trip, implementing a new render system, An entity manager class, a Scene class, and creating two scenes, we should be back to where we begun. The game will start to the menu scene, where you should see the text "Almost Pacman" Drawn. Pressing Space will take you into the game scene, where our player and 4 ghosts will be on screen and moving around. Pressing Tab will take us back to the menu. Pressing Escape will close the game down.
+After this long round trip, implementing a new render system, an entity manager class, and package it as a libarry, we should be back to where we begun. The game will start to the menu scene, where you should see the text "Almost Pacman" Drawn. Pressing Space will take you into the game scene, where our player and 4 ghosts will be on screen and moving around. Pressing Tab will take us back to the menu. Pressing Escape will close the game down.
 
 {:class="important"}
 Make sure you have got here, and everything is working so far without any errors. Things are going to get a bit wild next. You should commit your code now. **READ THE NEXT SECTION, IT'LL HELP I PROMISE**
 
 ### Sanity Check
 
-Okay... but do you get what is going on right now? Because I bet a few of you are utterly confused. So, let's summarise this process a little, and have a brief chat about why it's important. Second thing first: why is it important?
+Now the structure of our code is more complex and intricate. Probably, some of you are confused by it. So, let's breakdown what is happening when update() and render() from the game system are called.
 
-Put simply, we can now create and manage scenes incredibly easily. If you've every made anything in a games engine you'll know how important scenes are, almost every single game is broken up into distinct scenes which have their own entities, sounds, textures, models etc. Often this'll be a menu scene and one scene per level, but it depends on how the game is made. But, in the end, they all have the same basic loop: load things, loop through updating and rendering until some end point, unload the things we loaded. Sound familiar? What did we define in our scene.cpp file? load(), update(), render()... but don't forget we have a constructor and deconstuctor too where we can unload things.
-
-What's nice about the way we've done it, however, is that the main gameplay loop doesn't have to care about what scene is currently running - it just calls the right functions at the right time on whatever scene is currently active. What is double nice, is that to change which scene is running (i.e. to change from the menu to the game, or between levels) we just swap out which scene is currently 'active'... and that's really it. Everything else just works because of clever use of inheritance, polymorphism, and all those other nice OO things.
-
-So, what is the structure of our code now for actually calling update() and render()? Sure, we know how we call update() on the right scene, but how does that propagate to all our entities? 
-
-1. All our scenes inherit from our parent scene class, which contains an `EntityManager` struct called `_ents`
-2. Each `_ents` contains a list that stores `Entity` objects within it, and has it's own internal update() and render() functions
+1. All our scenes inherit from our parent scene class, which contains an `EntityManager` struct called `_entities`
+2. Each `_entities` contains a list that stores `Entity` objects within it, and has it's own internal update() and render() functions
 3. These functions both foreach through that list and call the update() and render() functions on each individual Entity (which must inherit from Entity)
-4. The update() functions do our gameplay work on each Entity, the render() functions add each Entity to the `Renderer` queue
-5. Our main.cpp file uses the shared pointer to our active scene and calls update() on it which causes all Entities to be updated as per above
-6. Our main.cpp file then calls the `Renderer` render() function, which goes through everything queued up and renders them all!
-7. When we change scene, we just update the active scene, and then a different `EntityManager` with different `_ents` is called... which means different update() functions are called, and different Entities are put on the `Renderer` queue.
+4. The update() functions do our gameplay work on each Entity, the render() functions call the render function of each Entity which add the appropriate sf::Drawable objects to the `Renderer` queue
+5. Our GameSystem uses the shared pointer to our active scene and calls update() on it which causes all Entities to be updated as per above
+6. Our GameSystem then calls the `Renderer` render() function, which goes through everything queued up and renders them all!
+7. When we change scene, we just update the active scene, and then a different `EntityManager` with different `_entities` is called... which means different update() functions are called, and different Entities are put on the `Renderer` queue.
 
 Phew... yeah, it's a bit complicated, and it seems like a lot of work for now, but this will make creating more complicated games later way easier as we've decoupled lots of stuff like sensible developers!
 

@@ -31,7 +31,7 @@ Finding and setting all the right settings in an IDE to set up building and link
 
 ```cmake
 #### level system ####
-add_library(tile_level SHARED tile_level_loader/level_system.cpp)
+add_library(tile_level STATIC tile_level_loader/level_system.cpp)
 target_include_directories(tile_level INTERFACE tile_level_loader)
 target_link_libraries(tile_level sfml-graphics)
 ```
@@ -402,7 +402,6 @@ Finally, we need to switch to the ending screen when the player reach the end of
 ```cpp
 //scenes.cpp        
 unload(); //unload the maze scene
-Scenes::end->load(); //load the end scene
 gs::set_active_scene(Scenes::end); //switch the active scene to the end scene
         
 ```

@@ -88,7 +88,7 @@ From there we are free to do whatever we want, and what we want to do is make Po
 We will come back and add to this, but you don't need to edit anything just now. Add this to your file, under the load function from before.
 
 ```cpp
-void Update(float dt){
+void update(float dt){
     // handle paddle movement
     float direction = 0.0f;
     if (sf::Keyboard::isKeyPressed(controls[0])) {

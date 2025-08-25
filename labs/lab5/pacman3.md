@@ -14,15 +14,15 @@ AI will be covered in detail in later labs, for this we will be using a very bas
 First up, let's get the level loaded and rendered. You can find it [here (assets/levels/maze_2.txt)](https://github.com/edinburgh-napier/set09121/tree/master/assets/levels).
 
 ```cpp
-//"pacman.cpp"
+//"scenes.cpp"
 void GameScene::load() {
 ...
- ls::loadLevelFile("res/pacman.txt", 25.0f);
+ ls::load_level("res/pacman.txt", 25.0f);
 ...
 }
 
 void GameScene::render() {
-  ls::render(Renderer::getWindow());
+  ls::render(Renderer::get_window());
   ...
 }
 ```
@@ -32,32 +32,33 @@ Easily done, thanks to our well built level system. What we can do now is use th
 **Before you can do this, you need to store a reference in the .h file for the player object, and some form of list for the ghosts so we can access it from other methods!**
 
 ```cpp
-//"pacman.cpp"
+//"scenes.cpp"
 void GameScene::respawn() {
- player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
- player->getCompatibleComponent<ActorMovementComponent>()[0]
-            ->setSpeed(150.f);
+ _player->set_position(ls::get_start_position());
+ _player->get_compatible_components<ActorMovementComponent>()[0]
+            ->set_speed(param::player_speed);
 
- auto ghost_spawns = ls::findTiles(ls::ENEMY);
- for (auto& g : ghosts) {
-   g->setPosition(
-        ls::getTilePosition(ghost_spawns[rand() % ghost_spawns.size()]));
-   g->GetCompatibleComponent<ActorMovementComponent>()[0]->setSpeed(100.0f);
+ std::vector<sf::Vector2i> ghost_spawns = ls::find_tiles(ls::ENEMY);
+ for (size_t i = 1; i < _entities.list.size(); i++) {
+    std::shared_ptr<Entity> &ghost = _entities.list[i];
+    ghost->set_position(
+        ls::get_tile_position(ghost_spawns[rand() % ghost_spawns.size()]));
+    ghost->get_compatible_components<ActorMovementComponent>()[0]->set_speed(param::ghost_speed);
  }
  ...
 }
 ```
 
-This makes use of a new function `findTiles()` which we haven't written yet, go an implement it into the level system library. Here's the declaration, you must figure out the implementation.
+This makes use of a new function `find_tiles()` which we haven't written yet, go an implement it into the level system library. Here's the declaration, you must figure out the implementation.
 
+```cpp
+//"level_system.h"
+static std::vector<sf::Vector2i> find_tiles(Tile);
 ```
-//"LevelSystem.h"
-static std::vector<sf::Vector2ul> findTiles(TILE);
-```
 
-With this done, the player should be spawning at the bottom, and the ghosts randomly in the middle. The ActorMovementComponent has a `validMove()` function which should stop both Entity types from moving into a wall. We are getting pretty close to a game now.
+With this done, the player should be spawning at the bottom, and the ghosts randomly in the middle. The ActorMovementComponent has a `_valid_ove()` function which should stop both Entity types from moving into a wall. We are getting pretty close to a game now.
 
-**Remember: a) you need to actually call respawn() somewhere and b) you might have to uncomment the validMove() check from earlier!**
+**Remember: a) you need to actually call respawn() somewhere and b) you might have to uncomment the _valid_move() check from earlier!**
 
 
 ## Ghost Movement
@@ -68,8 +69,9 @@ We could have the Ghosts chasing the player, for now we will do something easier
 For this to work we only need to store two additional properties in the ghost component: The current state, and current direction.
 
 ```cpp
-//cmp_enemy_ai.h
+//components.hpp
 class EnemyAIComponent : public ActorMovementComponent {
+  ...
 protected:
   sf::Vector2f _direction;
   enum state {ROAMING, ROTATING, ROTATED };
@@ -94,20 +96,20 @@ With our states figured out, we now move onto the code that transitions between 
 
 {% raw %}
 ```cpp
-//cmp_enemy_ai.cpp
+//components.cpp
 static const Vector2i directions[] = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
 
-void EnemyAIComponent::update(double dt) {
+void EnemyAIComponent::update(const float &dt) {
   //amount to move
-  const auto mva = (float)(dt * _speed); 
+  const float mva = static_cast<float>(dt * _speed);
   //Curent position
-  const Vector2f pos = _parent->getPosition();
+  const sf::Vector2f pos = _parent->get_position();
   //Next position
-  const Vector2f newpos = pos + _direction * mva;
+  const sf::Vector2f newpos = pos + _direction * mva;
   //Inverse of our current direction
-  const Vector2i baddir = -1 * Vector2i(_direction);
+  const sf::Vector2i baddir = -1 * sf::Vector2i(_direction);
   //Random new direction
-  Vector2i newdir = directions[(rand() % 4)];
+  sf::Vector2i newdir = directions[(rand() % 4)];
   
  switch (_state) {
    case ROAMING:
@@ -128,13 +130,13 @@ void EnemyAIComponent::update(double dt) {
         ) {
           ... // pick new direction
         }
-     _direction = Vector2f(newdir);
+     _direction = sf::Vector2f(newdir);
      _state = ROTATED;
      break;
       
    case ROTATED:
      //have we left the waypoint?
-     if (LevelSystem::getTileAt(pos) != LevelSystem::WAYPOINT) {
+     if (ls::get_tile_at(pos) != ls::WAYPOINT) {
         _state = ROAMING; //yes
      }
      move(_direction * mva); //No
@@ -149,26 +151,31 @@ void EnemyAIComponent::update(double dt) {
 
 Pacman just isn't Pacman without dangerous ghosts. Detecting when a ghost has collided with the player could be done in a number of places. A well-engineered solution would be to have a \"collidable\" interface on the player, with each ghost checking itself against the player. Another approach would be to ship this out to a standalone physics and collision system.
 
-The approach we are going to take is the most simple, doing the check in the pacman.cpp Update().
+The approach we are going to take is the most simple, doing the check in the scenes.cpp Update().
 
 For this to work we need to keep a reference to both the player and the ghosts. the game scene does have an EntityList which contains both, and so we could iterate through that. But wouldn't it just be easier if we did this?
 
 ```cpp
-//"pacman.cpp"
-vector<shared_ptr<Entity>> ghosts;
-shared_ptr<Entity> player;
+class GameScene : public Scene {
+  ...
+private:
+  std::shared_ptr<Entity> _player;
+  std::vector<std::shared_ptr<Entity>> _ghosts;
+```
 
+```cpp
+//"scenes.cpp"
 void GameScene::load() {
 ...
   {
     ...
-    _ents.list.push_back(pl);
-    player = pl;
+    _ents.list.push_back(player);
+    _player = player;
   }
 
-  for (int i = 0; i < GHOSTS_COUNT; ++i) {
+  for (int i = 0; i < param::ghost_count; i++) {
     ...
-    ghosts.push_back(ghost);
+    _ghosts.push_back(ghost);
     _ents.list.push_back(ghost);
   }
 ```
@@ -178,13 +185,19 @@ our collision check.
 
 
 ```cpp
-//"pacman.cpp"
-for (auto& g : ghosts) {
-    if (length(g->getPosition() - player->getPosition()) < 30.0f) {
-      respawn();
-    }
+//"scenes.cpp"
+//inline function to compute the distance
+auto vect_distance = [](sf::Vector2f a,sf::Vector2f b) -> float{
+  return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+};
+for (const std::shared_ptr<Entity> &ghost: _ghosts) {
+  if (vect_distance(ghost->get_position(), _player->get_position()) < 30.0f) {
+        respawn();
+  }
 }
 ```
+
+To compute the distance between the ghost and the player, we define an inline function using the C++ **lambda function** syntax: `[](arg1,arg2,...) -> return type`. Check the C++ documentation for more information. Lambda functions are a good way to define functions that will be needed only once and to have a more readable code.
 
 You'll have to build up the respawn() code to reset everything.
 
@@ -202,15 +215,17 @@ The class declaration is very simple so I've left it out, the only non standard 
 The `PickupComponent::update` looks like this:
 
 ```cpp
-//"cmp_pickup.cpp.cpp"
-void PickupComponent::update(double) {
+//components.cpp
+void PickupComponent::update(const float &) {
+...
   for (...) {       //every entity in the scene
     if (...) {      //within 30.f unit of me
-      ...               //get the entity ActorMovementComponent, if it has one
-      if (...) {        //if it has one
+      std::vector<std::shared_ptr<ActorMovementComponent>> comp = 
+        e->get_compatible_components<ActorMovementComponent>();               //get the entity ActorMovementComponent, if it has one
+      if (!comp.empty()) {        //if it has one
         // nom nom
-        ...                      //speed the entity up
-        _parent->setForDelete(); //delete myself
+        ...
+        _parent->set_for_delete(); //delete myself
         break;                   //stop looking
       }
     }
@@ -221,18 +236,28 @@ void PickupComponent::update(double) {
 .. and here is how we create the nibbles..
 
 ```cpp
-//"pacman.cpp"
-
-vector<shared_ptr<Entity>> nibbles;
-
-shared_ptr<Entity> makeNibble(const Vector2ul& nl, bool big) {
-  auto cherry = make_shared<Entity>();
-  auto s = cherry->addComponent<ShapeComponent>();
-  //set colour
+//scenes.hpp
+class GameScene: public Scene{
+...
+private:
+  ... 
+  EntityManager _nibbles;
+  std::shared_ptr<Entity> _make_nibble(const sf::Vector2i& pos, bool big);
   ...
+}
+```  
+
+
+```cpp
+//scenes.cpp
+std::shared_ptr<Entity> GameScene::_make_nibble(const sf::Vector2i& pos, bool big) {
+  std::shared_ptr<Entity> cherry = std::make_shared<Entity>();
+  std::shared_ptr<ShapeComponent> s = cherry->add_component<ShapeComponent>();
+  //set colour
+  ... 
   
-  cherry->addComponent<PickupComponent>(big);
-  cherry->setPosition(ls::getTilePosition(nl) + Vector2f(10.f, 10.f));
+  cherry->add_component<PickupComponent>(big);
+  cherry->set_position(ls::get_tile_position(pos) + sf::Vector2f(10.f, 10.f));
   return cherry;
 }
 ```
@@ -240,30 +265,30 @@ shared_ptr<Entity> makeNibble(const Vector2ul& nl, bool big) {
 ... and here's where we call that function.
 
 ```cpp
-//"pacman.cpp"
-
+//"scenes.cpp"
 void GameScene::respawn() {
   ...
-  //clear any remaining nibbles
-  for (auto n : nibbles) {
-    n->setForDelete();
+  for (auto n : _nibbles.list) {
+    n->set_for_delete();
     n.reset();
   }
-  nibbles.clear();
   
+  _nibbles.list.clear();
   //white nibbles
-  auto nibbleLoc = LevelSystem::findTiles(LevelSystem::EMPTY);
-  for (const auto& nl : nibbleLoc) {
-    auto cherry = makeNibble(nl, false);
-    //add to _wnts and nibbles list
-    ...
+  std::vector<sf::Vector2i> nibbleLoc = ls::find_tiles(ls::EMPTY);
+  for (const sf::Vector2i& nl : nibbleLoc) {
+    std::shared_ptr<Entity> cherry = _make_nibble(nl, false);
+    //add to nibbles list
+    _nibbles.list.push_back(cherry);
   }
   //blue nibbles
-  nibbleLoc = LevelSystem::findTiles(LevelSystem::WAYPOINT);
-  for (const auto& nl : nibbleLoc) {
-    ...
+  nibbleLoc = ls::find_tiles(ls::WAYPOINT);
+  for (const sf::Vector2i& nl : nibbleLoc) {
+    std::shared_ptr<Entity> cherry = _make_nibble(nl, true);
+    //add to nibbles list
+    _nibbles.list.push_back(cherry);
   }
-  ...
+...
 }
 ```
 
