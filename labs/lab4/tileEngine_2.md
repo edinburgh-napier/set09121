@@ -347,7 +347,7 @@ Disallow the player from moving into a tile:
 Hint:
 
 ``` cpp
-bool validmove(Vector2f pos) {
+bool valid_move(sf::Vector2f pos) {
   return (ls::getTileAt(pos) != ls::WALL);
 }
 ```

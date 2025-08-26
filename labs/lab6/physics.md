@@ -26,9 +26,14 @@ We haven't done this since the very beginning when we added SFML, time
 to do it again. Open gitbash in the root of your repo
 
 ```bash
-git submodule add https://github.com/dooglz/Box2D.git lib/b2d
+git submodule add https://github.com/erincatto/box2d.git lib
 git submodule init
 git submodule update
+```
+Then, we are going to set box2d on the commit tagged v3.1.1
+```bash
+cd lib/box2d
+git checkout v3.1.1
 ```
 
 ### Amend the CMakeLists
@@ -37,20 +42,18 @@ Adding B2D to our build process is pretty easy:
 
 ```cmake
 # B2D - Box2D phyics library
-add_subdirectory("lib/b2d/Box2D")
-#include_directories("lib/b2d/Box2D/")
-set(B2D_INCS "lib/b2d/Box2D/")
-link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
+add_subdirectory("lib/box2d")
+set(B2D_INCS "lib/box2d/include")
+link_directories("${CMAKE_BINARY_DIR}/lib/box2d/lib")
 ```
 
 Then we can just link with `Box2D` and include `${B2D_INCS}`.
 
 ```cmake
 ## physics
-file(GLOB_RECURSE SOURCES 5_physics/*.cpp 5_physics/*.h)
-add_executable(5_PHYSICS ${SOURCES})
-target_include_directories(5_PHYSICS SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
-target_link_libraries(5_PHYSICS Box2D sfml-graphics)
+add_executable(physics ...)
+target_include_directories(physics SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
+target_link_libraries(physics Box2D sfml-graphics)
 set(EXECUTABLES ${EXECUTABLES} PRACTICAL_5_PHYSICS)
 ```
 
@@ -115,19 +118,36 @@ There are three major factors that we must consider when working with B2D specif
 
 Converting between SMFL 'screen space' and B2D 'physics world space' requires taking the above 3 factors into account.
 
+### PhysicsScene
+
+First, we need to create a scene like we did in the previous labs.
+
+```cpp
+//scenes.hpp
+class PhysicsScene : public Scene {
+private:
+  b2WorldId world_id; //an id to the physic world
+public:
+  PhysicsScene() = default;
+  void update(const float &dt) override;
+  void render() override;
+  void load()override;
+};
+```
+
 ### Creating the world
 
 For this practical we will using a single main.cpp approach to get the basics of B2D shown.
 
 ```cpp
-//main.cpp
-b2World* world;
+//scenes.cpp
+#include "game_parameters.hpp"
 
-void init() {
-  const b2Vec2 gravity(0.0f, -10.0f);
-
-  // Construct a world, which holds and simulates the physics bodies.
-  world = new b2World(gravity);
+using param = Paramters;
+void PhysicsScene::load() {
+    b2WorldDef world_def = b2DefaultWorldDef();
+    world_def.gravity = b2Vec2({0.0f, param::g});  
+    world_id = b2CreateWorld(&world_def);
   ...
 }
 ```
@@ -135,117 +155,158 @@ void init() {
 Done, we've just created a world, in 3 lines.
 
 {:class="important"}
-You will need to remeber to add the correct include statements, or the above and below code will throw errors!
+You will need to remember to add the correct include statements, or the above and below code will throw errors!
 
 ### Creating physics Bodies
 
-I'll give you five functions. The first 3 are conversion helper functions to deal with translating between the two worlds. The CreatePhysicsBox() is the biggie, inside is all the B2D logic required to add a body to the scene. The last function in an overload of the fourth, which takes in a sf::RectangleShape rather than a position and size.
+I'll give you five functions. The first 3 are conversion helper functions to deal with translating between the two worlds. The `create_physics_box()` is the biggie, inside is all the B2D logic required to add a body to the scene. The last function in an overload of the fourth, which takes in a sf::RectangleShape rather than a position and size.
 
-**Remember you should by now know what you need to include, and what namespaces things come from, so don't forget to add them!**
+**Remember you should by now know what you need to include, so don't forget to add them!**
+
+First, we need some handy parameters.
+```cpp
+//game_parameters.hpp
+struct Parameters
+{
+  ...
+  // 1 sfml unit = 30 physics units
+  static constexpr float physics_scale = 30.f;
+  static constexpr float physics_scale_inv = 1.0f / physics_scale;
+  // Magic numbers for accuracy of physics simulation
+  static constexpr int velocityIterations = 6;
+  static constexpr int positionIterations = 2;
+}
+```
+
+Then, in new files *b2d_utils.hpp* and *b2d_utils.cpp*, we will declare and implement our helpers function. 
 
 ```cpp
-//main.cpp
-// 1 sfml unit = 30 physics units
-const float physics_scale = 30.0f;
-// inverse of physics_scale, useful for calculations
-const float physics_scale_inv = 1.0f / physics_scale;
-// Magic numbers for accuracy of physics simulation
-const int32 velocityIterations = 6;
-const int32 positionIterations = 2;
+//b2d_utils.hpp
+namespace box2d{
 
 //Convert from b2Vec2 to a Vector2f
-inline const Vector2f bv2_to_sv2(const b2Vec2& in) {
-  return Vector2f(in.x * physics_scale, (in.y * physics_scale));
+const sf::Vector2f bv2_to_sv2(const b2Vec2& in);
+//Convert from Vector2f to a b2Vec2
+const b2Vec2 sv2_to_bv2(const sf::Vector2f& in);
+//Convert from screenspace.y to physics.y (as they are the other way around)
+const sf::Vector2f invert_height(const sf::Vector2f& in);
+
+//Create a Box2D body with a box fixture
+b2BodyId create_physics_box(b2WorldId& world_id, const bool dynamic, const sf::Vector2f& position, const sf::Vector2f& size);
+b2BodyId create_physics_box(b2WorldId& world_id, const bool dynamic, const std::shared_ptr<sf::RectangleShape>& rs);
+
+}//box2d
+```
+
+The helper function are declared in a new namespace. In this way, we are not defining global functions without a context.
+
+```cpp
+//b2d_utils.cpp
+
+using param = Parameters
+//Convert from b2Vec2 to a Vector2f
+const sf::Vector2f box2d::bv2_to_sv2(const b2Vec2& in) {
+  return sf::Vector2f(in.x * param::physics_scale, (in.y * param::physics_scale));
 }
 //Convert from Vector2f to a b2Vec2
-inline const b2Vec2 sv2_to_bv2(const Vector2f& in) {
-  return b2Vec2(in.x * physics_scale_inv, (in.y * physics_scale_inv));
+const b2Vec2 box2d::sv2_to_bv2(const sf::Vector2f& in) {
+  return {in.x * param::physics_scale_inv, in.y * param::physics_scale_inv};
 }
 //Convert from screenspace.y to physics.y (as they are the other way around)
-inline const Vector2f invert_height(const Vector2f& in) {
-  return Vector2f(in.x, gameHeight - in.y);
+const sf::Vector2f box2d::invert_height(const sf::Vector2f& in) {
+  return sf::Vector2f(in.x, game_height - in.y);
 }
 
 //Create a Box2D body with a box fixture
-b2Body* CreatePhysicsBox(b2World& World, const bool dynamic, const Vector2f& position, const Vector2f& size) {
-  b2BodyDef BodyDef;
+b2BodyId box2d::create_physics_box(b2WorldId& world_id, const bool dynamic, const sf::Vector2f& position, const sf::Vector2f& size) {
+  b2BodyDef body_def = b2DefaultBodyDef();
   //Is Dynamic(moving), or static(Stationary)
-  BodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
-  BodyDef.position = sv2_to_bv2(position);
+  body_def.type = dynamic ? b2_dynamicBody : b2_staticBody;
+  body_def.position = sv2_to_bv2(position);
   //Create the body
-  b2Body* body = World.CreateBody(&BodyDef);
+  b2BodyId body_id = b2CreateBody(world_id,&body_def);
 
   //Create the fixture shape
-  b2PolygonShape Shape;
-  Shape.SetAsBox(sv2_to_bv2(size).x * 0.5f, sv2_to_bv2(size).y * 0.5f);
-  b2FixtureDef FixtureDef;
-  //Fixture properties
-  FixtureDef.density = dynamic ? 10.f : 0.f;
-  FixtureDef.friction = dynamic ? 0.8f : 1.f;
-  FixtureDef.restitution = 1.0;
-  FixtureDef.shape = &Shape;
-  //Add to body
-  body->CreateFixture(&FixtureDef);
-  return body;
+  b2ShapeDef shape_def = b2DefaultShapeDef();
+  shape_def.density = dynamic ? 10.f : 0.f;
+  shape_def.material.friction =  dynamic ? 0.8f : 1.f;
+  shape_def.material.restitution = 1.0f;
+  b2Polygon polygon = b2MakeBox(sv2_to_bv2(size).x * 0.5f, sv2_to_bv2(size).y * 0.5f);
+  b2CreatePolygonShape(body_id,&shape_def,&polygon);
+
+  return body_id;
 }
 
-// Create a Box2d body with a box fixture, from a sfml::RectangleShape
-b2Body* CreatePhysicsBox(b2World& world, const bool dynamic, const RectangleShape& rs) {
-  return CreatePhysicsBox(world, dynamic, rs.getPosition(), rs.getSize());
+b2BodyId box2d::create_physics_box(b2WorldId& world_id, const bool dynamic, const std::shared_ptr<sf::RectangleShape>& rs){
+  return create_physics_box(world_id,dynamic,rs->getPosition(),rs->getSize());
 }
-
 ```
 
-Let's put it to use, back to that Init() function.
+Let's put it to use, back to our scene.
+
+```cpp
+//scenes.hpp
+class PhysicsScene: public Scene{
+private:
+...
+  std::vector<b2BodyId> bodies;
+  std::vector<std::shared_ptr<sf::RectangleShape>> sprites;
+...
+};
+
+struct Scenes{
+  static std::shared_ptr<Scene> physics;
+};
+```
 
 
 ```cpp
-//main.cpp
-std::vector<b2Body*> bodies;
-std::vector<RectangleShape*> sprites;
+//scenes.cpp
+
 ...
 
-void init() {
+std::shared_ptr<Scene> Scenes::physics;
+
+void PhysicsScene() {
 ...
   // Create Boxes
   for (int i = 1; i < 11; ++i) {
     // Create SFML shapes for each box
-    auto s = new RectangleShape();
-    s->setPosition(Vector2f(i * (gameWidth / 12.f), gameHeight * .7f));
-    s->setSize(Vector2f(50.0f, 50.0f));
-    s->setOrigin(Vector2f(25.0f, 25.0f));
-    s->setFillColor(Color::White);
+    std::shared_ptr<sf::RectangleShape> s = std::make_shared<sf::RectangleShape>();
+    s->setPosition(sf::Vector2f(i * (game_width / 12.f), game_height * .7f));
+    s->setSize(sf::Vector2f(50.0f, 50.0f));
+    s->setOrigin(sf::Vector2f(25.0f, 25.0f));
+    s->setFillColor(sf::Color::White);
     sprites.push_back(s);
     
     // Create a dynamic physics body for the box
-    auto b = CreatePhysicsBox(*world, true, *s);
+    b2BodyId b = b2::create_physics_box(world_id, true, s);
     // Give the box a spin
-    b->ApplyAngularImpulse(5.0f, true);
+    b2Body_ApplyAngularImpulse(b,5.0f, true);
     bodies.push_back(b);
   }
 }
 ```
 
-So we are creating 10 boxes - both as sfml::RectangleShapes and b2d::bodies, and storing them both in global vectors. Now we just need to keep them in sync. Can you guess what's coming next?
+So we are creating 10 boxes - both as sf::RectangleShapes and box2d bodies identified with b2BodyId, and storing them both in attribute of our scene. Now we just need to keep them in sync. Can you guess what's coming next?
 ### Updating physics Bodies
 
 This is a two step process, 1: Stepping the physics world, and then copying the data from the bodies to the sf::shapes.
 
 
 ```cpp
-//main.cpp
-void Update() {
-  static sf::Clock clock;
-  float dt = clock.restart().asSeconds();
+//scenes.cpp
+void PhysicsScene::update(const float& dt) {
+
   
-  // Step Physics world by dt (non-fixed timestep) - THIS DOES ALL THE ACTUAL SIMULATION, DON'T FORGET THIS!
-  world->Step(dt, velocityIterations, positionIterations);
+  // Step Physics world by time_step
+  b2World_Step(world_id,param::time_step,param::sub_step_count);
 
   for (int i = 0; i < bodies.size(); ++i) {
     // Sync Sprites to physics position
-    sprites[i]->setPosition(invert_height(bv2_to_sv2(bodies[i]->GetPosition())));
+    sprites[i]->setPosition(b2::invert_height(b2::bv2_to_sv2(b2Body_GetPosition(bodies[i]))));
     // Sync Sprites to physics Rotation
-    sprites[i]->setRotation((180 / b2_pi) * bodies[i]->GetAngle());
+    sprites[i]->setRotation((180 / M_PI) * asin(b2Body_GetRotation(bodies[i]).s));
   }
 }
 ```
@@ -255,36 +316,32 @@ You now need to ensure that you *render* these boxes so you can test that they d
 
 ### Walls
 
-At the moment our boxes just fall into the abyss. Let's put some walls in. Back to Init() for one last time. We will create 4 walls. The position and size of each will be stored continuously in a vector that we will loop through. I'll let you figure out the full details. In the end it should look like this:
+At the moment our boxes just fall into the abyss. Let's put some walls in. Back to init() for one last time. We will create 4 walls. The position and size of each will be stored continuously in a vector that we will loop through. I'll let you figure out the full details. In the end it should look like this:
 
 ```cpp
-//main.cpp
-
-void init() {
- ...
-  // Wall Dimensions
-  Vector2f walls[] = {
-   // Top
-   Vector2f(gameWidth * .5f, 5.f), Vector2f(gameWidth, 10.f),
-   // Bottom
-   Vector2f(gameWidth * .5f, gameHeight - 5.f), Vector2f(gameWidth, 10.f),
-   // left
-   Vector2f(5.f, gameHeight * .5f), Vector2f(10.f, gameHeight),
-   // right
-   Vector2f(gameWidth - 5.f, gameHeight * .5f), Vector2f(10.f, gameHeight)
+//scenes.cpp
+void PhysicsScene::load(){
+...
+  sf::Vector2f walls[] = {
+    // Top
+    sf::Vector2f(param::game_width * .5f, 5.f), sf::Vector2f(param::game_width, 10.f),
+    // Bottom
+    sf::Vector2f(param::game_width * .5f, param::game_height - 5.f), sf::Vector2f(param::game_width, 10.f),
+    // left
+    sf::Vector2f(5.f, param::game_height * .5f), sf::Vector2f(10.f, param::game_height),
+    // right
+    sf::Vector2f(param::game_width - 5.f, param::game_height * .5f), sf::Vector2f(10.f, param::game_height)
   };
 
   // Build Walls
   for (int i = 0; i < 7; i += 2) {
-    // Create SFML shapes for each wall
-    ...
-    sprites.push_back(s);
-    // Create a static physics body for the wall
-   ...
+      // Create SFML shapes for each wall
+      ...
+      sprites.push_back(s);
+      // Create a static physics body for the wall
+      ...
+      bodies.push_back(b);
   }
-  // Create Boxes
-  ...
-  bodies.push_back(b);
 }
 ```
 

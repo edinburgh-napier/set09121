@@ -56,7 +56,7 @@ class Scene; //forward definition
 class GameSystem{
 public:
     static void start(unsigned int width, unsigned int height, 
-                      const std::string& name);
+                      const std::string& name, const float &time_step);
     static void clean();
     static void reset();
 
@@ -76,7 +76,7 @@ The start function implementation is pretty much the same as the what had in the
 //game_system.cpp
 ...
 void GameSystem::start(unsigned int width, unsigned int height, 
-                      const std::string& name){
+                      const std::string& name,const float &time_step){
     sf::RenderWindow window(sf::VideoMode({width, height}), name);    
     _init();
     sf::Event event;
@@ -96,6 +96,7 @@ void GameSystem::start(unsigned int width, unsigned int height,
     window.clear();
     _update(dt);
     _render(window);
+    sf::sleep(sf::seconds(time_step));
     //Wait for Vsync
     window.display();         
   }
@@ -114,7 +115,7 @@ The main.cpp should look like this now:
 using param = Parameters;
 
 int main(){
-  GameSystem::start(param::game_width,param::game_height,"Tile Maze");
+  GameSystem::start(param::game_width,param::game_height,"Tile Maze",param::time_step);
   return 0;
 }
 ```
@@ -321,8 +322,8 @@ Finally, the main function should look like this.
 //main.cpp
 int main(){
   Scenes::maze = std::make_shared<MazeScene>();
-  Scenes::maze->load();
   std::static_pointer_cast<MazeScene>(Scenes::maze)->set_file_path(param::maze_1);
+  Scenes::maze->load();
   GameSystem::set_active_scene(Scenes::maze);
   GameSystem::start(param::game_width,param::game_height,"tile_maze");
   return 0;
