@@ -154,6 +154,14 @@ void PhysicsScene::load() {
 
 Done, we've just created a world, in 3 lines.
 
+**Very important: All object created in box2d needs to be destroyed**
+
+```cpp
+void PhysicsScene::unload(){
+  b2DestroyWorld(world_id);
+}
+```
+
 {:class="important"}
 You will need to remember to add the correct include statements, or the above and below code will throw errors!
 
@@ -169,12 +177,8 @@ First, we need some handy parameters.
 struct Parameters
 {
   ...
-  // 1 sfml unit = 30 physics units
-  static constexpr float physics_scale = 30.f;
+  static constexpr float physics_scale = 30.f; //30 pixels = 1 meter
   static constexpr float physics_scale_inv = 1.0f / physics_scale;
-  // Magic numbers for accuracy of physics simulation
-  static constexpr int velocityIterations = 6;
-  static constexpr int positionIterations = 2;
 }
 ```
 
@@ -267,7 +271,7 @@ struct Scenes{
 
 std::shared_ptr<Scene> Scenes::physics;
 
-void PhysicsScene() {
+void PhysicsScene::load() {
 ...
   // Create Boxes
   for (int i = 1; i < 11; ++i) {
@@ -289,6 +293,9 @@ void PhysicsScene() {
 ```
 
 So we are creating 10 boxes - both as sf::RectangleShapes and box2d bodies identified with b2BodyId, and storing them both in attribute of our scene. Now we just need to keep them in sync. Can you guess what's coming next?
+
+**Don't forget to destroy this bodies in the unload() function!**
+
 ### Updating physics Bodies
 
 This is a two step process, 1: Stepping the physics world, and then copying the data from the bodies to the sf::shapes.
