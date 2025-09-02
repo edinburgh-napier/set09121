@@ -239,3 +239,7 @@ The ball really is in your court from now on: go make something awesome!
 - Tweak the physics parameters to get your own platformer. As written at the very beginning, most of what make a platformer unique is its feeling when moving the player. A lot of it is in the physics parameters: player weight, friction, jumping power, restitution etc...
 - Modify the player behaviour to be able to wall jump.
 - Create a sprite component to use sprites instead of shapes. You can get some nice free sprites on the internet like [here](https://itch.io/game-assets/free).
+
+Previous step: [Platformer](platformer)
+
+Next step: [Steering](lab8_1_steering)
