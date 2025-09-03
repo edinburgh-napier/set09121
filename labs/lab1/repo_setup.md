@@ -10,7 +10,7 @@ sidebar: home_sidebar
 You will need Git installed. You can use a Git GUI (e.g sourcetree). However I will work with and show the cmd-line commands.
 
 ### Create a repo
-When get onto move advanced topics, we will provide some code for you. For now you should create a blank Git repo on you Git host of choice ([Github](github.com), [BitBucket](bitbucket.org), or Napier's Gitlab: [gitgud.napier.ac.uk](gitgud.napier.ac.uk) )
+When get onto move advanced topics, we will provide some code for you. For now you should create a blank Git repo on you Git host of choice ([Github](github.com), [BitBucket](bitbucket.org)).
 
 For the rest of this process I'm assuming you are using GitHub.
 If you have not already created a GitHub account, create one and sign in.
@@ -35,12 +35,16 @@ button and copy the link within the box
 
 ![Clone from Github](assets/images/github_clone.png)
 
-### Post-pandemic special: Getting GitHub Desktop
-So, usually we'd have everything you needed installed on the D2 machines. We still do, but you might not be there as much, or you might prefer your laptop. As such, you'll need to install GitHub Desktop onto your own machine. Here it is: [https://desktop.github.com/](https://desktop.github.com/). You can use Git directly if you like, but if you're new, I'd get the GUI. Once you've got that installed, make sure you also install Git, as described below.
+### Install git
+
+1. Go on this [link](https://git-scm.com/downloads/win) and download **git for Windows**.
+2. Go in your download folder and move the downloaded file *Git-version-64-bit.exe* in your Home drive. So you don't have download it again.
+3. Launch the .exe file by double-clicking on it. Keep all the default options. 
+4. Launch git bash
+
+If everything goes well should have a command line poping up. Unfortunatly, you'll have to to do step 3 at the start of every lab.
 
 ### Clone it
-
-If you haven't installed Git on your pc yet, [go here](https://git-scm.com/downloads)
 
 Open a cmd (or git-bash) window somewhere (desktop is best). Now clone
 your repo
@@ -74,9 +78,8 @@ Now we can Start to get to work properly.
 
 ### Setup project structure
 Create the following empty folders.
-* **res** - (where resources go, like images and fonts)
+* **resources** - (where resources go, like images and fonts)
 * **lib** - (libraries that we need)
-* **practical_1** - (source code for practical 1)
 
 #### .gitignore
 Next, create a **.gitignore** file, open with a text editor.
@@ -87,11 +90,10 @@ Navigate to [gitignore.io](https://gitignore.io) and create an ignore file for "
 We will be building SFML from source, which means we need to get the code.
 We will be doing this via Git Submodules, which makes it look  like the SFML code is now copied into your repo, but is actually saved a virtual link to the separate SFML repo.
 ```bash
-git submodule add https://github.com/SFML/SFML.git lib/sfml
-git submodule init
-git submodule update
-cd lib/sfml
-git checkout 2.6.1
+mkdir lib && cd lib
+git submodule add https://github.com/SFML/SFML.git
+cd SFML
+git checkout 2.6.2
 cd ../..
 ```
 **Note, you need to be in the root directory of your repository for this to work!**

@@ -145,7 +145,7 @@ Next up, reading in and parsing the text file.
 
 void LevelSystem::load_level(const std::string& path, float tile_size) {
   _tile_size = tile_size;
-  size_t w = 0, h = 0;
+  int w = 0, h = 0;
   std::string buffer;
 
   // Load in file to buffer
@@ -227,8 +227,8 @@ Our level loader library will do more than just parse in a text file, however, i
 //level_system.cpp
 void LevelSystem::build_sprites() {
   _sprites.clear();
-  for (size_t y = 0; y < LevelSystem::get_height(); ++y) {
-    for (size_t x = 0; x < LevelSystem::get_width(); ++x) {
+  for (int y = 0; y < LevelSystem::get_height(); ++y) {
+    for (int x = 0; x < LevelSystem::get_width(); ++x) {
       std::unique_ptr<sf::RectangleShape> s = std::make_unique<sf::RectangleShape>();
       s->setPosition(get_tile_position({x, y}));
       s->setSize(sf::Vector2f(_tile_size, _tile_size));
@@ -313,8 +313,8 @@ using ls = LevelSystem;
 
 void MazeScene::reset() {
     ls::load_level(_file_path);
-    for (size_t y = 0; y < ls::get_height(); ++y) {
-        for (size_t x = 0; x < ls::get_width(); ++x) {
+    for (int y = 0; y < ls::get_height(); ++y) {
+        for (int x = 0; x < ls::get_width(); ++x) {
             std::cout << ls::get_tile({x, y});
         }
         std::cout << std::endl;
