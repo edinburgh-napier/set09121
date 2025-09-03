@@ -13,7 +13,16 @@ For this second practical, we will be going back to the most basic of basic. Cre
   <source src="assets/videos/pong.mp4" type="video/mp4">
 </video>
 
-First, create a new project and copy the main.cpp and CMakeLists.txt from the previous practical. We will start from those files. We will do so for each practical: using files from the previous practical and start from them to build step by step our game engine. 
+For each new labs, I would suggest that you create a new repo and follow the instruction from the first lab. Then, copy paste the code from the previous lab to start the next. Also, if you prefer, you can stay on the same repo and extend the codebase. However it could get messy quickly.
+
+So, first, create a new project and copy the main.cpp and CMakeLists.txt from the previous practical. We will start from those files. 
+
+# Create a new project
+
+- Copy and paste the files from the previous lab.
+- Rename the project ``` project(pong) ```
+- Change the name of the executable ``` add_executable(pong main.cpp) ```
+- Don't forget to change the name of the executable everywere it is mentionned.
 
 {:class="important"}
 **Make sure you keep a back up of that code, as it will be useful to test CMake when you create new projects in later labs!**

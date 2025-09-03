@@ -20,15 +20,6 @@ This lab is design to introduce you to: Object Orientation(OO) in C++, Working w
 - Change the name of the executable ``` add_executable(space_invaders main.cpp) ```
 - Don't forget to change the name of executable everywere it is mentionned.
 
-## Helpful hint: on Re-configuring CMake
-
-Whenever we alter the CMake script, or add / remove source files from the source repo, we must configure and generate from CMake again. There is a short-cut do doing this. In your open solution in visual studio, CMake builds a helper project called \"ZERO\_CHECK\". Building this project runs a script to configure and regenerate in the background. So we can edit and rebuild the CMakelists.txt without leaving Visual studio.
-
-## A note on creating additional files
-
-As you know, we have all our source code in the source 'repo' folder, and all the project and build files in the ephemeral 'build' directory that CMake generates for us. CMake links the source files directly in the project files. When you edit a .cpp file in Visual Studio, it is editing the real file in the repo directory, even though all of visual studios files are in the 'build' directory.
-
-One annoying caveat of this is that if you try to create a new file from visual studio, it incorrectly puts it in the build directory. You can manually type in the correct directory in the create file dialogue, or create the files manually and re-run CMake. Note: you will have to re-run CMake anyway when adding or removing files in the source directory.
 
 {:class="important"}
 **Don't continue until you have gotten a second project working in Visual Studio and showing a green circle - remember you will have to change the startup project!** 
@@ -40,9 +31,6 @@ Take a look here  [Runtime Resources tips and tricks](resources)
 
 **Don't skip this section, it's important**
 
-## Lib, linking, and cmake.
-
-If you are getting into a mess with you CMake, have a look here [CMake tips](cmake_tips)
 
 # Sprite-sheets
 
