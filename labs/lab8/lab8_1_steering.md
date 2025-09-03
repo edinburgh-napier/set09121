@@ -34,108 +34,53 @@ We are going to split the lab into two parts. First we will focus on steering be
 
 ### Setting Up
 
-The first item we will add is a `MenuSystem` class. First we will add a `scene_menu.h` file to our `scenes` folder of our project. This is below. The definition is just a standard scene.
+First, we will implement a menu scene like in the previous lab.
 
-```cpp
-//"scene_menu.h"
-#pragma once
-
-#include "engine.h"
-
-class MenuScene : public Scene {
-public:
-  MenuScene() = default;
-  ~MenuScene() = default;
-
-  void Load() override;
-
-  void Update(const double& dt) override;
-};
-```
-
-Our implementation (`scene_menu.cpp` in the `scene` folder) is below.
-
-```cpp
-//"scene_menu.cpp"
-#include "scene_menu.h"
-#include "../components/cmp_text.h"
-#include "../game.h"
-#include <SFML/Window/Keyboard.hpp>
-
-using namespace std;
-using namespace sf;
-
-void MenuScene::Load() {
-  auto txt = makeEntity();
-  auto t = txt->addComponent<TextComponent>( 
-      "Movement Demos\nPress 1 for Steering\nPress 2 for Pathfinding");
-  setLoaded(true);
-}
-
-void MenuScene::Update(const double& dt) {
-  if (sf::Keyboard::isKeyPressed(Keyboard::Num1)) {
-    ...
-  } else if (sf::Keyboard::isKeyPressed(Keyboard::Num2)) {
-   ...
-  }
-  Scene::Update(dt);
-}
-```
-
-The `MenuScene` will display a `TextComponent` which will give two options:
+The `MenuScene` will display a text which will give two options:
 1.  Steering Behaviour Demo
 2.  Pathfinding Demo
 
-The `Update` checks which button is pressed and has the outline for the code to handle this change. Once we have our other scenes in place we will add the new lines of code.
+The `update` checks which button is pressed and has the outline for the code to handle this change. Once we have our other scenes in place we will add the new lines of code.
 
-We will use a `game.h` file to allow easy access to the scenes. This is given below.
-
-```cpp
-//"game.h"
-#pragma once
-
-#include "scenes/scene_menu.h"
-
-extern MenuScene menu;
-```
+Don't forget to add the `struct Scenes` with the list of scene available. For the moment, we will have only the menu.
 
 And finally we need our `main.cpp` file. This is below.
 
 ```cpp
 //"main.cpp"
-#include "engine.h"
-#include "game.h"
+#include "game_parameters.hpp"
+#include "scenes.hpp"
 
-using namespace std;
+using param = Parameters;
 
-MenuScene menu;
-SteeringScene steeringScene;
-PathfindingScene pathfindingScene;
-
-int main() {
-  Engine::Start(1280, 720, "Steering", &menu);
-  return 0;
+int main(){
+    Scenes::menu = std::make_shared<MenuScene>();
+    Scenes::menu->load();
+    GameSystem::set_active_scene(Scenes::menu);
+    GameSystem::start(param::game_width,param::game_height,"AI Movement",param::time_step,false);
+    return 0;
 }
 ```
 
 You should be able to run this now and get the output shown
 ![Steering Lab Menu](assets/images/screen-steer-start.png)
+
 ### SteeringScene
 
-Before moving onto steering behaviours properly let us set up our `SteeringScene`. We are going to have an object on the screen (represented by a red dot) that the player will move around using the arrow keys. To do this we will create a basic `BasicMovementComponent`. You can replace this with the physics movement component from last practical if you wish. The `cmp_basic_movement.h` and `cmp_basic_movement.cpp` files are provided below. You should be able to understand the basic premise by now.
+Before moving onto steering behaviours properly let us set up our `SteeringScene`. We are going to have an object on the screen (represented by a red dot) that the player will move around using the arrow keys. To do this we will create a `KeyboardMovementComponent`. We will add this component in new files *ctrl_cmps.hpp* and *ctrl_cmps.cpp*. The definition and implementation are provided below. You should be able to understand the basic premise by now.
 
 ```cpp
-//"cmp_basic_movement.h"
+//"ctrl_cmps.hpp"
 #pragma once
-#include <ecm.h>
+#include "ecm.hpp"
 
 // A component to allow basic movement behaviour
-class BasicMovementComponent : public Component {
+class KeyboardMovementComponent : public Component {
 protected:
   // Speed we can travel
   float _speed;
   // Checks if the move is valid.
-  bool validMove(const sf::Vector2f&);
+  bool valid_move(const sf::Vector2f&);
 
 public:
   // Will check the keyboard and move the component's parent.
@@ -147,34 +92,34 @@ public:
   // Component does not need rendered.
   void render() override {}
   // Used to create the component for an entity
-  explicit BasicMovementComponent(Entity* p);
+  explicit KeyboardMovementComponent(Entity* p);
 
-  BasicMovementComponent() = delete;
+  KeyboardMovementComponent() = delete;
 };
 ```
 
 ```cpp
-//"cmp_basic_movement.cpp"
-#include "cmp_basic_movement.h"
-#include <SFML/Window/Keyboard.hpp>
-#include <engine.h>
+//"ctrl_cmps.cpp"
+#include "ai_cmps.hpp"
+#include "game_parameters.hpp"
+#include "game_system.hpp"
 
-using namespace sf;
-using namespace std;
+using gs = GameSystem;
+using param = Parameters;
 
 // Checks keyboard and moves the player.
-void BasicMovementComponent::update(double dt) {
-  Vector2f direction(0.0f, 0.0f);
-  if (Keyboard::isKeyPressed(Keyboard::Left)) {
+void KeyboardMovementComponent::update(const float &dt) {
+  sf::Vector2f direction(0.0f, 0.0f);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
     direction.x -= 1.0f;
   }
-  if (Keyboard::isKeyPressed(Keyboard::Right)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
     direction.x += 1.0f;
   }
-  if (Keyboard::isKeyPressed(Keyboard::Up)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
     direction.y -= 1.0f;
   }
-  if (Keyboard::isKeyPressed(Keyboard::Down)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
     direction.y += 1.0f;
   }
 
@@ -182,47 +127,46 @@ void BasicMovementComponent::update(double dt) {
 }
 
 // Initialises the component.
-BasicMovementComponent::BasicMovementComponent(Entity* p)
+KeyboardMovementComponent::BasicMovementComponent(Entity* p)
     : _speed(100.0f), Component(p) {}
 
 // Checks if the proposed move is valid.
-bool BasicMovementComponent::validMove(const sf::Vector2f& pos) {
-  if (pos.x < 0.0f || pos.x > Engine::GetWindow().getSize().x ||
-      pos.y < 0.0f || pos.y > Engine::GetWindow().getSize().y) {
+bool KeyboardMovementComponent::valid_move(const sf::Vector2f& pos) {
+  if (pos.x < 0.0f || pos.x > param::game_width ||
+      pos.y < 0.0f || pos.y > param::game_height) {
     return false;
   }
   return true;
 }
 
 // Moves the component's parent.
-void BasicMovementComponent::move(const sf::Vector2f& p) {
-  auto new_pos = _parent->getPosition() + p;
-  if (validMove(new_pos)) {
-    _parent->setPosition(new_pos);
+void KeyboardMovementComponent::move(const sf::Vector2f& p) {
+  auto new_pos = _parent->get_position() + p;
+  if (valid_move(new_pos)) {
+    _parent->set_position(new_pos);
   }
 }
 
 // Moves the component's parent.
-void BasicMovementComponent::move(float x, float y) {
-  move(Vector2f(x, y));
+void KeyboardMovementComponent::move(float x, float y) {
+  move(sf::Vector2f(x, y));
 }
 ```
 
-Our `SteeringScene` will add an `Entity` with this component attached. We first need to define the `scene_steering.h` file which is given below.
+Our `SteeringScene` will add an `Entity` with this component attached.
 
 ```cpp
-//"scene_steering.h"
-
+//"scenes.hpp"
 #pragma once
+#include "game_system.hpp"
 
-#include "engine.h"
-
-class SteeringScene : public Scene {
+class SteeringScene: public Scene{
 public:
-  void Load() override;
-  void UnLoad() override;
-  void Update(const double& dt) override;
-  void Render() override;
+    SteeringScene() = default;
+    void update(const float &dt) override;
+    void render() override;
+    void load()override;
+    void unload() override;
 };
 ```
 
@@ -230,68 +174,81 @@ The key behaviour we can add at the moment will be defined in the `Load` method.
 
 ```cpp
 //"scene_steering.cpp"
+#include "scenes.hpp"
+#include "renderer.hpp"
+#include "graphics_cmps.hpp"
+#include "ai_cmps.hpp"
+#include "game_parameters.hpp"
 
-#include "scene_steering.h"
-#include "../components/cmp_sprite.h"
-#include "../components/cmp_basic_movement.h"
-#include <LevelSystem.h>
-#include <random>
-#include <chrono>
+using param = Parameters;
 
-using namespace std;
-using namespace std::chrono;
-using namespace sf;
+std::shared_ptr<Scene> Scenes::menu;
 
-void SteeringScene::Load(){
-  auto player = makeEntity();
-  player->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2,
-                               Engine::GetWindow().getSize().y / 2));
-  auto s = player->addComponent<ShapeComponent>();
-  s->setShape<CircleShape>(10.0f);
-  s->getShape().setFillColor(Color::Red);
-  player->addComponent<BasicMovementComponent>();
+void MenuScene::update(const float &dt) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+        
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+
+    }
+    Scene::update(dt);
 }
 
-void SteeringScene::UnLoad() { Scene::UnLoad(); }
+void MenuScene::render() {
+    Renderer::queue(&_text);
+    Scene::render();
+}
 
-void SteeringScene::Update(const double& dt) { Scene::Update(dt); }
+void MenuScene::load() {
+    _font.loadFromFile("resources/fonts/RobotoMono-Regular.ttf");
+    _text.setFont(_font);
+    _text.setCharacterSize(60);
+    _text.setString("Movement Demos\nPress 1 for Steering\nPress 2 for Pathfinding");
+}
 
-void SteeringScene::Render() { Scene::Render(); }
-```
+void MenuScene::unload(){}
 
-All we have to do now is add to `game.h` as below.
 
-```cpp
-//"game.h"
-...
-extern SteeringScene steeringScene;
-```
+void SteeringScene::load(){
+  std::shared_ptr<Entity> player = make_entity();
+  player->setPosition(sf::Vector2f(param::game_width / 2,
+                               param::game_height / 2));
+  std::share_ptr<ShapeComponent> s = player->addComponent<ShapeComponent>();
+  s->set_shape<sf::CircleShape>(10.0f);
+  s->get_shape().setFillColor(Color::Red);
+  player->addComponent<KeyboardMovementComponent>();
+}
 
-Update `MenuScene::Update` as below.
+void SteeringScene::unLoad() { 
+    Scene::unload(); 
+}
 
-```cpp
-void MenuScene::Update(const double &dt){
-    if (sf::Keyboard::isKeyPressed(Keyboard::Num1)){
-        // New line
-        Engine::ChangeScene(&steeringScene);
-    }
-    else if (sf::Keyboard::isKeyPressed(Keyboard::Num2)){
-    
-    }
-    Scene::Update(dt);
+void SteeringScene::update(const float& dt) { 
+    Scene::update(dt); 
+}
+
+void SteeringScene::render() { 
+    Scene::render(); 
 }
 ```
 
-And then add a line `SteeringScene steeringScene;` to `main.cpp`. You should now be able to run the game, select option 1 and control the red dot
+Then, we need to:
+- add the new scene to our `Scenes` structure; 
+- initialise the steering scene in main;
+- and update the menu scene `update` function to switch to this scene when pressed 1.
+
+Don't forget to update the source files in the CMakeLists.txt
+
+You should now be able to run the game, select option 1 and control the red dot
 
 
 ### SteeringOutput
-As discussed in the lecture, the first part we need is the `SteeringOutput` type. We will define this in `steering.h`. This is given below.
+As discussed in the lecture, the first part we need is the `SteeringOutput` type. We will define this in `ai_cmps.hpp`. This file will contain all the components and elements related to AI. This is given below.
 
 ```cpp
-//"steering.h"
+//"ai_cmps.hpp"
 #pragma once
-#include <engine.h>
+#include <SFML/Graphics.hpp>
 
 // Output from a steering behaviour.
 struct SteeringOutput
@@ -305,192 +262,150 @@ struct SteeringOutput
 
 We defined these values in the lecture. They allow us to move or rotate on the basis of a steering behaviour.
 
-### SteeringBehaviour
+### SteeringBehaviours
 
-`SteeringBehaviour` we also defined in the lecture. This is a `virtual` class. The important part is the `getSteering` method. Add the below to the `steering.h` file.
+As we saw in the lecture, steering involves two behaviours: *seek* and *flee*. We are going to define them as static function in a struct so they can be reused easily.
 
 ```cpp
-//"steering.h"
-// Base class for steering behaviour
-class SteeringBehaviour{
-public:
-    virtual ~SteeringBehaviour() = default;
-    
-    // Gets the output from a steering behaviour.
-    virtual SteeringOutput getSteering() const noexcept = 0;
+//"ai_cmps.hpp"
+struct SteeringBehaviours{
+    static SteeringOutput seek(const sf::Vector2f &,const sf::Vector2f &);
+    static SteeringOutput flee(const sf::Vector2f &,const sf::Vector2f &);
 };
 ```
 
-We will build two steering behaviours -- seek and flee. They are fairly easy as the following sections will show.
-
-#### Seek
-
-`Seek` is the behaviour to move an object to a target. We described the general idea in the lecture. The following is the definition to add to `steering.h`.
+The implementation of these two function are very easy. Below are their implementation, they are identical except for one line. I leave to you to fill the blank.
 
 ```cpp
-//"steering.h"
-// Seek steering behaviour
-class Seek : public SteeringBehaviour{
-private:
-    Entity* _character;
-    Entity* _target;
-    float _maxSpeed;
-    public:
-    Seek() = delete;
-    Seek(Entity *character, Entity *target, float maxSpeed)
-    : _character(character), _target(target), _maxSpeed(maxSpeed) { }
-    SteeringOutput getSteering() const noexcept;
-};
-```
-
-The only part we need to define is the `Seek::getSteering` method. We will do this in a new file -- `steering.cpp`. This is given below.
-
-```cpp
-//"steering.cpp"
-#include "steering.h"
-
-using namespace sf;
-
-SteeringOutput Seek::getSteering() const noexcept{
+SteeringOutput SteeringBehaviours::seek(const sf::Vector2f &target,const sf::Vector2f &self){
+    auto length = [](const sf::Vector2f &v) -> float{
+        return std::sqrt(v.x*v.x+v.y*v.y);
+    };
     SteeringOutput steering;
-    steering.direction = _target->getPosition() - _character->getPosition();
-    steering.direction = normalize(steering.direction);
-    steering.direction *= _maxSpeed;
+    steering.direction = ...;
+    steering.direction = steering.direction/length(steering.direction) ;
+    steering.rotation = 0.0f;
+    return steering;
+}
+
+
+SteeringOutput SteeringBehaviours::flee(const sf::Vector2f &target,const sf::Vector2f &self){
+    auto length = [](const sf::Vector2f &v) -> float{
+        return std::sqrt(v.x*v.x+v.y*v.y);
+    };
+    SteeringOutput steering;
+    steering.direction = ...;
+    steering.direction = steering.direction/length(steering.direction) ;
     steering.rotation = 0.0f;
     return steering;
 }
 ```
 
-#### Flee
 
-Flee is likewise simple to implement. We add the declaration to `steering.h` and then the definition to `steering.cpp`. These are given below.
+### SteeringComponent
 
-```cpp
-//"steering.h"
-class Flee : public SteeringBehaviour{
-private:
-    Entity* _character;
-    Entity* _target;
-    float _maxSpeed;
-    public:
-    Flee() = delete;
-    Flee(Entity *character, Entity *target, float maxSpeed)
-    : _character(character), _target(target), _maxSpeed(maxSpeed) { }
-    SteeringOutput getSteering() const noexcept;
-};
-```
+We will now add a new component that will control the AI movement. This we will call `SteeringComponent` and we will define it in `ai_cmps.hpp` as below.
 
 ```cpp
-//"steering.cpp"
-SteeringOutput Flee::getSteering() const noexcept{
-    SteeringOutput steering;
-    steering.direction = _character->getPosition() - _target->getPosition();
-    steering.direction = normalize(steering.direction);
-    steering.direction *= _maxSpeed;
-    steering.rotation = 0.0f;
-    return steering;
-}
-```
-
-### `SteeringComponent`
-
-We will now add a new component that will control the AI movement. This we will call `SteeringComponent` and we will define it in `cmp_ai_steering.h` as below.
-
-```cpp
-//"cmp_ai_steering.h"
-#pragma once
-#include <ecm.h>
-#include "../steering.h"
+//"ai_cmps.h"
+...
 
 class SteeringComponent : public Component{
 protected:
-    Seek _seek;
-    Flee _flee;
     Entity *_player;
-    bool validMove(const sf::Vector2f&) const;
+    float _max_speed;
+    bool valid_move(const sf::Vector2f&) const;
 public:
-    void update(double) override;
+    void update(const float &) override;
     void move(const sf::Vector2f&);
     void move(float x, float y);
     void render() override { }
-    explicit SteeringComponent(Entity *p, Entity *player);
+    explicit SteeringComponent(Entity *p, Entity *player, float _max_speed);
     SteeringComponent() = delete;
 };
 ```
 
-The component is similar to the other movement ones we have defined and you could reuse those as well if you wanted. The key behaviour is really in `update`. This is defined in `cmp_ai_steering.cpp` (as well as other methods). See this below.
+The component is similar to the other movement ones we have defined and you could reuse those as well if you wanted. The key behaviour is really in `update`. This is defined in `ai_cmps.cpp` (as well as other methods). See this below.
 
 ```cpp
-//"cmp_ai_steering.cpp"
-#include "cmp_ai_steering.h"
+//"ai_cmps.cpp"
+...
 
-using namespace sf;
+void SteeringComponent::update(const float &dt) {
 
-void SteeringComponent::update(double dt) {
+    auto distance = [](const sf::Vector2f &a,const sf::Vector2f &b) -> float{
+        return std::sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+    };
   // If target (player) is more than 100 pixels away seek
-  if (length(_parent->getPosition() - _player->getPosition()) > 100.0f) {
-    auto output = _seek.getSteering();
-    move(output.direction * (float)dt);
+  if (distance(_parent->get_position(), _player->get_position()) > 100.0f) {
+    SteeringOutput output = SteeringBehaviours::seek(_player->get_position(),_parent->get_position());
+    move(output.direction*_max_speed * dt);
   }
   // If target (player) is less than 50 pixels away flee
-  else if (length(_parent->getPosition() - _player->getPosition()) <
+  else if (distance(_parent->get_position(), _player->get_position()) <
            50.0f) {
-    auto output = _flee.getSteering();
-    move(output.direction * (float)dt);
+    SteeringOutput output = SteeringBehaviours::flee(_player->get_position(),_parent->get_position());
+    move(output.direction*_max_speed * dt);
   }
 }
 
-SteeringComponent::SteeringComponent(Entity* p, Entity* player)
-    : _player(player), _seek(Seek(p, player, 100.0f)),
-      _flee(Flee(p, player, 100.0f)), Component(p) {}
+SteeringComponent::SteeringComponent(Entity* p, Entity* player, float max_speed)
+    : _player(player),_max_speed(max_speed) , Component(p) {}
 
-bool SteeringComponent::validMove(const sf::Vector2f& pos) const {
-  if (pos.x < 0.0f || pos.x > Engine::GetWindow().getSize().x ||
-      pos.y < 0.0f || pos.y > Engine::GetWindow().getSize().y) {
+bool SteeringComponent::valid_move(const sf::Vector2f& pos) const {
+  if (pos.x < 0.0f || pos.x > param::game_width ||
+      pos.y < 0.0f || pos.y > param::game_height) {
     return false;
   }
   return true;
 }
 
 void SteeringComponent::move(const sf::Vector2f &p){
-    auto new_pos = _parent->getPosition() + p;
-    if (validMove(new_pos)){
-        _parent->setPosition(new_pos);
+    sf::Vector2f new_pos = _parent->get_position() + p;
+    if (valid_move(new_pos)){
+        _parent->set_position(new_pos);
     }
 }
 
-void SteeringComponent::move(float x, float y){ move(Vector2f(x, y));}
+void SteeringComponent::move(float x, float y){ 
+    move(sf::Vector2f(x, y));
+}
 ```
 
 The key behaviour in `update` is a check on how far the `entity` (`_parent`) is from the player. If it is more than 100 pixels the component will use seek. If it is less than 50 it will flee. Now all we need to do is add some enemies with this behaviour. We do this back in the `SteeringScene::Load` method as below.
 
 ```cpp
+...
+#include <random>
+...
 //"Updated SteeringScene::Load"
-void SteeringScene::Load()
+void SteeringScene::load()
 {
-  auto player...
   ...
     
-  // New lines for here.
   // Setup C++ random number generation
-  random_device dev;
-  default_random_engine engine(dev());
-  uniform_real_distribution<float> x_dist(0.0f,
-                                          Engine::GetWindow().getSize().x);
-  uniform_real_distribution<float> y_dist(0.0f,
-                                          Engine::GetWindow().getSize().y);
+  std::random_device dev;
+  std::default_random_engine engine(dev());
+  std::uniform_real_distribution<float> x_dist(0.0f,
+                                          param::game_width);
+  std::uniform_real_distribution<float> y_dist(0.0f,
+                                          param::game_height);
   for (size_t n = 0; n < 100; ++n) {
-    auto enemy = makeEntity();
-    enemy->setPosition(Vector2f(x_dist(engine), y_dist(engine)));
-    auto s = enemy->addComponent<ShapeComponent>();
-    s->setShape<RectangleShape>(Vector2f(10.0f, 10.0f));
-    s->getShape().setFillColor(Color::Blue);
-    enemy->addComponent<SteeringComponent>(player.get());
+    std::shared_ptr<Entity> enemy = make_entity();
+    enemy->set_position(sf::Vector2f(x_dist(engine), y_dist(engine)));
+    std::shared_ptr<ShapeComponent> s = enemy->add_component<ShapeComponent>();
+    s->set_shape<sf::RectangleShape>(sf::Vector2f(10.0f, 10.0f));
+    s->get_shape().setFillColor(sf::Color::Blue);
+    enemy->add_component<SteeringComponent>(player.get(),50.f);
   }
 }
 ```
 
 You can now run the application and you will have the enemies chase and run away from you accordingly. It should like the video at the top.
+
+## Advanced task
+
+To continue you implement the rotation as well. The ai face  the player when seeking and turn over when fleeing. Check the lecture! Your AI should change rotation progressively. Change the shape to a triangle to get a direction.
 
 Previous step: [Platformer](platformer)
 

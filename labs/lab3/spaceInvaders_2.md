@@ -30,9 +30,7 @@ Here, are some good practices:
 - No hard coded value!
 - No global variables or functions outside a context. A context can be a function, class, struct or namespace.
 - Comment as much as possible
-- In a class or sturct definition: first **public**, then **protected**, and finally private **elements**
-- In a class definition: always start with the constructors and destructor
-- Always define a copy constructor in a class.
+- Always define a copy constructor in a class, unless the instances of this class will never be copied.
 
 At the moment, some of those might not make sense to you. Don't worry, we will follow them through this pratical and following ones.
 
