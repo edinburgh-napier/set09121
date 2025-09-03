@@ -17,90 +17,54 @@ Now that the steering behaviour scene is working we can focus on pathfinding. Ou
 
 ### `PathFindingScene`
 
-First we need to implement the `PathFindingScene`. The starting files are defined below and go into `scene_pathfinding.h` and `scene_pathfinding.cpp`.
+First we need to implement the `PathFindingScene` which will go in *scenes.hpp* and *scenes.cpp*
 
 ```cpp
-//"scene_pathfinding.h"
-#pragma once
-
-#include <engine.h>
-
+//"scenes.hpp"
+...
 class PathfindingScene : public Scene
 {
+private:
+    std::shared_ptr<Entity> _character;
 public:
-    void Load() override;
-    void UnLoad() override;
-    void Update(const double &dt) override;
-    void Render() override;
+    void load() override;
+    void unload() override;
+    void update(const float &dt) override;
+    void render() override;
 };
+...
 ```
 
 ```cpp
-//scene_pathfinding.cpp
-#include "scene_pathfinding.h"
+//scenes.cpp
+...
+void PathfindingScene::load() {
+  ls::load_file("resources/levels/pacman.txt", 20.0f);
 
-#include <LevelSystem.h>
-#include "../components/cmp_sprite.h"
-
-using namespace std;
-using namespace sf;
-
-shared_ptr<Entity> character;
-
-void PathfindingScene::Load() {
-  ls::loadLevelFile("res/pacman.txt", 20.0f);
-
-  character = makeEntity();
-  Vector2f startPos(ls::getOffset().x + 1 * ls::getTileSize(),
-                    ls::getOffset().y + 1 * ls::getTileSize());
-  character->setPosition(startPos);
-  auto s = character->addComponent<ShapeComponent>();
-  s->setShape<CircleShape>(10.0f);
-  s->getShape().setFillColor(Color::Red);
+  _character = make_entity();
+  sf::Vector2f start_pos(ls::get_start_position()-{10.f,10.f});
+  _character->set_position(start_pos);
+  std::shared_ptr<ShapeComponent> s = character->add_component<ShapeComponent>();
+  s->set_shape<sf::CircleShape>(10.0f);
+  s->get_shape().setFillColor(sf::Color::Red);
 }
 
-void PathfindingScene::UnLoad() { Scene::UnLoad(); }
+void PathfindingScene::unload() { Scene::unload(); }
 
-void PathfindingScene::Update(const double &dt){
-    Scene::Update(dt);
+void PathfindingScene::update(const float &dt){
+    Scene::update(dt);
 }
 
-void PathfindingScene::Render(){
-    ls::render(Engine::GetWindow());
-    Scene::Render();
+void PathfindingScene::render(){
+    ls::render(Renderer::get_window());
+    Scene::render();
 }
 ```
 
-The `Load` method just loads a tile map (I will use the one from PacMan) and add a red circle to the screen. We then just update `game.h` to below.
+The `load` method just loads a tile map (I will use the one from PacMan) and add a red circle to the screen. Like usual, We then just update the `Scenes` struct and initialise the new scene in *main.cpp*. 
 
-```cpp
-//game.h
-#pragma once
+Update `MenuScene::update` so it will select the new `PathFindingScene` when press 2.
 
-#include "scenes/scene_menu.h"
-#include "scenes/scene_steering.h"
-#include "scenes/scene_pathfinding.h"
-
-extern MenuScene menu;
-extern SteeringScene steeringScene;
-extern PathfindingScene pathfindingScene;
-```
-
-Update `MenuScene::update` so it will select the new `PathFindingScene`.
-
-```cpp
-//Updated MenuScene::update
-void MenuScene::Update(const double &dt){
-    if (sf::Keyboard::isKeyPressed(Keyboard::Num1)){
-        Engine::ChangeScene(&steeringScene);
-    }else if (sf::Keyboard::isKeyPressed(Keyboard::Num2)){
-        Engine::ChangeScene(&pathfindingScene);
-    }
-    Scene::Update(dt);
-}
-```
-
-And add the line `PathfindingScene pathfindingScene;` to our declarations in `main.cpp`. Then you should run the application and get the output shown:
 
 ![Start of Pathfinding Demo](assets/images/screen-path-start.png)
 
@@ -116,7 +80,34 @@ We discussed the basics of A\* in the lecture. We will define these in the files
 #include <engine.h>
 #include <vector>
 
-std::vector<sf::Vector2i> pathFind(sf::Vector2i start, sf::Vector2i finish);
+namespace a_star{
+std::vector<sf::Vector2i> path_find(sf::Vector2i start, sf::Vector2i finish);
+}
+class Node {
+private:
+  sf::Vector2i _pos;
+  int _level;
+  int _priority;
+
+public:
+  Node() = default;
+  Node(const sf::Vector2i& pos, int level, int priority);
+
+  const sf::Vector2i& get_pos() const;
+
+  int get_level() const;
+
+  int get_priority() const;
+
+  unsigned int estimate(const sf::Vector2i& dest) const;
+
+  void update_priority(const sf::Vector2i& dest);
+
+  void next_level();
+
+  // Used for priority ordering
+  bool operator<(const Node& other) const;
+};
 ```
 
 ```cpp
@@ -125,56 +116,19 @@ std::vector<sf::Vector2i> pathFind(sf::Vector2i start, sf::Vector2i finish);
 #include <LevelSystem.h>
 #include <array>
 #include <queue>
-using namespace std;
-using namespace sf;
 
-// Node in the search graph.
-class Node {
-private:
-  Vector2i _pos;
-  int _level;
-  int _priority;
 
-public:
-  Node() = default;
-  Node(const Vector2i& pos, int level, int priority) : _pos(pos), _level(level), _priority(priority) {}
-
-  const Vector2i& getPos() const { return _pos; }
-
-  int getLevel() const { return _level; }
-
-  int getPriority() const { return _priority; }
-
-  unsigned int estimate(const Vector2i& dest) const {
-    Vector2i delta = dest - _pos;
-    return static_cast<unsigned int>(length(delta));
-  }
-
-  void updatePriority(const Vector2i& dest) {
-    // Heuristic is just Euclidian distance.
-    // Can be modified.
-    _priority = _level + estimate(dest) * 10;
-  }
-
-  void nextLevel() { _level += 10; }
-
-  // Used for priority ordering
-  bool operator<(const Node& other) const {
-    return _priority > other._priority;
-  }
-};
-
-vector<Vector2i> pathFind(Vector2i start, Vector2i finish) {
+std::vector<sf::Vector2i> a_star::path_find(sf:Vector2i start, sf::Vector2i finish) {
   static std::array<sf::Vector2i, 4> directions = {
       Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(0, -1)};
 
   // This may not be the most efficient mechanism, but should not be a // problem unless your maps get very big.
-  vector<vector<bool>> closed_nodes_map(ls::getWidth());
-  vector<vector<int>> open_nodes_map(ls::getWidth());
-  vector<vector<Vector2i>> direction_map(ls::getWidth());
+  std::vector<std::vector<bool>> closed_nodes_map(ls::getWidth());
+  std::vector<std::vector<int>> open_nodes_map(ls::getWidth());
+  std::vector<std::vector<sf::Vector2i>> direction_map(ls::getWidth());
   // Queue of nodes to test.  Priority ordered.
   // We need two for when we redirect and copy the path.
-  priority_queue<Node> queue[2];
+  std::priority_queue<Node> queue[2];
   // Index of current queue
   size_t queue_index = 0;
 
@@ -272,7 +226,36 @@ vector<Vector2i> pathFind(Vector2i start, Vector2i finish) {
       }
     }
   }
-  return vector<Vector2i>();
+  return std::vector<sf::Vector2i>();
+}
+
+Node::Node(const sf::Vector2i& pos, int level, int priority) : _pos(pos), _level(level), _priority(priority) {}
+
+const sf::Vector2i& Node::get_pos() const { return _pos; }
+
+int Node::get_level() const { return _level; }
+
+int Node::get_priority() const { return _priority; }
+
+unsigned int Node::estimate(const sf::Vector2i& dest) const {
+    auto length = [](sf::Vectori v) -> int{
+        return std::sqrt(v.x*v.x+v.y+.v.y);
+    };
+    sf::Vector2i delta = dest - _pos;
+    return static_cast<unsigned int>(length(delta));
+}
+
+void Node::update_priority(const sf::Vector2i& dest) {
+// Heuristic is just Euclidian distance.
+// Can be modified.
+_priority = _level + estimate(dest) * 10;
+}
+
+void Node::next_level() { _level += 10; }
+
+// Used for priority ordering
+bool Node::operator<(const Node& other) const {
+    return _priority > other._priority;
 }
 
 ```
@@ -284,7 +267,7 @@ Now we just need to add a component to use this behaviour.
 `PathfindingCompoonent` will use a list of nodes to traverse the level. Every second it will move to the next position in the level until it reaches its destination. To do this it needs to keep track of a path, its index in the path, and the amount of time passed since the last move. We will also require a method to set the path.
 
 ```cpp 
-//"cmp_path_follow.h"
+//"ai_cmps.hpp"
 #pragma once
 #include <ecm.h>
 
@@ -295,32 +278,25 @@ protected:
   double _elapsed = 0.0;
 
 public:
-  void update(double) override;
+  void update(const float &) override;
   void render() override {}
-  void setPath(std::vector<sf::Vector2i>& path);
+  void set_path(std::vector<sf::Vector2i>& path);
   explicit PathfindingComponent(Entity* p);
   PathfindingComponent() = delete;
 };
 ```
 
 ```cpp 
-//"cmp_path_follow.cpp"
-#include "cmp_path_follow.h"
-#include "../astar.h"
-#include <LevelSystem.h>
-
-using namespace sf;
-using namespace std;
-
+//"ai_cmps.cpp"
+...
 void PathfindingComponent::update(double dt) {
   _elapsed += dt;
   if (_elapsed >= 0.1) {
     _elapsed = 0.0;
     if (_index < _path.size()) {
-      // Could do this in a single line - expanded for clarity
-      float new_x = ls::getOffset().x + _path[_index].x * ls::getTileSize();
-      float new_y = ls::getOffset().y + _path[_index].y * ls::getTileSize();
-      _parent->setPosition(Vector2f(new_x, new_y));
+      float new_x = _path[_index].x * param::tile_size;
+      float new_y = _path[_index].y * param::tile_size;
+      _parent->set_position(sf::Vector2f(new_x, new_y));
       ++_index;
     }
   }
@@ -328,7 +304,7 @@ void PathfindingComponent::update(double dt) {
 
 PathfindingComponent::PathfindingComponent(Entity* p) : Component(p) {}
 
-void PathfindingComponent::setPath(std::vector<sf::Vector2i>& path) {
+void PathfindingComponent::set_path(std::vector<sf::Vector2i>& path) {
   _index = 0;
   _path = path;
 }
@@ -346,10 +322,10 @@ void PathfindingScene::Load()
     ...
     
     // New code from here
-    auto path = pathFind(Vector2i(1, 1),
-                       Vector2i(ls::getWidth() - 2, ls::getHeight() - 2));
-    ai = character->addComponent<PathfindingComponent>();
-    ai->setPath(path);
+    std::vector<sf::Vector2i> path = a_star::path_find(sf::Vector2i(1,1),
+                        sf::Vector2i(ls::get_width() -2,ls::get_height()-2));
+    std::shared_ptr<PathfindingComponent> cmp = _character->add_component<PathfindingComponent>();
+    cmp->set_path(path);
 }
 ```
 
@@ -369,26 +345,27 @@ The code for this is below.
 
 ```cpp
 //"Using Mouse Clicks to Update Path"
-void PathfindingScene::Update(const double& dt) {
-  static bool mouse_down = false;
-  if (Mouse::isButtonPressed(Mouse::Left) && !mouse_down) {
-    auto mouse_pos = Mouse::getPosition(Engine::GetWindow());
-    mouse_down = true;
-    if (ls::isOnGrid(Vector2f(mouse_pos))) {
-      auto relative_pos = mouse_pos - Vector2i(ls::getOffset());
-      auto tile_coord = relative_pos / (int)ls::getTileSize();
-      if (ls::getTile(Vector2ul(tile_coord)) != ls::WALL) {
-        auto char_relative = character->getPosition() - ls::getOffset();
-        auto char_tile = Vector2i(char_relative / ls::getTileSize());
-        auto path = pathFind(char_tile, tile_coord);
-        ai->setPath(path);
-      }
+void PathfindingScene::update(const float &dt){
+    static bool mouse_down = false;
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !mouse_down) {
+        sf::Vector2i mouse_pos = sf::Mouse::getPosition(Renderer::get_window());
+        mouse_down = true;
+        if (mouse_pos.x > 0 && mouse_pos.x < param::game_width &&
+            mouse_pos.y > 0 && mouse_pos.y < param::game_height) {
+            // sf::Vector2f relative_pos = mouse_pos; - sf::Vector2i(ls::getOffset());
+            sf::Vector2i tile_coord = mouse_pos / static_cast<int>(param::tile_size);
+            if (ls::get_tile(sf::Vector2i(tile_coord)) != ls::WALL) {
+                sf::Vector2f char_pos = _character->get_position();
+                sf::Vector2i char_tile = sf::Vector2i(char_pos / param::tile_size);
+                std::vector<sf::Vector2i> path = a_star::path_find(char_tile, tile_coord);
+              _pathfinder->set_path(path);
+            }
+        }
     }
-  }
-  if (mouse_down && !Mouse::isButtonPressed(Mouse::Left)) {
-    mouse_down = false;
-  }
-  Scene::Update(dt);
+    if (mouse_down && !sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        mouse_down = false;
+    }
+    Scene::update(dt);
 }
 ```
 
