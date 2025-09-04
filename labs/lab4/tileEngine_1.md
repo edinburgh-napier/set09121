@@ -12,7 +12,7 @@ sidebar: home_sidebar
 This lab is design to introduce you to: Writing C++ Helper Libraries, Tile Based logic and 2D coordinate code.
 We will be starting this practical from the usual game loop basis. 
 
-**Create a new project, add the main.cpp file, and add the new project to CMake.**
+**Create a new project, copy paste the useful files frome the previous lab, add the main.cpp file, and add the new project to CMake.**
 
 ## The Goal
 

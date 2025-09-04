@@ -21,9 +21,6 @@ This lab is design to introduce you to: Object Orientation(OO) in C++, Working w
 - Don't forget to change the name of executable everywere it is mentionned.
 
 
-{:class="important"}
-**Don't continue until you have gotten a second project working in Visual Studio and showing a green circle - remember you will have to change the startup project!** 
-
 ## Runtime Resources
 
 We will be loading a bunch of files from disk, you need to make sure the resources are in the right place.

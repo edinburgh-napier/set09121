@@ -131,6 +131,9 @@ Now you should be at the same stage than with git.
 {:class="important"}
 **Just be carefull to not push the SFML folder to your repo.**
 
+### For later, Push the code to the repo
+
+Without gitbash or cmd line, you can do it inside Visual Studio. 
 
 ---
 Next step: [build setup](build_setup)

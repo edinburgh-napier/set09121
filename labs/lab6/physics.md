@@ -16,25 +16,31 @@ sidebar: home_sidebar
 
 We will be using the [Box2D](http://box2d.org/) physics engine from here on. B2D is relatively robust and well used. Building a 2d physics engine yourself isn't an impossible task, but we don't have time to cover it in this module, so we will be using something that already exists.
 
-When with picking software off the web, chances are it needs some tweaks. B2D doesn't have a well-built CMake Script, but thanks to the process of open-source software, [Sam fixed it](https://github.com/dooglz/Box2D/commit/e8d2cafa7f1300f5916a2e22f277d998a739e835). 
 
-The fix is still pending in a pull request to the main repo so for now we will use my fork.
 
-### Add the Submodule
+### With Git Add the Submodule
 
 We haven't done this since the very beginning when we added SFML, time
 to do it again. Open gitbash in the root of your repo
 
 ```bash
-git submodule add https://github.com/erincatto/box2d.git lib
-git submodule init
-git submodule update
+cd lib/
+git submodule add https://github.com/erincatto/box2d.git
 ```
 Then, we are going to set box2d on the commit tagged v3.1.1
 ```bash
-cd lib/box2d
+cd box2d
 git checkout v3.1.1
+cd ../../
 ```
+
+### Without Git Download the release
+
+- Go to the Box2d github page https://github.com/erincatto/box2d
+- On the right side of the page click on releases.
+- Scroll down to the version 3.1.1
+- In the assets section, download the **Source code (zip)**
+- Unzip it in your lib folder.
 
 ### Amend the CMakeLists
 
