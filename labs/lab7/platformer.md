@@ -161,6 +161,14 @@ void PhysicsComponent::update(const float &dt) {
 }
 ```
 
+Small thing, M_PI is a constant representing pi which needs to be define somewhere.
+I suggest to put it in the *game_parameters.hpp* file.
+```cpp
+//game_parameters.hpp
+#define M_PI 3.14159265358979323846
+```
+Why not defining it as static constexpr in the `Parameters` structure? You may ask yourself. Well, pi is not a parameter per se. You would not change the value of pi. `#define` is the "old school" C-style way to define `static constexpr` variable. It is a low-level and very efficient way to define constant values.
+
 This is how the physics world is linked to the SFML/Entity world. This happens every frame. There is one huge problem with this:
 -   The PhysicsComponent is now in charge of the Entities position.
 -   If anything modifies the Entities position (i.e another component), the physics component will overwrite this change with it's own value copied form the physics world.
@@ -415,7 +423,7 @@ void LevelScene::update(const float &dt){
 
 The `MenuScene` is pretty much the same as in pacman. 
 
-Also, as in pacman we need to declare our scenes:
+Also, as in pacman we need to define and declare our scenes:
 ```cpp
 //scenes.hpp
 struct Scenes{

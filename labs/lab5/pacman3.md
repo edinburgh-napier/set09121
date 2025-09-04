@@ -17,7 +17,7 @@ First up, let's get the level loaded and rendered. You can find it [here (assets
 //"scenes.cpp"
 void GameScene::load() {
 ...
- ls::load_level("res/pacman.txt", 25.0f);
+ ls::load_level("resouces/pacman.txt", 25.0f);
 ...
 }
 

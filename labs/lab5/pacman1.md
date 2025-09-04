@@ -17,6 +17,7 @@ or: Engine Abstraction and the Entity Component Model
 The goal of this practical is create our first a engine library and and then apply the entity component model to implement pacman.
 
 
+
 ## Part I: Engine Abstraction
 
 
@@ -174,7 +175,7 @@ Remember! For the text to show you will have to load and assign a font! Remember
 
 ### The Game scene
 
-For the main game-play scene, we will have an extra method: Respawn() and a scoreClock. This is all we need for global game logic in the scene, the entities handle everything else.
+For the main game-play scene, we will have an extra method: respawn(). This is all we need for global game logic in the scene, the entities handle everything else.
 
 ```cpp
 //scenes.hpp
@@ -191,21 +192,25 @@ public:
   void load() override;
 };
 ```
+For the moment, leave the `load()` function empty and implement the `render()` function like the MenuScene's one.
 
-The ghosts and player that are still stored in a global EntityManager should now be moved into the GameScene. Each scene has it's own EntityManager, stored privately as *_entities*. Do the Entity creation in the Load() function. I.e:
+### Defining and declaring the scenes
 
+Like in the previous lab, we will define our scenes as static shared pointers in a struct.
 ```cpp
-void GameScene::load() {
-  ...
-  auto player = ...
-  _ents.list.push_back(player);
-  for(4 ghosts){
-    auto ghost = ...
-    _ents.list.push_back(ghost);
-  }
-  ...
-}
+//scenes.hpp
+struct Scenes{
+  static std::shared_ptr<Scene> menu;
+  static std::shared_ptr<Scene> game;
+}; 
 ```
+And we don't forget to declare them in our cpp file.
+```cpp
+//scenes.cpp
+std::shared_ptr<Scene> Scenes::menu;
+std::shared_ptr<Scene> Scenes::game;
+```
+
 ### Instantiating the scenes
 
 All that's left to do is actually instantiate the two scenes, we do this like in the previous practical. We can really start to see how we are separating out the logic to the different systems, with main.cpp becoming a small part that glues it all together.
@@ -228,7 +233,7 @@ int main(){
 Like in the previous lab, switching between the scenes is done the setter *GameSystem::set_active_scene()*.
 
 ```cpp
-//pacman.cpp
+//scenes.cpp
 void MenuScene::update(double dt) {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
       gs::set_active_scene(Scenes::game);
@@ -248,7 +253,14 @@ void GameScene::update(double dt) {
 
 ### Checkpoint
 
-After this long round trip, implementing a new render system, an entity manager class, and package it as a libarry, we should be back to where we begun. The game will start to the menu scene, where you should see the text "Almost Pacman" Drawn. Pressing Space will take you into the game scene, where our player and 4 ghosts will be on screen and moving around. Pressing Tab will take us back to the menu. Pressing Escape will close the game down.
+After implementing a new render system, an entity manager class, and package it as a library, we have the general structure of basic game engine. This structure is one possible among many. From now on, all your labs project will have a similar file structure:
+- an *engine* folder with all the core code base for the game to work
+- a *tile_level_loader* folder
+- the couple *scenes.\*pp* giles with all the scenes 
+- the *game_parameters.hpp* file with all the the global constant parameters of the game
+- and finally the *main.cpp*
+
+Now, The game will start to the menu scene, where you should see the text "Almost Pacman" Drawn. Pressing Space will take you into the game scene, which blank at the moment. Pressing Tab will take us back to the menu. Pressing Escape will close the game down.
 
 {:class="important"}
 Make sure you have got here, and everything is working so far without any errors. Things are going to get a bit wild next. You should commit your code now. **READ THE NEXT SECTION, IT'LL HELP I PROMISE**
@@ -260,9 +272,9 @@ Now the structure of our code is more complex and intricate. Probably, some of y
 1. All our scenes inherit from our parent scene class, which contains an `EntityManager` struct called `_entities`
 2. Each `_entities` contains a list that stores `Entity` objects within it, and has it's own internal update() and render() functions
 3. These functions both foreach through that list and call the update() and render() functions on each individual Entity (which must inherit from Entity)
-4. The update() functions do our gameplay work on each Entity, the render() functions call the render function of each Entity which add the appropriate sf::Drawable objects to the `Renderer` queue
-5. Our GameSystem uses the shared pointer to our active scene and calls update() on it which causes all Entities to be updated as per above
-6. Our GameSystem then calls the `Renderer` render() function, which goes through everything queued up and renders them all!
+4. The update() functions do our gameplay work on each Entity, the `render()` functions call the render function of each Entity which add the appropriate sf::Drawable objects to the `Renderer` queue
+5. Our `GameSystem` uses the shared pointer to our active scene and calls `update()` on it which causes all entities to be updated as per above
+6. Our `GameSystem` then calls the `Renderer` render() function, which goes through everything queued up and renders them all!
 7. When we change scene, we just update the active scene, and then a different `EntityManager` with different `_entities` is called... which means different update() functions are called, and different Entities are put on the `Renderer` queue.
 
 Phew... yeah, it's a bit complicated, and it seems like a lot of work for now, but this will make creating more complicated games later way easier as we've decoupled lots of stuff like sensible developers!

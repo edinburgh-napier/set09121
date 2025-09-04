@@ -175,7 +175,7 @@ It's time to kill off our original Entity classes for Ghosts and the player that
 Creating Entities now follows this process:
 {% raw  %}
 ```cpp
-//pacman.cpp
+//scenes.cpp
 #define GHOSTS_COUNT 4
 ...
 void GameScene::load() {
@@ -297,7 +297,7 @@ This will get much more complex later on, as we dip into AI topics. For now, pla
 Adding the new components we just made to our player and ghosts follows the same principle we use to add the shape component:
 
 ```cpp
-//"pacman.cpp"
+//"scenes.cpp"
 void GameScene::load() {
 ...
   {
@@ -312,6 +312,7 @@ void GameScene::load() {
   ...
 
   for (int i = 0; i < param::ghost_count; ++i) {
+    std::shared_ptr<Entity> ghost = std::make_shared<Entity>();
     ...
     
     ghost->add_component<EnemyAIComponent>();
@@ -406,7 +407,7 @@ const std::vector<std::shared_ptr<T>> get_compatible_component() {
 
 ## Checkpoint
 
-That was a big change-up in code design. We are no longer using a single classes for Player and Ghost. Instead we are constructing them from components. You can see how this approach lends itself to modular and "Game-like" design. We can easily add or remove components at runtime to any Entity. A logical extension of this would be to design a "Factory" that constructs pre-set Entities with specific components, rather than doing it in pacman.cpp. That's a job for another day, our way is fine for now.
+That is a big change-up in code design. We are no longer using  classes inheriting from `Entity` to define our Player and Ghosts. Instead, we are constructing them from components. You can see how this approach lends itself to modular and "Game-like" design. We can easily add or remove components at runtime to any Entity. A logical extension of this would be to design a "Factory" that constructs pre-set Entities with specific components, rather than doing it in pacman.cpp. That's a job for another day, our way is fine for now.
 
 {:class="important"}
 Make sure you have got here, and everything is working, compiling and running so far without any errors. You should commit your code now. Have a well-earned break.

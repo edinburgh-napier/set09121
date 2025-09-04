@@ -292,12 +292,10 @@ public:
   void reset();
   void set_file_path(const std::string &file_path);
 private:
-    std::string _file_path;
+  std::string _file_path;
 };
+```
 
-struct Scenes{
-    static std::shared_ptr<Scene> maze;
-}
 ```
 **MazeScene** class inherit from **Scene** and we will override all the methods from **Scene**. This class just has two extra methods called **reset** and **set_file_path** to switch between mazes. The _file_path will store the path the maze.txt file.
 
@@ -316,6 +314,19 @@ void MazeScene::reset(){
 ```
 
 For now, the update and render methods will just call the update and render methods from Scene.
+
+To have access to our scenes from anywhere in the code base. We will define and declare our scene as a static shared pointer to the scene put in a structure.
+
+```cpp
+//scenes.hpp
+struct Scenes{
+  static std::shared_ptr<Scene> maze;
+}
+```
+As maze is a static member of a structure. We need to declare it in the cpp.
+```cpp
+std::shared_ptr<Scene> Scenes::maze;
+```
 
 Finally, the main function should look like this.
 ```cpp

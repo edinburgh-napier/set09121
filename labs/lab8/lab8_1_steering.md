@@ -16,16 +16,6 @@ sidebar: home_sidebar
 
 We are now going to start the AI labs. The first one will focus on movement and the decision making around movement. This will involve defining steering behaviours and pathfinding. This lab will use the engine as it stands at the end of practical 7. That is, we will be using *scenes* and *components* to build our solution. You will need the standard set up for a new lab. Our addition to the CMakeLists.txt is as follows.
 
-```cmake
-file(GLOB_RECURSE SOURCES lab_7_steering/*.cpp lab_7_steering/*.h)
-file(GLOB_RECURSE CMPNTS lab_7_steering/components/*.cpp lab_7_steering/components/*.h)
-file(GLOB_RECURSE SCENES lab_7_steering/scenes/*.cpp lab_7_steering/scenes/*.h)
-add_executable(LAB_7_STEERING ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES})
-target_link_libraries(LAB_7_STEERING lib_engine)
-set(EXECUTABLES ${EXECUTABLES} LAB_7_STEERING)
-```
-
-You will also need the components from practical 7 copied across.
 
 ## Steering Behaviours
 
