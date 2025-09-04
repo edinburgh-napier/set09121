@@ -9,7 +9,7 @@ sidebar: home_sidebar
 
 You will need Git installed. You can use a Git GUI (e.g sourcetree). However I will work with and show the cmd-line commands.
 
-### Create a repo
+## Create a repo
 When get onto move advanced topics, we will provide some code for you. For now you should create a blank Git repo on you Git host of choice ([Github](github.com), [BitBucket](bitbucket.org)).
 
 For the rest of this process I'm assuming you are using GitHub.
@@ -20,7 +20,7 @@ If you have not already created a GitHub account, create one and sign in.
 ![newRepoprocess](assets/images/github_newrepo_1.png)
 ![NewRepoOptions](assets/images/github_newrepo_2.png)
 
-1. Give your repo a simple name and descriptive description
+1. Give your repo a simple name
 
 1. Check - Initialize with a readme
 
@@ -35,6 +35,8 @@ button and copy the link within the box
 
 ![Clone from Github](assets/images/github_clone.png)
 
+## Setting up the project with Git
+
 ### Install git
 
 1. Go on this [link](https://git-scm.com/downloads/win) and download **git for Windows**.
@@ -44,7 +46,7 @@ button and copy the link within the box
 
 If everything goes well should have a command line poping up. Unfortunatly, you'll have to to do step 3 at the start of every lab.
 
-### Clone it
+### Clone the repo
 
 Open a cmd (or git-bash) window somewhere (desktop is best). Now clone
 your repo
@@ -97,6 +99,38 @@ git checkout 2.6.2
 cd ../..
 ```
 **Note, you need to be in the root directory of your repository for this to work!**
+
+## Setting Up the project without Git.
+
+
+If you do not have git installed on your machine and you cannot install it. It the case, at the moment on the JKCC machines. Then follow the instructions below. It is assumed that you have created an online repo.
+
+### Clone the repo
+
+- Open visual studio for appsanywhere: **Visual Studio Community 2022 C++ cli**.
+- Choose the option clone remote repository.
+- Copy paste the address of your repo in the first field
+- In the second field *path* put a folder in your H drive: `H:\any_folder_you_want\name_of_your_repo`
+
+At this stage you should have an empty project opened.
+
+Create two empty folder:
+* **resources** - (where resources go, like images and fonts)
+* **lib** - (libraries that we need)
+
+### Get SFML (Manually)
+
+- Go to the SFML github page https://github.com/SFML/SFML
+- On the right side of the page click on releases.
+- Scroll down to the version 2.6.2
+- In the assets section, download the **Source code (zip)**
+- Unzip it in your lib folder.
+
+Now you should be at the same stage than with git.
+
+{:class="important"}
+**Just be carefull to not push the SFML folder to your repo.**
+
 
 ---
 Next step: [build setup](build_setup)

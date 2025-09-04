@@ -6,7 +6,6 @@ permalink:  resolution.html
 sidebar: home_sidebar
 ---
 
-# Resolution Scaling
 
 ```cpp
 #include "engine.h"

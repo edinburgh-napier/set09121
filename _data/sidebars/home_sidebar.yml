@@ -72,6 +72,9 @@ entries:
     - title: Platformer
       url: /platformer.html
       output: web
+    - title: Platformer 2
+      url: /platformer2.html
+      output: web
   - title: 8 AI - Steering & Pathfinding
     output: web
     folderitems:
@@ -105,7 +108,7 @@ entries:
     - title: Networking
       url: /lab11.html
       output: web
-  - title: Tips And tricks
+  - title: Extras
     output: web
     folderitems:
     - title: SSH keys
@@ -117,11 +120,17 @@ entries:
     - title: Resources
       url: /resources.html
       output: web
-    - title: Cmake Tricks
-      url: /cmake_tips.html
-      output: web
     - title: Resolution Scaling
       url: /resolution.html
+      output: web
+    - title: Installers
+      url: /deploying_1_installers.html
+      output: web
+    - title: Continuous Integration
+      url: /deploying_2_ci.html
+      output: web
+    - title: Networking
+      url: networking.html
       output: web
   - title: Lectures
     output: web
