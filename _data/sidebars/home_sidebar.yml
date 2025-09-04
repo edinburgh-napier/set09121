@@ -93,21 +93,6 @@ entries:
     - title: Decision Trees
       url: /lab9_2.html
       output: web
-  - title: 10 Deploying
-    output: web
-    folderitems:
-    - title: Deploying
-      url: /lab10_1.html
-      output: web
-    - title: CI
-      url: /lab10_2.html
-      output: web
-  - title: 11 Networking
-    output: web
-    folderitems:
-    - title: Networking
-      url: /lab11.html
-      output: web
   - title: Extras
     output: web
     folderitems:
@@ -124,13 +109,13 @@ entries:
       url: /resolution.html
       output: web
     - title: Installers
-      url: /deploying_1_installers.html
+      url: /lab10_1.html
       output: web
     - title: Continuous Integration
-      url: /deploying_2_ci.html
+      url: /lab10_2.html
       output: web
     - title: Networking
-      url: networking.html
+      url: /lab11.html
       output: web
   - title: Lectures
     output: web

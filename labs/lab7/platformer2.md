@@ -1,3 +1,12 @@
+---
+title: "Platformer 2: Chain Shape"
+keywords: platformer 2
+tags: [platformer2]
+permalink:  platformer2.html
+summary: platformer 2
+sidebar: home_sidebar
+---
+
 To solve this issue of *ghost collisions*, we are going to change the PlatformComponent class collision system. For this to work we will need to add some functions in the level system library. 
 
 ## The Theory
