@@ -32,7 +32,7 @@ class DecisionTreeNode
 {
 public:
     virtual ~DecisionTreeNode() = default;
-    virtual void makeDecision(Entity *owner) = 0;
+    virtual void make_decision(Entity *owner) = 0;
 };
 ```
 
@@ -44,43 +44,43 @@ With the basic type in place we will now define two decision types: binary and m
 
 Binary decisions are our simplest decision behaviour, although the nature of the decision is still abstract. The aim is to traverse either down the true-branch or false-branch of the tree depending on some condition. As such our binary decision needs to have two attributes:
 
-`trueNode` :   the branch followed on a "true" decision.
-`falseNode` :   the branch followed on a "false" decision.
+`true_node` :   the branch followed on a "true" decision.
+`false_node` :   the branch followed on a "false" decision.
 
-As such, we can actually define `makeDecision` for a binary decision point -- we just get the correct branch and call `makeDecision` on it. So we can implement `makeDecision` we provide a new method: `getBranch`. This new method will be the one we use to define specific decisions as needed. The code is below:
+As such, we can actually define `make_decision` for a binary decision point -- we just get the correct branch and call `make_decision` on it. So we can implement `make_decision` we provide a new method: `get_branch`. This new method will be the one we use to define specific decisions as needed. The code is below:
 
 ```cpp
-//cmp_decision_tree.h
-class Decision : public DecisionTreeNode
+//decision_tree.hpp
+class BinaryDecision : public DecisionTreeNode
 {
 protected:
-    std::shared_ptr<DecisionTreeNode> _trueNode;
-    std::shared_ptr<DecisionTreeNode> _falseNode;
-    virtual std::shared_ptr<DecisionTreeNode> getBranch(Entity *owner) = 0;
+    std::shared_ptr<DecisionTreeNode> _true_node;
+    std::shared_ptr<DecisionTreeNode> _false_node;
+    virtual std::shared_ptr<DecisionTreeNode> get_branch(Entity *owner) = 0;
 public:
-    Decision(std::shared_ptr<DecisionTreeNode> trueNode, std::shared_ptr<DecisionTreeNode> falseNode) : _trueNode(trueNode), _falseNode(falseNode) { }
+    BinaryDecision(std::shared_ptr<DecisionTreeNode> true_node, std::shared_ptr<DecisionTreeNode> false_node) : _true_node(true_node), _false_node(false_node) { }
 
-    void makeDecision(Entity *owner) {
-        getBranch(owner)->makeDecision(owner);
+    void make_decision(Entity *owner) {
+        get_branch(owner)->make_decision(owner);
     }
 };
 ```
 
 #### Multiple Decision
 
-Multi-decision points are just the same as binary decisions, except we will have a list of nodes. So we can follow the same model as binary decision, we again provide a `getBranch` method to be implemented.
+Multi-decision points are just the same as binary decisions, except we will have a list of nodes. So we can follow the same model as binary decision, we again provide a `get_branch` method to be implemented.
 ```cpp
-//cmp_decision_tree.h
+//decision_tree.hpp
 class MultiDecision : public DecisionTreeNode
 {
 protected:
-    std::vector<std::shared_ptr<DecisionTreeNode>> _childNodes;
-    virtual std::shared_ptr<DecisionTreeNode> getBranch(Entity *owner) = 0;
+    std::vector<std::shared_ptr<DecisionTreeNode>> _child_nodes;
+    virtual std::shared_ptr<DecisionTreeNode> get_branch(Entity *owner) = 0;
 public:
-    MultiDecision(const std::vector<std::shared_ptr<DecisionTreeNode>> &childNodes) : _childNodes(childNodes) { }
+    MultiDecision(const std::vector<std::shared_ptr<DecisionTreeNode>> &childNodes) : _child_nodes(child_nodes) { }
 
-    void makeDecision(Entity *owner) {
-        getBranch(owner)->makeDecision(owner);
+    void make_decision(Entity *owner) {
+        get_branch(owner)->make_decision(owner);
     }
 };
 ```
@@ -90,58 +90,56 @@ public:
 Let us now implement a couple of decision types: random decision, and random multi-decision. These are effectively the same apart from the number of options they choose from. The declaration for the random decision is below.
 
 ```cpp
-//cmp_decision_tree.h
+//decision_tree.hpp
 class RandomDecision : public Decision
 {
 protected:
-    std::shared_ptr<DecisionTreeNode> getBranch(Entity *owner) final;
+    std::shared_ptr<DecisionTreeNode> get_branch(Entity *owner);
 public:
-    RandomDecision(std::shared_ptr<DecisionTreeNode> trueNode, std::shared_ptr<DecisionTreeNode> falseNode) : Decision(trueNode, falseNode) { }
+    RandomDecision(std::shared_ptr<DecisionTreeNode> true_node, std::shared_ptr<DecisionTreeNode> false_node) : BinaryDecision(true_node, false_node) { }
 };
 ```
 
-The implementation we will put in a new code file. We just need to provide the `getBranch` method. As we are defining a random choice, we will just flip a coin (so to speak). The code is below.
+The implementation we will put in a new code file. We just need to provide the `get_branch` method. As we are defining a random choice, we will just flip a coin (so to speak). The code is below.
 
 ```cpp
-//cmp_decision_tree.cpp
-#include "cmp_decision_tree.h"
+//decision_tree.cpp
+#include "decision_tree.hpp"
 #include <random>
 #include <chrono>
 
-using namespace std;
-
-std::shared_ptr<DecisionTreeNode> RandomDecision::getBranch(Entity *owner) {
+std::shared_ptr<DecisionTreeNode> RandomDecision::get_branch(Entity *owner) {
     static random_device rd;
     static default_random_engine e(rd());
     static uniform_int_distribution<int> dist(0, 1);
     bool choice = dist(e) == 0;
     if (choice)
-        return _trueNode;
+        return _true_node;
     else
-        return _falseNode;
+        return _false_node;
 }
 ```
 
 Random multi-decision follows the same pattern but the random choice has to be one from its list. The code for the declaration and implementation are below.
 ```cpp
-//RandomMultiDecision class -- add to {cmp_decision_tree.h
+//deciision_tree.hpp
 class RandomMultiDecision : public MultiDecision
 {
 protected:
-    std::shared_ptr<DecisionTreeNode> getBranch(Entity *owner) override final;
+    std::shared_ptr<DecisionTreeNode> get_branch(Entity *owner) override;
 public:
-    RandomMultiDecision(const std::vector<std::shared_ptr<DecisionTreeNode>> &childNodes) : MultiDecision(childNodes) { }
+    RandomMultiDecision(const std::vector<std::shared_ptr<DecisionTreeNode>> &child_nodes) : MultiDecision(child_nodes) { }
 };
 ```
 
 ```cpp
-//RandomMultiDecision::getBranch -- add to cmp_decision_tree.cpp
-std::shared_ptr<DecisionTreeNode> RandomMultiDecision::getBranch(Entity *owner)
+//decision_tree.cpp
+std::shared_ptr<DecisionTreeNode> RandomMultiDecision::get_branch(Entity *owner)
 {
     static random_device rd;
     static default_random_engine e(rd());
-    static uniform_int_distribution<size_t> dist(0, _childNodes.size());
-    return _childNodes[dist(e)];
+    static uniform_int_distribution<size_t> dist(0, _child_nodes.size());
+    return _child_nodes[dist(e)];
 }
 ```
 
@@ -150,26 +148,26 @@ std::shared_ptr<DecisionTreeNode> RandomMultiDecision::getBranch(Entity *owner)
 As always, we want to implement our new behaviour in a way that can be plugged into an entity. Therefore, we need a new component. The `DecisionTreeComponent` is defined below and follows our standard model.
 
 ```cpp
-//DecisionTreeComponent class -- add to cmp_decision_tree.h
+//decision_tree.hpp
 class DecisionTreeComponent : public Component
 {
 private:
-    std::shared_ptr<DecisionTreeNode> _decisionTree;
+    std::shared_ptr<DecisionTreeNode> _decision_tree;
 public:
-    void update(double) override;
+    void update(const float &) override;
     void render() override { }
-    explicit DecisionTreeComponent(Entity *p, std::shared_ptr<DecisionTreeNode> decisionTree);
+    explicit DecisionTreeComponent(Entity *p, std::shared_ptr<DecisionTreeNode> decision_tree);
     DecisionTreeComponent() = delete;
 };
 ```
 
-The implementation is actually very easy. The component has a decision tree -- it just calls `makeDecision` on it. Job done. The code is below.
+The implementation is actually very easy. The component has a decision tree -- it just calls `make_decision` on it. Job done. The code is below.
 ```cpp
-//Definition of DecisionTreeComponent -- add to cmp_decision_tree.cpp
-DecisionTreeComponent::DecisionTreeComponent(Entity *p, shared_ptr<DecisionTreeNode> decisionTree) : _decisionTree(decisionTree), Component(p) { }
+//decision_tree.cpp
+DecisionTreeComponent::DecisionTreeComponent(Entity *p, shared_ptr<DecisionTreeNode> decisionTree) : _decision_tree(decision_tree), Component(p) { }
 
-void DecisionTreeComponent::update(double dt) {
-    _decisionTree->makeDecision(_parent);
+void DecisionTreeComponent::update(const float &dt) {
+    _decisionTree->make_decision(_parent);
 }
 ```
 
@@ -191,35 +189,27 @@ This combines the decisions and states into a single representation.
 Our first task is to implement some steering states. We will need three: stationary, seek, and flee. These will just call the respective steering behaviours from our previous lab and change colours accordingly. The code is defined below.
 
 ```cpp
-//steering_states.h
+//states.h
 #pragma once
-
-#include "steering.h"
-#include "components/cmp_state_machine.h"
-
 class StationaryState : public State
 {
 public:
     StationaryState() = default;
-    void execute(Entity*, double) noexcept override;
+    void execute(Entity*, const float &) override;
 };
 
 class SeekState : public State
 {
-private:
-    Seek _steering;
 public:
-    SeekState(std::shared_ptr<Entity> owner, std::shared_ptr<Entity> player) : _steering(owner.get(), player.get(), 50.0f) { }
-    void execute(Entity*, double) noexcept override;
+    SeekState(std::shared_ptr<Entity> owner, std::shared_ptr<Entity> player){}
+    void execute(Entity*, const float &) override;
 };
 
 class FleeState : public State
 {
-private:
-    Flee _steering;
 public:
-    FleeState(std::shared_ptr<Entity> owner, std::shared_ptr<Entity> player) : _steering(owner.get(), player.get(), 50.0f) { }
-    void execute(Entity*, double) noexcept override;
+    FleeState(std::shared_ptr<Entity> owner, std::shared_ptr<Entity> player){}
+    void execute(Entity*, const float &) override;
 };
 ```
 
