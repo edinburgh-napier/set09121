@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -28,7 +28,7 @@ School of Computing. Edinburgh Napier University
 Version Control is used everywhere, by everyone.
 
 I expect to see best practices in use for this module!
-
+![image](assets/images/git_logo.png)
 
 ---
 
@@ -39,8 +39,8 @@ Why use Version control?
 - Keep a log of changes to your code  <!-- .element: class="fragment" -->
 - An unlimited "undo" button. <!-- .element: class="fragment" -->
 - Experiment with new features without trashing your working code <!-- .element: class="fragment" -->
-- Helps you work better in teams <!-- .element: class="fragment" --> 
-- Mirror your codebase to multiple redundant locations <!-- .element: class="fragment" -->
+- **Helps you work better in teams**  <!-- .element: class="fragment" --> 
+- Easy management of multiple copies of your codebase <!-- .element: class="fragment" -->
 - Integrate with continuous-integration, testing and deployment tools. <!-- .element: class="fragment" -->
 
 
@@ -49,18 +49,27 @@ Why use Version control?
 <!-- .slide: class="leftalign" -->
 # Git 
 
-You can do a lot of things with git, and many of the rules of what
-you *should* do are not so much technical limitations but are about
-what works well when working together with other people.
+Git is very simple in nature but allow a lot freedom. 
 
-VC / GIT is a very powerful set of tools, and that can not only be
-overwhelming at first, it also means that you can often do the same (or
-similar) things different ways, and they all "work." <!-- .element: class="fragment" -->
+You can often do the same (or similar) things different ways, and they all "work." 
 
-Generally, the best way to learn git is probably to first only do very
-basic things and not even look at some of the things you can do until
-you are familiar and confident about the basics. <!-- .element: class="fragment" -->
+"Messing up" with git is easy, so good practice is important. But it is always possible to solve issues.
 
+The best way to learn git is to first only use the basics: <!-- .element: class="fragment" -->
+* git push/pull
+* git commit
+* git add/rm
+
+And look at more advanced git tools when you are familiar and confident about the basics.
+
+<!-- .element: class="fragment" -->
+
+---
+
+# Git basics
+
+![image](assets/images/git_basic_use.png)
+image source: [10-Minute Guide to Git Version Control for Testers - Zhimin Zhan](https://zhiminzhan.medium.com/10-minutes-guide-to-git-version-control-for-testers-f58e059bb5e7) <!-- .element: font=10 -->
 
 ---
 
@@ -77,7 +86,7 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 
 # Git clients
 
-- Command Line (Git bash on windows)
+- **Command Line (Git bash on windows)**
 - GitHub Desktop - [https://desktop.github.com](https://desktop.github.com)
 - Sourcetree - [https://sourcetreeapp.com](https://sourcetreeapp.com)
 - GitKraken - [https://gitkraken.com](https://gitkraken.com)
@@ -86,15 +95,10 @@ you are familiar and confident about the basics. <!-- .element: class="fragment"
 
 ---
 
-# Git Hosts
-
-Honestly I'd just recommend using GitHub Desktop these days!
-It's the nicest one to use for basic stuff...
-
----
-
 # Version Control - Best Practices
+![image](assets/images/git_commit_2x.png)<!-- .element height="70%" width="70%" -->
 
+source: xkcd
 
 ---
 
@@ -106,17 +110,17 @@ It's the nicest one to use for basic stuff...
 - Having few large commits and sharing them rarely, in contrast, makes it hard both to solve conflicts and to comprehend what happened. <!-- .element: class="fragment" -->
 - Don't commit only at the end of the day. <!-- .element: class="fragment" -->
 
-
 ---
 
 # Commit Related Changes 
 
 - A commit should be a wrapper for related changes.
-- For example: 
     - Fixing two different bugs should produce two separate commits. <!-- .element: class="fragment" -->
-- Small commits make it easier for other team members to understand the changes and roll them back if something went wrong. <!-- .element: class="fragment" -->
-- Use tools like the staging area and stage only what is necessary, to create very granular commits. <!-- .element: class="fragment" -->
+- Small commits make changes easier to understand and to roll back. <!-- .element: class="fragment" -->
+- Use tools like the staging area and stage only what is necessary. <!-- .element: class="fragment" -->
+![image](assets/images/git_staging_area.png)<!-- .element height="50%" width="50%" -->
 
+source: [git-scm.com](https://git-scm.com/about/staging-area)
 
 ---
 
@@ -159,9 +163,6 @@ The body of your message should provide detailed answers to the following questi
 <!-- .element: class="fragment" -->
  - What was the motivation for the change?
  - How does it differ from the previous implementation?
-
-<!-- .element: class="fragment" -->
-
 
 ---
 
@@ -255,6 +256,7 @@ If you can't; then it shows that you don't understand your own work. <!-- .eleme
 - **Keep The Repo Clean**
 
 
+
 ---
 
 # Version Control - Working in teams
@@ -332,13 +334,19 @@ It's a dedicated forum for discussing the proposed feature.
 If there are any problems with the changes, teammates can post feedback in the pull request and even tweak the feature by pushing follow-up commits.
 All of this activity is tracked directly inside of the pull request.
 
+---
 
+# Pull Requests
+![image](assets/images/git_central_workflow.png) <!-- .element height="70%" width="70%" -->
+![image](assets/images/git_integration_workflow.png) <!-- .element height="70%" width="70%" -->
+
+source: [Git Expert - Distributed Workflows](https://correlaid.github.io/git-workshop/git/GitExpert.html)
 
 ---
 
 # Merge Conflicts 
 
-When git-dif doesn't know what you want to keep.
+When git-diff doesn't know what you want to keep.
 
 You can resolve them manually with a text editor
 
@@ -346,9 +354,9 @@ You can resolve them manually with a text editor
 ``` {language="c++"}
 for(int i; i <3; ++i){
     <<<<<<< HEAD
-    cout << "hello" << i << end;
+    std::cout << "hello" << i << std::end;
     =======
-    cout << i << end;
+    std::cout << i << std::end;
     >>>>>>> branch-a
 }
 ```
@@ -454,7 +462,6 @@ Differences:
 - Source allows access to newest code, external libraries are built with fixed settings/version
 - Source allows us to debug through code, external libraries need to explicitly provide extra files
 - Source results in better compatibility, as code is built with same settings as your other projects
-- Setting up building from source is more complicated and brittle
 
 Header-only libraries are popular, because it's the best of both worlds, but typically slower to compile
 
@@ -483,11 +490,14 @@ CMake is covered more in depth in the labs. <!-- .element: class="fragment" -->
 
 ---
 
-# CMake 
+# Summary
+- Use git! commit often with small changes related to a feature
+- Pull before push!
+- Agree on a workflow in your team: use branching and optionally pull request
+- Make sure you know how to package your game for deployement
+- C++ is a low-level language that need to be compiled differently for each platform
+- CMake is the go-to tool for configuring a C++ project
 
-- You will absolutely come to hate CMake...
-- BUT, it is used in many big software houses, such as EA. <!-- .element: class="fragment" -->
-- So... get used to it now, and make sure you understand the labs! <!-- .element: class="fragment" -->
 
 </textarea>
 </section>

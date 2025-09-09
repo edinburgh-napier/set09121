@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -43,7 +43,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
     - That objective is to power some form of manual action.
 - We can apply our formal elements when thinking about systems. <!-- .element: class="fragment" -->
 
- ![image](assets/images/engine.jpg)  <!-- .element width="50%"  -->
+ ![image](assets/images/engine.jpg)  <!-- .element width="50%" --><!-- .element: class="fragment" -->
 
 ---
 
@@ -262,8 +262,17 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 - What can the player control?  <!-- .element: class="fragment" -->
     - This has a huge impact on the top-level experience of the game.
 - What feedback occurs within the system?  <!-- .element: class="fragment" -->
-    - Positive (reinforcing) feedback forces a system towards one extreme. (Morrowind potions)
-    - Negative (balancing) feedback forces a system towards equilibrium. (Oblivion level scaling)
+    - Positive feedback loop
+    - Negative feedback loop
+
+
+---
+
+
+# Example of feedback loop - Doom 2016 Arcade Mode
+
+ ![image](assets/images/Doom-Feedback.png) <!-- .element width="110%"  -->
+
 
 ---
 
@@ -276,10 +285,6 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 - Avoid dominant strategies (a strategy that is always the best irrespective of the game state) or overpowered items. <!-- .element: class="fragment" -->
 - Make sure it is fun and challenging. <!-- .element: class="fragment" -->
     - Requires playtesting.
-
----
-
-# Summary
 
 ---
 

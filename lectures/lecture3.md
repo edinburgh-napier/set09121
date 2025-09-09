@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -53,6 +53,8 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Players
 
+![image](assets/images/players_image.jpg)
+
 ---
 
 # Players: who plays and why?
@@ -60,9 +62,8 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 - Games are designed for the players.
     - You must consider your game genre and target audience.
 - A game should start with an invitation to play. You want to entice the player.
-    - Cinemas dim their lights. <!-- .element: class="fragment" -->
-    - A book uses a cover. <!-- .element: class="fragment" -->
-    - A game has a title screen or introduction video. <!-- .element: class="fragment" -->
+
+![image](assets/images/mario_title_screen.jpg) <!-- .element height="50%" width="50%" -->
 
 
 ---
@@ -82,10 +83,10 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - A **Player Interaction Pattern** helps us define how players play the games.
 - There are seven key types:
-    - Single-player versus the game.
-    - Multiple individual players versus the game.
-    - Player versus player.
-    - Unilateral competition.
+    - Single-player versus the game. (PvE)
+    - Multiple individual players versus the game. (Multi PvE)
+    - Player versus player. (PvP)
+    - Unilateral competition. 
     - Multilateral competition.
     - Cooperative play.
     - Team competition.
@@ -202,9 +203,10 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - You need to define what the player's task is in the game. <!-- .element: class="fragment" -->
 - Some games offer different roles for the player to choose from. <!-- .element: class="fragment" -->
-    - A Game Master in Dungeons and Dragons has a different role than the other players. <!-- .element: class="fragment" -->
-    - One team member might be the party leader. <!-- .element: class="fragment" -->
-- Different roles might have different rules associated with them. <!-- .element: class="fragment" -->
+    - Heterogenous Multiplayer Team: World of Warcraft, League of Legend, Team Fortress ... <!-- .element: class="fragment" -->
+    - Asymmetric Multiplayer gameplay: Splinter Cell: Chaos Theory, Left 4 Dead 2, Dead by Daylight ... <!-- .element: class="fragment" -->
+    - Single player RPG have different classes: Diablo serie, Dragon Age ... <!-- .element: class="fragment" -->
+- Different roles have different rules associated with them. <!-- .element: class="fragment" -->
 
 ---
 
@@ -323,26 +325,24 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 ---
 
-# Example: Rules Defining a shotgun
+# Example: Advance Wars
 
-- Consider a shotgun in a FPS:
-    - Cost: $500, Damage: 20 <!-- .element: class="fragment" -->
-    - Spread: 10, Range: 5 <!-- .element: class="fragment" -->
-    - Ammo: 2, Magazine: 12 <!-- .element: class="fragment" -->
+![image](assets/images/advance_war.png)<!-- .element height="120%" width="120%" -->
+
+---
+
+# Rules for building gameplay and progression
+
 - We can also use rules to restrict certain actions for progression purposes. <!-- .element: class="fragment" -->
     - Special items in Legend of Zelda series
 - Providing all capabilities at once can confuse and frustrate the player. <!-- .element: class="fragment" -->
     - Same applies with tutorials, and any form of learning
 
----
-
-# Rules Determining Effects
-
-- Rules that trigger events or effects are very useful when considering the procedures of our game.
-- We can boil down such rules to a collection of `if` statements:
-    - `if player’s health == 0 then player dies.`
-    - `if player picks up apple then health += 10.`
-    - etc.
+- Rules that trigger events or effects are very useful when considering the procedures of our game. <!-- .element: class="fragment" -->
+    - We can boil down such rules to a collection of `if` statements:
+        - `if player’s health == 0 then player dies.`
+        - `if player picks up apple then health += 10.`
+        - etc.
 
 ---
 
@@ -374,7 +374,7 @@ Try to name some examples of resources.
 - Units <!-- .element: class="fragment" -->
 - Health <!-- .element: class="fragment" -->
 - Currency <!-- .element: class="fragment" -->
-- Inventory <!-- .element: class="fragment" -->
+- Items <!-- .element: class="fragment" -->
 - Special terrain <!-- .element: class="fragment" -->
 - Actions <!-- .element: class="fragment" -->
 - Power-ups <!-- .element: class="fragment" -->
@@ -456,7 +456,7 @@ Try to name some examples of resources.
 
 # Try Describing a Game Using the Formal Elements
 
-- After the class, try and describe a game (board, video, or social) using the vocabulary of formal elements.
+- After the class, try and describe a game using the vocabulary of formal elements.
 - Try to go into some real depth: it will help you understand games more.
 - Think about the formal elements whenever you play a game. Try and pick apart the individual elements of the game to get a better understanding of how it is put together.
 

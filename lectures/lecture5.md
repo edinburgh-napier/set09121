@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -37,7 +37,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 # Review - System Dynamics
 
 - Last lecture we examined systems and how games can be viewed as systems.
-- We incorporated our existing Formal Elements of game design into a system model view of a game. <!-- .element: class="fragment" -->
+- We incorporated our existing Formal Elements of game design into a system. <!-- .element: class="fragment" -->
 - We also showed how we can define a game as a system, and some of the similarities with software development. <!-- .element: class="fragment" -->
 - In this lecture we will go into detail about how we can use this model to develop our game objects. <!-- .element: class="fragment" -->
 - What were the parts of a system we defined? <!-- .element: class="fragment" -->
@@ -161,9 +161,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
     - Hit points.
     - etc.
 - The key is to keep the game entity abstract and simple. <!-- .element: class="fragment" -->
-    - We can extend the abstract class.
-    - We can add extra properties as needed.
-    - We can also add components to add properties.
+- We can extend the entity class using inheritance or composition. <!-- .element: class="fragment" -->
 
 
 ---
@@ -208,8 +206,6 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
     - Detect collision. <!-- .element: class="fragment" -->
     - Update AI. <!-- .element: class="fragment" -->
     - Update physics. <!-- .element: class="fragment" -->
-- Again, we are going to keep it abstract and simple. <!-- .element: class="fragment" -->
-    - Constructor. Update. Render. Destructor.
 
 
 ---
@@ -257,7 +253,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 # Managing Entities
 Games have lots of Entities
 
-![image](assets/images/lego_marvel.jpg) 
+![image](assets/images/factorio.jpg) 
 
 
 ---
@@ -285,13 +281,6 @@ Games have lots of Entities
     - Manage the logic of our application in discrete parts, each with their own responsibility. <!-- .element: class="fragment" -->
     - Manage access to our collection of entities. <!-- .element: class="fragment" -->
     - Allow communication between the entities. <!-- .element: class="fragment" -->
-
-
----
-
-# Entity Manager
- ![image](assets/images/game_operation.png)  <!-- .element height="750px"  -->
-
 
 
 ---
