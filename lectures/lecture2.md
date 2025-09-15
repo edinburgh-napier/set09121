@@ -441,7 +441,7 @@ Where we get into trouble is when hardware and system calls.
 
 <!-- .element: class="fragment" -->
 
-Each operating system has it's own way of doing this. (See POSIX)
+Each operating system has it's own way of doing this.
 <!-- .element: class="fragment" -->
 
 So, we use libraries that do all this for us.

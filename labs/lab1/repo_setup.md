@@ -46,9 +46,15 @@ button and copy the link within the box
 
 If everything goes well should have a command line poping up. Unfortunatly, you'll have to to do step 3 at the start of every lab.
 
+### Get git from AppsAnywhere
+
+On the machine of the JKCC, you cannot install git but you can get it from AppsAnywhere. 
+
+Search for git in AppsAnywhere and launch it. Then, it will be available in the cmd line and PowerShell.
+
 ### Clone the repo
 
-Open a cmd (or git-bash) window somewhere (desktop is best). Now clone
+Open a cmd, PowerShell or git-bash window somewhere (desktop is best). Now clone
 your repo
 
 ```bash
