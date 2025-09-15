@@ -457,13 +457,12 @@ No native way of package management. So, how to include external libraries?
 We can build from source (with submodules), or we can include external libraries in the repository.
 
 Differences:
-- Source allows access to newest code, external libraries are built with fixed settings/version
-- Source allows us to debug through code, external libraries need to explicitly provide extra files
-- Source results in better compatibility, as code is built with same settings as your other projects
 
-Header-only libraries are popular, because it's the best of both worlds, but typically slower to compile
-
-<!-- .element: class="fragment" -->
+| **Built from source** | **Pre-compiled external libraries** |
+| --- | --- |
+| Allows access to newest code  |  Built with fixed settings/version |
+| Allows us to debug through code | For debugging, need to explicitly provide extra files |
+| Results in better compatibility | Faster to compile your project |
 
 ---
 
