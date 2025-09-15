@@ -106,7 +106,7 @@ Edinburgh Napier University.
 # Structure – Practical Sessions
 
 - Two-hour practical session. <!-- .element: class="fragment" -->
-    - Monday 2pm-4pm in JKCC clusters 1 to 12
+    - Monday 4pm-6pm in JKCC clusters 6 to 10 (5 if there is not enough desks)
 - Practicals take place in JKCC. Bring your laptop or use the lab PCs. <!-- .element: class="fragment" -->
 - Labs will help you develop the engine you need to use for the coursework. <!-- .element: class="fragment" -->
     - 2D development with SFML.

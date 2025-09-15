@@ -56,9 +56,9 @@ You can often do the same (or similar) things different ways, and they all "work
 "Messing up" with git is easy, so good practice is important. But it is always possible to solve issues.
 
 The best way to learn git is to first only use the basics: <!-- .element: class="fragment" -->
-* git push/pull
-* git commit
-* git add/rm
+* git push/pull <!-- .element: class="fragment" -->
+* git commit <!-- .element: class="fragment" -->
+* git add/rm <!-- .element: class="fragment" -->
 
 And look at more advanced git tools when you are familiar and confident about the basics.
 
@@ -161,8 +161,9 @@ Separate it from the following body by including a blank line.
 
 The body of your message should provide detailed answers to the following questions:
 <!-- .element: class="fragment" -->
- - What was the motivation for the change?
- - How does it differ from the previous implementation?
+ - What was the motivation for the change?<!-- .element: class="fragment" -->
+ - How does it differ from the previous implementation?<!-- .element: class="fragment" -->
+
 
 ---
 
@@ -215,15 +216,12 @@ Commit selectively - don't just cram in files.
 
 # What does typically not go into a code repository
 
-- Binary files (.wav, .mp3, .jpg, .pdf)  [ok for small things] <!-- .element: class="fragment" -->
-- Compiled Code (.exe, .dll, .lib, .so, .obj) <!-- .element: class="fragment" -->
-- IDE project files (.vcxproj, .sln) <!-- .element: class="fragment" -->
-- Junk and temp files (.log) <!-- .element: class="fragment" -->
-- Old code in a separate 'old-code' folder. <!-- .element: class="fragment" -->
+- Binary files (.wav, .mp3, .jpg, .pdf)  [ok for small things]
+- Compiled Code (.exe, .dll, .lib, .so, .obj)
+- IDE project files (.vcxproj, .sln)
+- Junk and temp files (.log)
+- Old code in a separate 'old-code' folder. 
 
-<br>
-
-__There are marks at stake here, do this right.__ <!-- .element: class="fragment" -->
 
 
 
@@ -233,14 +231,14 @@ __There are marks at stake here, do this right.__ <!-- .element: class="fragment
 
 Evidence of good software engineering - only include what you need.
 
-Therefore it follows that you *know* should what you need.
+Therefore it follows that you should *know* what you need.
 
 
 <br>
 
 You should understand everything that is in your repo, and be able to justify it's place there. <!-- .element: class="fragment" -->
 
-If you can't; then it shows that you don't understand your own work. <!-- .element: class="fragment" -->
+If you can't, then it shows that you don't understand your own work. <!-- .element: class="fragment" -->
 
 ---
 
@@ -271,7 +269,7 @@ If you can't; then it shows that you don't understand your own work. <!-- .eleme
 ![image](assets/images/gitexample.png) <!-- .element height="110%" width="110%" -->
 
 Advanced trick: You can do "Squash and Rebase" technique to make this
-look neater.
+look neater. (https://github.com/gitextensions/gitextensions/wiki/Squash-and-Rebase-your-changes)
 
 ---
 
