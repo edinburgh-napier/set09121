@@ -6,7 +6,6 @@ permalink:  lecture1.html
 summary: lecture1
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
-marp: true
 ---
 
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
@@ -134,7 +133,7 @@ Edinburgh Napier University.
 
 # Support and Assessment
 
-| **Learning Outcome** | **Supported By** | **Assessed In** |
+| **Learning Outcome** | **Support** | **Assessment** |
 | --- | --- |--- |
 | LO1: Design, develop and evaluate a games engine through robust software engineering techniques. | Lectures, Practicals | Coursework |
 | LO2: Examine and evaluate modern software development, deployment, and testing procedures. | Lectures, Practicals | Coursework |
