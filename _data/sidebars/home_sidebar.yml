@@ -96,6 +96,9 @@ entries:
   - title: Extras
     output: web
     folderitems:
+    - title: Configure and Run project with VS Code 
+      url: vscode_setup.html
+      output: web
     - title: SSH keys
       url: /sshkeys.html
       output: web

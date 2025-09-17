@@ -7,6 +7,14 @@ summary: GIT gud
 sidebar: home_sidebar
 ---
 
+{:class="important"}
+**Note for JKCC and D2 computers**
+
+To keep projects saved on your account you need to put them on the H:\ drive. **However, to work you need to have your current project on the :\ drive** So, I would advise that you copy or clone your project in the C:\ drive before starting to work.
+
+<br>
+<br>
+
 You will need Git installed. You can use a Git GUI (e.g sourcetree). However I will work with and show the cmd-line commands.
 
 ## Create a repo
@@ -37,16 +45,9 @@ button and copy the link within the box
 
 ## Setting up the project with Git
 
-### Install git
-
-1. Go on this [link](https://git-scm.com/downloads/win) and download **git for Windows**.
-2. Go in your download folder and move the downloaded file *Git-version-64-bit.exe* in your Home drive. So you don't have download it again.
-3. Launch the .exe file by double-clicking on it. Keep all the default options. 
-4. Launch git bash
-
-If everything goes well should have a command line poping up. Unfortunatly, you'll have to to do step 3 at the start of every lab.
-
 ### Get git from AppsAnywhere
+
+(If you are on your own PC, go to the next section **Install Git** )
 
 On the machine of the JKCC, you cannot install git but you can get it from AppsAnywhere. 
 
@@ -106,6 +107,15 @@ cd ../..
 ```
 **Note, you need to be in the root directory of your repository for this to work!**
 
+## Install git (personal computer)
+
+1. Go on this [link](https://git-scm.com/downloads/win) and download **git for Windows**.
+2. Go in your download folder and move the downloaded file *Git-version-64-bit.exe* in your Home drive. So you don't have download it again.
+3. Launch the .exe file by double-clicking on it. Keep all the default options. 
+4. Launch git bash
+
+If everything goes well should have a command line poping up.
+
 ## Setting Up the project without Git.
 
 
@@ -123,6 +133,8 @@ At this stage you should have an empty project opened.
 Create two empty folder:
 * **resources** - (where resources go, like images and fonts)
 * **lib** - (libraries that we need)
+
+
 
 ### Get SFML (Manually)
 
