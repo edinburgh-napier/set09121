@@ -36,7 +36,6 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # What are the Formal Elements of Games?
 
-- Structure of the game. Without them, the game is not a game anymore.
 - Fullerton defines eight elements:
     -  Players
     -  Objectives
@@ -61,7 +60,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - Games are designed for the players.
     - You must consider your game genre and target audience.
-- A game should start with an invitation to play. You want to entice the player.
+- A game should start with **an invitation to play**. You want to entice the player.
 
 ![image](assets/images/mario_title_screen.jpg) <!-- .element height="50%" width="50%" -->
 
@@ -201,58 +200,64 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Player Roles
 
-- You need to define what the player's task is in the game. <!-- .element: class="fragment" -->
-- Some games offer different roles for the player to choose from. <!-- .element: class="fragment" -->
+- You need to define what the **player's task** is in the game. <!-- .element: class="fragment" -->
+- Some games **offer different roles** for the player to choose from. <!-- .element: class="fragment" -->
     - Heterogenous Multiplayer Team: World of Warcraft, League of Legend, Team Fortress ... <!-- .element: class="fragment" -->
     - Asymmetric Multiplayer gameplay: Splinter Cell: Chaos Theory, Left 4 Dead 2, Dead by Daylight ... <!-- .element: class="fragment" -->
     - Single player RPG have different classes: Diablo serie, Dragon Age ... <!-- .element: class="fragment" -->
-- Different roles have different rules associated with them. <!-- .element: class="fragment" -->
+- **Different roles** have **different rules** associated with them. <!-- .element: class="fragment" -->
 
 ---
 
 # Objectives
 
+![images](assets/images/halo.jpeg)
+
 ---
 
 # Objectives: providing drive and challenge to the player
 
-- Players are the heart of the game experience, objectives drive the experience. <!-- .element: class="fragment" -->
-- Objectives provide a challenge to the player that should be achievable. <!-- .element: class="fragment" -->
-- Objectives also set the overall feel of the game: <!-- .element: class="fragment" -->
-    - FPS: killing and survival. <!-- .element: class="fragment" -->
-    - The Sims: Manage the lives of simulated people. <!-- .element: class="fragment" -->
-- Objectives may also be made up of sub-objectives. <!-- .element: class="fragment" -->
-    - Side quests are similar, but normally distinct. <!-- .element: class="fragment" -->
+- Players are the heart of the game experience, objectives drive the experience.  
+- Objectives provide a **challenge** to the player that should be achievable. 
+- Objectives also set the **overall feel** of the game:  
+    - FPS: killing and survival. 
+    - The Sims: Manage the lives of simulated people. 
+- Objectives may also be made up of **sub-objectives**.  
+    - Side quests are similar, but normally distinct.  
 
 ---
 
 # Common Objective Types
 
 - Capture  <!-- .element: class="fragment" -->
-    - Take or destroy something from the opponent.  <!-- .element: class="fragment" -->
+    - Take or destroy something from the opponent. 
 - Chase  <!-- .element: class="fragment" -->
-    - Catch an opponent or elude one.  <!-- .element: class="fragment" -->
+    - Catch an opponent or elude one. 
 - Race <!-- .element: class="fragment" -->
-    - Reach the goal before all other players. <!-- .element: class="fragment" -->
+    - Reach the goal before all other players, or a given time 
 - Alignment <!-- .element: class="fragment" -->
-    - Arrange pieces in certain configurations or categories. <!-- .element: class="fragment" -->
+    - Arrange pieces in certain configurations or categories.
 - Rescue / escape <!-- .element: class="fragment" -->
-    - Get a designated unit to safety. <!-- .element: class="fragment" -->
+    - Get a designated unit to safety. 
 - Forbidden act <!-- .element: class="fragment" -->
-    - Try to make other players perform a forbidden action (laughing, say a word, etc.). <!-- .element: class="fragment" -->
+    - Try to make other players perform a forbidden action (laughing, say a word, etc.).
 
 ---
 
 # Common Objective Types (cont.)
 
 - Construction <!-- .element: class="fragment" -->
-    - Build, maintain, and manage objects. <!-- .element: class="fragment" -->
+    - Build, maintain, and manage objects.
 - Exploration <!-- .element: class="fragment" -->
-    - Explore different game areas. <!-- .element: class="fragment" -->
+    - Explore different game areas. 
 - Solution <!-- .element: class="fragment" -->
-    - Solve a problem or puzzle. <!-- .element: class="fragment" -->
+    - Solve a problem or puzzle. 
 - Outwit <!-- .element: class="fragment" -->
-    - Gain and use knowledge to defeat the other players. <!-- .element: class="fragment" -->
+    - Gain and use knowledge to defeat the other players. 
+- Survival <!-- .element: class="fragment" -->
+    - Don't die!
+- Accumulation <!-- .element: class="fragment" -->
+    - Get as much resources as possible, typically points
 
 ---
 
@@ -260,11 +265,12 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - What is the objective in Super Mario Bros?
 
-![SuperMarioBros](assets/images/mario.jpg) <!-- .element height="60%" width="45%" -->
+![SuperMarioBros](assets/images/mario.jpg) <!-- .element height="50%" width="45%" -->
 
-- Saving the princess?
-- Reaching the end of the level?
-- Jumping on enemies?
+- Saving the princess? <!-- .element: class="fragment" -->
+- Race: Reaching the end of the level before the end of the timer and as fast as possible <!-- .element: class="fragment" -->
+- Survival: Avoiding or jumping on enemies, avoiding gaps. <!-- .element: class="fragment" -->
+- Accumulation: Get the best score. <!-- .element: class="fragment" -->
 
 ---
 
@@ -289,7 +295,7 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 - Mario's jump is one of the best examples of a 'simple' procedure <!-- .element: class="fragment" -->
 - But it gives a huge amount of freedom and flexibility <!-- .element: class="fragment" -->
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7daTGyVZ60I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- .element: class="fragment" -->
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Fh5rA957xB0?si=7htsYhl-SiCPxoPF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><!-- .element: class="fragment" -->
 
 ---
 
@@ -333,20 +339,21 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Rules for building gameplay and progression
 
-- We can also use rules to restrict certain actions for progression purposes. <!-- .element: class="fragment" -->
+- We can also use rules to restrict certain actions for progression purposes.
     - Special items in Legend of Zelda series
-- Providing all capabilities at once can confuse and frustrate the player. <!-- .element: class="fragment" -->
-    - Same applies with tutorials, and any form of learning
-
-- Rules that trigger events or effects are very useful when considering the procedures of our game. <!-- .element: class="fragment" -->
+- Providing all capabilities at once can confuse and frustrate the player. 
+    - Same applies with tutorials, and any form of learning 
+- Rules that trigger events or effects are very useful when considering the procedures of our game. 
     - We can boil down such rules to a collection of `if` statements:
-        - `if player’s health == 0 then player dies.`
-        - `if player picks up apple then health += 10.`
+        - `if player’s health == 0 then player dies.` 
+        - `if player picks up apple then health += 10.` 
         - etc.
 
 ---
 
 # Resources
+
+![image](assets/images/sc2.jpeg)
 
 ---
 
@@ -383,6 +390,8 @@ Try to name some examples of resources.
 ---
 
 # Conflict
+
+![image](assets/images/CommandConquer.jpg)<!-- .element height="80%" width="80%" -->
 
 ---
 

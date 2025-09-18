@@ -71,15 +71,20 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 ---
 
-# Spelunky
+# Entity Inheritance
+Example: Tower defence
 
-- Spelunky is one of the best (?) examples of inheritance in games
+![image](assets/images/entity_component_inheritance.png)
 
-- Olmec, a boss, inherits from a push block
 
-- The ghost can be killed because of inheritance!
+---
 
-- More info: https://www.rockpapershotgun.com/2016/03/04/making-of-spelunky/
+# Entity Inheritance
+A bit more complex:
+
+![image](assets/images/entity2_inheritance.png)<!-- .element width="60%" -->
+
+[Spelunky is a good example of entity inheritance](https://github.com/spelunky-fyi/overlunky/blob/main/docs/entities-hierarchy.md)
 
 ---
 
@@ -99,9 +104,9 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 ---
 
-# What Properties are Here? 
+# What Properties are Here? (Final Fantasy VII)
 
-![image](assets/images/dragon_age.jpg)
+![image](assets/images/final_fantasy_7.jpg)
 
 ---
 
@@ -110,7 +115,6 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 - Behaviours are the actions that an object undertakes. <!-- .element: class="fragment" -->
 - From an OO point of view, behaviours are implemented as methods of an object. <!-- .element: class="fragment" -->
 - Many of the behaviours are interlinked with the state of the object. <!-- .element: class="fragment" -->
-    - An engine requires fuel to be turned on.
 - Adding more behaviors to a game makes it harder to predict. <!-- .element: class="fragment" -->
     - Depending on the kind of game you want to create, this might be desirable or not.
 
@@ -144,11 +148,14 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 - There are three major behaviours:
 	- Chase / Scatter / Frightened <!-- .element: class="fragment" -->
 - Each ghost has it's own chase behaviour <!-- .element: class="fragment" -->
+    - Clyde retreats when getting too close to the player. <!-- .element: class="fragment" -->
 	- Blinky always goes for you <!-- .element: class="fragment" -->
 	- Pinky tries to get in front of you <!-- .element: class="fragment" -->
 	- Inky targets a space based on Blinky and your position <!-- .element: class="fragment" -->
-	- Clyde retreats when getting too close to the player. <!-- .element: class="fragment" -->
+	
 - Behaviours change based on game state. <!-- .element: class="fragment" -->
+
+![image](assets/images/pacman_ghosts.jpg)
 
 ---
 
@@ -162,6 +169,7 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 ---
 
 # Relationships
+**Relationships define how entities can interact with each others.**
 
 - To turn a set of objects into a system, we need relationships between them. <!-- .element: class="fragment" -->
     - The steering wheel of a car is connected to the wheels.
@@ -176,7 +184,7 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 
 # What Relationships are Here? 
 
-![image](assets/images/cities_skylines.jpg)
+![image](assets/images/zelda_dungeon.jpg)
 
 ---
 
@@ -248,14 +256,14 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
     - Birds flocking is such a behavior.
     - Very relevant to game AI.
 - Nature is full of such systems. <!-- .element: class="fragment" -->
-- Examples include: Game of Life, Spore, The Sims. <!-- .element: class="fragment" -->
+- Examples include: Factorio, Spore, The Sims. <!-- .element: class="fragment" -->
 
- ![image](https://66.media.tumblr.com/303da0502e45b38484e73b174b3db9db/tumblr_nhte1rMwH01teec4eo2_500.gif)  <!-- .element width="35%"  -->
- ![image](https://media.indiedb.com/images/articles/1/182/181609/flock4.gif)  <!-- .element width="50%"  -->
+ ![image](https://66.media.tumblr.com/303da0502e45b38484e73b174b3db9db/tumblr_nhte1rMwH01teec4eo2_500.gif)  <!-- .element width="35%"  --> <!-- .element: class="fragment" -->
+ ![image](https://media.indiedb.com/images/articles/1/182/181609/flock4.gif)  <!-- .element width="50%"  --><!-- .element: class="fragment" -->
 
 ---
 
-# System Interaction
+# Interactin with the System
 
 - What information is provided to the player about the system?  <!-- .element: class="fragment" -->
     - Hiding information encourages guessing, bluffing, deceiving.
@@ -271,7 +279,7 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 
 # Example of feedback loop - Doom 2016 Arcade Mode
 
- ![image](assets/images/Doom-Feedback.png) <!-- .element width="110%"  -->
+ ![image](assets/images/Doom-Feedback.png) <!-- .element width="100%"  -->
 
 
 ---
