@@ -276,10 +276,15 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 
 ---
 
+# Example of feedback loop - Doom 2016 Arcade Mode
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q2qrt8Ek-eE?si=RPpD0L9hHAxdtT4d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+---
 
 # Example of feedback loop - Doom 2016 Arcade Mode
 
- ![image](assets/images/Doom-Feedback.png) <!-- .element width="100%"  -->
+ ![image](assets/images/Doom-Feedback.png) <!-- .element width="80%" height="80%"  -->
 
 
 ---

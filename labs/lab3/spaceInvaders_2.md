@@ -28,7 +28,7 @@ Of course, you can choose any naming convention for your variables, class, funct
 
 Here, are some good practices:
 - No hard coded value!
-- No global variables or functions outside a context. A context can be a function, class, struct or namespace.
+- No global variables or functions outside of a scope. A scope can be a function, class, struct or namespace.
 - Comment as much as possible
 - Always define a copy constructor in a class, unless the instances of this class will never be copied.
 
@@ -61,7 +61,7 @@ Parameters::game_width;
 
 ### Game system
 
-Similarly to the global variables, we need to put our main system functions in some context. So in a new header file you will put:
+Similarly to the global variables, we need to put our main system functions in some scope. So in a new header file you will put:
 ```cpp
 //game_system.hpp
 struct GameSystem{
@@ -79,7 +79,7 @@ Member function define as **static** in classes and structures are independant f
 ```cpp
 GameSystem::init()
 ```
-So, they behave like global function but with a context.
+So, they behave like global function but with a scope.
 
 And the implementation of those functions will in *game_system.cpp*.
 
@@ -298,7 +298,7 @@ Invaders update() to include some movement code.
 #include "game_system.hpp"
 #include "game_parameters.hpp"
 
-//renaming with using holds only for the current context (here the whole file)
+//renaming with using holds only for the current scope (here the whole file)
 using param = Parameters; //renaming the struct Parameters into param to have a more compact and readable code
 using gs = GameSystem; //renaming the struct GameSystem into gs to have a more compact and readable code
 

@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -68,10 +68,19 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 ---
 
+<!-- .slide: class="leftalign" -->
+
 # GDD Exercise
 
 Research Design Documents! Use Google to search for game design documents. There are quite a few out there and some templates. 
-You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements. 
+You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements.
+
+Some examples:
+- [Diablo](https://gamescrye.com//wp-content/uploads/2016/08/diablo_pitch.pdf)
+- [Bioshock](https://gamescrye.com/wp-content/uploads/2023/02/The-Bioshock-pitch-GDD.pdf)
+- [Super Mario Bros.](https://gamescrye.com/wp-content/uploads/2023/02/Super-Mario-GDD.pdf)
+
+All this GDDs are from [gamescrye.com](https://gamescrye.com)
 
 ---
 
@@ -182,7 +191,8 @@ You are unlikely to find modern AAA games due to the collaborative approach and 
 
 Flowcharts can help visualise the gameplay
 
-![image](assets/images/flowchart.png)
+![image](assets/images/rock_paper_scissors.png)<!-- .element width="100%" height="100%"  -->
+source: https://ibsilver.github.io/Game_Design_Document_GDD/
 
 ---
 
@@ -252,7 +262,8 @@ If required, a description of the game world should be detailed.
 
 Maps can be very helpful to get an overview of the gameworld.
 
-![image](assets/images/game-world.png)
+![image](assets/images/supermarioworld_map.png)<!-- .element width="80%" height="80%"  -->
+
 
 
 ---
@@ -345,8 +356,17 @@ Maps can be very helpful to get an overview of the gameworld.
 
 ---
 
-# Summary
+# What you will need to put in your GDD
 
+- Overview: context, background and general information
+- Inspiration: related games
+- Player Experience Goals: Aimed overall experience. Does your game at pushing the player in reflexion, relaxation, action, stress, contemplation, immersion, etc ...
+- Audience: Demographic, size of the audience, potential competitor
+- Gameplay
+- Required media list
+- Technical Specification
+
+**If not done already, go read the GDD template provided on Moodle**
 
 ---
 
@@ -360,3 +380,4 @@ Maps can be very helpful to get an overview of the gameworld.
 - Use collaboration tools as much as possible.
     - Team communication.
     - Document control.
+

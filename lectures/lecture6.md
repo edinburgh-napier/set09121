@@ -60,9 +60,10 @@ School of Computing. Edinburgh Napier University
 - The declaration of the `class` is anything we put between the curly brackets.
 - **Note** - a semi-colon is required at the end of the declaration. This is different to Java and C\#.
 - **Note** - by default, class members are declared private.
+- **Note** - by convention, class names are using *camelCase* and a first letter in upper-case.
 
 ```cpp
-class my_class
+class MyClass
 {
     // Members
 };
@@ -78,9 +79,9 @@ class my_class
 - A `struct` is then the members declared between the curly brackets.
 - **Note** - by default, struct members are declared public.
 - **Note** - we typically use structs for collections of simple data.
-
+- **Note** - There isn't a widely used convention for struct naming but I will the same as classes.
 ```cpp
-struct my_struct
+struct MyStruct
 {
     // Members
 };
@@ -95,7 +96,7 @@ struct my_struct
     - We will look at visibility in a few slides.
 
 ```cpp
-class my_class
+class MyClass
 {
     // Object (instance) values.
     float x; // uninitialised value
@@ -111,9 +112,10 @@ class my_class
 # Defining Methods
 
 - Same rules apply for methods.
+- **Note** Generally, the naming convention for variables, methods and functions is *snake_case*.
 
 ```cpp
-class my_class
+class MyClass
 {
     void do_something()
     {
@@ -140,13 +142,13 @@ class my_class
 - **Note** - add a print statement in a constructor, and observe all the times they're called!
 
 ```cpp
-class my_class
+class MyClass
 {
 public:
     // Default constructor
-    my_class() { }
+    MyClass() { }
     // Parameterised constructor
-    my_class(float xx, float yy)
+    MyClass(float xx, float yy)
     : x(xx), y(yy) // Sets object attributes
     {
     }
@@ -169,11 +171,11 @@ public:
 # Destructors in C++
 
 ```cpp
-class my_class
+class MyClass
 {
 public:
     // Default Destructor
-    ~my_class()
+    ~MyClass()
     {
         // Free up resources.
     }
@@ -189,23 +191,26 @@ public:
 - We define "zones" of visibility in C++ rather than individual values.
 - Start with public: most interesting part for users of class
 
+---
 
-```
-    class my_class
+```cpp
+    class MyClass
     {
         // This value is private.
         int x;
     public:
         // The following are public.
-        my_class() { }
+        MyClass() { }
         float n;
     protected:
         // The following are protected.
-        string str;
+        string _str;
     private:
         // Private again.
+        int _val;
     };
 ```
+**Note** Generally, in C++, private and protected members (attributes and functions) will have an underscore before their name. 
 
 ---
 
@@ -224,29 +229,50 @@ Our First Rule of Good OO in C++ - RAII
 
 NOT RAII
 ```cpp
-void Main(){
+void main(){
     // Texture is a resource that has to be unloaded, e.g. via an UnloadTexture() function
-    Texture MarioTexture = LoadTexture("Mario.jpg"); 
-    Mario* mario = new Mario(MarioTexture);
+    Texture mario_texture = load_texture("Mario.jpg"); 
+    Mario mario(mario_texture);
     //--- some time later
-    delete mario;
-    CloseGame();
+    close_game();
     //Oh no - we forgot to unload the texture!
-}
+}//Mario is destroyed automatically
 ```
 
 RAII
 ```cpp
-void Main(){
+void main(){
     //Mario Loads his texture himself.
-    Mario* mario = new Mario("Mario.jpg");
+    Texture mario_texture = load_texture("Mario.jpg"); 
+    Mario mario(mario_texture);
     //--- some time later
-    delete mario; //mario unloads texture in his destructor.
-    CloseGame();
-}
+    unload_texture(mario_texture);
+    close_game();
+}//Mario is destroyed automatically
 
 ```
 RAII : Mario should clean up after himself!
+
+---
+
+# Understanding the role of scopes in C++
+
+C++ is built based on the RAII rule. Desallocation of resources are based on scopes.
+Scopes are defined with embrace bracket `{...}`.
+```cpp
+int main(){
+    int i = 0;// this variable exist in the whole function scope
+
+    {//unamed scope
+        int tab[5] = {0,1,2,3}
+    }//tab is desallocated here
+
+    for(int n = 0; n < 10; n++){
+        //n exists only in the for loop scope
+        MyClass A;
+    }//A is desallocated here
+}//i is desallocated here
+```
 
 ---
 
@@ -291,7 +317,6 @@ RAII : Mario should clean up after himself!
 
 # Encapsulation 
 
-
 - Hide the data, allow access through a well-defined interface
 - A trivial example looks pointless...
 
@@ -300,20 +325,21 @@ RAII : Mario should clean up after himself!
 class Player
 {
 	public:
-		
-		void setName(const std::string& zName) 
+		//setter for attribute _name
+		void set_name(const std::string& name) 
 		{
-			name = zName;
+			_name = name;
 		}
 		
-		const std::string& getName() const
+        //getter for attribute _name
+		const std::string& get_name() const
 		{
-			return name;
+			return _name;
 		}
 		
 	private:
 	
-		std::string name;
+		std::string _name;
 };
 ```
 
@@ -321,13 +347,11 @@ class Player
 
 # Encapsulation 
 
-
 - Slightly different example, no encapsulation
 - What if we have a texture that displays the player's name, e.g. shown above their head?
 - What happens if we call ```player.name = "Steve";``` 
 
 ```cpp
-
 class Player
 {
 	public:
@@ -335,7 +359,7 @@ class Player
 		std::string name;
 		// Rectangular texture that contains the name of the player
 		//	  useful for overlays, UI, etc
-		Texture nameTexture;
+		Texture name_texture;
 };
 ```
 
@@ -351,22 +375,22 @@ class Player
 class Player
 {
 	public:
-		void setName(const std::string& zName) 
+		void set_name(const std::string& name) 
 		{
-			name = zName;
-			updateNameTexture();
+			_name = name;
+			update_name_texture();
 		}
-		const std::string& getName() const
+		const std::string& get_name() const
 		{
-			return name;
+			return _name;
 		}
 	private:
-		void updateNameTexture()
+		void _update_name_texture()
 		{
-			nameTexture = CreateTextureFromText(name);
+			name_texture = create_texture_from_text(name);
 		}
-		std::string name;
-		Texture nameTexture;
+		std::string _name;
+		Texture _name_exture;
 };
 ```
 
@@ -392,22 +416,22 @@ class Player
 class Player
 {
 	public:
-		void setName(const std::string& zName) 
+		void set_name(const std::string& name) 
 		{
-			name = zName;
-			updateNameTexture();
+			_name = name;
+			update_name_texture();
 		}
-		const std::string& getName() const
+		const std::string& get_name() const
 		{
-			return name;
+			return _name;
 		}
 	private:
-		void updateNameTexture()
+		void _update_name_texture()
 		{
-			nameTexture = CreateTextureFromText(name);
+			name_texture = create_texture_from_text(name);
 		}
-		std::string name;
-		Texture nameTexture;
+		std::string _name;
+		Texture _name_exture;
 };
 ```
 
@@ -443,7 +467,7 @@ class Player
     {
     };
 
-    class Circle : public Shape
+    class Circle : public Shape 
     {
     };
 
@@ -653,7 +677,7 @@ class A
 public:
     virtual void work()
     {
-        cout << "Hello" << endl;
+        std::cout << "Hello" << std::endl;
     }
 };
 
@@ -664,7 +688,7 @@ public:
     // override is valid.
     void work() override
     {
-        cout << "Goodbye" << endl;
+        std::cout << "Goodbye" << std::endl;
     }
 };
 
@@ -687,27 +711,29 @@ a->work();
 class A {
 public:
     virtual void work() { 
-        printf("a"); 
+        std::cout << "a" << std::endl; 
     }
 };
 
 class B : public A {
 public:
     void work() override { 
-        printf("b"); 
+        std::cout << "b" << std::endl;
     }
 };
 
 B b;
 b.work(); // Prints b
-A a1 = (A)b;
-a.work(); // Prints a
+A a1 = static_cast<A>(b);
+a1.work(); // Prints a
 
-A& a2 = (A&)b;
+A& a2 = static_cast<A&>(b);
 a2.work(); // Prints b
 
-A* a3 = (A*)&b;
+A* a3 = static_cast<A*>(&b);
 a3->work(); // Prints b
+
+
 ```
 
 ---
@@ -792,9 +818,9 @@ a2 = nullptr; // Compiler error
 // When do we call delete?
 int *n1 = new int(5);
 // Automatically counts references - like a Java reference, but faster
-shared_ptr<int> n2 = make_shared<int>(5);
+std::shared_ptr<int> n2 = std::make_shared<int>(5);
 // Only one reference will exist. Faster than shared_ptr
-unique_ptr<int> n3 = make_unique<int>(5);
+std::unique_ptr<int> n3 = std::make_unique<int>(5);
 // Can still treat as a standard pointer
 int n4 = *n3;
 // Now have nullptr, n2 will deconstruct itself

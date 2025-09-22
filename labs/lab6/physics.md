@@ -208,7 +208,7 @@ b2BodyId create_physics_box(b2WorldId& world_id, const bool dynamic, const std::
 }//box2d
 ```
 
-The helper function are declared in a new namespace. In this way, we are not defining global functions without a context.
+The helper function are declared in a new namespace. In this way, we are not defining global functions without a scope.
 
 ```cpp
 //b2d_utils.cpp

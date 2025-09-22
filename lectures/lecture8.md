@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -66,16 +66,19 @@ Game Programming Patterns - Robert Nystrom
     - **Sequence** diagrams: individual steps and interaction between components.
     - **State** diagrams: model object or system state.
 - **Use diagrams whenever possible!**
+Useful article: [geeksforgeeks.com - UML introduction](https://www.geeksforgeeks.org/system-design/unified-modeling-language-uml-introduction/)
+
+---
+
+# Class diagram
+
+![image](assets/images/Class-Diagram-Example.webp)
 
 ---
 
 # What are Design Patterns?
 
----
-
-# What are Design Patterns?
-
-- A design pattern is a reusable solution to a commonly occurring problem when designing software.
+- A design pattern is a **reusable solution** to a **commonly occurring problem** when designing software.
 - Reusable is the key here. <!-- .element: class="fragment" -->
     - Engineering is about reusing existing solutions whenever possible.
     - Other engineering disciplines have reusable solutions to given problems.
@@ -108,7 +111,8 @@ Game Programming Patterns - Robert Nystrom
 
 # Singleton Pattern
 
-- The Singleton pattern lets us ensure that only one instance of a given class ever exists.
+**Problem**: How to ensure that only one instance of a given class ever exists?
+
 - The pattern is good when we want to control and coordinate particular operations in our system.
     - E.g. A game only has one GameController for tracking gamestate and flow.
     - Our game engine wants to ensure control over game entities at particular stages.
@@ -147,13 +151,14 @@ private:
 
 # Composite Pattern
 
-- The Composite pattern allows us to treat objects and compositions of objects in a uniform manner.
+**Problem:** How to use in **the same way** **objects** and **compositions** of objects? 
+
+- Think of a tree: the whole tree, a node or a leaf should be usable the same way (recursive structure)
 - For example, elements in a UI can be a single element, called a **leaf** (e.g., a button), or a collection of other Elements, called a **composite** (e.g., a panel with buttons, etc.)
     - This creates a **hierarchy** of UI elements.
     - We tell the top UI element to update.
     - The top UI element will tell the child elements to update, if it is a composite.
     - Thanks to a common interface, we don't need to know whether we are dealing with a composite or leaf.
-- Do not confuse the component in the composite pattern with the component in a Entity Component Model!
 
 ---
 
@@ -196,7 +201,8 @@ class Button : public UIElement { // Leaf
 
 # Iterator Pattern
 
-- The iterator pattern allows us to access the individual elements of a collection of objects (aggregate) in a uniform manner without exposing the collection structure underneath.
+**Problem:** How to iterate through a collection of elements in a **linear** way for **any type** of collection while protecting it.
+
 - One of the most useful (and oldest) patterns available.
     - Create a collection.
     - Add objects to collection.
@@ -295,7 +301,8 @@ return 0;
 
 # Mediator Pattern
 
-- The Mediator pattern provides a unified interface to a set of objects in a system.
+**Problem:** How to define a **common communication** protocol between objects? And, how to implement **new communiction** protocol **without having to change** the implementation of the objects?
+
 - Objects no longer communicate directly with each other, but instead communicate through the mediator.
 - This reduces the dependencies between communicating objects, thereby reducing coupling.
 - Mediator is very common pattern in GUI systems.
@@ -396,7 +403,8 @@ charlie.sendMessage("Good morning, folks!");
 
 # State Pattern
 
-- Allows us to change the behaviour of the object when its internal state changes
+**Problem:** How to change an object's behaviour when its internal state change? How to implement new behaviour without altering the other behaviours and the object itself?
+
 - For example the ghost in PacMan.
     - Current state is chase PacMan.
     - When PacMan eats a power pill the ghost changes state to evade PacMan.
@@ -489,10 +497,9 @@ void EvadeState::handle(Context& context) {
 
 # Strategy Pattern
 
-- The strategy pattern has the identical structure as the state pattern.
+**Problem:** How to switch between algorithms at run-time seamlessly without modifying the object?
+
 - We use the strategy pattern when we want to use a different algorithm (strategy) to achieve **the same thing**.
-    - State pattern: change to a **different behaviour** at run-time.
-    - Strategy pattern: change the **implementation** of the **same behaviour** at run-time.
 - A good example of the strategy pattern is different numerical integration method for physics simulation.
     - They all achieve the same thing, but have different trade-offs in accuracy and performance.
     - Games like Universe Sandbox allow the player to change the integration method at run-time.
@@ -529,7 +536,33 @@ private:
 
 ---
 
+# Strategy Pattern with Lambda expression
+
+```cpp
+
+using Integrator = std::function<void(float)>;
+
+struct Integrators{
+    static Integrator leap_frog = [](float h){};
+    static Integrator euler = [](float h){};
+}
+
+class Simulator {
+public:
+    void update(float h) {
+        integrator(h);
+    }
+private:
+    Integrator integrator;
+};
+
+```
+
+---
+
 # Observer Pattern
+
+**Problem:** How to process/update a set of objects without having to go through all of them? 
 
 - We want to have a centralised repository and control point for a collection of objects.
 - The **subject** keeps track of all objects, the **observers**, and notifies them of any state changes.
@@ -596,11 +629,6 @@ class EntityManager { // Subject
 - To recognise a pattern you need to first recognise the problem you are trying to solve.
     - Again, this means doing a higher-level analysis.
 - If you find you are doing the same thing over and over again, chances are you have a pattern.
-
-
----
-
-# Summary
 
 
 ---
