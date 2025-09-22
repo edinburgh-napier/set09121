@@ -200,12 +200,12 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Player Roles
 
-- You need to define what the **player's task** is in the game. <!-- .element: class="fragment" -->
-- Some games **offer different roles** for the player to choose from. <!-- .element: class="fragment" -->
-    - Heterogenous Multiplayer Team: World of Warcraft, League of Legend, Team Fortress ... <!-- .element: class="fragment" -->
-    - Asymmetric Multiplayer gameplay: Splinter Cell: Chaos Theory, Left 4 Dead 2, Dead by Daylight ... <!-- .element: class="fragment" -->
-    - Single player RPG have different classes: Diablo serie, Dragon Age ... <!-- .element: class="fragment" -->
-- **Different roles** have **different rules** associated with them. <!-- .element: class="fragment" -->
+- You need to define what the **player's task** is in the game. 
+- Some games **offer different roles** for the player to choose from. 
+    - Heterogenous Multiplayer Team: World of Warcraft, League of Legend, Team Fortress ...
+    - Asymmetric Multiplayer gameplay: Splinter Cell: Chaos Theory, Left 4 Dead 2, Dead by Daylight ... 
+    - Single player RPG have different classes: Diablo serie, Dragon Age ... 
+- **Different roles** have **different rules** associated with them.
 
 ---
 

@@ -39,8 +39,8 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - An example of a system is an engine. <!-- .element: class="fragment" -->
     - Real, or a software one, like what we are going to build in the module.
-- An engine is a system with a particular objective.  <!-- .element: class="fragment" -->
-    - That objective is to power some form of manual action.
+- An engine is a system with a particular purpose.  <!-- .element: class="fragment" -->
+    - That purpose is to power some form of manual action.
 - We can apply our formal elements when thinking about systems. <!-- .element: class="fragment" -->
 
  ![image](assets/images/engine.jpg)  <!-- .element width="50%" --><!-- .element: class="fragment" -->
@@ -55,13 +55,14 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 # Objects
 
-- Objects are the basic elements of a system. Consider the objects you define in object-oriented development.
-- For example: an engine, steering wheel, and wheels interact together to allow a car to operate. <!-- .element: class="fragment" -->
-- The complexity of the underlying system is hidden behind an interface. For a car, this is the steering wheels and pedals. <!-- .element: class="fragment" -->
-- Objects are defined by their properties, behaviors, and relationships with each other. <!-- .element: class="fragment" -->
-- In games the most basic of object is usually called an Entity, Actor, or Game Object. <!-- .element: class="fragment" -->
-- Almost everything in a game is an object. <!-- .element: class="fragment" -->
-    - For example: players, opponents, environment. <!-- .element: class="fragment" -->
+**Objects are the basic elements of a system**. Consider the objects you define in object-oriented development.
+
+- For example: an engine, steering wheel, and wheels interact together to allow a car to operate. 
+- The complexity of the underlying system is hidden behind an interface. For a car, this is the steering wheel and pedals. 
+- **Objects** are defined by their **properties**, **behaviors**, and **relationships** with each other.
+- In games the most basic of object is usually called an Entity, Actor, or Game Object. 
+- Almost everything in a game is an object. 
+    - For example: players, opponents, environment. 
 
 ---
 
@@ -90,7 +91,8 @@ A bit more complex:
 
 # Properties
 
-- Properties are the attributes of the objects in a system. <!-- .element: class="fragment" -->
+**Properties are the attributes of the objects in a system.**
+
 - From an OO point of view, properties are values stored in the object. <!-- .element: class="fragment" -->
 - Some properties might change over the course of a game while others remain constant. <!-- .element: class="fragment" -->
     - In checkers, the color of a piece remain constant.
@@ -100,7 +102,7 @@ A bit more complex:
 - Some common properties include: <!-- .element: class="fragment" -->
     - Position.
     - Appearance.
-    - A flag (bool) to indicate whether the object is alive.
+    - A state.
 
 ---
 
@@ -112,7 +114,8 @@ A bit more complex:
 
 # Behaviours
 
-- Behaviours are the actions that an object undertakes. <!-- .element: class="fragment" -->
+**Behaviours are the actions that an object undertakes.**
+
 - From an OO point of view, behaviours are implemented as methods of an object. <!-- .element: class="fragment" -->
 - Many of the behaviours are interlinked with the state of the object. <!-- .element: class="fragment" -->
 - Adding more behaviors to a game makes it harder to predict. <!-- .element: class="fragment" -->
@@ -127,13 +130,6 @@ A bit more complex:
  - Player's actions are normally based on the controls (Procedures from Formal Elements). <!-- .element: class="fragment" -->
  - Computer controlled actions are normally supplied via some form of Artificial Intelligence (System procedures, objectives, rules).  <!-- .element: class="fragment" -->
 - The physical objects are normally controlled by the physics system. <!-- .element: class="fragment" -->
-
----
-
-# What Behaviours are Here? 
-
-![image](assets/images/minecraft.jpg)
-
 
 ---
 
@@ -185,6 +181,7 @@ https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
 # What Relationships are Here? 
 
 ![image](assets/images/zelda_dungeon.jpg)
+The Legend of Zelda: Breath of The Wild
 
 ---
 
