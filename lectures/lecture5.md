@@ -220,9 +220,9 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 - Object Behaviours
  - Abstract level - constructor, update, render, destructor.
 - Relationships between Objects.
- - More on this shortly.
+ - Handled in the game loop level and we will see later in the *Scene* level
 - Interaction with the system.
- - External system control - not modelled.
+ - External system control.
 
 ---
 
@@ -230,6 +230,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 
 ![image](assets/images/entity.png) 
 
+UML Class diagram: **-** means *private*, **+** means *public*, and **#** means *protected* 
 
 ---
 
@@ -251,7 +252,7 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 ---
 
 # Managing Entities
-Games have lots of Entities
+Games have lots of Entities (Example - Factorio)
 
 ![image](assets/images/factorio.jpg) 
 
@@ -288,13 +289,10 @@ Games have lots of Entities
 # Defining our Manager Class
 ![image](assets/images/entity_manager.png)
 
+UML Class Diagram: 3 sections in a class box: name, attributes, and methods. <!-- .element: class="fragment" -->
 
 ---
 
-# Summary
-
-
----
 
 # Summary
 

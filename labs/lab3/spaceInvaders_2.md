@@ -30,7 +30,7 @@ Here, are some good practices:
 - No hard coded value!
 - No global variables or functions outside of a scope. A scope can be a function, class, struct or namespace.
 - Comment as much as possible
-- Always define a copy constructor in a class, unless the instances of this class will never be copied.
+- Follow the [rule of three/five/zero](https://en.cppreference.com/w/cpp/language/rule_of_three.html).
 
 At the moment, some of those might not make sense to you. Don't worry, we will follow them through this pratical and following ones.
 
