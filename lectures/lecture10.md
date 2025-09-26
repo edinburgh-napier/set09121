@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris
+Leni Le Goff
 <br>
 
 
@@ -29,12 +29,12 @@ School of Computing. Edinburgh Napier University
 
 # What does a game need? From a Programmer's POV:
 
-- **Content**
- - 3d Models, Shaders, Textures, Text, Fonts, Music, Video, Saves, Levels/Game State etc.. <!-- .element: class="fragment" -->
-- **Processing & I/O**
- - Rendering, User input, Networking, Audio, Loading/Unloading/Streaming  <!-- .element: class="fragment" -->
+- **Content** 
+  - 3d Models, Shaders, Textures, Text, Fonts, Music, Video, Saves, Levels/Game State etc.. <!-- .element: class="fragment" -->
+- **Processing & I/O** 
+  - Rendering, User input, Networking, Audio, Loading/Unloading/Streaming  <!-- .element: class="fragment" -->
 - **Logic and Mechanics**
- - Physics, AI, Gameplay rules. <!-- .element: class="fragment" -->
+  - Physics, AI, Gameplay rules. <!-- .element: class="fragment" -->
 
 ---
 
@@ -51,7 +51,7 @@ School of Computing. Edinburgh Napier University
 
 # Complexity
 
-<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture_a.png)</a> <!-- .element height="760px"  -->
+<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture_a.png)</a> <!-- .element height="30%"  -->
 
 ---
 
@@ -140,6 +140,7 @@ To fix this we need to either:
 
 ![image](assets/images/ecm_strcuture.png)
 
+![image](assets/images/ecm_bricks.png)
 
 ---
 
@@ -193,253 +194,204 @@ class Entity {
     std::vector<std::shared_ptr<Component>> _components;
 
   public:
-    virtual void update(double dt);
+    virtual void update(const float &dt);
     virtual void render();
 
     template <typename T, typename... Targs>
-    std::shared_ptr<T> addComponent(Targs... params);
+    std::shared_ptr<T> add_component(Targs... params);
 
     template <typename T>
-    const std::vector<std::shared_ptr<T>>& getComponents() const;
+    const std::vector<std::shared_ptr<T>>& get_components() const;
     
-    void removeComponent(std::shared_ptr<Component>);
+    void remove_component(std::shared_ptr<Component>);
 };
 
 class Component {
-  Entity* const _parent;
-  virtual void update(double dt) = 0;
+private:
+  Entity* const _parent;//link to the parent entity
+public:
+  virtual void update(const float &dt) = 0;
   virtual void render() = 0;
 };
 ``` 
 <!-- .element: class="stretch" -->
 
+---
+
+# Component Class
+
+```cpp
+class Component {
+protected:
+  Entity* const _parent;//link to the parent entity
+public:
+  virtual void update(const float &dt) = 0; //to update the component states
+  virtual void render() = 0; //to display the component
+  Component(Entity *const p);
+  Component() = delete;
+};
+```
+In the Component class we have:
+- *_parent* a link to the parent entity.
+- The default constructor is marked as `= delete` which means it is not usable.
+- A Component *needs* a link to a parent to be instantiated.
+- An *update* and *render* function that will be called by the entity update and render methods.
 
 ---
 
 # ECM Code
 
 ```cpp
-auto pl = make_shared<Entity>();
+std::shared_ptr<Entity> player = std::make_shared<Entity>();
 
-auto s = pl->addComponent<ShapeComponent>();
-s->setShape<sf::CircleShape>(12.f);
-s->getShape().setFillColor(Color::Yellow);
+std::shared_ptr<ShapeComponent> s = player->add_component<ShapeComponent>();
+s->set_shape<sf::CircleShape>(12.f);
+s->get_shape().setFillColor(Color::Yellow);
 
-pl->addComponent<PlayerMovementComponent>();
+player->add_component<MovementComponent>();
 
 // later on...
-pl->getComponents<PlayerMovementComponent>()[0]->setSpeed(150.f);
+player->get_components<MovementComponent>()[0]->setSpeed(150.f);
 ```
 
 
 ---
 
 ## C++ TEMPLATES have arrived!
-`template <typename HELP>!`
+`template <  typename HELP  >!`
 
 
 ---
 
-# Why not just use classes?
+# Add component without templates
 
+Without template the code would look like this:
 ```cpp
-class Component {};
-class ShapeComponent : public Component{} //no change
-
-class Entity {
-  protected:
-    std::vector<std::shared_ptr<Component>> _components; //No change
-  public:
-    //template <typename T>
-    //std::shared_ptr<T> addComponent(Targs... params){}
-    //Or no templates:
-    Component* addComponent(Component*){}
-}
+//To add a ShapeComponent
+std::shared_ptr<ShapeComponent> sp = 
+  std::make_shared<ShapeComponent>(this, params...));
+player->_components.push_back(sp); //we would need to make _components public
 ```
+- If we want to encapsulate this we will need to implement a specific `add_component` function for each type of components: `add_shape_component`, `add_player_movement_component`, `add_texture_component`, `add_chase_component` etc...
+- Or we can just copy paste this code every time. 
+- In this situation, we cannot abstract this routine. 
+
+---
+
+# Get a particular component without templates
 
 ```cpp
-auto pl = make_shared<Entity>();
-ShapeComponent* sc = new ShapeComponent();
-auto s = pl->addComponent(sc);
-
-// later on, we want to get the first-found PlayerMovement component, to set the speed...
-// With templates, it could look like this
-//     pl->getComponent<PlayerMovementComponent>()->setSpeed(150.f);
-// Without templates, we would have to do something like this:
-for(int i=0;i < pl->getComponentNum(); ++i)
+for(size_t i=0;i < player->_components.size(); ++i)
 {
-    PlayerMovementComponent playerMovementComponent = std::dynamic_cast<PlayerMovementComponent>(pl->getComponent(i));
-    if( playerMovementComponent != null)
+    std::shared_ptr<Component>& comp = player->_components[i]; 
+    if( std::dynamic_pointer_cast<MovementComponent>(comp) != nullptr)
     {
-        playerMovementComponent->setSpeed(150.0f);
+        std::dynamic_pointer_cast<MovementComponent>(comp)->setSpeed(150.0f);
         break;
     }
 }
-// The main problem is that we can't generalize this code (by wrapping into a function) so support more component types
 ```
+- This is impossible to encapsulate.
+- Then, you will have to use similar code everytime you want to access a component.
 
 ---
 
-# ECM: generalising with templates
+# Generalising with Template
 
+Add a component
 ```cpp
-enum class ComponentType
-{
-    PlayerMovement,
-    AI,
-    Rendering
+template <typename T, typename... Targs>
+std::shared_ptr<T> add_component(Targs... params) {
+  std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
+  _components.push_back(sp);
+  return sp;
 }
-
-class Component
-{
-public:
-    virtual ComponentType componentType() const=0;
-};
-
-class PlayerMovementComponent : public Component
-{
-public:
-    static const ComponentType kComponentType = ComponentType::PlayerMovement;
-    ComponentType componentType() const override { return kComponentType; }
-}
-
-class Entity {
-  // ... (more code)
-  template <typename T>
-  std::shared_ptr<T> getComponent() {
-    for(int i=0;i < getComponentNum(); ++i)
-    {
-        auto component = getComponent(i);
-	if(component->componentType() == T::kComponentType)
-            return component;
+```
+Get the components of a certain type
+```cpp
+template < typename T >
+const std::vector<std::shared_ptr<T>> get_components() const {
+  std::vector<std::shared_ptr<T>> ret;
+  for (const std::shared_ptr<Component>& c : _components) {
+    if (typeid(*c) == typeid(T)) {
+      ret.push_back(std::dynamic_pointer_cast<T>(c));
     }
   }
-  // ... (more code)
-};
+  return std::move(ret);
+}
 ```
 
 ---
 
-# ECM template Deep Dive 1
+# Generalising with Template (cont.)
 
+The compilator will do the substitution for us at compile time.
+For instance, with a `PickupComponent`.
+
+Add a component
 ```cpp
-class Entity {
-
-  template <typename T, typename... Targs>
-  std::shared_ptr<T> addComponent(Targs... params) {
-    static_assert(std::is_base_of<Component, T>::value, "T != component");
-    std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
-    _components.push_back(sp);
-    return sp;
+std::shared_ptr<PickupComponent> add_component(/*some params*/) {
+  std::shared_ptr<PickupComponent> sp(std::make_shared<T>(this, params...));
+  _components.push_back(sp);
+  return sp;
+}
+```
+Get the components of a certain type
+```cpp
+const std::vector<std::shared_ptr<PickupComponent>> get_components() const {
+  std::vector<std::shared_ptr<PickupComponent>> ret;
+  for (const std::shared_ptr<Component>& c : _components) {
+    if (typeid(*c) == typeid(PickupComponent)) {
+      ret.push_back(std::dynamic_pointer_cast<PickupComponent>(c));
+    }
   }
-
-};
-```
-
-
----
-
-# ECM template Deep Dive 2
-
-```cpp
-class Entity {
-
-  template <typename T, typename... Targs>
-  std::shared_ptr<T> addComponent(Targs... params) {
-    static_assert(std::is_base_of<Component, T>::value, "T != component");
-    std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
-    _components.push_back(sp);
-    return sp;
-  }
-
-};
-```
-
-
-```cpp
-class Component {
-  private: 
-    Entity* _parent;
-  public:
-    Component(Entity* const p);
-};
-
-class PickupComponent : public Component {
-private: 
-  bool _isBig;
-public:
-  PickupComponent() = delete;
-  PickupComponent(Entity* p, bool big = false);
-};
-```
-<!-- .element: class="fragment" -->
-
-
----
-
-# ECM template Deep Dive 3
-
-Replace T with PickupComponent
-
-```cpp
-class Entity {
-  std::shared_ptr<PickupComponent> addPickupComponent(bool big) {
-    std::shared_ptr<PickupComponent> sp(std::make_shared<PickupComponent>(this,big));
-    _components.push_back(sp);
-    return sp;
-  }
-};
-```
-
-```cpp
-class Component {
-  private: 
-    Entity* _parent;
-  public:
-    Component(Entity* const p);
-};
-
-class PickupComponent : public Component {
-private: 
-  bool _isBig;
-public:
-  PickupComponent() = delete;
-  PickupComponent(Entity* p, bool big = false);
-};
+  return std::move(ret);
+}
 ```
 
 ---
 
-# ECM template Deep Dive 4
+# Things to know about templates
 
-With Old Raw Pointers
+- It is a powerful tool for abstraction but can get tricky to use. 
+- There are class template and function template
 ```cpp
-class Entity {
-  PickupComponent* addPickupComponent(bool big) {
-    PickupComponent* sp = new PickupComponent(this, big);
-    _components.push_back(sp);
-    return sp;
-  }
-};
+template< typename T >
+class A{};
 ```
-
-with New Safe Smart Pointers.
-
-```cpp
-class Entity {
-  std::shared_ptr<PickupComponent> addPickupComponent(bool big) {
-    std::shared_ptr<PickupComponent> sp(std::make_shared<PickupComponent>(this,big));
-    _components.push_back(sp);
-    return sp;
-  }
-};
-```
-<!-- .element: class="fragment" -->
+- Template classes and functions has to be defined in headers.
+- All code from templates will be duplicated everywhere it is used at compile time.
+- A heavily templated code will need long compile (because of generation of code) and can be very slow unless compiled with optimisation options (-O3)
 
 ---
 
-# Summary
+# How the templates are compiled
 
+```cpp
+//defined in headers
+template <typename T, typename... Targs>
+std::shared_ptr<T> add_component(Targs... params) {
+  std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
+  _components.push_back(sp);
+  return sp;
+}
+```
+We call this function
+```cpp
+//in the source file
+std::shared_ptr<ShapeComponent> s = player->add_component<ShapeComponent>();
+s->set_shape<sf::CircleShape>(12.f);
+s->get_shape().setFillColor(Color::Yellow);
+```
+The compilator will generate this code before compiling.
+```cpp 
+std::shared_ptr<ShapeComponent> add_component() {
+  std::shared_ptr<PickupComponent> sp(std::make_shared<T>(this, params...));
+  _components.push_back(sp);
+  return sp;
+}
+```
+And use the generated function where we call it.
 
 ---
 

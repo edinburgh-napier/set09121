@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris/Tobias Grubenmann
+Leni Le Goff
 <br>
 
 
@@ -191,11 +191,11 @@ What is Artificial Intelligence?
 
 # Other Decision Making Techniques
 
-- Fuzzy logic
-    - Logic design with grey (fuzzy) areas.
-    - Fuzzy logic applies some randomness to decisions.
-    - It tries to be more in line with how people think.
-    - Not very popular in academia any more - probability and statistics preferred.
+**Fuzzy logic**
+
+- It is based on fuzzy sets which introduce degree of ownership
+- Fuzzy logic introduce degree of trueness: instead of being fals or true, you have a continuous space [0,1].
+- Fuzzy logic can be used in combination with states and continous inputs to have fuzzy decision making.
 
 ![image](assets/images/fuzzy-logic.png) <!-- .element width="30%" -->
 

@@ -15,7 +15,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris/Tobias Grubenmann
+Leni Le Goff
 <br>
 
 
@@ -152,7 +152,7 @@ School of Computing. Edinburgh Napier University
 
 $$ d = target - position $$
 
-$$v = \hat{d} \times speed$$
+$$v = \frac{d}{||{d}||} \times v_{max}$$
 
 ![image](assets/images/seek.png)
 
@@ -167,7 +167,7 @@ $$v = \hat{d} \times speed$$
 
 $$d = position - target$$
 
-$$v = \hat{d} \times speed$$
+$$v = \frac{d}{||{d}||} \times v_{max}$$
 
 ![image](assets/images/flee.png)
 
@@ -184,7 +184,8 @@ $$d = target - position $$
 
 $$ \left\lVert d \right\rVert \leq radius \implies v = 0 $$
 
-$$ \left\lVert d \right\rVert > radius \implies v = \hat{d} \times speed $$
+$$ \left\lVert d \right\rVert > radius \implies v = \frac{d}{||{d}||} \times v_{max}$$
+
 
 
 ![image](assets/images/arrive.png)
@@ -200,7 +201,7 @@ $$ \left\lVert d \right\rVert > radius \implies v = \hat{d} \times speed $$
 
 $$d = target - position $$
 
-$$\theta = \arctan(d_y, d_x) $$
+$$\theta = \arctan_2(d_y, d_x) $$
 
 $$r = (\theta - orientation) * rot\_{speed}$$
 
@@ -215,79 +216,130 @@ $$r = (\theta - orientation) * rot\_{speed}$$
     - We want reusable so we can program as many steering behaviours as we like.
 - If you like you can go further and combine steering behaviours within a single steering behaviour.
     - See weighted/combined behaviours in the recommended reading.
+    - Read this article [Steering Behaviors For Autonomous Characters by C.W. Reynolds](https://www.red3d.com/cwr/steer/gdc99/)
 
 
 
 
 ---
 
-# Steering Behaviour Interface
-
-- `steering_behaviour` is our abstract base class 
-    - would be interface in C#/Java
-- It only declares one pure virtual method:
-    - `get_steering`
-- `get_steering` performs the necessary calculation for the defined steering behaviour and outputs a `steering_output`.
-
-![image](assets/images/steering_interface.png)
-
-
----
 
 # Steering Output struct
 
-- `steering_output` contains two values.
+- `SteeringOutput` contains two values.
     - `direction`:   the vector we want to travel in.
     - `rotation`:   the angle we want to turn.
-- Results from `get_steering` are put in here.
 - We will not use rotation in the practical, but it is there if you need it.
 
-![image](assets/images/steering_output.png)
-
+```cpp
+struct SteeringOutput
+{
+    sf::Vector2f direction;
+    float rotation;
+};
+```
 
 ---
 
-# Example - Seek
+# Steering Behaviour Implementation
 
-- We have two entities:
-    - `target` and `character`.
-- We have `max_speed`.
-- `get_steering` is:
-
+- There are different ways to implement steering behaviours.
+- OO approach:
+    - Define a `SteeringBehaviour` abstract base class 
+    - With one pure virtual method: `get_steering`
+    - `get_steering` performs the necessary calculation for the defined steering behaviour and outputs a `steering_output`.
 
 ```cpp
-steering_output output;
-output.direction = target.get_position() - character.get_position();
-output.direction = normalize(output.direction);
-output.direction *= max_speed;
-output.rotation = 0.0f;
-return output;
+class SteeringBehaviour{
+public:
+   virtual SteeringOutput get_steering() = 0;
+};
 ```
+
+Then, one class per type of steering behaviour.
+
+---
+
+# Steering Behaviour Implementation
+
+The problem with the OO approach:
+- A lot of repeated code
+- Have to define a new class just to implement one function
+- Classes should be used when data needs to be carried with the procedure. 
 
 ![image](assets/images/seek_class.png)
+![image](assets/images/flee_class.png)
 
 
 ---
 
-# Example - Flee
+# Steering Behaviour Implementation
 
+Functional approach using std::function.
 
-- We have two entities:
-    - `target` and `character`.
-- We have `max_speed`.
-- `get_steering` is:
-
+- The only information needed for a steering behaviour is the target and agent positions. 
+- So we can define a new type of function:
 ```cpp
-steering_output output;
-output.direction = character.get_position() - target.get_position();
-output.direction = normalize(output.direction);
-output.direction *= max_speed;
-output.rotation = 0.0f;
-return output;
+using SteeringFunction = 
+std::function<SteeringOutput(const sf::Vector2f &,const sf::Vector2f &)>;
+```
+- Then define the steering behaviours as static variable:
+```cpp
+struct SteeringBehaviours{
+    static SteeringFunction seek;
+    static SteeringFunction flee;
+};
 ```
 
-![image](assets/images/flee_class.png)
+Then, we just need to implement the functions.
 
+This is similar to the *strategy design pattern*.
+
+---
+
+# Steering Behaviour Implementation
+
+Seek
+
+```cpp
+SteeringFunction SteeringBehaviours::seek = 
+[](const sf::Vector2f &target,const sf::Vector2f &self) -> SteeringOutput{
+    SteeringOutput steering;
+    steering.direction = normalize(target - self);
+    steering.rotation = 0.0f;
+    return steering;
+};
+```
+
+Flee
+
+
+```cpp
+SteeringFunction SteeringBehaviours::seek = 
+[](const sf::Vector2f &target,const sf::Vector2f &self) -> SteeringOutput{
+    SteeringOutput steering;
+    steering.direction = normalize(self - target);
+    steering.rotation = 0.0f;
+    return steering;
+};
+```
+
+---
+
+# Steering Behaviour Implementation
+
+Then, we can use them in a steering component for instance:
+```cpp
+SteeringOutput output = 
+SteeringBehaviours::seek(_player->get_position(),_parent->get_position());
+
+move(output.direction*_max_speed * dt);
+```
+
+Where, 
+- `_player` is a pointer to the player entity 
+- `_parent` is a pointer to the parent entity of this component
+- `move` is a function to move the parent enity.
 
 ---
 

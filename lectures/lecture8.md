@@ -68,11 +68,6 @@ Game Programming Patterns - Robert Nystrom
 - **Use diagrams whenever possible!**
 Useful article: [geeksforgeeks.com - UML introduction](https://www.geeksforgeeks.org/system-design/unified-modeling-language-uml-introduction/)
 
----
-
-# Class diagram
-
-![image](assets/images/Class-Diagram-Example.webp)
 
 ---
 

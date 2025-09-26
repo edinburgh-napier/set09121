@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris/Tobias Grubenmann
+Leni Le Goff
 <br>
 
 
@@ -281,7 +281,7 @@ Where: $w$ is weight, $m$ is mass, $g$ is gravity.
 - A Newton is a standard unit of force applied to an object.
 
 $$1N = 1kg \times m/s^2$$
-On Earth: $$g = 9.8 m/s^2$$ so: $$1N = 0.102kg $$ $$ 1kg = 9.8N $$
+On Earth: $$g = 9.8 m/s^2$$ so: $$\frac{1N}{g} = 0.102kg $$ $$ 1kg \times g = 9.8N $$
 
 
 ---
