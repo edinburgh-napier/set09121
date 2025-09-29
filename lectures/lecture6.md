@@ -318,13 +318,6 @@ public:
 
 ---
 
-# Think Back to the Labs
-
-- Have you already used some of these? <!-- .element: class="fragment" -->
-- What about the Pong or Space Invaders example? <!-- .element: class="fragment" -->
-
----
-
 # Core Object-orientation Concepts
 
 - **Encapsulation**
@@ -563,6 +556,49 @@ int main(){
 
 ---
 
+# `virtual` Members
+
+- To mark a method as overridable in a child class we need to state that it is `virtual`.
+    - Same as C\#; Java uses `abstract`.
+- When a method is `virtual` it means that it can be redefined in child classes
+- Child classes can write their own implementation of the function, specifying it using `override`
+    - it's not a requirement, but DO IT
+
+
+
+---
+
+# `virtual` Members
+
+```cpp
+class A
+{
+public:
+    virtual void work()
+    {
+        std::cout << "Hello" << std::endl;
+    }
+};
+
+class B : public A
+{
+public:
+	// Compiler will check the
+    // override is valid.
+    void work() override
+    {
+        std::cout << "Goodbye" << std::endl;
+    }
+};
+
+A *a = new B();
+// Will print Goodbye
+a->work();
+```
+
+
+---
+
 # Abstract Class in C++
 
 - C++ does not have interface like in Java
@@ -577,6 +613,8 @@ public:
 ```
 
 **An abstract class cannot be instanciated!**
+
+
 
 ---
 
@@ -595,7 +633,7 @@ public:
 - Polymorphism is the ability of our objects to act as different types.
 - There are actually three types of polymorphism in computer science. C++ supports all three.
  - **Ad-hoc polymorphism**:   overriding functions with different parameters (we will look at this in the overloading section).
- - **Parametric polymorphism**:   overriding types based on a parameter (e.g. `vector<int>`). We will briefly look at templates at the end of lecture.
+ - **Parametric polymorphism**:   overriding types based on a parameter (e.g. `vector<int>`).
  - **Subtyping**: A subclass has compatible interface with its parent class: every method of parent class A can also be called on its derived class B.
 
 ---
@@ -668,48 +706,6 @@ public:
 
 ---
 
-# `virtual` Members
-
-- To mark a method as overridable in a child class we need to state that it is `virtual`.
-    - Same as C\#; Java uses `abstract`.
-- When a method is `virtual` it means that it can be redefined in child classes
-- Child classes can write their own implementation of the function, specifying it using `override`
-    - it's not a requirement, but DO IT
-
-
-
----
-
-# `virtual` Members
-
-```cpp
-class A
-{
-public:
-    virtual void work()
-    {
-        std::cout << "Hello" << std::endl;
-    }
-};
-
-class B : public A
-{
-public:
-	// Compiler will check the
-    // override is valid.
-    void work() override
-    {
-        std::cout << "Goodbye" << std::endl;
-    }
-};
-
-A *a = new B();
-// Will print Goodbye
-a->work();
-```
-
----
-
 ## Pointers and references
 
 ---
@@ -750,41 +746,6 @@ a = 2
 
 ---
 
-# Polymorphism subtyping
-
-- You need to work with a reference (e.g. `int&`) or a pointer (e.g. `int*`) value to get the polymorphic behaviour with objects.
-
-```cpp
-class A {
-public:
-    virtual void work() { 
-        std::cout << "a" << std::endl; 
-    }
-};
-
-class B : public A {
-public:
-    void work() override { 
-        std::cout << "b" << std::endl;
-    }
-};
-
-B b;
-b.work(); // Prints b
-A a1 = static_cast<A>(b);
-a1.work(); // Prints a
-
-A& a2 = static_cast<A&>(b);
-a2.work(); // Prints b
-
-A* a3 = static_cast<A*>(&b);
-a3->work(); // Prints b
-
-
-```
-
----
-
 # Pointers of objects
 
 - To access the data of a pointer to an object, the pointer needs to be dereferenced: `(*a).a_method();`.
@@ -807,6 +768,43 @@ a->work();
 
 delete a; //RAII rule always use delete after new.
 ```
+
+
+---
+
+# Polymorphism subtyping
+
+- You need to work with a reference (e.g. `int&`) or a pointer (e.g. `int*`) value to get the polymorphic behaviour with objects.
+
+```cpp
+class A {
+public:
+    virtual void work() { 
+        std::cout << "a" << std::endl; 
+    }
+};
+
+class B : public A {
+public:
+    void work() override { 
+        std::cout << "b" << std::endl;
+    }
+};
+
+B b;
+b.work(); // Prints b
+A a1 = static_cast< A >(b);
+a1.work(); // Prints a
+
+A& a2 = static_cast<A&>(b);
+a2.work(); // Prints b
+
+A* a3 = static_cast<A*>(&b);
+a3->work(); // Prints b
+
+
+```
+
 
 ---
 
@@ -858,7 +856,7 @@ public:
     A& operator=(A&&);      // move assignment operator 
 };
 ```
-- **Three:** require destructor/copy constructor/copy assignment, if storing raw pointers
+- **Three:** require destructor/copy constructor/copy assignment, if any data member needs copy instruction like raw pointers.
 - **Five:** require all five, if some data cannot be copied like a unique_ptr
 - **Zero** only use constructors that don't need special destructors (no special resources)
 
@@ -924,7 +922,6 @@ void func(){
     static int b = 0; //accessible only within this function
 }
 ```
-This variable is allocated staticly only for this file. It will not be accessible outside. 
 
 ---
 
