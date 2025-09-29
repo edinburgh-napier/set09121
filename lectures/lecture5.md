@@ -144,8 +144,8 @@ To do this we will define a basic <!-- .element: class="fragment" -->`entity` cl
 - Position of the object in the game world. <!-- .element: class="fragment" -->
     - Store as a 2-dimensional or 3-dimensional vector. <!-- .element: class="fragment" -->
 - A graphic representing the entity. <!-- .element: class="fragment" -->
-    - Texture for 2D game. <!-- .element: class="fragment" -->
-    - Geometry for 3D game. <!-- .element: class="fragment" -->
+    - Texture. <!-- .element: class="fragment" -->
+    - Geometry. <!-- .element: class="fragment" -->
 - We also need basic state information of the entity. <!-- .element: class="fragment" -->
     - We need a flag to indicate if the game entity is active/updatable: alive. <!-- .element: class="fragment" -->
     - We also need a flag to indicate if the entity is visible: visible. <!-- .element: class="fragment" -->
@@ -279,9 +279,9 @@ Games have lots of Entities (Example - Factorio)
 # Software Engineering Approach
 
 - By using a manager class we can: <!-- .element: class="fragment" --> 
-    - Manage the logic of our application in discrete parts, each with their own responsibility. <!-- .element: class="fragment" -->
-    - Manage access to our collection of entities. <!-- .element: class="fragment" -->
-    - Allow communication between the entities. <!-- .element: class="fragment" -->
+    - Manage all the entities with simple methods. <!-- .element: class="fragment" -->
+    - Manage access, addition and removal to our collection of entities in a generic way <!-- .element: class="fragment" -->
+    - Isolate the entity management for the other components <!-- .element: class="fragment" -->
 
 
 ---
