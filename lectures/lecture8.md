@@ -131,7 +131,7 @@ Useful article: [geeksforgeeks.com - UML introduction](https://www.geeksforgeeks
 class EntityManager
 {
 public:
-    static EntityManager& getInstance()
+    static EntityManager& get_instance()
     {
         static EntityManager instance;
         return instance;
@@ -140,6 +140,11 @@ private:
     EntityManager(){}
     EntityManager(const EntityManager&) = delete;
 };
+```
+
+Access to the EntityManager:
+```cpp
+EntityManager::get_instance();
 ```
 
 ---
@@ -174,10 +179,11 @@ public:
 };
 
 class Panel : public UIElement { // Composite
-    std::vector<std::shared_ptr<UIElement>> panelElements;
-
+private:
+    std::vector<std::shared_ptr<UIElement>> panel_elements;
+public:
     void update() override {
-        for (std::shared_ptr<UIElement>& element : panelElements) {
+        for (std::shared_ptr<UIElement>& element : panel_elements) {
             element->update();
         }
     }
@@ -186,6 +192,7 @@ class Panel : public UIElement { // Composite
 };
 
 class Button : public UIElement { // Leaf
+public:
     void update() override {
         ...
     }
@@ -221,7 +228,7 @@ class Button : public UIElement { // Leaf
 class Iterator {
 public:
     virtual int next() = 0;
-    virtual bool hasNext() = 0;
+    virtual bool has_next() = 0;
 };
 
 // Concrete Iterator
@@ -230,13 +237,13 @@ public:
     ConcreteIterator(const std::vector<int>& items) : items(items), position(0) {}
 
     int next() override {
-        if (hasNext()) {
+        if (has_next()) {
             return items[position++];
         }
         throw std::out_of_range("No more elements.");
     }
 
-    bool hasNext() override {
+    bool has_next() override {
         return position < items.size();
     }
 private:
@@ -253,18 +260,17 @@ private:
 // Aggregate interface
 class Aggregate {
 public:
-    virtual std::unique_ptr<Iterator> createIterator() const = 0;
-    virtual ~Aggregate() = default;
+    virtual std::unique_ptr<Iterator> create_iterator() const = 0;
 };
 
 // Concrete Aggregate
 class ConcreteAggregate : public Aggregate {
 public:
-    void addItem(int item) {
+    void add_item(int item) {
         items.push_back(item);
     }
 
-    std::unique_ptr<Iterator> createIterator() const override {
+    std::unique_ptr<Iterator> create_iterator() const override {
         return std::make_unique<ConcreteIterator>(items);
     }
 private:
@@ -278,14 +284,14 @@ private:
 
 ```cpp
 ConcreteAggregate numbers;
-numbers.addItem(10);
-numbers.addItem(20);
-numbers.addItem(30);
-numbers.addItem(40);
+numbers.add_item(10);
+numbers.add_item(20);
+numbers.add_item(30);
+numbers.add_item(40);
 
-std::unique_ptr<Iterator> iterator = numbers.createIterator();
+std::unique_ptr<Iterator> iterator = numbers.create_iterator();
 
-while (iterator->hasNext()) {
+while (iterator->has_next()) {
     std::cout << iterator->next() << " ";
 }
 std::cout << std::endl;
@@ -296,7 +302,7 @@ return 0;
 
 # Mediator Pattern
 
-**Problem:** How to define a **common communication** protocol between objects? And, how to implement **new communiction** protocol **without having to change** the implementation of the objects?
+**Problem:** How to define a **common communication** protocol between objects? And, how to implement **new communication** protocol **without having to change** the implementation of the objects?
 
 - Objects no longer communicate directly with each other, but instead communicate through the mediator.
 - This reduces the dependencies between communicating objects, thereby reducing coupling.
@@ -322,22 +328,21 @@ class Colleague;
 
 class Mediator {
 public:
-    virtual void broadcastMessage(const std::string& message, Colleague* sender) = 0;
+    virtual void broadcast_message(const std::string& message,
+    Colleague* sender) = 0;
 };
 
 class Colleague {
 public:
     Colleague(Mediator* mediator, const std::string& name) : mediator(mediator), name(name) {}
 
-    void sendMessage(const std::string& message) {
-        mediator->broadcastMessage(message, this);
+    void send_message(const std::string& message) {
+        mediator->broadcast_message(message, this);
     }
-
-    void receiveMessage(const std::string& message) {
+    void receive_message(const std::string& message) {
         std::cout << name << " received: " << message << std::endl;
     }
-
-    std::string getName() const {
+    std::string get_name() const {
         return name;
     }
 private:
@@ -354,14 +359,14 @@ private:
 // Concrete Mediator (Chat Room)
 class ChatRoom : public Mediator {
 public:
-    void addParticipant(Colleague* colleague) {
+    void add_participant(Colleague* colleague) {
         participants.push_back(colleague);
     }
 
-    void broadcastMessage(const std::string& message, Colleague* sender) override {
+    void broadcast_message(const std::string& message, Colleague* sender) override {
         for (Colleague* participant : participants) {
             if (participant != sender) {
-                participant->receiveMessage(sender->getName() + ": " + message);
+                participant->receive_message(sender->get_name() + ": " + message);
             }
         }
     }
@@ -376,22 +381,22 @@ private:
 
 ```cpp
 // Create a mediator (chat room)
-ChatRoom chatRoom;
+ChatRoom chat_room;
 
 // Create participants (colleagues)
-Colleague alice(&chatRoom, "Alice");
-Colleague bob(&chatRoom, "Bob");
-Colleague charlie(&chatRoom, "Charlie");
+Colleague alice(&chat_room, "Alice");
+Colleague bob(&chat_room, "Bob");
+Colleague charlie(&chat_room, "Charlie");
 
 // Add participants to the chat room
-chatRoom.addParticipant(&alice);
-chatRoom.addParticipant(&bob);
-chatRoom.addParticipant(&charlie);
+chat_room.add_participant(&alice);
+chat_room.add_participant(&bob);
+chat_room.add_participant(&charlie);
 
 // Participants send messages through the mediator
-alice.sendMessage("Hello, everyone!");
-bob.sendMessage("Hi Alice!");
-charlie.sendMessage("Good morning, folks!");
+alice.send_message("Hello, everyone!");
+bob.send_message("Hi Alice!");
+charlie.send_message("Good morning, folks!");
 ```
 
 ---
@@ -449,27 +454,29 @@ public:
 ```cpp
 class Context { // Context class that holds the current state
 public:
-    Context(State * initialState) : state(initialState) {}
+    Context(std::shared_ptr<State> initialState) : state(initialState) {}
 
-    void setState(State* newState) {
-        state = newState;
+    void set_state(std::shared_ptr<State> new_state) {
+        state = new_state;
     }
 
     void tick() {
         state->handle(*this);  // Delegate behavior to the current state
     }
 private:
-    State * state;  // The current state
+    std::shared_ptr<State> state;  // The current state
 };
 
 void ChaseState::handle(Context& context) {
-    if (pacmanJustAtePowerPill)
-            context.setState(new EvadeState());  // Transition to evade state
+    if (/*pacman just ate power pill*/)
+        // Transition to evade state
+        context.set_state(std::make_shared<EvadeState>());  
 }
 
 void EvadeState::handle(Context& context) {
-    if(timeElapsedSinceEvadeStarted < evasionDuration)
-        context.setState(new ChaseState());  // Transition to chase state
+    if(time_elapsed_since_evade_started < evasion_duration)
+        // Transition to chase state
+        context.set_state(std::make_shared<ChaseState>());  
 }
 ```
 
@@ -478,8 +485,8 @@ void EvadeState::handle(Context& context) {
 # State Pattern 
 
 ```cpp
- Context pacman(new PacmanState());
- Context ghost(new EvadeState());
+ Context pacman(std::make_shared<PacmanState>());
+ Context ghost(std::make_shared<EvadeState>());
 
  while (true)
  {
@@ -522,10 +529,10 @@ public:
 class Simulator {
 public:
     void update(float h) {
-        integrationMethod->step(h);
+        integration_method->step(h);
     }
 private:
-    Integrator * integrationMethod;
+    std::shared_ptr<Integrator> integration_method;
 };
 ```
 
@@ -587,25 +594,21 @@ public:
 };
 
 class EntityManager { // Subject
-    std::vector<Entity*> entities;
-
+    std::vector<std::shared_ptr<Entity>> entities;
     void update(float dt) {
-        for (Entity* entity : entities) {
+        for (std::shared_ptr<Entity> &entity : entities) {
             entity->update(dt);
         }
     }
-
     void render() {
-        for (Entity* entity : entities) {
+        for (std::shared_ptr<Entity> &entity : entities) {
             entity->render();
         }
     }
-
-    void registerEntity(Entity * entity) {
+    void register_entity(std::shared_ptr<Entity> entity) {
         entities.push_back(entity);
     }
-
-    void unregisterEntity(Entity* entity) {
+    void unregister_entity(std::shared_ptr<Entity> entity) {
         // ... remove entity from entities vector
     }
 };
