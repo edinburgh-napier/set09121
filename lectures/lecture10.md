@@ -239,7 +239,7 @@ s->get_shape().setFillColor(Color::Yellow);
 player->add_component<MovementComponent>();
 
 // later on...
-player->get_components<MovementComponent>()[0]->setSpeed(150.f);
+player->get_components<MovementComponent>()[0]->set_speed(150.f);
 ```
 
 
