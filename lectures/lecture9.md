@@ -101,14 +101,16 @@ void function(int param_scope){
 
 ---
 
+<!-- .slide: class="split" -->
+
+
 # Memory Access Times
 
 - The CPU is the fastest when accessing adjacent memory.
 - If we jump around things slow down - sometimes dramatically.
 - Consider a multi-dimensional array:
-- Access time difference between approach A and C can be 100x.
- - i.e. accessing all members using approach A could be 300ns; approach C 30000ns.
-
+    - Access time difference between approach A and C can be 100x.
+        - i.e. accessing all members using approach A could be 300ns; approach C 30000ns.
 
 ```cpp
 int matrix[100][100][100];
@@ -122,6 +124,7 @@ matrix[0][1][0] = 1; // 400 byte jump.
 matrix[0][0][0] = 0;
 matrix[1][0][0] = 1; // 40000 byte jump
 ```
+![image](assets/images/memory_access.png)
 
 
 ---
@@ -252,37 +255,8 @@ delete[] tab2; //memory freed like this
 
 This is really important, and can lead to all sorts of bugs if you forget!
 
----
+![image](assets/images/c-style_array.png)<!-- .element width="80%"  -->
 
-# C-style multidimensional array
-
-For multidimensional array, it is better to use "flat" representations than a pointer to pointers.
-
-```cpp
-//allocation on the stack
-int identity[3][3] = { {1,0,0},
-                       {0,1,0},
-                       {0,0,1} };
-
-//allocation on the heap
-//heavy and slow solution: pointer of pointers
-int **matrix = new int*[rows];
-for(int i = 0; i < rows; i++){
-    matrix[i] = new int[cols];
-}
-//to free the memory
-for(int i = 0; i < rows; i++){
-    delete[] matrix[i];
-}
-delete[] matrix;
-
-//faster and lighter solution: flatten the matrix
-int *mat2 = new int[cols*rows];
-// to access ith row and jth column
-mat2[i*rows + j]
-
-delete[] mat2 //never forget to free the memory
-```
 
 ---
 
@@ -307,17 +281,16 @@ std::vector<char> v2(100,'v'); //100 times 'v'
 
 ---
 
-# Multidimensional Arrays in C++
+# Multidimensional Arrays in C/C++
 
 
 ```cpp
+int x[3][3];
 std::array<std::array<int, 10>, 10> y;
 std::vector<std::vector<int>> z(10);
 for (size_t n = 0; n < 10; ++n)
     z[n] = std::vector<int>(10);
 ```
-
-Same as C-style array. It is better in term of performance to use a flat representation.
 
 ---
 
@@ -334,6 +307,7 @@ std::cout << data[1] << std::endl; //access
 - `std::queue<value>` first-in,first-out (FIFO) container
 - `std::stack<value>` last-in,first-out (LIFO) container
 
+https://en.cppreference.com/w/cpp/container.html
 
 ---
 
@@ -354,13 +328,15 @@ std::cout << data[1] << std::endl; //access
 
 # Function and reference
 
+**In the case of function handling large data.**
+
 - Input data to a function should be a constant reference
 - Ouput data should be a reference
 - Returned value will be generally used for error handling
     - Avoid returning heavy data !
 
 ```cpp
-int function{const Type1& input, Type2& output);
+int function(const Type1& input, Type2& output);
 ```
 
 ```cpp
@@ -373,7 +349,6 @@ int get_value(int key, const std::map<int,std::string> &input,
     output = input.at(key);
     return 0;
 }
-
 std::map<int,std::string> data = ...
 std::string value;
 if(get_value(20,data,value) == 1)
@@ -437,6 +412,7 @@ A(&b); //initialise A with the address of b;
 
 ```cpp
 #include <memory>
+
 {
     // Make shared_ptr
     std::shared_ptr<int> ptr = std::make_shared<int>(5);
@@ -468,8 +444,9 @@ A(&b); //initialise A with the address of b;
 
 
 ```cpp
+#include <memory>
+
 {
-    #include <memory>
     // Make unique_ptr
     std::unique_ptr<int> ptr = std::make_unique<int>(5);
     // Can derefence as normal
@@ -491,10 +468,9 @@ A(&b); //initialise A with the address of b;
 
 # Assignment, Copying, and Moving
 
-- We've hinted at a number of different concepts through this discussion.
-- Assignment is whenever you use the `=` to set an object variable.
-- Copying is when we create a new object from an existing one.
-- Moving is like copying, but we move the already allocated resources to the new object. The original becomes empty.
+- **Assignment** is whenever you use the `=` to set an object variable.
+- **Copying** is when we create a new object from an existing one.
+- **Moving** is like copying, but we move the already allocated resources to the new object. The original becomes empty.
 - This is an important concept to understand in general in C++.
 - If you want to work at the lowest level of C++ you really need to recognise these behaviours for optimisation purposes.
 
@@ -571,9 +547,7 @@ Update(){
  - Hide the details of how to load a specific resource.
   - e.g. we just load - we don't need to know the individual calls to load a texture.
  - Manage allocation and deallocation of resources.
- - Provide a single point to manage all of this.
-    - Manager pattern, maybe singleton.
-- So we just apply our design pattern thinking to the problem.
+
 
 
 ---
@@ -585,6 +559,7 @@ Update(){
  - `load_resource` :   loads and/or retrieves a resource.
  - `unload_resource` :   unloads a loaded resource.
  - `clear_all` :   unloads all loaded resources.
+ - `get_resource` : access a reference/pointer to a specific resource 
 - That is all.
 - Depending on your approach:
  - You can have a singleton with typed loads, unloads, and storage
@@ -657,7 +632,6 @@ bool get_texture(const std::string& label, std::shared_ptr& texture){
     - Load new assets.
     - Set up new physics.
     - Create new entities.
-- You do get better systems but the basic premise is the same.
 
 
 ---
