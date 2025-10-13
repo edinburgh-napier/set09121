@@ -374,7 +374,7 @@ s->get_shape().setFillColor(Color::Yellow);
 The compilator will generate this code before compiling.
 ```cpp 
 std::shared_ptr<ShapeComponent> add_component() {
-  std::shared_ptr<PickupComponent> sp(std::make_shared<PickupComponent>(this, params...));
+  std::shared_ptr<ShapeComponent> sp(std::make_shared<ShapeComponent>(this, params...));
   _components.push_back(sp);
   return sp;
 }
