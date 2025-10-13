@@ -40,13 +40,6 @@ School of Computing. Edinburgh Napier University
 
 # Game Engine Architecture
 
-
----
-
-# Complexity
-
-<a href="assets/images/2d_engine_architecture.png">![image](assets/images/2d_engine_architecture_b.png)</a> <!-- .element height="760px"  -->
-
 ---
 
 # Complexity
@@ -58,7 +51,6 @@ School of Computing. Edinburgh Napier University
 # Combating the Complexity
 
 - Game Codebases Get Big Fast <!-- .element: class="fragment" -->
-- Taming and maintaing it tests your ability as a Software Engineer <!-- .element: class="fragment" -->
 - We've covered some Software Patterns that you can pull out of your toolbox to help. These help solve small isolated design problems. <!-- .element: class="fragment" -->
 - Use standard approaches to deal with complexity: abstraction, decoupling, encapsulation <!-- .element: class="fragment" -->
 - E.g. separating your gameplay logic (jump!) from the core engine logic (load a file!). <!-- .element: class="fragment" -->
@@ -109,9 +101,7 @@ Not all games need an 'engine' <!-- .element: class="fragment" -->
 
 # Object Orientation.
 
-OO is hammered into you since 1st year as the solution to software complexity.
-
-![image](assets/images/software_development.png)
+For now, we used the Entity model based on inheritance. It does a good job ...
 
 ... But it's not perfect. <!-- .element: class="fragment" -->
 
@@ -129,7 +119,7 @@ Enter: The Evil Tree Problem <!-- .element: class="fragment" -->
 
 To fix this we need to either:
 - Use multiple Inheritance (Danger Zone, bugs) <!-- .element: class="fragment" -->
-- Use interfaces (which C++ can emulate, tediously) <!-- .element: class="fragment" -->
+- Use interfaces => C++ abstract class <!-- .element: class="fragment" -->
 - Throw our design in the bin, unceremoniously, and... <!-- .element: class="fragment" -->
 - **USE COMPOSITION, NOT INHERITANCE** <!-- .element: class="fragment" -->
 
@@ -152,10 +142,6 @@ ECM enables Data Oriented design.
 
 ---
 
-# Example: The Legend of Zelda: Breath Of the Wild
-
----
-
 # ECM PseudoCode
 
 ```cpp
@@ -168,10 +154,10 @@ class Entity {
     update(delta_time);
     render();
 
-    addComponent(Component);
-    getComponents();
+    add_component(Component);
+    get_components();
     
-    removeComponent(Component);
+    remove_component(Component);
 };
 
 class Component {
@@ -200,7 +186,7 @@ class Entity {
     template <typename T, typename... Targs>
     std::shared_ptr<T> add_component(Targs... params);
 
-    template <typename T>
+    template < typename T >
     const std::vector<std::shared_ptr<T>>& get_components() const;
     
     void remove_component(std::shared_ptr<Component>);
@@ -286,7 +272,7 @@ for(size_t i=0;i < player->_components.size(); ++i)
     std::shared_ptr<Component>& comp = player->_components[i]; 
     if( std::dynamic_pointer_cast<MovementComponent>(comp) != nullptr)
     {
-        std::dynamic_pointer_cast<MovementComponent>(comp)->setSpeed(150.0f);
+        std::dynamic_pointer_cast<MovementComponent>(comp)->set_speed(150.0f);
         break;
     }
 }
@@ -361,7 +347,7 @@ class A{};
 ```
 - Template classes and functions has to be defined in headers.
 - All code from templates will be duplicated everywhere it is used at compile time.
-- A heavily templated code will need long compile (because of generation of code) and can be very slow unless compiled with optimisation options (-O3)
+- A heavily templated code will need long compile time (because of generation of code) and can be very slow unless compiled with optimisation options (-O3)
 
 ---
 
@@ -386,7 +372,7 @@ s->get_shape().setFillColor(Color::Yellow);
 The compilator will generate this code before compiling.
 ```cpp 
 std::shared_ptr<ShapeComponent> add_component() {
-  std::shared_ptr<PickupComponent> sp(std::make_shared<T>(this, params...));
+  std::shared_ptr<PickupComponent> sp(std::make_shared<PickupComponent>(this, params...));
   _components.push_back(sp);
   return sp;
 }
