@@ -161,7 +161,9 @@ class Entity {
 };
 
 class Component {
+private:
   Entity* _parent;
+public:
   update(delta_time);
   render();
 };
