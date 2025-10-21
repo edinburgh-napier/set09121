@@ -171,15 +171,15 @@ entries:
     - title: Lecture 16 - Behavior Trees
       url: /lecture16.html
       output: web
-    - title: Lecture 17 - Releasing your game
+    - title: Lecture 17 - Performance
       url: /lecture17.html
       output: web
-    - title: Lecture 18 - QA & TRC
+    - title: Lecture 18 -  Networking
       url: /lecture18.html
       output: web
-    - title: Lecture 19 - Performance
+    - title: Lecture 19 - Releasing your game
       url: /lecture19.html
       output: web
-    - title: Lecture 20 - Networking
+    - title: Lecture 20 - QA & TRC
       url: /lecture20.html
       output: web
