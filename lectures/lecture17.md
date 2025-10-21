@@ -15,7 +15,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris/Tobias Grubenmann
+Leni Le Goff
 <br>
 
 
@@ -106,7 +106,12 @@ Avoid I/O or do it better
 - You should avoid this I/O as far as possible in final builds.
 - When using `cout`, avoid the end-of-line terminator (`endl`), as this also flushes a stream, which is slow.
 - `cout` might be slower than `printf` by default, but that's fixable with `std::ios::sync_with_stdio(false);`
-- Easy debug-only code execution: `#ifdef _DEBUG`
+- Easy debug-only code execution: 
+```cpp
+#ifdef _DEBUG
+//some code
+#endif
+```
 
 ---
 
@@ -290,6 +295,8 @@ Tools do a good job of finding code that is slowing things down.
 
 ![image](assets/images/hot-path.png) <!-- .element width="80%"  -->
 
+[Visual Studio CPU usage](https://learn.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2022)
+and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/profiling/memory-usage?view=vs-2022) tutorials.
 
 ---
 
@@ -394,23 +401,30 @@ Tools do a good job of finding code that is slowing things down.
 
 ---
 
-#  Branching
+#  Branching: if vs switch statements 
 
-- A branch (an `if` statement of loop) has a cost to check and a cost to jump.
-- If possible, use a switch statement instead of if/else if/else if/...
+- A branch has a cost to check and a cost to jump.
+- **if statement** for complex conditions and/or few conditions
+- **switch statement** when a lot of value to test for a single variable.
+- If possible, use a switch statement instead of a lot of nested or consecutives **if/else if statements**
 
 ```cpp
-    if (value == sth) { /* Do work */ }
-	else if (value == sth_else) { /* Do other work */ }
+    if (var == value1) { /* Do work */ }
+	else if (var == value2) { /* Do other work */ }
+    else if (var == value3) { /* Do other work */ }
 	...
 	else { /*fallback*/}
-	// OR
-	switch(value)
+```
+```cpp
+    switch(var)
 	{
-		case sth: /*do work*/ 
+		case value1:  /*do work*/ 
 			break;
-		case sth_else: /*do other work*/ 
+		case value2:  /*do other work*/ 
 			break;
+        case value3: /*do other work*/ 
+			break;
+        ...
 		default:
 			break;
 	}
@@ -429,11 +443,11 @@ Tools do a good job of finding code that is slowing things down.
 ```cpp
     // Multiply every iteration
     for (int i = 0; i < 10; ++i)
-        cout << i * 10 << endl;
+        std::cout << i * 10 << std::endl;
 
     // Add every iteration
     for (int i = 0; i < 100; i += 10)
-        cout << i << endl;
+        std::cout << i << std::endl;
 ```
 
 ---
@@ -447,7 +461,7 @@ Tools do a good job of finding code that is slowing things down.
 
 - A simple solution may be to use more of your hardware resources.
 - Multi-core means you can execute code in parallel in different cores at the same time
-- There are different techniques: OpenMP, parallel STL algorithms (C++17), async, threads, etc
+- There are different techniques: OpenMP, Intel TBB, parallel STL algorithms (C++17), async, threads, etc
     - More on SET10108: Concurrent and Parallel Systems
 
 ---

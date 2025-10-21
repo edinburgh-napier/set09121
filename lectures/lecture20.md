@@ -278,7 +278,7 @@ Disclaimer: costs found after 20 mins of googling + I'm not a lawyer.
 # Review
 
 - Keep enough time for QA
-- Consider Localisation & Accessibility
-- TRC == MARKS
+- Consider TRC to frame the desired performance of your game.
+- Consider Accessibility
 - Game publishing is a legal battleground
 - If you plan on selling your game... Good luck
