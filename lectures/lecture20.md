@@ -1,16 +1,16 @@
 ---
-title: "Lecture20"
+title: "Lectur20"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture20.html
-summary: lecture21
+summary: lecture20
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 20 - Networking
+# Lecture 20 - QA and TRC
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -23,389 +23,262 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Our Goal
-
-- We want to enable our game to support multiple players from different machines.
-- This requires some form of communication between the different machines.
-- It also requires some form of coordination between the different instances of the game.
-- We also have to do this in real-time so that the game does not hang or become unplayable due to lag.
-- So how do we achieve this?
+## Quality Assurance (QA)
 
 
 ---
 
-# Questions
+# Bug Catching 
 
-- How does networking work?
-- How do we do network programming?
-- What are the limitations of networking?
-- How do we solve these limitations in games?
-- What data should we send in a game and how do we send it?
-- How can we do networking in SFML?
+![image](assets/images/portal2_bugs.jpg)
 
 
 ---
 
-## How does networking work?
-
----
-
-# Hardware
-
-- We can break-down network hardware into the following:
-    - Computers on the network.
-    - Network interfaces on the computers.
-    - Routers and switches that interfaces connect to.
-    - The connection between the interfaces and the switch/router.
-
-- Each one of these works at a different level of data abstraction.
-
-
- ![image](assets/images/network-diagram.png)
+# QA 
+"QA and publishing is like being tested on how well you can crash-land a plane" - Tim Schafer
 
 
 ---
 
-# The Seven Layer OSI Model
+# QA 
 
-- Networking works on a layered model.
-    - Application data at the top layer.
-    - Electrical signals at the bottom layer.
-- As programmers, we rarely need to consider below level 3.
-
-
-![image](assets/images/osi_layers.jpg) <!-- .element width="95%"  -->
-
----
-
-# Addressing and Switching
-
-- Networking works like a mail system.
-- We send data via packets (video file: lots of packets, text file: few packets)
-- Each individual packet has an address (IP address) which routers and switches have to look at.
-- Routers forward packets to different computer networks
-- Switches forward packets to the correct device in a network
-- Not all packets arrive at the destination
-
----
-
-# Transport Control Protocol - TCP
-
-- TCP provides means of breaking down data into separate packets.
-- Each data chunk is given a sequence number to allow the data to be reformed.
-- TCP guarantees acknowledgement of sent data - this means we know that data has arrived if we don't get an error.
-- TCP is the most common distributed application protocol because of its guarantees.
-- However, it also introduces higher latency. When this is an issue, we use UDP.
-
----
-
-## How do we do network programming?
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/ssUFuZyu5bw?start=974&end=1353" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ---
 
-# Client-server Model
+# Bug Tracking 
 
-- The most common application model in networking is the client-server.
-- A client connects to a server machine via some form of universal addressing.
-- The server can now communicate directly with that client.
-- A server may have multiple clients that it is communicating with.
+![image](assets/images/bug_tracker.png)
 
+---
 
- ![image](assets/images/client-server.png) <!-- .element width="60%"  -->
+# Bug Catching 
 
+![image](assets/images/civ.jpg) <!-- .element width="95%"  -->
 
 
 ---
 
-# Sockets
+# Bug Catching 
 
-- Applications communicate using sockets.
-- A socket is just an encapsulation of the following:
-    - Address: typically an IP address.
-    - Protocol: for example TCP.
-    - Port: allows an individual application to be addressed on the network.
-- These are provided by layers 3-5 of our model.
-- A socket is therefore a software abstraction that allows an application to send and receive data with other applications.
-- Each socket thus has both a source port and a destination port.
+![image](assets/images/MissingNo.png)
+
+---
+
+
+# Bug Catching
+
+[**Game Developer Article - My Hardest Bug Ever**](https://www.gamedeveloper.com/programming/my-hardest-bug-ever)
+
+The symptom was that you'd go to save your progress and it would access the memory card, and almost all the time, it worked normally
+
+... But every once in a while the write or read would time out
+
+... for no obvious reason. A short write would often corrupt the memory card. 
+
+The player would go to save, and not only would we not save, we'd wipe their memory card.
 
 
 ---
 
-# Server Socket
+# Playtesting
 
-- A server socket is a special type of socket that listens for an initial communication.
-- A client socket will connect to this socket initially.
-- Once connected, the server creates a new socket exclusively for that client connection (with an appropriate port).
-- The server socket can continue listening on its original socket for new incoming connections.
-- A server socket will be the first established socket in a distributed application. It is needed to initiate a connection.
+Playtests can be super useful. If you treat them right.
 
-
-
----
-
-# Three-way Handshake
-
-- As TCP requires guaranteed connection, the client-server communication initiates what is known as a three-way handshake.
-- The client sends a SYN packet to the server.
-- The server sends a SYN+ACK packet to acknowledge.
-- The client sends a ACK packet to acknowledge.
-- Communication is now established.
-
-
- ![image](assets/images/three-way.png)
+1. Be clear of your test goals <!-- .element: class="fragment" -->
+ - are you testing if a single mechanic works?
+ - are you testing to see if a level is the right difficulty?
+ - are you testing to get a general review?
+2. Make a correct environment for your test. <!-- .element: class="fragment" -->
+ - Turn off features or levels with issues to isolate just the feature you want to test 
+3. Pick your test candidates, and make sure to inform them accordingly <!-- .element: class="fragment" -->
+4. Be aware of what you do/don't tell test participants beforehand <!-- .element: class="fragment" -->
+5. RECORD THE TEST (Screen capture) <!-- .element: class="fragment" -->
+6. Don't hover <!-- .element: class="fragment" -->
+7. Do a post-test survey / interview. <!-- .element: class="fragment" -->
 
 
 ---
 
-## What are the limitations of networking?
+# Playtesting
 
 
+Marc Tattersall (Schell Games) Top 5 post-playtest Questions.
 
----
-
-# Bandwidth and Throughput
-
-- The biggest limitation on a network is its bandwidth.
-- The bandwidth indicates the theoretical limit that data can be sent through the network.
-    - Typically measured in megabits (1 million bits) per second.
-- Most people have heard the term bandwidth, but the actual figure we are interested in is throughput.
-- Throughput is the **actual** amount of data that is sent between two machines.
-- Throughput will be lower than bandwidth due to limitations between the two machines and other factors.
-- Generally, throughput is too low for transferring an entire game's data in 16ms.
-    - On a 100Mbps network that is enough time to send 2 kilobytes of data.
+1. What was your favorite moment or interaction? <!-- .element: class="fragment" -->
+1. What was your least favorite moment or interaction? <!-- .element: class="fragment" -->
+1. When did you feel the most clever? <!-- .element: class="fragment" -->
+1. Was there anything you wanted to do that the game wouldn't let you do? <!-- .element: class="fragment" -->
+1. If you had a magic wand and could change any aspect of the game or your experience, what would it be? Unlimited budget and time. <!-- .element: class="fragment" -->
 
 
 ---
 
-# Latency
-
-- Latency (or lag) is a bigger concern in games.
-- Latency is the time it takes a packet to get to another machine.
-- You can find latency easily using ping and dividing the result by two (as ping does a round trip).
-- For example, as of writing I can ping Google from my office machine in about 23ms, so latency is about 12ms.
-- Latency is therefore going to mean any update you send between game instances will likely be at least one frame out-of-date.
+## Technical Requirement Checklist (TRC)
 
 
 ---
 
-# TCP Guarantees
+# TRC Intro
 
-- TCP can be a very slow protocol.
-- Each TCP packet must be acknowledged by the receiver.
-- The receiver has to rebuild the sent data from the packets.
-- If any packet is missing, the entire data is resent.
-- If an acknowledgement is not received, the sender resends the data.
-- So TCP guarantees come at a cost.
+- This has many different names, but all companies have them
+- It's vital if you release anything for consoles, in particular
+- It's all about ensuring that your game works on the hardware
+- Sometimes it is just to ensure everything behaves in a standard, expected, way.
+
+---
+
+# TRC Example 1
+
+When save data is loaded, the state of the application at
+the save timing (including game progress, status of characters and their
+owned items, play history, etc.) is restored correctly.
 
 
 ---
 
-## How do we solve these limitations in games?
+# TRC Examples 2 
+
+If the time required for loading exceeds 30 seconds, the
+application displays an animation. Progress information such as a
+progress bar or the remaining time is displayed if the time required for
+loading exceeds 60 seconds.
 
 
 ---
 
-# Peer-to-peer Lockstep
+# TRC Examples 3
 
-- The original approach to solving networking for games was a peer-to-peer lockstep.
-- Here, each client would update its move to the other clients.
-- The game would wait until everyone has updated before moving onto the next move.
-- It was slow as you can guess.
+Test all online activity with a 2000 friend account
+
+---
+
+# Your TRC Pt.1
+
+- 2D graphics engine using SFML
+- Main menu (Ability to quit to menu, and restart game)
+- Some form of AI
+- Interactive Sound (i.e not just background music)
+- 1080p/60fps on a reasonable systems specification
+- Usability options:
+ - Remappable controls
+ - Controller support
+- Graphics options (Resolution & window mode)
+- Windows: 10 x64
+- Single file .exe game installer/uninstaller
+- User preference/savegame saving/loading from disk
+- Web presence with game promo material and downloads
+
+---
+
+# Your TRC Pt.2 
+
+- Software Design & Code Quality
+    - Tidy, documented, and organised code.
+    - Use of appropriate software patterns.
+    - Evidence of performance analysis and optimisation.
+- Software Engineering Methods & Testing
+    - Evidence of proper version control best practises
+    - Evidence of proper project management
+    - Working continuous integration
+    - Working build testing
+    - Evidence and reports from playtests
 
 
- ![image](assets/images/p2p.png)
+---
+
+# Accessibility 
+<http://gameaccessibilityguidelines.com>
+
+- Allow the game to be started without the need to navigate through multiple levels of menus
+- Ensure no essential information is conveyed by a colour alone
+- Ensure no essential information is conveyed by sounds alone
+- Offer a wide choice of difficulty levels or difficulty customisation
+- Give a clear indication that interactive elements are interactive
+- Allow interfaces to be resized
+- Allow all narrative and instructions to be replayed
+
+---
+
+# Localisation 
+
+Watch out for:
+- EFIGS!
+- Vertical text!
+- Text in Art Assets!
+- Gendered Languages
+- Player chat & Unicode
 
 
 
 ---
 
-# Client-side Prediction
-
-- Nowadays games use prediction algorithms to counter latency
-- Client handles input locally, and sends it to server
-- After server game state update, clients gets update too
-- If new state different from predicted state: smooth/interpolate
-
-
- ![image](assets/images/client-prediction.png)
-
+## Publishing
 
 
 ---
 
-# User Datagram Packet - UDP
+# Role of Publishers Then:
 
-- As we are now predicting movements and locations, we can occasionally lose information without much concern.
-- Therefore, we do not need packet guarantees. TCP is no longer needed.
-- UDP is an alternate protocol which is connectionless. We just send data to a location.
-- The receiver will keep looking for new data packets as often as it can.
-- Basically, we can improve performance considerably by not acknowledging data sends.
+- Bankroll Development
+- Handle All Marketing
+- Negotiate Physical Sales and distribution
+- Localisation and QA
+- Legal Protection
+- Occasionally hotdrop producers into dev team
+
+---
+
+# Role of Publishers Now:
+- *Might* pay you something before game is finished
+- Handle some marketing, devs do *"Community Management"*
+- Negotiate *some* sales deals (particularly with platform holders)
+- **Localisation and QA**
+- **Legal Protection**
+- Having said that, every publisher is different. Get the deal that works for you!
+
+---
+
+# Legals
+
+I'm not a lawyer, and neither are you.
+
+- Get a lawyer
+- Form a company
+- Protect your IP
+- Don't get sued
+
+[LINK: IGDA white papers on IP](https://igda.org/resources/) 
+
+If you game can be cloned. It will be cloned.
 
 
 ---
 
-# TCP vs UDP Header
+# Legal costs
 
-![image](assets/images/tcp_udp_header.jpg) <!-- .element width="60%"  -->
+- **Form a company** 
+    - Protects *you* if you are sued (Actually pretty easy in the UK) £100-1000
+- **Contracts** 
+    - Formal agreement on ownership of work. Get one even if someone is doing work for free. £600-1000
+- **Trademark your game and company** 
+    - People can still clone your game, but they can't pretend to be you  £500-2000
+- **Terms of Service and Privacy Policy** 
+    - Stop you being sued in the first place £600-1000
+- **Package deals** 
+    - Common for Indies £3000
 
-
----
-
-# Synchronous vs Asynchronous Polling
-
-- We can also choose how we receive data from connections.
-- Typically, we **wait** on a connection until data arrives. Really bad if done in main thread.
-- Asynchronous socket communication means we don't wait: we just read otherwise we move on.
-- This allows the game to continue on and we can check again later.
-
----
-
-# Physics
-
-- A big problem in games actually comes from the physics system.
-- The physics system is keeping track of all the physical objects and their interactions.
-- A physics engine will typically add some randomness to reactions just to smooth out some of the operations.
-- We cannot have this in different clients as it would lead to different game instances having different object locations.
-- Solving game physics problems is a whole other area that we won't cover - just send the complete physical data every so often to get around this.
+Disclaimer: costs found after 20 mins of googling + I'm not a lawyer.
 
 
 ---
 
-## What data should we send in a game and how do we send it?
+# Review
 
-
-
-
----
-
-# Initial State
-
-- Scenes/levels are typically the same for all clients, only starting parameters differ
-- We only need to share what is different:
-	- Player start position: ok
-	- Position of some random tree: **unnecessary**
-
----
-
-# Scene Updates
-
-- At every network "tick" you need to communicate data between the client and server.
-- The communication must update the server with information the client has on scene updates.
-- The communication must update the client with information the server has on scene updates.
-- Every so often, the client and server must do a more complete update to normalise their information.
-- Effectively, we are trying to keep the client and server as synchronised as possible without performing lockstep.
-
-
----
-
-# Object Serialisation
-
-- The process of converting a data object into a series of bytes
-- Deserialise: opposite process
-- Can be text (e.g. JSON, XML) or binary
-- Several managed languages have good built-in serialisation because of their support for reflection.
-- Reflection is the capability to inspect type information at runtime
-- C++ has poor reflection support, and poor built-in serialisation capabilities
-
-
----
-
-# Designing a Protocol
-
-- Limit serialisation: build a communication protocol
-- Design your message types and the data that will go into the message
-- This will allow simple messaging that can be easily managed
-- Here is a one-size-fits-all message:
-
- ![image](assets/images/protocol.png)
-
-
----
-
-## How can we do networking in SFML?
-
----
-
-# SFML Networking
-- Networking in SFML is relatively easy.
-- We will use the following classes:
- - **TcpListener** - a listening or server socket.
- - **TcpSocket** - a socket to communicate via.
- - **UdpSocket** - a UDP socket to communicate via.
-- We will use the following methods:
- - **listen** - listen for a new connection.
- - **accept** - accept a new connection.
- - **connect** - connect to a server.
- - **send** - send data via a socket.
- - **receive** - receive data from a socket.
-
-
-
----
-
-# SFML Networking Server
-
-```cpp
-#include <iostream>
-#include <SFML/Network.hpp>
-
-using namespace std;
-using namespace sf;
-
-int main(int argc, char **argv) {
-    TcpListener listener;
-    if (listener.listen(5000) != Socket::Done) {
-        cout << "Server could not open socket" << endl;
-        return -1;
-    }
-    
-    TcpSocket client;
-    if (listener.accept(client) != Socket::Done) {
-        cout << "Server could not accept connection" << endl;
-        return -1;
-    }
-    return 0;
-}
-```
-
-
----
-
-# SFML Networking Client
-
-```cpp
-#include <iostream>
-#include <SFML/Network.hpp>
-
-using namespace std;
-using namespace sf;
-
-int main(int argc, char **argv) {
-    TcpSocket socket;
-    Socket::Status status = socket.connect("127.0.0.1", 5000);
-    if (status != Socket::Done) {
-        cout << "Error - could not connect to server" << endl;
-        return -1;
-    }
-    return 0;
-}
-```
-
----
-
-## Summary
-
-
----
-
-# Summary
-
-- We have defined the issue of networking and discussed how we solve game networking issues.
-- We looked at networking layers and protocols.
-- We looked at network sockets.
-- We looked at the limitations of networking by analysing the common metrics.
-- We looked at how we overcome these limitations in games by looking at communicating patterns and UDP.
-- We then discussed what data to send and how by discussing protocols.
-- And finally we looked at how we use SFML for networking by presenting a client and server example.
-- This is all you need to get started with networking for games using SFML. The lab will provide a concrete application.
+- Keep enough time for QA
+- Consider TRC to frame the desired performance of your game.
+- Consider Accessibility
+- Game publishing is a legal battleground
+- If you plan on selling your game... Good luck

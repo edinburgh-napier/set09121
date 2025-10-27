@@ -11,7 +11,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 19 - Performance Optimisation
+# Lecture 19 - Releasing your game
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -22,456 +22,199 @@ Babis Koniaris/Tobias Grubenmann
 School of Computing. Edinburgh Napier University
 
 
+
 ---
 
-# What is Performance Optimisation?
+## Release builds
 
-- Optimisation is about making the best use of a resource.
-- Optimisation in software is about making best use of our computer hardware resource(s).
-- There are different areas we can optimise for in software, but we will focus on performance.
-- Performance is about getting the most work done in the shortest amount of time with our computing resource.
-- Therefore, in a game, we are worried about:
-    -  producing a frame in a reasonable time (typically 16.6ms) 
-    -  performing the most work possible in that time to give a good gameplay experience.
-- We are going to look at code level concerns mainly. Turning down update frequencies of systems is another strategy.
+![image](assets/images/gold-master.jpg) <!-- .element width="60%"  -->
 
 
 ---
 
-# Premature Optimisation
+# Green Go button 
+Moving beyond the Green button.
 
- Two famous quotes by Donald Knuth:
-- "We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."
-- "In established engineering disciplines a 12% improvement, easily obtained, is never considered marginal and I believe the same viewpoint should prevail in software engineering."
-
----
-
-# Premature Optimisation
-
-Basically, Knuth argues that we should not let performance considerations determine the design of our code -  it makes the code more difficult to work with.
-
-I think a good rule for the module is -  get your game working first; then worry about extra features and performance optimisation.
-
-A good approach is to design-build-measure-optimise. 
+![image](assets/images/build_options.png) <!-- .element width="95%"  -->
 
 
 ---
 
-# The 80/20 Rule
+# Runtime Resources 
 
-- You might have heard of this...
-- Pareto Principle (or 80/20 rule) states that 80% of output comes from 20% of input.
-- Applied to programming, we can say that 80% of processor time will happen in 20% of our code.
-- It does make sense -  loops normally are the biggest area of computation in your application.
-
-
- ![image](assets/images/80-20.jpg) <!-- .element width="60%"  -->
-
----
-
-# What are we interested in?
-
-- There are two areas we can focus on to improve program performance for our games.
-- **CPU utilisation**:
- - How well are we using the processor? Is it doing work it doesn't need to?
-- **Memory usage**
- - Is memory effectively accessible to the processor? Is the processor waiting too long to do memory operations?
-- We will focus on these two areas, looking at best-practice on the CPU and memory usage.
-- There are many more techniques and tricks we can use, but normally they come down to these same two areas.
-
-
+![image](assets/images/build_folder.png) <!-- .element width="70%"  -->
 
 
 ---
 
-# First big trick
+# Release Builds 
 
-Release mode and run without debug
+Tidy up before you ship
 
-- A debug build is far slower than a release build
-- Running with "Debugging" mode on in a build is far costlier than without debugging
-- To identify the true performance: build with Release, execute without debugging
+- Hide CMD window <!-- .element: class="fragment" -->
+- Don't assume resolution <!-- .element: class="fragment" -->
+- Pipe Exceptions to an error popup window <!-- .element: class="fragment" -->
+- Turn off any developer cheats <!-- .element: class="fragment" -->
 
- ![image](assets/images/run-no-debug.JPG)
-
-
----
-
-# Second big trick 
-
-Avoid I/O or do it better
-
-- During debugging, we often output values to the console to check behaviour.
-- I/O like this is very slow, requiring your program to interact with the OS and present data.
-- You should avoid this I/O as far as possible in final builds.
-- When using `cout`, avoid the end-of-line terminator (`endl`), as this also flushes a stream, which is slow.
-- `cout` might be slower than `printf` by default, but that's fixable with `std::ios::sync_with_stdio(false);`
-- Easy debug-only code execution: `#ifdef _DEBUG`
-
----
-
-# Metrics
-
-- Let's define metrics that allow us to talk about performance .
-- FPS: Frames-Per-Second. 
-    - The key measure most gamers like to talk about. The typical FPS displayed is the **average** of the number of frames processed per second. 
-- Frame Time:  
-    - This is actually what we are interested in. How long does it take the game to produce and render a **single** frame? Typically we aim for 16.7ms (60FPS) or 33.3ms (30FPS).
-- Speedup
-    -  When we make an improvement we need to understand what that improvement is. Speedup is the calculation of the original time against the new time. It is calculated as $S=\frac{original}{new}$.
+This should ideally be done automatically <!-- .element: class="fragment" -->
 
 
 ---
 
-## Step 1 - Only process what you need
+# Runtime Resources 
+
+What does your game need, and where does it look for it?
 
 
 ---
 
-# Alive Flag
+# Static vs Dynamic Linking
 
-- The first tactic we can use to improve processing is to flag if processing something can be skipped.
-- An alive flag is a typical technique to indicate that an object should not be processed.
+**Static Linking**
+- Larger .exe file  <!-- .element: class="fragment" -->
+- No .dll / .so's generated <!-- .element: class="fragment" -->
+- Potential for better compiler optimisation <!-- .element: class="fragment" -->
+- Lock the version of libs <!-- .element: class="fragment" -->
 
-```cpp
-if (alive) {
-    DoSuperExpensiveOperation();
-}
-...
-if (health == 0) {
-    alive = false;
-}
-```
-
-
----
-
-# Object Pool
-
-- Object creation and destruction is very expensive.
-- It involves memory allocation, function calls, grabbing bits and pieces, maybe loading content.
-- It can also lead to objects being scattered around memory -  expensive to jump around.
-- An object pool fixes that (especially when combined with alive flags):
-    - Allocate max number of objects required.
-    - When a new object is needed grab from allocated pool and set necessary values.
-    - When finished, flag as not-alive and give back to pool.
+**Dynamic (Shared) linking**
+- Smaller .exe file <!-- .element: class="fragment" -->
+- Libraries compiled to .dll <!-- .element: class="fragment" -->
+- can reuse and share dlls already on the system <!-- .element: class="fragment" -->
+- Modders can hack/swap out your .dlls. <!-- .element: class="fragment" -->
 
 
 ---
 
-# Dirty Flag
+# Asset Pipeline During Development Vs Release
 
-- Some game data is processed each frame to allow our game to have a dynamic nature.
-- However, a lot of data only changes in some circumstances.
-    - For example, the player only moves when the user controls them.
-- Rather than reprocess certain data every frame, we can use the dirty flag to say that data should be reprocessed that frame.
+* During **development**: 
+	* Assets need to be frequently iterated on/edited
+	* Assets need to be in an artist-friendly form
+	* Heavy/slow compression hurts iteration times
 
-```cpp
-if (player moved) {
-    Change position in primary data
-    Set dirty flag on primary data
-}
-...
-if (dirty flag is true) {
-    Process secondary data (expensive)
-    Set dirty flag to false
-}
-```
+* At **release**:
+	* Assets are not modified anymore
+	* Assets need to be in optimal form for game execution
+	* Heavy compression is fine, as long as decompression does not hurt load times
+	
+* Examples: 
+	* texture/mesh/sound compression
+	* ... or conversion	to game-ready formats
+---
+
+# Asset Pipeline Out There
+
+* AAA studios do complicated things here. 
+
+* Even UE4/Unity have complicated final "cooking" steps. 
+
+* This should all be automated - more on this later 
+
+* You probably do not need a custom asset pipeline
 
 ---
 
-## Step 2 - Only draw what is visible
+# Installers
 
+Why?  You could just deploy your game as a Zip file
 
----
-
-# Visible Flag
-
-- Rendering to the screen is one of the most expensive processes in games.
-    - It's why we have dedicated graphics hardware.
-- We can use our flag technique to determine if an object is visible and therefore should be rendered.
-- This allows us to hide objects/turn off their rendering when we want.
-- It also allows us to add objects that should not be rendered.
-    - Remember - what you see when playing a game isn't all that is there.
-
-```cpp
-    if (visible)
-    {
-        Render object (expensive)
-    }
-```
-
+1.  Contain all your game files inside a single runnable .exe file - typically compressed. <!-- .element: class="fragment" -->
+2.  Show a dialogue wizard of some kind that let's the user select an installation folder. <!-- .element: class="fragment" -->
+3.  Extract your game files to the selected folder. <!-- .element: class="fragment" -->
+4.  Optionally create desktop/Start Menu Shortcuts. <!-- .element: class="fragment" -->
+4.  Install dependencies / registry values. <!-- .element: class="fragment" -->
 
 ---
 
-# Spatial Partitioning
+# Running as Admin 
 
-- Another question is whether an object is even on screen.
-- Spatial partitioning allows us to divide the world up so we only render the parts that are visible.
-- Also used for collision detection optimisation.
+### HINT - This has been a recurring issue.  
 
-![image](assets/images/spatial-partition.png) <!-- .element width="80%"  -->
+Windows requires elevated permissions to touch `C:\Program Files` <!-- .element: class="fragment" -->
 
+The only time your game should need Admin Privileges is the installer, and it should work without it if a user installs to a non-protected space. <!-- .element: class="fragment" -->
+
+Consider where your save game files will go. <!-- .element: class="fragment" -->
+
+Perhaps look at where loads of other games save stuff? <!-- .element: class="fragment" -->
 
 ---
 
-# Example - Horizon Zero Dawn
+# How
 
-<video class="middle" width="960" height="540" loop autoplay>
-  <source src="assets/videos/horizon.mp4" type="video/mp4">
-</video>
+![image](assets/images/nullsoft.jpg) <!-- .element width="80%"  -->
 
 
 ---
 
-## Step 3 - Think about your memory
+# Un-Installers 
 
----
-
-# Memory
-
-Allocate Your Required Memory First
-- We have mentioned this a few times now.
-- Memory allocation (and subsequent deallocation) is expensive on the free store.
-- Try and allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
-- Data should also be near similar data -  this allows quick processing of blocks during similar operations.
+Make sure they work, and are added to Windows correctly.
 
 
 ---
 
-# `constexpr` What You Can
-
-- `const` is a qualifier used for readability, maintenance and performance
-- `constexpr` takes this further: expression is calculated at compile time
-    - So you can produce certain functions that are compile time processed.
-- Compile time means the code is not processed during runtime.
-
-```cpp
-constexpr int N = 1000;
-
-constexpr int factorial(int n)
-{
-    return n <= 1 ? 1 : (n * factorial(n - 1));
-}
-
-//compiler does this!
-constexpr int Nfav = factorial(N); 
-
-```
-
----
-
-# Memory Alignment and Cache Coherence
-- We talked about this during our memory and resource management lectures.
-- Memory alignment means that data is aligned in memory to minimize the reads to access the data that we need.
-- For cache coherency we discussed the difference in processing a multi-dimensional array using different indices, due to memory layout. For example, the first `for` loop below is faster than the second.
-
-```cpp
-for (int i=0; i < 32; i++)
-    for (int j=0; j < 32; j++)
-        total += myArray[i][j]; // GOOD! Fast!
-
-for (int i=0; i < 32; i++)
-    for (int j=0; j < 32; j++)
-        total += myArray[j][i]; // BAD! Slow!
-```
-
----
-
-## Step 4 - Use tools to find slow bits
+## Continuous Integration
 
 
 ---
 
-# Finding Hot Paths -  Using Tools
+# Continuous Integration Benefits
 
-Tools do a good job of finding code that is slowing things down.
-
-
-![image](assets/images/hot-path.png) <!-- .element width="80%"  -->
-
-
----
-
-# Bottlenecks
-
-- The key aim with tools is bottleneck identification.
-- Once you find a bit of your code that is impacting performance, you need to identify what, if anything, can be done about it.
-- Often, these bottlenecks are loops that are processing lots of data.
-- Even a small tweak here can make all the difference.
-
-
- ![image](assets/images/bottleneck.jpg)
-
+- Ground Truth - no more "works on my machine"
+- Alerts on broken builds - especially useful for multi-platform
+- Signpost to others that your software still works
+- Links in well with Unit Testing
 
 ---
 
-# Algorithmic Analysis
+# Continuous Integration Disadvantages
 
-- And this is where algorithmic analysis can come in.
-- Abstractly measuring your algorithms, finding more efficient algorithms, and optimising the algorithms you have is important.
-- See your Algorithms and Data Structures material for more insight.
+- Might cost you! You're using someone else's computer to do work
+- Can be a bit of a faff to set up...
 
-
- ![image](assets/images/alg-analysis.jpg)
-
-
----
-
-## Step 5 - Optimise function calls
-
+but...
+- It is a *good idea* that most companies of a certain size and above use.
+- Check out AppVeyor or Github Actions for a way to integrate (heh) this into your current workflow
 
 ---
 
-# Function Calls Cost
-
-- Function calls have a cost associated with them.
-- Two things have to happen.
-    1.  Set up the parameters on the stack -  copy data.
-    2.  Jump to the new code position.
-- On return there is a jump back again.
-
-
- ![image](assets/images/function-call.png) <!-- .element width="25%"  -->
-
-
----
-
-# `static` Local Functions
-
-- A `static` function is one that exists within a certain context or
-    scope (e.g. class scope).
-
-- If a function is `static` in a C++ code file, the compiler knows it
-    can try and optimise it without affecting external code.
-
-- Effectively, rearranging and possible inlining can occur, speeding
-    up the program.
-
-```cpp
-    static int add(int x, int y)
-    {
-        return x + y;
-    }
-```
-
-
----
-
-# `virtual` Function Calls
-
-- `virtual` functions have an additional cost.
-- A `virtual` function call involves a lookup on the object to determine which function to call.
-- Effectively we are double jumping in this instance.
-
-
- ![image](assets/images/virtual-function.png)
-
-
----
-
-#  `const` What You Can
-
-- Basically set everything you can to `const`.
-- A `const` method is one that will not change the object.
-- Therefore the compiler can optimise the code based on access again.
-
-```cpp
-    class my_class
-    {
-    public:
-        void do_work() const
-        {
-            // Do something
-        }
-    };
-```
-
----
-
-## Step 6 - Branching and Loops
-
-
----
-
-#  Branching
-
-- A branch (an `if` statement of loop) has a cost to check and a cost to jump.
-- If possible, use a switch statement instead of if/else if/else if/...
-
-```cpp
-    if (value == sth) { /* Do work */ }
-	else if (value == sth_else) { /* Do other work */ }
-	...
-	else { /*fallback*/}
-	// OR
-	switch(value)
-	{
-		case sth: /*do work*/ 
-			break;
-		case sth_else: /*do other work*/ 
-			break;
-		default:
-			break;
-	}
-```
-
-
-
----
-
-# `for` Loops
-
-- For loops are one of the most expensive parts of your application due to the number of iterations.
-- They are also one of the best places to optimise -  we will look at parallelisation here also.
-- One particular point is avoiding doing work that the loop statement can do -  such as the indexer.
-
-```cpp
-    // Multiply every iteration
-    for (int i = 0; i < 10; ++i)
-        cout << i * 10 << endl;
-
-    // Add every iteration
-    for (int i = 0; i < 100; i += 10)
-        cout << i << endl;
-```
-
----
-
-## Step 7 - Use more cores!!!
-
-
----
-
-# Just Throw Some Threads at the Problem!?
-
-- A simple solution may be to use more of your hardware resources.
-- Multi-core means you can execute code in parallel in different cores at the same time
-- There are different techniques: OpenMP, parallel STL algorithms (C++17), async, threads, etc
-    - More on SET10108: Concurrent and Parallel Systems
-
----
-
-# Cost of Threads
-
-- Threads do have costs: performance, cognitive and maintenance
-- They require memory, and switching between threads costs time
-- They can easily introduce bugs into your application
-- Keeping track of application workflow with threads is harder
-
----
-
-## Summary
+## Deployment Summary
 
 
 ---
 
 # Summary
 
-- Performance optimisation is important, but you need to be careful. 
-- Premature optimisation is the root of all evil, but think of your algorithm choices.
-- Use tools to identify bottlenecks. Fix if needed.
-- Most impactful optimisation is not running code at all (dirty/alive flags, etc).
-- Low-level optimisations are typically an illusion that makes your code less readable.
-- High-level optimisations can have the greatest effect, and they happen "on paper".
-- Parallelisation is great, and is also a can of worms. Tread carefully.
+1. Make sure your game works in Release
+2. Understand everything your game needs to run.
+3. Make an Installer & Uninstaller
+4. Test your build automatically in the Cloud
+
+
+---
+
+# TOP TIPS
+
+- Embed Version/Commit Numbers.
+- Automate Everything.
+ - Avoid one-off mistakes, fix it once, it will always work
+- **Test it** 
+ - Test it on new machines, old machines, fresh machines, 
+ - Virtual machines, JKCC/VDS machines, your friends' machines
+ 
+---
+
+---
+
+## IF YOUR CODE DOES NOT RUN ON MY MACHINE WHEN I TEST IT, YOU WILL LOSE MARKS!
+
+---
+
+# TOP TIPS
+
+Test your code on other machines
+
+Check you have all the files included in the installer
+
+Check you have the right .dlls

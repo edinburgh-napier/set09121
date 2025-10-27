@@ -66,8 +66,7 @@ School of Computing. Edinburgh Napier University
 # Why Too Complicated?
 
 - If there are only simple convex objects, basic avoidance behaviours will look great!
-- But if you have concavities, obstacle avoidance will break down
-	- In fact, your boids will appear almost magnetically funneled into the concavities!
+- But if you have concavities, obstacle avoidance will not work
 - As we discussed previously, level design impacts AI design
 
 ---
@@ -95,27 +94,19 @@ School of Computing. Edinburgh Napier University
 
 ## Underpinning Theory - Graphs
 
+![image](assets/images/node-link.png)
+
 
 ---
 
 # What is a Graph?
 
-- Prepare to have terms thrown at you which might give you flashbacks.
-- A **graph** is just a collection of objects where pairs of objects are related in some way.
-- We typically refer to the objects as **nodes** (or vertices) and the connections as **edges**.
-- A graph can therefore be defined as a set of nodes and a set of edges.
+- A **graph** ***G***, is a set of **nodes** (vertices or points) ***V*** connected by **edges** (links or lines) ***E***: $$G = (V,E)$$
 - From a game pathfinding point of view, a node is a location in the game world, and an edge is a path between two edges.
-    - We don't need to be any more elaborate than that in game terms.
 
 
 ---
 
-# Example Graph - Node-link Diagram
-
-![image](assets/images/node-link.png)
-
-
----
 
 # Weighted Graphs
 
@@ -124,8 +115,6 @@ School of Computing. Edinburgh Napier University
     - Game factors: distance, underlying terrain, obstacles
 - We consider that an edge has a cost associated with it (weight)
 - To traverse an edge means to incur the cost of that traversal.
-- In our pathfinding each traversal will have a cost of 1.
-
 
 ![image](assets/images/weighted-graph.png) <!-- .element width="60%"  -->
 
@@ -189,27 +178,30 @@ School of Computing. Edinburgh Napier University
 
 # Dijkstra's Algorithm - 6 steps
 1.  Mark all nodes as initially unvisited. Use this to create the set of *unvisited* nodes.
-2.  Set distances for the nodes:
-    - Initial node (current node) distance is 0.
-    - Other node distances set to infinity.
-3.  For the current node look at connected neighbours. Use to determine a tentative distance from the current node. Update the neighbours distances if the new route is shorter.
+2.  Set costs for the nodes:
+    - Initial node (current node) cost is 0.
+    - Other node costs set to infinity.
+3.  For the current node look at connected neighbours. Use to determine a tentative cost from the current node. Update the neighbours costs if the new route is shorter.
 4.  Mark current node as visited (remove from *unvisited* set). We will not visit this node again.
-5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite distance, stop.
-6.  Else select unvisited node with smallest tentative distance from the initial node and set as current node. Go to step 3.
+5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite cost, stop.
+6.  Else select unvisited node with smallest tentative cost from the initial node and set as current node. Go to step 3.
 
 
 ---
 
 # Dijkstra's Algorithm
 
+![image](assets/images/Dijkstra_Animation.gif) <!-- .element width="80%" height="80%" -->
+
+---
+
+# Dijkstra's Algorithm
+
 - Dijkstra guarantees that the path found is going to be the shortest
-    - Unlike approaches such as BFS, DFS
+    - Unlike approaches such as best-first search (BFS), depth-first search
 	- BFS: special case of Dijkstra without weights or priority queue
 - Dijkstra iterates through nodes based on which one has the shortest distance from the start node.
 - This means it is not actively searching for the destination but doing a traversal of the graph until it happens to find it.
-
-
- ![image](assets/images/dijkstra.png)
 
 
 ---
@@ -267,13 +259,11 @@ School of Computing. Edinburgh Napier University
 
 - Dijkstra is a special case of A*, where the heuristic is zero
 - The algorithm is identical to Dijkstra, except a few points:
-    - The priority queue uses a *combined cost*
-	- The combined cost is the sum of the total travel cost from start to point, plus the heuristic
-	- The heuristic is the estimated cost from point to goal
-- Typical terminology: f/g/h
-	- h: heuristic function
-	- g-score: tentative cost from start to current node
-	- f-score: g-score plus the heuristic value
+    - The cost is computed as a *combined cost*: $$C(n) = g(n) + h(n)$$
+- Where
+	- h: heuristic function calculating the cost from the current node to the goal node
+	- g: tentative cost from start to current node
+	- C: the combined cost
 
 ---
 
@@ -298,24 +288,18 @@ School of Computing. Edinburgh Napier University
 ---
 
 # Heuristics
+The most common heuristics used are distances .
 
-- There are different heuristics we can use to make the pathfinding act in a different manner.
-- The one we will use is Euclidean distance (straight line):
-    $$h = destination - position $$
-- Use if you're not limited to grid-based movement
+- **Euclidean distance** (straight line): $$ h(n) = \sqrt{ (x_g-x_n)^2 + (y_g-y_n)^2 } $$
+- **Manhattan distance**: $$ h(n) = \lvert x_g-x_n \rvert + \lvert y_g-y_n \rvert $$
+- **Chebyshev distance**: $$ h(n) = \max(\lvert x_g-x_n \rvert , \lvert y_g-y_n \rvert) $$
+With $n$ current node and $g$ goal node
 
 ---
 
 # Heuristics
 
-- Another is Manhattan distance: 
-	$$ d = destination - position $$
-	$$ h = \lvert d.x \rvert + \lvert d.y \rvert $$
-	- Use when you can only move in a cardinal direction on a grid
-- Chebyshev distance is similar to Manhattan but allows diagonal movement:
-	$$ d = destination - position $$
-	$$ h = \max(\lvert d.x \rvert + \lvert d.y \rvert) $$
-	- Use when you can only move in cardinal or diagonal directions on a grid
+![image](assets/images/distance_examples.png) <!-- .element width="100%" height=100%" -->
 
 ---
 
@@ -365,10 +349,12 @@ School of Computing. Edinburgh Napier University
 - We have only looked at the main technique used in games but there are other considerations.
 - Jump Point Search: optimisation to A* for uniform-cost grids
     - Algorithm considers "jumps" along straight lines in the grid
-- HPA*: hierarchical variant
+- HPA\*  and [HAA*](https://web.archive.org/web/20190411040123/http://aigamedev.com/open/article/clearance-based-pathfinding/) : hierarchical variants
     - Break map into chunks, identify chunk entries/exits, precompute paths per chunk and run a multi-resolution search at runtime
 
 ![image](assets/images/hpastar.png) <!-- .element width="40%"  -->
+
+
 
 ---
 

@@ -1,0 +1,6 @@
+find a better example for encapsulation or abstraction to differentiate them.
+
+On muliple inheritance 
+Find out why -> It's ok if only one of the classes contains data, otherwise it's a **TERRIBLE** idea
+
+overloading function check the rule for return type

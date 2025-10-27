@@ -14,7 +14,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 ### SET09121 - Games Engineering
 
 <br><br>
-Babis Koniaris/Tobias Grubenmann
+Leni Le Goff
 <br>
 
 
@@ -147,7 +147,7 @@ School of Computing. Edinburgh Napier University
 
 - To solve a maze we can use a particular trick.
     - This only works if the maze is simply connected, i.e., all the walls are connected to each other (taking into account the outer boundary).
-- The basic algorithm is:
+- "Follow the wall" strategy:
     - Walk forward from the entrance until you hit a wall.
     - Turn left.
     - Now keep your right hand on a wall at all times.
