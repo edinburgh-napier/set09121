@@ -52,7 +52,7 @@ School of Computing. Edinburgh Napier University
 
 # Game Physics
 
-- Game physics is really only a small subset of academic physics - it is not theoretical.
+- Game physics is really only a small subset of physics theory.
 - Game physics uses classical mechanics to provide the basic movement of objects in the game world.
     - We will look at the Laws of Motion for example.
 - Other physics models are used in some areas of games.
@@ -69,7 +69,7 @@ School of Computing. Edinburgh Napier University
 
 - Game physics is almost always provided by a third-party engine.
 - It used to be that a game studio required someone with a Masters or PhD in Physics.
-- We will use Box2D as our middleware.
+- We will use Box2D as our physics engine.
 - There are a number of industry used, free, physics engines out there.
 
 ![image](assets/images/box2d.png) <!-- .element width="30%" -->
@@ -96,8 +96,8 @@ School of Computing. Edinburgh Napier University
 
 - Particle simulation forms the basis of many physics engines.
 - Particles are simply simulated elements (points) that we can apply the Laws of Motion to.
-    - The have a position, velocity, acceleration, etc.
-- Particles are use for numerous graphical effects.
+    - Particles have a position, velocity, acceleration, etc.
+- Particles are used for numerous graphical effects.
     - For example, smoke, fire, explosions, water, etc.
 
 ![image](assets/images/particle.jpg)<!-- .element width="60%" -->
@@ -109,8 +109,8 @@ School of Computing. Edinburgh Napier University
 
 
 - Rigid bodies is about how geometric objects move and interact.
-- Unlike particles, rigid bodies have a shape. This means they not only move in space, but can also rotate.
-- The bodies are rigid as they do not change shape.
+- Unlike particles, rigid bodies have a shape. This means that they *translate* and *rotate*.
+- The bodies are rigid as they do not change shape, they are *not deformable*.
 
 ![image](assets/images/rigid-body.jpg)
 
@@ -161,7 +161,7 @@ School of Computing. Edinburgh Napier University
 
 - Game physics are underpinned by Newton's Three Laws of Motion.
     - First described by Isaac Newton in the 17th century.
-- Newton's laws are:
+- **Newton's laws of motion** are:
     1.  Law of inertia
     2.  Force produces motion ($F = ma$)
     3.  Law of action and reaction
@@ -217,7 +217,6 @@ Or:
 
 # Equations of Motion
 
-- These equations apply when `$$a$$` is constant.
 
 <div style="float: left;width: 40%;" > 
 
@@ -232,6 +231,8 @@ Or:
 
 
 <div style="float: right;width: 60%;text-align: left;" > 
+These equations apply when $a$ is constant.<br>
+<br><br>
 \\\(s\\) : object displacement<br>
 \\\(u\\) : the initial velocity<br>
 \\\(v\\) : the final velocity<br>
@@ -252,7 +253,7 @@ Or:
 # Simple Gravity
 
 - On a planet, gravity is a downward force applied to an object.
-- Gravitational acceleration $g$ at sea level is equal to $9.82m/s^2$.
+- Gravitational acceleration $g$ at sea level is approximately equal to $9.82m/s^2$.
     - As a 2D vector this is $<0, -9.82>$.
 
 
@@ -300,7 +301,7 @@ On Earth: $$g = 9.8 m/s^2$$ so: $$\frac{1N}{g} = 0.102kg $$ $$ 1kg \times g = 9.
 # Force Examples
 
 - Springs are commonly used for a number of effects - they do exactly what you think.
-- In games, springs are used for deformable shapes and balls.
+- In games, springs are used for deformable shapes and bounce effects.
 
 Hooke's Law: $$F = -k\Delta s$$ where $k$ is the stiffness of the spring and $s$ the displacement from the resting length.
 
@@ -316,23 +317,28 @@ $$F_{drag} = -\hat{\textbf{v}}(k_1\lVert\textbf{v}\rVert + k_2\lVert\textbf{v}\r
 
 - Impulses are changes in an object's momentum
     - "Force acting over time"
-    - Momentum: $p = mv$
+    - Momentum: $p = F\Delta t$
 - We can use them instead of forces to handle collision resolution.
-- This allows us to transfer momentum instantenously without dealing with infinit forces acting over an infinte small amount of time.
 
 ---
 
-# Impulses over Forces
+# Impulses (cont.)
 
-- The effect of a force is gradual, particularly in the time frames we are dealing with.
-    - Force applied to an object.
-    - Force divided by object's mass is added to object's acceleration.
-    - Acceleration is then multiplied by time (typically a fraction of a second) and is added to the velocity of the object.
-    - The new velocity, multiplied by time, is used to move the object.
-- Exchange of impulses are instanteneous.
-    - Impulse is calculated.
-    - Impulse divided by mass is added to the velocity.
-    - Use the new velocity multiplied by time to move the object.
+- Using *impulse* is a easier way to handle change in velocity of an object than using *force*. 
+
+$$ p = F\Delta t $$ <br>
+$$ \equiv p = ma(t_2-t_1) $$<br>
+$$ \equiv p = m(v_2 - v_1) $$ <br> 
+$$ \equiv v_2 = p/m + v_1 $$ <br>
+
+
+```cpp
+void physics_update(double delta_t){
+    velocity += impulse/mass;
+    position = velocity*delta_t;
+}
+```
+
 
 ---
 
