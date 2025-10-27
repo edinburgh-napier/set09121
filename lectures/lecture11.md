@@ -354,6 +354,8 @@ void physics_update(double delta_t){
 
 ---
 
+# Summary
+
 **Warning (cont.)**
 
 - Physics engines are not always the best way to make your game *fun*.
