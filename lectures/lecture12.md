@@ -37,7 +37,7 @@ School of Computing. Edinburgh Napier University
 
 What is Artificial Intelligence?
 - AI is the study of the intelligence of machines, and the attempt to replicate human-like intelligence in a machine.
-- This is a very wide area of study, incorporating not only technical implementations of intelligence, but also ethics and philosophy.
+- This is a very wide area of study, incorporating not only technical implementations of intelligence, but also psychology, ethics and philosophy.
 
 
 ---
@@ -146,9 +146,7 @@ What is Artificial Intelligence?
 - Two core techniques:
     - Waypoints: Points indicating where the agent can go to.
     - Navigation mesh: A surface that determines areas where the agent can walk.
-- Two common algorithms:
-    - Dijkstra (slower but also works with zero weights).
-    - A* (faster, but requires a good heuristic).
+- Two common algorithms: Dijkstra, A* 
 
 ![image](assets/images/waypoint-mesh.jpg)
 
@@ -176,6 +174,8 @@ What is Artificial Intelligence?
 - Character will change state when a particular action occurs.
     - If patrolling and player is spotted then change state to attacking.
 
+![image](assets/images/state-machine.png)<!-- .element width="30%" -->
+
 ---
 
 # Decision trees
@@ -184,6 +184,8 @@ What is Artificial Intelligence?
 - Used to control characters decision making process.
 - Can also be used to control animation.
 - Very simple AI technique to implement, but it can be very powerful.
+
+![image](assets/images/decision_tree_ex.png)<!-- .element width="50%" -->
 
 ---
 
@@ -194,7 +196,7 @@ What is Artificial Intelligence?
 **Fuzzy logic**
 
 - It is based on fuzzy sets which introduce degree of ownership
-- Fuzzy logic introduce degree of trueness: instead of being fals or true, you have a continuous space [0,1].
+- Fuzzy logic introduce degree of trueness: instead of being false or true, you have a continuous space [0,1].
 - Fuzzy logic can be used in combination with states and continous inputs to have fuzzy decision making.
 
 ![image](assets/images/fuzzy-logic.png) <!-- .element width="30%" -->
@@ -206,12 +208,13 @@ What is Artificial Intelligence?
 
 - Behaviour trees
 	- Model for plan execution, using modular components/nodes.
-- Markov systems
-	- Similar to fuzzy logic but works with probability or priority of transitions.
+- Markov Chain or process
+	- Similar to state machines but with stochastic transitions: there is a probability to change to the next states.  
 - Goal-oriented behaviour
 	- Character chooses an action based on its current goals.
 - Rule-based systems
 	- Database of "if" conditions to determine the behaviour to take.
+    - Actually, similar to decision tree.
 
 ---
 
@@ -257,10 +260,10 @@ What is Artificial Intelligence?
 
 - Neural networks are a popular nature inspired technique. 
 - They are modelled on a simplified idea of the brain.
-    - Neurons get signal input (e.g. through senses).
+    - Neurons get signal input (e.g. through sensors).
     - Signal gets transformed and distributed to other neurons
 - Can have learning developed over time.
-- Academia and hobbyists see it as a method of believable learning.
+- Researchers and hobbyists see it as a method of believable learning.
 - So far fallen short on game projects (see Creatures, Fable II).
 
 
@@ -272,9 +275,9 @@ What is Artificial Intelligence?
 # Other Techniques
 
 - Emergent behaviour.
-    - Evolutionary algorithms.
-        - AI is given a set of values (genes) to determine the likelihood of performing an action.
-        - If the AI is successful the genes are used for breeding the next iteration.
+    - Evolutionary Algorithms and Reinforcement Learning
+        - An agent behaviour is parametrized with a set of values
+        - Iteratively, set of values are tested and evaluated with a goal function.
     - Bio-inspired algorithms.
         - Ant colony optimisation.
         - Artificial immune systems.
@@ -289,7 +292,7 @@ What is Artificial Intelligence?
 # Issues With These Techniques
 
 - The learning techniques often lack designer control
-	- They are 'black boxes'
+	- They are 'black boxes' and stochastic
 - This makes it hard to tune the AI agents in your systems
 - So how do we guarantee that the AI make the game *better*?
 
@@ -307,39 +310,6 @@ What is Artificial Intelligence?
     - Enemies attacking in realistic looking manners.
     - etc.
 
----
-
-## Bad AI
-
----
-
-# Bad AI
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/AUDwZj-A6Ck" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
-# Bad AI
-
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/Vk3aruZIZyo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
-# Bad AI
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/bc5BwK3iNh0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
-# Bad AI
-
-- When the game designer comes up with an idea, they have a vision of how the game will play.
-- A game is meant to be a carefully crafted experience for the player.
-- AI can and does bring unpredictability to the game.
-    - The game designer might not want unpredictable behaviour.
-- Developers may override the AI decisions for the sake of gameplay.
-
 
 ---
 
@@ -355,15 +325,29 @@ What is Artificial Intelligence?
 - If the NPC is on the player's side you need to make sure it does not let them down.
     - Halo, Fallout 4, Oblivion, all show examples of this
 
+
 ---
 
-# 'Protect Natalya'
+# Golden Eye 007 'Protect Natalya'
 
 ![image](assets/images/GoldenEye-Natalya.png) 
 
+
 ---
 
-# AI Doesn't Exist in a Vacuum
+
+# AI and Game Design
+
+- When the game designer comes up with an idea, they have a vision of how the game will play.
+- A game is meant to be a carefully crafted experience for the player.
+- AI can and does bring unpredictability to the game.
+    - The game designer might not want unpredictable behaviour.
+- Developers may override the AI decisions for the sake of gameplay.
+
+
+---
+
+# AI and Game Design (cont.)
 
 - Many examples of 'great AI' don't have very complicated AI...
 - How effective the AI appears is down to more than just the algorithm
