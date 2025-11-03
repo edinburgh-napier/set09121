@@ -57,11 +57,9 @@ School of Computing. Edinburgh Napier University
 
 # Review - Working with Vectors
 
-- We have dealt with vectors for a long time now.
-    - Hopefully you understand them!
 - Steering behaviours rely on vector operations.
     - We are generally trying to work out positions and velocity to move entities in a certain manner.
-- We will be performing numerous vector operations to support our steering behaviours.
+- We will be  using vector operations to support our steering behaviours.
     - Adding and subtracting vectors.
     - Getting the length of a vector.
     - Normalizing a vector.
@@ -106,6 +104,7 @@ School of Computing. Edinburgh Napier University
     - Avoid obstacle
     - etc.
 
+Useful resource: [Steering Behaviors For Autonomous Characters by C.W. Reynolds](https://www.red3d.com/cwr/steer/gdc99/)
 
 ---
 
@@ -133,6 +132,7 @@ School of Computing. Edinburgh Napier University
 
 - There are many steering behaviours out there.
     - Refer to the AI book for some of the most useful.
+    - or to this online resource: [Steering Behaviors For Autonomous Characters by C.W. Reynolds](https://www.red3d.com/cwr/steer/gdc99/)
 - You can even define your own if you like.
 - We will only look at four:
  - **Seek** : move towards a target.
@@ -197,7 +197,7 @@ $$ \left\lVert d \right\rVert > radius \implies v = \frac{d}{||{d}||} \times v_{
 
 - A rotational steer.
 - Turn to face a target.
-- Calculation (simplified - there are more checks to do):
+- Calculation:
 
 $$d = target - position $$
 
@@ -328,7 +328,7 @@ SteeringFunction SteeringBehaviours::seek =
 
 # Steering Behaviour Implementation
 
-Then, we can use them in a steering component for instance:
+Then, we can use them in a steering component:
 ```cpp
 SteeringOutput output = 
 SteeringBehaviours::seek(_player->get_position(),_parent->get_position());
