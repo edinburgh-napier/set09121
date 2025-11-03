@@ -47,7 +47,7 @@ This is the basic "Hello world" for SFML, we will use this to test everything is
 
 While C++ doesn't have a standardized package and build system (i.e, Pythons's pip, Nodes's npm), we have something that's pretty close: **CMake**
 
-CMake allows you to write a **CMakelists.txt** file. In this you specify what your program is, where the source files are, and where any of it's needed dependencies are. From here CMake will take that config file and make you a perfect already set up Visual Studio solution. No need to touch configuration options in Visual Studio, hooray!
+CMake allows you to write a **CMakeLists.txt** file. In this you specify what your program is, where the source files are, and where any of it's needed dependencies are. From here CMake will take that config file and make you a perfect already set up Visual Studio solution. No need to touch configuration options in Visual Studio, hooray!
 
 CMake has many more benefits, but what we care about is:
 1. You only need to store CMakelists.txt files in your Repo, __**no huge VSsolutions.sln**__
