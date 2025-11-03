@@ -174,6 +174,7 @@ School of Computing. Edinburgh Napier University
     - Network routing protocols will use such an algorithm.
 - Dijkstra is typically too expensive to use in games
 
+
 ---
 
 # Dijkstra's Algorithm - 6 steps
@@ -186,12 +187,35 @@ School of Computing. Edinburgh Napier University
 5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite cost, stop.
 6.  Else select unvisited node with smallest tentative cost from the initial node and set as current node. Go to step 3.
 
+---
+
+![image](assets/images/dijkstra1.png)<!-- .element width="100%" height="100%" -->
+
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
-# Dijkstra's Algorithm
+![image](assets/images/dijkstra2.png)<!-- .element width="100%" height="100%" -->
 
-![image](assets/images/Dijkstra_Animation.gif) <!-- .element width="80%" height="80%" -->
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
+
+---
+
+![image](assets/images/dijkstra3.jpg) <!-- .element width="100%" height="100%" -->
+
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
+
+---
+
+![image](assets/images/dijkstra4.png)<!-- .element width="100%" height="100%" -->
+
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
+
+---
+
+![image](assets/images/dijkstra5.png)<!-- .element width="100%" height="100%" -->
+
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
@@ -332,7 +356,7 @@ With $n$ current node and $g$ goal node
 
 - Our aim is to use pathfinding as a decision making process for our movement.
 - The basic idea is that we have a starting position and a target position.
-- We use pathfinding to make a decision about how to move to the target position.
+- We use pathfinding to plan the sequence of movements to reach the target position.
 - The list of nodes to visit then allows us to traverse the map using a steering behaviour.
 - The simplest approach is just to use an arrive behaviour for each node. Seeking might cause bouncing.
 - Combining steering behaviours, pathfinding, and physics will give you all the movement behaviour you need.
@@ -340,9 +364,6 @@ With $n$ current node and $g$ goal node
 
 ---
 
-## Summary
-
----
 
 # Other Techniques
 

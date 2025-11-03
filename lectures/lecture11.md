@@ -335,7 +335,7 @@ $$ \equiv v_2 = p/m + v_1 $$ <br>
 ```cpp
 void physics_update(double delta_t){
     velocity += impulse/mass;
-    position = velocity*delta_t;
+    position += velocity*delta_t;
 }
 ```
 
