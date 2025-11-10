@@ -105,10 +105,10 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Decision Tree - Example 2 
+# Activity Diagram example
 
 
-![image](assets/images/decision_tree.png) <!-- .element width="85%"  -->
+![image](assets/images/activity_diagram_example.png) <!-- .element width="65%"  -->
 
 
 ---
@@ -116,7 +116,7 @@ School of Computing. Edinburgh Napier University
 # Decision Trees in Our Game Engine
 
 - Our aim is to implement basic, reusable decision tree behaviour within our engine.
-    - We want reusable so that is is simple for us to extend functionality if required.
+    - We want reusable so that is simple for us to extend functionality if required.
 - We will be using a tree-like data structure to implement the decision tree behaviour.
 - Each decision point will be tested to determine which path to follow. The end decision will result in an action.
 
@@ -152,11 +152,14 @@ School of Computing. Edinburgh Napier University
 - On the `get_branch` code we just generate a random number and use it to determine the action to.
 
 ```cpp
-bool next_choice = rand() == 0 ? true : false;
-if (next_choice)
-    return true_node;
+static std::random_device rd;
+static std::default_random_engine e(rd());
+static std::uniform_real_distribution<> dist(0, 1);
+bool choice = dist(e) <= _probability;
+if (choice)
+    return _true_node;
 else
-    return false_node;
+    return _false_node;
 ```
 
 
@@ -381,6 +384,12 @@ decision_tree = std::make_shared<PlayerVisibleDecision>(
 
 ---
 
+# Example: Decorator
+
+![image](assets/images/DecoratorEnterRoom.svg)
+
+---
+
 # Extending Behaviour Trees
 
 - Some implementations add Sequence and Selection nodes with **memory**, avoiding evaluating a node that has been successful previously.
@@ -402,8 +411,9 @@ decision_tree = std::make_shared<PlayerVisibleDecision>(
 # Summary
 
 - Behaviour Trees can be used to model AI behaviour.
-- At each tick/update, the tree gets evaluated and returns a status. <!-- .element: class="fragment" -->
-- A tree consist of nodes. <!-- .element: class="fragment" -->
+- At each tick/update, the tree gets evaluated and returns a status.
+- A tree consist of nodes. 
     - A node's status can be: Success, Failure, Running.
     - Branch nodes: control nodes and decorator nodes.
     - Leaf nodes: action nodes and condition nodes.
+- Implementation and resource: [BehaviorTree.CPP](https://www.behaviortree.dev/docs/intro) 
