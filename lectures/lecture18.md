@@ -74,7 +74,7 @@ School of Computing. Edinburgh Napier University
 - As programmers, we rarely need to consider below level 3.
 
 
-![image](assets/images/osi_layers.jpg) <!-- .element width="95%"  -->
+![image](assets/images/osi_layers.jpg) <!-- .element width="60%"  -->
 
 ---
 
@@ -85,7 +85,7 @@ School of Computing. Edinburgh Napier University
 - Each individual packet has an address (IP address) which routers and switches have to look at.
 - Routers forward packets to different computer networks
 - Switches forward packets to the correct device in a network
-- Not all packets arrive at the destination
+- Packets can be lost
 
 ---
 
@@ -125,7 +125,7 @@ School of Computing. Edinburgh Napier University
     - Address: typically an IP address.
     - Protocol: for example TCP.
     - Port: allows an individual application to be addressed on the network.
-- These are provided by layers 3-5 of our model.
+- These are provided by layers 3-5 of the OSI model.
 - A socket is therefore a software abstraction that allows an application to send and receive data with other applications.
 - Each socket thus has both a source port and a destination port.
 
@@ -284,7 +284,7 @@ School of Computing. Edinburgh Napier University
 - Scenes/levels are typically the same for all clients, only starting parameters differ
 - We only need to share what is different:
 	- Player start position: ok
-	- Position of some random tree: **unnecessary**
+	- Positions of initial scene elements: **unnecessary**
 
 ---
 
@@ -313,8 +313,10 @@ School of Computing. Edinburgh Napier University
 
 # Designing a Protocol
 
-- Limit serialisation: build a communication protocol
-- Design your message types and the data that will go into the message
+- Define a fixed size for the messages.
+- Define a messages formats: 
+    - Design your message types and the data that will go into the message
+- Limit serialisation size
 - This will allow simple messaging that can be easily managed
 - Here is a one-size-fits-all message:
 
@@ -394,18 +396,12 @@ int main(int argc, char **argv) {
 
 ---
 
-## Summary
-
-
----
-
 # Summary
 
-- We have defined the issue of networking and discussed how we solve game networking issues.
-- We looked at networking layers and protocols.
-- We looked at network sockets.
-- We looked at the limitations of networking by analysing the common metrics.
-- We looked at how we overcome these limitations in games by looking at communicating patterns and UDP.
-- We then discussed what data to send and how by discussing protocols.
-- And finally we looked at how we use SFML for networking by presenting a client and server example.
-- This is all you need to get started with networking for games using SFML. The lab will provide a concrete application.
+- The throughput of messages needs to be smaller than the bandwidth
+- You can't send at every update all the game informations.
+- Define a communication protocol: the messages format.
+- If TCP is to slow try to use UDP but you will have to handle manually networking errors.
+- The most common and basic model is the Client/Server which is the one implemented in SFML. 
+
+
