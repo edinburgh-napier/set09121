@@ -92,7 +92,14 @@ Release mode and run without debug
 - Running with "Debugging" mode on in a build is far costlier than without debugging
 - To identify the true performance: build with Release, execute without debugging
 
- ![image](assets/images/run-no-debug.JPG)
+
+```bash
+cmake -DCMAKE_BUILD_TYPE=Release ..
+```
+
+ ![image](assets/images/run-no-debug.JPG)<!-- .element width="40%"  -->
+
+
 
 
 ---
@@ -106,12 +113,28 @@ Avoid I/O or do it better
 - You should avoid this I/O as far as possible in final builds.
 - When using `cout`, avoid the end-of-line terminator (`endl`), as this also flushes a stream, which is slow.
 - `cout` might be slower than `printf` by default, but that's fixable with `std::ios::sync_with_stdio(false);`
-- Easy debug-only code execution: 
+
+
+---
+
+<!-- .slide: class="leftalign" -->
+
+# Debug-only code
+
+In cmake:
+
+```bash
+target_compile_definition(executable_name PUBLIC $<$<CONFIG:Debug>:DEBUG>)
+```
+
+
+The following code will be compiled and executed only in debug. 
 ```cpp
-#ifdef _DEBUG
+#ifdef DEBUG
 //some code
 #endif
 ```
+
 
 ---
 
@@ -125,6 +148,23 @@ Avoid I/O or do it better
 - Speedup
     -  When we make an improvement we need to understand what that improvement is. Speedup is the calculation of the original time against the new time. It is calculated as $S=\frac{original}{new}$.
 
+
+---
+
+# Measuring the frame time
+
+```cpp
+while(window.isOpen()){
+    static sf::Clock clock;
+    float dt = clock.restart().asSeconds();
+    ...
+    // run the code for the current frame
+    ...
+    #ifdef DEBUG 
+    std::cout << "Frame time : " << dt << std::endl;
+    #endif
+}
+```
 
 ---
 
@@ -161,6 +201,37 @@ if (health == 0) {
     - When a new object is needed grab from allocated pool and set necessary values.
     - When finished, flag as not-alive and give back to pool.
 
+
+---
+
+# Basic Object Pool implementation
+
+```cpp
+template<typename T, typename... Targs>
+class BasicEntityPool{
+public:
+    BasicEntityPool(int size) : _size(size){
+        _entity_pool = std::vector<std::shared_ptr<T>>(size);
+        for(std::shared_ptr<T> &entity: _entity_pool)
+            entity = std::make_shared<T>();
+    }
+    std::shared_ptr<T> create(Targs... params){
+        for(std::shared_ptr<T> &entity: _entity_pool){
+            if(!entity->in_use())
+                entity->init(params);
+        }
+    }
+    void update(const double &dt){
+        ...
+    }
+    void render(){
+        ...
+    }
+private:
+    int _size = 0;
+    std::vector<std::shared_ptr<T>> _entity_pool;
+}
+```
 
 ---
 
@@ -473,19 +544,29 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 - They can easily introduce bugs into your application
 - Keeping track of application workflow with threads is harder
 
----
-
-## Summary
-
 
 ---
 
 # Summary
-
-- Performance optimisation is important, but you need to be careful. 
+ 
 - Premature optimisation is the root of all evil, but think of your algorithm choices.
 - Use tools to identify bottlenecks. Fix if needed.
-- Most impactful optimisation is not running code at all (dirty/alive flags, etc).
-- Low-level optimisations are typically an illusion that makes your code less readable.
-- High-level optimisations can have the greatest effect, and they happen "on paper".
-- Parallelisation is great, and is also a can of worms. Tread carefully.
+- Main performance measure: **Frame Time**
+- **Don't release your game compiled in debug !**
+
+
+---
+
+# Summary (cont.)
+
+Remember the optimisation steps and respect the order:
+
+1. Process and store what is essential (flags, object pool etc..) 
+2. Creation and heavy processing needs to be done at the right moment
+3. Algorithmic optimisation:
+    - function calls
+    - for loops and if statement
+    - const, static and constexpr
+4. Parallelisation
+
+---
