@@ -218,3 +218,28 @@ Test your code on other machines
 Check you have all the files included in the installer
 
 Check you have the right .dlls
+
+---
+
+# What is needed in the game submission
+
+```
+GameFolder/
+	src/ <-- Source of the game
+	bin/ <-- the executable and shared libraries
+	assets/ <-- fonts, images, and sounds
+	lib/
+		SFML (submodule file)
+		Box2D (submodule file, if used)
+	CMakeLists.txt <-- essential!
+	installer.exe (optional)
+	ReadMe.md <-- general info, libraries versions, how to install/compile
+	License
+```
+
+- Compress this folder into a zip file. 
+- **CMakeLists.txt is important!** I don't use Windows, so I will probably compile it on Linux.
+- **The game should be compiled in release!** Otherwise it will not run on other platforms. 
+- **Don't make me fetch the libraries you are using.** Include them in a lib folder using submodules and make sure that the .dll are present in the bin folder!
+
+---
