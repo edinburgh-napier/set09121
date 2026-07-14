@@ -7,10 +7,11 @@ summary: lecture12
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 12 - AI
+# Lecture 12 - Performance Optimisation
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -23,386 +24,549 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# Recommended Reading
+# What is Performance Optimisation?
 
-- Artificial Intelligence for Games. Second Edition. Millington and Funge, 2009.
-    - A good resource for anyone interested in game AI.
-
-![image](assets/images/ai_book.jpg)<!-- .element width="30%" -->
-
-
----
-
-# History of Game AI
-
-What is Artificial Intelligence?
-- AI is the study of the intelligence of machines, and the attempt to replicate human-like intelligence in a machine.
-- This is a very wide area of study, incorporating not only technical implementations of intelligence, but also psychology, ethics and philosophy.
+- Optimisation is about making the best use of a resource.
+- Optimisation in software is about making best use of our computer hardware resource(s).
+- There are different areas we can optimise for in software, but we will focus on performance.
+- Performance is about getting the most work done in the shortest amount of time with our computing resource.
+- Therefore, in a game, we are worried about:
+    -  producing a frame in a reasonable time (typically 16.6ms) 
+    -  performing the most work possible in that time to give a good gameplay experience.
+- We are going to look at code level concerns mainly. Turning down update frequencies of systems is another strategy.
 
 
 ---
 
-# Our View of Game AI
+# Premature Optimisation
 
-- From a games point of view, we will take a very simple outlook:
-    - AI is any algorithm or code that controls the behaviour of one of our game entities.
-- Therefore, our Pong example back at the start of the module had a form of AI.
-- It was dumb, but it still behaved in a way that would allow it to be competitive.
-
----
-
-# Academic AI vs...
-
-- Academic AI can be (very roughly) broken down into two phases:
-    - Symbolic AI (early days)
-        - Set of knowledge and reasoning algorithms.
-    - Nature-Inspired and Learning AI (modern era)
-        - Inspired by models in nature and statistical inference.
-        - Used in learning, neural networks, genetic algorithms, etc.
+ Two famous quotes by Donald Knuth:
+- "We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."
+- "In established engineering disciplines a 12% improvement, easily obtained, is never considered marginal and I believe the same viewpoint should prevail in software engineering."
 
 ---
 
-# ...vs Game AI
+# Premature Optimisation
 
-- Game AI is still rooted in the deterministic, classical, symbolic AI era.
-    - Symbolic AI still used extensively in games.
-        - Path finding, state machines, etc.
-    - Modern techniques have been tried, but are rarely successful.
-    - Modern techniques have seen more success in content creation.
+Basically, Knuth argues that we should not let performance considerations determine the design of our code -  it makes the code more difficult to work with.
 
----
+I think a good rule for the module is -  get your game working first; then worry about extra features and performance optimisation.
 
-# In the beginning...PacMan
-
-- PacMan is recognised as one of the earliest examples of AI in games.
-- PacMan AI relied on state machine behaviour.
-    - We will look at state machines in a separate lecture.
-- Game AI did not change much between PacMan in 1979 until the mid 1990s.
-
-![image](assets/images/pacman.gif) <!-- .element width="30%" -->
+A good approach is to design-build-measure-optimise. 
 
 
 ---
 
-# Timeline
+# The 80/20 Rule
 
-- In the mid-1990s AI started to become a selling point.
- - **1994**: Beneath a Steel Sky mentions AI on the box.
- - **1997**: GoldenEye 007 introduces world sensing, allowing enemies to see allies and notice when they were killed.
- - **1998**: Thief: The Dark Project and Metal Gear Solid expanded the world sensing concept.
-- Real-time strategy games also emerged in the 1990s.
- - **1994**: Warcraft used noticeable path finding techniques.
- - **1998**: Warhammer: Dark Omen has robust formation motion.
-- Games also start emerging where AI is the main game mechanic.
- - **1997**: Creatures.
- - **2000**: The Sims.
- - **2001**: Black and White.
+- You might have heard of this...
+- Pareto Principle (or 80/20 rule) states that 80% of output comes from 20% of input.
+- Applied to programming, we can say that 80% of processor time will happen in 20% of our code.
+- It does make sense -  loops normally are the biggest area of computation in your application.
 
+
+ ![image](assets/images/80-20.jpg) <!-- .element width="60%"  -->
 
 ---
 
-# AI Techniques for Games
+# What are we interested in?
 
-- There are numerous usable AI techniques applicable for games.
-    - Classical AI techniques - common.
-    - Newer academic techniques - uncommon.
-- Different techniques accomplish different aspects of behaviour.
-    - Movement of entities.
-    - Decision making for entities.
-    - Strategic (planning) decisions.
-    - Learning from player behaviour.
-- We will only look at the first two in detail as they are the most common. Other modules look at learning and planning in a general AI context.
+- There are two areas we can focus on to improve program performance for our games.
+- **CPU utilisation**:
+ - How well are we using the processor? Is it doing work it doesn't need to?
+- **Memory usage**
+ - Is memory effectively accessible to the processor? Is the processor waiting too long to do memory operations?
+- We will focus on these two areas, looking at best-practice on the CPU and memory usage.
+- There are many more techniques and tricks we can use, but normally they come down to these same two areas.
+
 
 
 
 ---
 
-## Movement
+# First big trick
+
+Release mode and run without debug
+
+- A debug build is far slower than a release build
+- Running with "Debugging" mode on in a build is far costlier than without debugging
+- To identify the true performance: build with Release, execute without debugging
 
 
----
+```bash
+cmake -DCMAKE_BUILD_TYPE=Release ..
+```
 
-# Movement and Steering Behaviours
+ ![image](assets/images/run-no-debug.JPG)<!-- .element width="40%"  -->
 
-- Steering behaviours.
-    - An algorithm which determines how an entity should move.
-    - Can be goal based:
-        - Seek, flee.
-    - Or can be more general:
-        - Patrol, wander.
-- Steering behaviours are at the base of most game AI.
-    - It allows us to move entities in a certain manner.
-- Steering behaviours can also be combined to create more complex behaviour.
-    - Look into flocking behaviour to get an idea.
-- We will look at steering behaviours next week.
+
 
 
 ---
 
-# Path Finding
+# Second big trick 
 
-- Path finding is the discovery of the route between two points in a game world.
-- Information from path finding can be fed into steering behaviours.
-- Two core techniques:
-    - Waypoints: Points indicating where the agent can go to.
-    - Navigation mesh: A surface that determines areas where the agent can walk.
-- Two common algorithms: Dijkstra, A* 
+Avoid I/O or do it better
 
-![image](assets/images/waypoint-mesh.jpg)
-
----
-
-## Decision Making
+- During debugging, we often output values to the console to check behaviour.
+- I/O like this is very slow, requiring your program to interact with the OS and present data.
+- You should avoid this I/O as far as possible in final builds.
+- When using `cout`, avoid the end-of-line terminator (`endl`), as this also flushes a stream, which is slow.
+- `cout` might be slower than `printf` by default, but that's fixable with `std::ios::sync_with_stdio(false);`
 
 
 ---
 
-# Decision Making
+<!-- .slide: class="leftalign" -->
 
-- We are going to look at two types.
-	- State Machines
-	- Decision Trees
+# Debug-only code
 
----
+In cmake:
 
-# State machines
-
-- Similar to the idea of state modelling in UML.
-- AI character has a number of possible states.
-    - e.g. attack, hide, run, etc.
-- Character determines current state based on any number of conditions.
-- Character will change state when a particular action occurs.
-    - If patrolling and player is spotted then change state to attacking.
-
-![image](assets/images/state-machine.png)<!-- .element width="30%" -->
-
----
-
-# Decision trees
-    
-- Similar to activity diagrams in UML.
-- Used to control characters decision making process.
-- Can also be used to control animation.
-- Very simple AI technique to implement, but it can be very powerful.
-
-![image](assets/images/decision_tree_ex.png)<!-- .element width="50%" -->
-
----
+```bash
+target_compile_definition(executable_name PUBLIC $<$<CONFIG:Debug>:DEBUG>)
+```
 
 
-
-# Other Decision Making Techniques
-
-**Fuzzy logic**
-
-- It is based on fuzzy sets which introduce degree of ownership
-- Fuzzy logic introduce degree of trueness: instead of being false or true, you have a continuous space [0,1].
-- Fuzzy logic can be used in combination with states and continous inputs to have fuzzy decision making.
-
-![image](assets/images/fuzzy-logic.png) <!-- .element width="30%" -->
+The following code will be compiled and executed only in debug. 
+```cpp
+#ifdef DEBUG
+//some code
+#endif
+```
 
 
 ---
 
-# Other Decision Making Techniques
+# Metrics
 
-- Behaviour trees
-	- Model for plan execution, using modular components/nodes.
-- Markov Chain or process
-	- Similar to state machines but with stochastic transitions: there is a probability to change to the next states.  
-- Goal-oriented behaviour
-	- Character chooses an action based on its current goals.
-- Rule-based systems
-	- Database of "if" conditions to determine the behaviour to take.
-    - Actually, similar to decision tree.
-
----
-
-# Strategy - World Data
-
-- Modern game AI techniques rely on data from the game world.
-    - We will see this more with Path Finding.
-- Depending on the technique used, different types of data are required.
-    - Movement may need to know about obstacles, jump points.
-    - Knowledge of cover.
-    - Knowledge of other characters in the game world.
-    - etc.
-- Most of the techniques requiring world data are referred to as strategic techniques.
+- Let's define metrics that allow us to talk about performance .
+- FPS: Frames-Per-Second. 
+    - The key measure most gamers like to talk about. The typical FPS displayed is the **average** of the number of frames processed per second. 
+- Frame Time:  
+    - This is actually what we are interested in. How long does it take the game to produce and render a **single** frame? Typically we aim for 16.7ms (60FPS) or 33.3ms (30FPS).
+- Speedup
+    -  When we make an improvement we need to understand what that improvement is. Speedup is the calculation of the original time against the new time. It is calculated as $S=\frac{original}{new}$.
 
 
 ---
 
-# Strategy - Waypoint tactics.
+# Measuring the frame time
 
-- Areas of the map are marked for tactical significance.
-    - For example cover positions, sniper positions, etc.
-- The AI determines which waypoint to go to, based on an algorithm.
-- This allows strategic looking behaviour from the game characters.
-- This technique is used extensively in FPS and similar games.
-- Tactical path finding.
-    - Takes consideration of the surroundings when determining how to move between waypoints.
+```cpp
+while(window.isOpen()){
+    static sf::Clock clock;
+    float dt = clock.restart().asSeconds();
+    ...
+    // run the code for the current frame
+    ...
+    #ifdef DEBUG 
+    std::cout << "Frame time : " << dt << std::endl;
+    #endif
+}
+```
+
+---
+
+## Step 1 - Only process what you need
 
 
 ---
 
-# Strategy - Waypoint tactics.
+# Alive Flag
 
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/0i7SMSdwbLI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+- The first tactic we can use to improve processing is to flag if processing something can be skipped.
+- An alive flag is a typical technique to indicate that an object should not be processed.
 
-
----
-
-## Learning
-
----
-
-# Neural Networks
-
-- Neural networks are a popular nature inspired technique. 
-- They are modelled on a simplified idea of the brain.
-    - Neurons get signal input (e.g. through sensors).
-    - Signal gets transformed and distributed to other neurons
-- Can have learning developed over time.
-- Researchers and hobbyists see it as a method of believable learning.
-- So far fallen short on game projects (see Creatures, Fable II).
-
-
-![image](assets/images/neural-network.png) 
+```cpp
+if (alive) {
+    DoSuperExpensiveOperation();
+}
+...
+if (health == 0) {
+    alive = false;
+}
+```
 
 
 ---
 
-# Other Techniques
+# Object Pool
 
-- Emergent behaviour.
-    - Evolutionary Algorithms and Reinforcement Learning
-        - An agent behaviour is parametrized with a set of values
-        - Iteratively, set of values are tested and evaluated with a goal function.
-    - Bio-inspired algorithms.
-        - Ant colony optimisation.
-        - Artificial immune systems.
-- Depending on your programme you might study some of these:
-    - Multi-agent systems.
-    - Computational intelligence.
-    - Emergent computing for optimisation.
+- Object creation and destruction is very expensive.
+- It involves memory allocation, function calls, grabbing bits and pieces, maybe loading content.
+- It can also lead to objects being scattered around memory -  expensive to jump around.
+- An object pool fixes that (especially when combined with alive flags):
+    - Allocate max number of objects required.
+    - When a new object is needed grab from allocated pool and set necessary values.
+    - When finished, flag as not-alive and give back to pool.
 
 
 ---
 
-# Issues With These Techniques
+# Basic Object Pool implementation
 
-- The learning techniques often lack designer control
-	- They are 'black boxes' and stochastic
-- This makes it hard to tune the AI agents in your systems
-- So how do we guarantee that the AI make the game *better*?
-
----
-
-# Goal of AI - Realism
-
-- One goal of game AI is to provide a challenge to the player and create a realistic, living world.
-- Examples:
-    - GTA V/RDR 2
-    - Assassin's Creed Origins
-- Notice:
-    - People walking around.
-    - Reaction to environment effects (e.g. rain).
-    - Enemies attacking in realistic looking manners.
-    - etc.
-
-
----
-
-# Bad AI
-
-- There are lots of examples of bad AI breaking immersion.
-- Stupid NPCs getting stuck in corners or getting in your way.
-- The design of the level needs to take account of the NPCs' ability to navigate it.
-    - Hence you normally get large doorways and corridors.
-- Unfortunately, the AI, NPCs, and levels are normally designed by different teams.
-    - So it doesn't normally work first time.
-    - At some point compromises have to be made.
-- If the NPC is on the player's side you need to make sure it does not let them down.
-    - Halo, Fallout 4, Oblivion, all show examples of this
-
+```cpp
+template<typename T, typename... Targs>
+class BasicEntityPool{
+public:
+    BasicEntityPool(int size) : _size(size){
+        _entity_pool = std::vector<std::shared_ptr<T>>(size);
+        for(std::shared_ptr<T> &entity: _entity_pool)
+            entity = std::make_shared<T>();
+    }
+    std::shared_ptr<T> create(Targs... params){
+        for(std::shared_ptr<T> &entity: _entity_pool){
+            if(!entity->in_use())
+                entity->init(params);
+        }
+    }
+    void update(const double &dt){
+        ...
+    }
+    void render(){
+        ...
+    }
+private:
+    int _size = 0;
+    std::vector<std::shared_ptr<T>> _entity_pool;
+}
+```
 
 ---
 
-# Golden Eye 007 'Protect Natalya'
+# Dirty Flag
 
-![image](assets/images/GoldenEye-Natalya.png) 
+- Some game data is processed each frame to allow our game to have a dynamic nature.
+- However, a lot of data only changes in some circumstances.
+    - For example, the player only moves when the user controls them.
+- Rather than reprocess certain data every frame, we can use the dirty flag to say that data should be reprocessed that frame.
 
-
----
-
-
-# AI and Game Design
-
-- When the game designer comes up with an idea, they have a vision of how the game will play.
-- A game is meant to be a carefully crafted experience for the player.
-- AI can and does bring unpredictability to the game.
-    - The game designer might not want unpredictable behaviour.
-- Developers may override the AI decisions for the sake of gameplay.
-
-
----
-
-# AI and Game Design (cont.)
-
-- Many examples of 'great AI' don't have very complicated AI...
-- How effective the AI appears is down to more than just the algorithm
-	- How well tagged is the level?
-	- How is the level designed? (F.E.A.R. / Half-Life)
-	- Do the mechnics support the AI? (Civ V)
-	- How much does the player see?
+```cpp
+if (player moved) {
+    Change position in primary data
+    Set dirty flag on primary data
+}
+...
+if (dirty flag is true) {
+    Process secondary data (expensive)
+    Set dirty flag to false
+}
+```
 
 ---
 
-# Cheating AI
-
-- Many game AI systems cheat.
-    - Pro Evolution Soccer
-- Sometimes this is referred to as rubber band AI.
-    - A term originally coined in racing games.
-    - Opposition always appeared to keep up with you no matter how well you drove.
-    - Opposition was considered to be on a rubber band attached to the player.
+## Step 2 - Only draw what is visible
 
 
 ---
 
-# Cheating AI
+# Visible Flag
 
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/HIZmQ7F1EZg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+- Rendering to the screen is one of the most expensive processes in games.
+    - It's why we have dedicated graphics hardware.
+- We can use our flag technique to determine if an object is visible and therefore should be rendered.
+- This allows us to hide objects/turn off their rendering when we want.
+- It also allows us to add objects that should not be rendered.
+    - Remember - what you see when playing a game isn't all that is there.
+
+```cpp
+    if (visible)
+    {
+        Render object (expensive)
+    }
+```
 
 
 ---
 
-# Non-Cheating AI
+# Spatial Partitioning
 
-- This can also happen in reverse!
-- If your AI is too good, people will think it cheats.
-	- This was the case in Farcry 1
-	- Most Backgammon games get accused of this too
-- This is partly why most FPS enemies shout what they are doing
+- Another question is whether an object is even on screen.
+- Spatial partitioning allows us to divide the world up so we only render the parts that are visible.
+- Also used for collision detection optimisation.
+
+![image](assets/images/spatial-partition.png) <!-- .element width="80%"  -->
+
+
+---
+
+# Example - Horizon Zero Dawn
+
+<video class="middle" width="960" height="540" loop autoplay>
+  <source src="assets/videos/horizon.mp4" type="video/mp4">
+</video>
+
+
+---
+
+## Step 3 - Think about your memory
+
+---
+
+# Memory
+
+Allocate Your Required Memory First
+- We have mentioned this a few times now.
+- Memory allocation (and subsequent deallocation) is expensive on the free store.
+- Try and allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
+- Data should also be near similar data -  this allows quick processing of blocks during similar operations.
+
+
+---
+
+# `constexpr` What You Can
+
+- `const` is a qualifier used for readability, maintenance and performance
+- `constexpr` takes this further: expression is calculated at compile time
+    - So you can produce certain functions that are compile time processed.
+- Compile time means the code is not processed during runtime.
+
+```cpp
+constexpr int N = 1000;
+
+constexpr int factorial(int n)
+{
+    return n <= 1 ? 1 : (n * factorial(n - 1));
+}
+
+//compiler does this!
+constexpr int Nfav = factorial(N); 
+
+```
+
+---
+
+# Memory Alignment and Cache Coherence
+- We talked about this during our memory and resource management lectures.
+- Memory alignment means that data is aligned in memory to minimize the reads to access the data that we need.
+- For cache coherency we discussed the difference in processing a multi-dimensional array using different indices, due to memory layout. For example, the first `for` loop below is faster than the second.
+
+```cpp
+for (int i=0; i < 32; i++)
+    for (int j=0; j < 32; j++)
+        total += myArray[i][j]; // GOOD! Fast!
+
+for (int i=0; i < 32; i++)
+    for (int j=0; j < 32; j++)
+        total += myArray[j][i]; // BAD! Slow!
+```
+
+---
+
+## Step 4 - Use tools to find slow bits
+
+
+---
+
+# Finding Hot Paths -  Using Tools
+
+Tools do a good job of finding code that is slowing things down.
+
+
+![image](assets/images/hot-path.png) <!-- .element width="80%"  -->
+
+[Visual Studio CPU usage](https://learn.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2022)
+and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/profiling/memory-usage?view=vs-2022) tutorials.
+
+---
+
+# Bottlenecks
+
+- The key aim with tools is bottleneck identification.
+- Once you find a bit of your code that is impacting performance, you need to identify what, if anything, can be done about it.
+- Often, these bottlenecks are loops that are processing lots of data.
+- Even a small tweak here can make all the difference.
+
+
+ ![image](assets/images/bottleneck.jpg)
+
+
+---
+
+# Algorithmic Analysis
+
+- And this is where algorithmic analysis can come in.
+- Abstractly measuring your algorithms, finding more efficient algorithms, and optimising the algorithms you have is important.
+- See your Algorithms and Data Structures material for more insight.
+
+
+ ![image](assets/images/alg-analysis.jpg)
+
+
+---
+
+## Step 5 - Optimise function calls
+
+
+---
+
+# Function Calls Cost
+
+- Function calls have a cost associated with them.
+- Two things have to happen.
+    1.  Set up the parameters on the stack -  copy data.
+    2.  Jump to the new code position.
+- On return there is a jump back again.
+
+
+ ![image](assets/images/function-call.png) <!-- .element width="25%"  -->
+
+
+---
+
+# `static` Local Functions
+
+- A `static` function is one that exists within a certain context or
+    scope (e.g. class scope).
+
+- If a function is `static` in a C++ code file, the compiler knows it
+    can try and optimise it without affecting external code.
+
+- Effectively, rearranging and possible inlining can occur, speeding
+    up the program.
+
+```cpp
+    static int add(int x, int y)
+    {
+        return x + y;
+    }
+```
+
+
+---
+
+# `virtual` Function Calls
+
+- `virtual` functions have an additional cost.
+- A `virtual` function call involves a lookup on the object to determine which function to call.
+- Effectively we are double jumping in this instance.
+
+
+ ![image](assets/images/virtual-function.png)
+
+
+---
+
+#  `const` What You Can
+
+- Basically set everything you can to `const`.
+- A `const` method is one that will not change the object.
+- Therefore the compiler can optimise the code based on access again.
+
+```cpp
+    class my_class
+    {
+    public:
+        void do_work() const
+        {
+            // Do something
+        }
+    };
+```
+
+---
+
+## Step 6 - Branching and Loops
+
+
+---
+
+#  Branching: if vs switch statements 
+
+- A branch has a cost to check and a cost to jump.
+- **if statement** for complex conditions and/or few conditions
+- **switch statement** when a lot of value to test for a single variable.
+- If possible, use a switch statement instead of a lot of nested or consecutives **if/else if statements**
+
+```cpp
+    if (var == value1) { /* Do work */ }
+	else if (var == value2) { /* Do other work */ }
+    else if (var == value3) { /* Do other work */ }
+	...
+	else { /*fallback*/}
+```
+```cpp
+    switch(var)
+	{
+		case value1:  /*do work*/ 
+			break;
+		case value2:  /*do other work*/ 
+			break;
+        case value3: /*do other work*/ 
+			break;
+        ...
+		default:
+			break;
+	}
+```
+
+
+
+---
+
+# `for` Loops
+
+- For loops are one of the most expensive parts of your application due to the number of iterations.
+- They are also one of the best places to optimise -  we will look at parallelisation here also.
+- One particular point is avoiding doing work that the loop statement can do -  such as the indexer.
+
+```cpp
+    // Multiply every iteration
+    for (int i = 0; i < 10; ++i)
+        std::cout << i * 10 << std::endl;
+
+    // Add every iteration
+    for (int i = 0; i < 100; i += 10)
+        std::cout << i << std::endl;
+```
+
+---
+
+## Step 7 - Use more cores!!!
+
+
+---
+
+# Just Throw Some Threads at the Problem!?
+
+- A simple solution may be to use more of your hardware resources.
+- Multi-core means you can execute code in parallel in different cores at the same time
+- There are different techniques: OpenMP, Intel TBB, parallel STL algorithms (C++17), async, threads, etc
+    - More on SET10108: Concurrent and Parallel Systems
+
+---
+
+# Cost of Threads
+
+- Threads do have costs: performance, cognitive and maintenance
+- They require memory, and switching between threads costs time
+- They can easily introduce bugs into your application
+- Keeping track of application workflow with threads is harder
+
 
 ---
 
 # Summary
+ 
+- Premature optimisation is the root of all evil, but think of your algorithm choices.
+- Use tools to identify bottlenecks. Fix if needed.
+- Main performance measure: **Frame Time**
+- **Don't release your game compiled in debug !**
 
-- We have looked at a very broad picture of what game AI is.
-    - Essentially, use classical, deterministic techniques.
-- We also introduced some techniques that are used in games.
-	- Movement
-	- Decision making
-	- Strategy
-	- Learning
 
 ---
 
-# Remember
+# Summary (cont.)
 
-- AI can sometimes not work how the player (or designer) wants.
-    - Bad AI
-    - Cheating AI
-	- Unfun AI
-- All these areas are worth considering depending on your game. Just think about the time you have and the experience you are aiming for.
+Remember the optimisation steps and respect the order:
+
+1. Process and store what is essential (flags, object pool etc..) 
+2. Creation and heavy processing needs to be done at the right moment
+3. Algorithmic optimisation:
+    - function calls
+    - for loops and if statement
+    - const, static and constexpr
+4. Parallelisation
+
+---

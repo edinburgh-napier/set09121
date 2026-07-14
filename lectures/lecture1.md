@@ -105,7 +105,7 @@ Edinburgh Napier University.
 # Structure – Practical Sessions
 
 - Two-hour practical session. <!-- .element: class="fragment" -->
-    - Monday 4pm-6pm in JKCC clusters 6 to 10 (5 if there is not enough desks)
+    - Monday 4pm-6pm and Thursday 2pm-4pm in JKCC 
 - Practicals take place in JKCC. Bring your laptop or use the lab PCs. <!-- .element: class="fragment" -->
 - Labs will help you develop the engine you need to use for the coursework. <!-- .element: class="fragment" -->
     - 2D development with SFML.
@@ -126,7 +126,7 @@ Edinburgh Napier University.
 - Coursework has four submissions.
     - [Week ~7:] Game design document.
     - [Week ~13:] Implementation and report.
-    - [Week ~13:] Demo and peer assessment.
+    - [Week ~13:] Demonstration.
 
 
 ---
@@ -184,7 +184,7 @@ Edinburgh Napier University.
 
 # Not the Focus of the Module
 
-- **Introduction to C++ programming:** If you do not have experience with C++ then get a book to learn the basics quickly.  We will cover some concepts, but not the basics.
+- **Introduction to C++ programming:** If you do not have experience with C++ then get a book to learn the basics quickly.  
 - **Object-orientation:** We will refresh the basics in the context of C++ and games development, but if you require more knowledge then you are recommended to get a book.  You will likely learn more about object-orientation in this module by doing the work provided.
 - **Graphics and sound creation:**  You are not expected to create your own graphics. A lot free assets exist on internet. Sound integration and design will not be covered in this module.
 
@@ -198,6 +198,7 @@ Edinburgh Napier University.
 - Formal elements of games.
 - Systems dynamics.
 - Game entities and entity management.
+- Introduction to C++.
 - Object-orientation in C++.
 - Game design documents.
 - Design patterns for games.
@@ -215,7 +216,6 @@ Edinburgh Napier University.
 - Steering behaviours.
 - State machines.
 - Decision trees.
-- QA and TRC.
 - Game testing.
 - Performance testing.
 - Performance optimisation.
@@ -318,13 +318,9 @@ Edinburgh Napier University.
 
      Box2D provides the physics system for our game engine.  Again, you will need to use this resource when working with Box2D.
 
-- **C++:** http://www.learncpp.com
-
-     Modern C++ tutorials. Unofficial reference at http://www.cppreference.com
+- **C++:** Tutorials: http://www.learncpp.com and https://www.geeksforgeeks.org/cpp/c-plus-plus/; for reference: http://www.cppreference.com
 
 - **Game Programming Patterns:** http://gameprogrammingpatterns.com
-
-     Want to know more about the patterns we use and other patterns useful for games?  This website provides a number of examples.
 
 
 

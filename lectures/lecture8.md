@@ -1,5 +1,5 @@
 ---
-title: "Lecture 8 - Design Patterns"
+title: "Lecture 8 - Game Design Document"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture8.html
@@ -10,7 +10,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 8 - Design Patterns
+# Lecture 8 - Game Design Document
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -25,619 +25,359 @@ School of Computing. Edinburgh Napier University
 
 # Recommended Reading
 
-Game Programming Patterns - Robert Nystrom
+Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
-![image](assets/images/game_patterns_book.jpg)
+- Read Chapter 14 on Game Design Documentation.
+- Digital copies are available in the library.
+
+![GameDesignWorkshopBook](assets/images/gdw_book.jpg)
+
+
+---
+
+# What is a Game Design Document?
+
+
+---
+
+# What is the Game Design Document?
+
+- A Game Design Document (GDD) is the template for the game that is to be created.
+- The GDD is the main reference when determining how things should be done when developing the game. <!-- .element: class="fragment" -->
+- However, it is not a sacred document. <!-- .element: class="fragment" -->
+    - It is a living, constantly changing document.
+    - Updates are made as the development progresses.
+- It can get quite large. <!-- .element: class="fragment" -->
+    - Over 1,000 pages in some circumstances.
+- Team size and document size leads to the use of online collaboration tool like a Wiki. <!-- .element: class="fragment" -->
+
+
+---
+
+# Game Design Document Overview
+
+- Overview and vision statement.
+- Audience, platform, and marketing.
+- Legal Analysis.
+- Gameplay.
+- Characters.
+- Story.
+- World.
+- Media list.
+- Technical specification.
+
+---
+
+<!-- .slide: class="leftalign" -->
+
+# GDD Exercise
+
+Research Design Documents! Use Google to search for game design documents. There are quite a few out there and some templates. 
+You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements.
+
+Some examples:
+- [Diablo](https://gamescrye.com//wp-content/uploads/2016/08/diablo_pitch.pdf)
+- [Bioshock](https://gamescrye.com/wp-content/uploads/2023/02/The-Bioshock-pitch-GDD.pdf)
+- [Super Mario Bros.](https://gamescrye.com/wp-content/uploads/2023/02/Super-Mario-GDD.pdf)
+
+All this GDDs are from [gamescrye.com](https://gamescrye.com)
+
+---
+
+# Contents
+
+
+---
+
+# Design History
+
+- Design History.
+    - GDD is a living document.
+    - Updates to the document should be described at the beginning of the document.
+    - Version history should be maintained.
+
+ ![image](assets/images/version.png)
+
+
+---
+
+# Audience, Platform, and Marketing
+
+- Market research must be undertaken to determine the likely return to the publisher.
+    - Unit sales are the most important factor for a publisher.
+    - The quality of the game comes second.
+    - Catering for a small/niche market is unlikely to win over a publisher (although this depends on initial outlay).
+
+---
+
+# Audience, Platform, and Marketing (cont.)
+
+- You need to define the target audience.
+    - Who will buy the game?
+    - What is the core demographic?
+    - How large is the audience and how likely are they to buy?
+- You also need to choose the target platform(s). <!-- .element: class="fragment" -->
+    - What are the target platforms?
+    - Why have these been chosen?
+    - Ensure this matches with the target audience.
+- You also need to define the hardware requirements. <!-- .element: class="fragment" -->
+
+---
+
+# Legal Analysis
+
+- Important that you ensure everything is covered from a legal point of view.
+- Are there any legal or financial implications that come with the game production. <!-- .element: class="fragment" -->
+    - Licence agreements.
+    - Copyright considerations.
+    - Engine/library terms and conditions.
+- Typically, Intellectual Property (IP) will be with the publisher, not the studio. <!-- .element: class="fragment" -->
+- Game engines typically require statements of use, are expensive, and may require a per unit sale cost (for big games). <!-- .element: class="fragment" -->
+- Legal & IP agreements with your Team/Contractors also needs to be considered. <!-- .element: class="fragment" -->
+
+---
+
+# Copyright Issues
+
+- IP owners are very protective.
+    - Game companies included.
+- When creating your game consider: <!-- .element: class="fragment" -->
+    - Where you sourced your content from.
+    - If the content is very similar to existing content.
+    - If the game is very similar to others on the market.
+    - If you have given due credit to any external tools, libraries, etc.
+- Paying homage to something is all well and good but can get you into trouble. <!-- .element: class="fragment" -->
+
+![image](assets/images/sonic_anim.gif)
+
+---
+
+# Gameplay
+
+- The description of gameplay is initially one of the largest sections.
+- The game designer puts most of their focus into this section at the start. <!-- .element: class="fragment" -->
+- This section will focus on how the game plays. <!-- .element: class="fragment" -->
+- The Formal Elements and systems view will be useful here. <!-- .element: class="fragment" -->
+- Overview section: <!-- .element: class="fragment" -->
+    - Description of the core functionality.
+    - Good practice is to base this on a physical or digital prototype.
+- Gameplay description section: <!-- .element: class="fragment" -->
+    - A detailed description of how the game plays.
+- Controls section: <!-- .element: class="fragment" -->
+    - User interfaces.
+    - Rules and procedures (including some from Formal Elements).
+    - Scoring / winning conditions.
+
+---
+
+# Gameplay (cont.)
+
+
+- Modes and other features. <!-- .element: class="fragment" -->
+    - Single player, multiplayer, etc.
+    - Other features that may affect gameplay.
+- Levels. <!-- .element: class="fragment" -->
+    - Designs for any levels for the game.
+    - The more detailed the level descriptions the better.
+- Flowchart. <!-- .element: class="fragment" -->
+    - Flowchart is needed to map out the gameplay.
+- Editor. <!-- .element: class="fragment" -->
+    - Does the game require the development of an editor?
+    - What are its features?
+
+---
+
+# Flowcharts
+
+Flowcharts can help visualise the gameplay
+
+![image](assets/images/rock_paper_scissors.png)<!-- .element width="100%" height="100%"  -->
+source: https://ibsilver.github.io/Game_Design_Document_GDD/
+
+---
+
+# Characters
+
+- Optional part of the design document but often important.
+- Character work can be a long, iterative process. <!-- .element: class="fragment" -->
+- Very important to increase engagement with the player. <!-- .element: class="fragment" -->
+- Will include concept design and description. <!-- .element: class="fragment" -->
+
+![image](assets/images/game_characters.jpg) <!-- .element width="40%"  -->
+
+---
+
+# Contents - Character Types
+
+- Playable characters. <!-- .element: class="fragment" -->
+    - Can have a lot of work spent on them.
+    - Generally very detailed - particularly in games where you see the character all the time.
+- Non-playable characters. <!-- .element: class="fragment" -->
+    - Treat these as objects in your game with properties and functionality.
+    - Includes:
+        - Monsters and enemies.
+        - Friends and allies.
+        - Neutral characters.
+    - Think about which traits you want these characters to have.
+    - Think about the behaviours these characters need.
+    - AI is a core concern in this section.
+
+---
+
+# Story
+
+- Another optional section of the GDD. <!-- .element: class="fragment" -->
+- Can become very large for story driven games, like RPGs. <!-- .element: class="fragment" -->
+- There has to be a link between the gameplay and story. <!-- .element: class="fragment" -->
+    - Your story should unfold through the game.
+- Important parts of the story: <!-- .element: class="fragment" -->
+    - Synopsis.
+    - Complete story.
+    - Back story.
+    - Narrative details.
+    - Sub-plots.
+
+
+---
+
+# Game World
+
+If required, a description of the game world should be detailed.
+- Overview.
+- Key locations.
+- Travel.
+- Map.
+- Scale.
+- Physical objects.
+- Weather conditions.
+- Day and night cycle.
+- Time/era.
+- Physics.
+- Society/culture.
+
+
+---
+
+# Maps
+
+Maps can be very helpful to get an overview of the gameworld.
+
+![image](assets/images/supermarioworld_map.png)<!-- .element width="80%" height="80%"  -->
 
 
 
 ---
 
-# Review of UML
+# Media List
+
+- You will need a list of the assets that are required by the art and sound team. <!-- .element: class="fragment" -->
+- Descriptions of these assets will need to be provided. <!-- .element: class="fragment" -->
+- You should adopt some form of naming convention to make life easier. <!-- .element: class="fragment" -->
+- Types of assets you may need to produce include: <!-- .element: class="fragment" -->
+    - User interface assets.
+    - Environmental assets.
+    - Character-based assets.
+    - Animations.
+    - Music.
+    - Sound effects.
 
 
 ---
 
-# What is UML?
+# Technical Specification
 
-- UML stands for the Unified Modelling Language.
-- UML allows us to model software from various viewpoints. <!-- .element: class="fragment" -->
-    - The structure of the software.
-        - Class diagram.
-    - The behaviour of the software.
-        - Use case diagram.
-        - Activity diagram.
-        - State diagram.
-    - The interaction within the software.
-        - Sequence diagram.
-- UML can be integrated into any software development process. <!-- .element: class="fragment" -->
-    - Analysis and requirements gathering.
-    - System design.
-- UML essentially provides a schematic of our software. <!-- .element: class="fragment" -->
+- The most important section for the technical team.
+- Can sometimes be a separate document. <!-- .element: class="fragment" -->
+- Developed by the technical lead. <!-- .element: class="fragment" -->
+- Can be quite large and detailed. <!-- .element: class="fragment" -->
 
 ---
 
-# When to Use UML
+# Technical Specification (cont.)
 
-- Five useful diagrams:
-    - **Use case** diagrams: overall requirements gathering.
-    - **Activity** diagrams: flow chart of behaviour.
-    - **Class** diagrams: main system design.
-    - **Sequence** diagrams: individual steps and interaction between components.
-    - **State** diagrams: model object or system state.
-- **Use diagrams whenever possible!**
-Useful article: [geeksforgeeks.com - UML introduction](https://www.geeksforgeeks.org/system-design/unified-modeling-language-uml-introduction/)
-
+- What are the technical challenges of the project?
+    - Important for costing the project.
+- Is any new technology required? <!-- .element: class="fragment" -->
+- What are the major software development taks? <!-- .element: class="fragment" -->
+- What are the risks involved in developing the game? <!-- .element: class="fragment" -->
+    - And how do you mitigate these risks?
+- What are the estimated resources required to deliver the game? <!-- .element: class="fragment" -->
 
 ---
 
-# What are Design Patterns?
-
-- A design pattern is a **reusable solution** to a **commonly occurring problem** when designing software.
-- Reusable is the key here. <!-- .element: class="fragment" -->
-    - Engineering is about reusing existing solutions whenever possible.
-    - Other engineering disciplines have reusable solutions to given problems.
-- When we look at our software development problems from a high enough abstraction level we will see lots of areas of reuse. <!-- .element: class="fragment" -->
-
-![image](assets/images/software_development.png) <!-- .element width="45%"  -->
-
----
-
-# Useful Design Patterns for Games
-
----
-
-# Types of Patterns
-
-- Design patterns can be divided into a number of categories based on the type of problem they try and solve.
- - **Creational** patterns
-    - Used for, or dictate, object creation mechanisms.
- - **Structural** patterns,
-    - Used to dictate how objects are composed to form larger structures.
- - **Behavioural** patterns,
-    - Used to control common communication patterns between objects.
-- You'll likely already know at least one pattern from each of these categories.
-
----
-
-# Singleton
-
----
-
-# Singleton Pattern
-
-**Problem**: How to ensure that only one instance of a given class ever exists?
-
-- The pattern is good when we want to control and coordinate particular operations in our system.
-    - E.g. A game only has one GameController for tracking gamestate and flow.
-    - Our game engine wants to ensure control over game entities at particular stages.
-- Singletons are good for providing a centralised approach to access a particular part of the system.
-    - Almost like providing a global attribute.
-- There are numerous approaches to ensure Singleton behaviour.
-
----
-
-# Singleton Pattern 
-
-![image](assets/images/singleton.png) <!-- .element width="80%"  -->
-
-(Source: https://en.wikipedia.org/wiki/Singleton_pattern)
-
----
-
-# Singleton Pattern 
-
-```cpp
-class EntityManager
-{
-public:
-    static EntityManager& get_instance()
-    {
-        static EntityManager instance;
-        return instance;
-    }
-private:
-    EntityManager(){}
-    EntityManager(const EntityManager&) = delete;
-};
-```
-
-Access to the EntityManager:
-```cpp
-EntityManager::get_instance();
-```
-
----
-
-# Composite Pattern
-
-**Problem:** How to use in **the same way** **objects** and **compositions** of objects? 
-
-- Think of a tree: the whole tree, a node or a leaf should be usable the same way (recursive structure)
-- For example, elements in a UI can be a single element, called a **leaf** (e.g., a button), or a collection of other Elements, called a **composite** (e.g., a panel with buttons, etc.)
-    - This creates a **hierarchy** of UI elements.
-    - We tell the top UI element to update.
-    - The top UI element will tell the child elements to update, if it is a composite.
-    - Thanks to a common interface, we don't need to know whether we are dealing with a composite or leaf.
-
----
-
-# Composite Pattern 
-
-![image](assets/images/composite.png) <!-- .element width="80%"  -->
-
-(Source: https://en.wikipedia.org/wiki/Composite_pattern)
-
----
-
-# Composite Pattern 
-
-```cpp
-class UIElement { // Component
-public:
-    virtual void update()=0; // Operation
-};
-
-class Panel : public UIElement { // Composite
-private:
-    std::vector<std::shared_ptr<UIElement>> panel_elements;
-public:
-    void update() override {
-        for (std::shared_ptr<UIElement>& element : panel_elements) {
-            element->update();
-        }
-    }
-
-    // add(), remove(), getChild()...
-};
-
-class Button : public UIElement { // Leaf
-public:
-    void update() override {
-        ...
-    }
-};
-```
-
----
-
-# Iterator Pattern
-
-**Problem:** How to iterate through a collection of elements in a **linear** way for **any type** of collection while protecting it.
-
-- One of the most useful (and oldest) patterns available.
-    - Create a collection.
-    - Add objects to collection.
-    - Iterate through collection when needed and perform individual actions.
-- If you don't create your own collection, you most likely do not have to create your own iterator.
-
----
-
-# Iterator Pattern 
-
-![image](assets/images/iterator.png) <!-- .element width="80%"  -->
-
-(Source: https://en.wikipedia.org/wiki/Iterator_pattern)
-
----
-
-# Iterator Pattern 
-
-```cpp
-// Iterator interface
-class Iterator {
-public:
-    virtual int next() = 0;
-    virtual bool has_next() = 0;
-};
-
-// Concrete Iterator
-class ConcreteIterator : public Iterator {
-public:
-    ConcreteIterator(const std::vector<int>& items) : items(items), position(0) {}
-
-    int next() override {
-        if (has_next()) {
-            return items[position++];
-        }
-        throw std::out_of_range("No more elements.");
-    }
-
-    bool has_next() override {
-        return position < items.size();
-    }
-private:
-    const std::vector<int>& items;
-    size_t position;
-};
-```
-
----
-
-# Iterator Pattern 
-
-```cpp
-// Aggregate interface
-class Aggregate {
-public:
-    virtual std::unique_ptr<Iterator> create_iterator() const = 0;
-};
-
-// Concrete Aggregate
-class ConcreteAggregate : public Aggregate {
-public:
-    void add_item(int item) {
-        items.push_back(item);
-    }
-
-    std::unique_ptr<Iterator> create_iterator() const override {
-        return std::make_unique<ConcreteIterator>(items);
-    }
-private:
-    std::vector<int> items;
-};
-```
-
----
-
-# Iterator Pattern 
-
-```cpp
-ConcreteAggregate numbers;
-numbers.add_item(10);
-numbers.add_item(20);
-numbers.add_item(30);
-numbers.add_item(40);
-
-std::unique_ptr<Iterator> iterator = numbers.create_iterator();
-
-while (iterator->has_next()) {
-    std::cout << iterator->next() << " ";
-}
-std::cout << std::endl;
-return 0;
-```
-
----
-
-# Mediator Pattern
-
-**Problem:** How to define a **common communication** protocol between objects? And, how to implement **new communication** protocol **without having to change** the implementation of the objects?
-
-- Objects no longer communicate directly with each other, but instead communicate through the mediator.
-- This reduces the dependencies between communicating objects, thereby reducing coupling.
-- Mediator is very common pattern in GUI systems.
-    - Event based programming.
-    - Message passing. 
-- The mediator pattern is useful for building messaging systems as it detaches the components. It is a loose coupling approach.
-
----
-
-# Mediator Pattern 
-
-![image](assets/images/mediator.png) <!-- .element width="80%"  -->
-
-(Source: https://javadevcentral.com/mediator-design-pattern)
-
----
-
-# Mediator Pattern 
-
-```cpp
-class Colleague;
-
-class Mediator {
-public:
-    virtual void broadcast_message(const std::string& message,
-    Colleague* sender) = 0;
-};
-
-class Colleague {
-public:
-    Colleague(Mediator* mediator, const std::string& name) : mediator(mediator), name(name) {}
-
-    void send_message(const std::string& message) {
-        mediator->broadcast_message(message, this);
-    }
-    void receive_message(const std::string& message) {
-        std::cout << name << " received: " << message << std::endl;
-    }
-    std::string get_name() const {
-        return name;
-    }
-private:
-    Mediator* mediator;
-    std::string name;
-};
-```
-
----
-
-# Mediator Pattern 
-
-```cpp
-// Concrete Mediator (Chat Room)
-class ChatRoom : public Mediator {
-public:
-    void add_participant(Colleague* colleague) {
-        participants.push_back(colleague);
-    }
-
-    void broadcast_message(const std::string& message, Colleague* sender) override {
-        for (Colleague* participant : participants) {
-            if (participant != sender) {
-                participant->receive_message(sender->get_name() + ": " + message);
-            }
-        }
-    }
-private:
-    std::vector<Colleague*> participants;
-};
-```
-
----
-
-# Mediator Pattern 
-
-```cpp
-// Create a mediator (chat room)
-ChatRoom chat_room;
-
-// Create participants (colleagues)
-Colleague alice(&chat_room, "Alice");
-Colleague bob(&chat_room, "Bob");
-Colleague charlie(&chat_room, "Charlie");
-
-// Add participants to the chat room
-chat_room.add_participant(&alice);
-chat_room.add_participant(&bob);
-chat_room.add_participant(&charlie);
-
-// Participants send messages through the mediator
-alice.send_message("Hello, everyone!");
-bob.send_message("Hi Alice!");
-charlie.send_message("Good morning, folks!");
-```
-
----
-
-# State Pattern
-
-**Problem:** How to change an object's behaviour when its internal state change? How to implement new behaviour without altering the other behaviours and the object itself?
-
-- For example the ghost in PacMan.
-    - Current state is chase PacMan.
-    - When PacMan eats a power pill the ghost changes state to evade PacMan.
-    - When power pill timer runs out state changes back to chase PacMan.
-- The different behaviours can be programmed in different objects. 
-- The ghost uses the behaviour specified in the state object when it updates.
-
----
-
-# State Pattern 
-
-![image](assets/images/state.png) <!-- .element width="80%"  -->
-
-(Source: https://en.wikipedia.org/wiki/State_pattern)
+# Technical Specification (cont.)
+
+- Development platform and tools.
+    - e.g. Visual Studio, Unity.
+- Delivery mechanism / distribution. <!-- .element: class="fragment" -->
+    - Steam / Humble / Itch / Epic / GoG
+- Game engine <!-- .element: class="fragment" -->
+    - Technical specifications.
+    - Design.
+- Interface technical specification. <!-- .element: class="fragment" -->
+- Controls technical specification. <!-- .element: class="fragment" -->
+- Lighting models. <!-- .element: class="fragment" -->
+- Rendering system. <!-- .element: class="fragment" -->
+- Internet / network requirements. <!-- .element: class="fragment" -->
+- System parameters. <!-- .element: class="fragment" -->
+    - e.g. max players, connectivity, etc
 
 
 ---
 
-# State Pattern 
+# Maintenance
 
-```cpp
-class Context; // Forward declaration
+- Game Design Document (GDD) is not carved in stone. <!-- .element: class="fragment" -->
+    - Living document.
+    - Updates made as development progresses.
+- GDD can also get quite large. <!-- .element: class="fragment" -->
+    - Thousands of pages in some circumstances.
+- Game development can have large teams. <!-- .element: class="fragment" -->
+    - Over a thousand people in some circumstances.
 
-// State Interface
-class State {
-public:
-    virtual void handle(Context& context) = 0;
-    virtual ~State() = default;
-};
+![image](assets/images/script.jpg) 
 
-class ChaseState : public State { // Concrete state
-public:
-    void handle(Context& context) override;
-};
-
-class EvadeState : public State {
-public:
-    void handle(Context& context) override;
-};
-
-```
 
 ---
 
-# State Pattern 
+# Using Wikis and Repositories
 
-```cpp
-class Context { // Context class that holds the current state
-public:
-    Context(std::shared_ptr<State> initialState) : state(initialState) {}
+- Some are using a wiki to coordinate and communicate between team members.
+    - Allows multiple users to update.
+    - Allows all users to access the most up to date documentation.
+    - Software development uses these often too - see wikis on GitHub.
+- Repository systems can also be used. <!-- .element: class="fragment" -->
+    - Combine document maintenance with code maintenance.
+    - Could also be storing assets.
+- Tools provide a structured and managed approach to the development process. <!-- .element: class="fragment" -->
+    - Collaboration.
+    - Communication.
 
-    void set_state(std::shared_ptr<State> new_state) {
-        state = new_state;
-    }
-
-    void tick() {
-        state->handle(*this);  // Delegate behavior to the current state
-    }
-private:
-    std::shared_ptr<State> state;  // The current state
-};
-
-void ChaseState::handle(Context& context) {
-    if (/*pacman just ate power pill*/)
-        // Transition to evade state
-        context.set_state(std::make_shared<EvadeState>());  
-}
-
-void EvadeState::handle(Context& context) {
-    if(time_elapsed_since_evade_started < evasion_duration)
-        // Transition to chase state
-        context.set_state(std::make_shared<ChaseState>());  
-}
-```
 
 ---
 
-# State Pattern 
+# What you will need to put in your GDD
 
-```cpp
- Context pacman(std::make_shared<PacmanState>());
- Context ghost(std::make_shared<EvadeState>());
+- Overview: context, background and general information
+- Inspiration: related games
+- Player Experience Goals: Aimed overall experience. Does your game at pushing the player in reflexion, relaxation, action, stress, contemplation, immersion, etc ...
+- Audience: Demographic, size of the audience, potential competitor
+- Gameplay
+- Required media list
+- Technical Specification
 
- while (true)
- {
-     pacman.tick();
-     ghost.tick();
- }
-```
-
----
-
-# Strategy Pattern
-
-**Problem:** How to switch between algorithms at run-time seamlessly without modifying the object?
-
-- We use the strategy pattern when we want to use a different algorithm (strategy) to achieve **the same thing**.
-- A good example of the strategy pattern is different numerical integration method for physics simulation.
-    - They all achieve the same thing, but have different trade-offs in accuracy and performance.
-    - Games like Universe Sandbox allow the player to change the integration method at run-time.
-
----
-
-# Strategy Pattern
-
-```cpp
-class Integrator {
-public:
-    virtual void step(float h) = 0;
-};
-
-class LeapFrog : Integrator {
-public:
-    void step(float h) override {} // use leapfrog verlet
-};
-
-class Euler : Integrator {
-public:
-    void step(float h) override {} // use explicit euler
-};
-
-class Simulator {
-public:
-    void update(float h) {
-        integration_method->step(h);
-    }
-private:
-    std::shared_ptr<Integrator> integration_method;
-};
-```
-
----
-
-# Strategy Pattern with Lambda expression
-
-```cpp
-
-using Integrator = std::function<void(float)>;
-
-struct Integrators{
-    static Integrator leap_frog = [](float h){};
-    static Integrator euler = [](float h){};
-}
-
-class Simulator {
-public:
-    void update(float h) {
-        integrator(h);
-    }
-private:
-    Integrator integrator;
-};
-
-```
-
----
-
-# Observer Pattern
-
-**Problem:** How to process/update a set of objects without having to go through all of them? 
-
-- We want to have a centralised repository and control point for a collection of objects.
-- The **subject** keeps track of all objects, the **observers**, and notifies them of any state changes.
-- The subjects are registered at runtime. 
-- Example: An entity manager that keeps track of all entities in a game.
-    - Entity manager is the subject.
-    - The entities are the observers.
-    - The entity manager calls methods like `update()` and `render()` each frame
-
----
-
-# Observer Pattern 
-
-![image](assets/images/observerPattern.png) <!-- .element width="80%"  -->
-
-(Source: https://en.wikipedia.org/wiki/Observer_pattern)
-
----
-
-# Observer Pattern 
-
-```cpp
-class Entity { // Observer
-public:
-    void update(float dt) {}
-    void render() {}
-};
-
-class EntityManager { // Subject
-    std::vector<std::shared_ptr<Entity>> entities;
-    void update(float dt) {
-        for (std::shared_ptr<Entity> &entity : entities) {
-            entity->update(dt);
-        }
-    }
-    void render() {
-        for (std::shared_ptr<Entity> &entity : entities) {
-            entity->render();
-        }
-    }
-    void register_entity(std::shared_ptr<Entity> entity) {
-        entities.push_back(entity);
-    }
-    void unregister_entity(std::shared_ptr<Entity> entity) {
-        // ... remove entity from entities vector
-    }
-};
-```
-
----
-
-# Recognising Design Patterns
-
-- You will be surprised how often design patterns pop-up when developing software.
-- Some patterns are even built into languages and frameworks that you have used.
-    - Range-based for-loop in C++ uses iterators provided by the collection
-    - C# has events.
-    - Python has decorators.
-    - Java provides the observer pattern.
-- To recognise a pattern you need to first recognise the problem you are trying to solve.
-    - Again, this means doing a higher-level analysis.
-- If you find you are doing the same thing over and over again, chances are you have a pattern.
-
+**If not done already, go read the GDD template provided on Moodle**
 
 ---
 
 # Summary
 
-- Design patterns are a very important tool in the software engineer's toolbox.
-    - Reusable solutions to particular problems.
-    - Simplify existing solutions.
-    - Patterns have proven usefulness.
-- Understanding design patterns is probably the most important skill you can pick up at this stage of your programming education.
-    - Object-oriented Software Development touched on these areas.
-- Knowing when and where to use a design pattern can save you a lot of effort.
-    - And there are a lot of potential patterns out there.
+- Game Design Document is a very important piece of work to put together at the start of your development process.
+    - Blueprint for your game.
+    - Communication with the team.
+- It is a living document, so keep it up to date.
+    - Content and media lists especially.
+- Use collaboration tools as much as possible.
+    - Team communication.
+    - Document control.
+

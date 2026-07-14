@@ -24,52 +24,230 @@ School of Computing. Edinburgh Napier University
 ---
 
 # Recommended Reading:
-## Any C++ book really, but C++ Primer is good.
+- Any C++ book really, but C++ Primer is good.
+- Online resources: https://www.geeksforgeeks.org/cpp/c-plus-plus/
+- C++ references: https://en.cppreference.com
 
 
 ---
 
-# Goal
-
-- Basic concepts of C++
-- Some good practice for C++
-- object-orientation in C++
+## Object-Orientation in C++
 
 ---
 
-## Basics of C++
+# Reminder on Structures 
 
----
-
-# Declare in Headers, Implement in Code
-
-- This is an idea you might not be as familiar with if you come from a Java and C\# background.
-- In C++, declarations should be provided in a header file (.hpp).
-- Actual implementation (definition) should be provided in a code file (.cpp).
-- Exceptions exist around pre-compiled headers and templates.
-
+- `struct` are generally used for composite types: collections of data.
+- `struct` members are declared between the curly brackets.
+- There isn't a widely used convention for `struct` naming but I will use *CamelCase*.
+- **Important** unlike functions, `struct` declaration finishes with a semi-colon.
 
 ```cpp
-// A.hpp
-class A {
-    void work();
-    int do_more();
+struct MyStruct
+{
+   int data_a;
+   double data_b;
 };
 ```
-```cpp
-// A.cpp
-#include "A.hpp"
 
-void A::work() {
-    // Do some work
-}
-int A::do_more() {
-    return 0;  // Do some more work
-}
+```cpp
+MyStruct s;
+s.data_a = 1;
+s.data_b = 0.35;
+```
+The `MyStruct s` instance contains both data_a and data_b. It contains a collections of variables
+
+---
+
+# Declaring a class in C++
+
+- It the same as a `struct` but using the `class` keyword
+- The naming convention for classes uses *CamelCase*
+
+```cpp
+class MyClass
+{
+   int data_a;
+   double data_b;
+};
+```
+<div class="fragment">
+`struct` and `class` are the same with one difference!
+</div>
+
+<div class="fragment">
+<pre><code class="language-cpp">
+MyClass a;
+a.data_a = 1;
+a.data_b = 0.35;
+</code></pre>
+<p>This code will throw compilation errors!</p>
+</div>
+
+
+---
+
+# Scope Protection
+
+By default, `struct` has `public` visibility and `class` has `private` visibility.
+
+- We can specify the visibility of class members via `public`, `private`, and `protected` modifiers.
+- We define "zones" of visibility in C++ rather than individual values.
+- Start with public: most interesting part for users of class
+
+---
+
+# Scope Protection (Cont.)
+
+```cpp
+    class MyClass
+    {
+        // This value is private.
+        int x;
+    public:
+        // The following are public.
+        some_method() { }
+        float n;
+    protected:
+        // The following are protected.
+        string _str;
+    private:
+        // Private again.
+        int _val;
+    };
+```
+
+Often, in C++, private and protected members (attributes and functions) will have an underscore before their name.
+
+---
+
+# Defining Attributes
+
+- Attributes are the values that go along with our objects.
+- By convention, attributes are define as private members.
+
+```cpp
+class MyClass
+{
+private:
+    // Object (instance) values.
+    float _x; // uninitialised value
+    float _y = 0.5f; // Initialised value
+    const _string name; // Constant value
+    // Class (static) values.
+    static _int n;
+};
 ```
 
 ---
 
+# Defining Methods
+
+- Methods are the modifier or accessor of the object
+- **Note** Generally, the naming convention for variables, methods and functions is *snake_case*.
+
+```cpp
+class MyClass
+{
+public:
+    void do_something()
+    {
+        // Do something, that may change any member variables of this object.
+    }
+    
+    //getters 
+    float get_x(){return _x;}
+    int get_n(){return _n;}
+    //setters
+    void set_x(float x){_x=x;}
+    void set_n(int n){_n=n;}
+private:
+    float _x;
+    int _n;
+};
+```
+
+---
+
+# Defining Constructors
+
+- Constructors define how an object is instantiated.
+- We can use them to control initialisation of an object
+- We can have multiple constructors for a class, using different parameters
+- **Note** - always initialise all your variables, either when declaring them or in a constructor
+- **Note** - add a print statement in a constructor, and observe all the times they're called!
+
+```cpp
+class MyClass
+{
+public:
+    // Default constructor
+    MyClass() { }
+    // Parameterised constructor
+    MyClass(float x, float y)
+    : _x(x), _y(y) // Sets object attributes
+    {
+    }
+};
+```
+
+---
+
+# Defining Destructors
+- Destructors determine how an object is destroyed when it goes out of scope.
+- A destructor is called:
+    - whenever an object goes out of scope (i.e. defined between curly brackets).
+    - When the object is manually deleted (e.g. replacing a variable, deleting a pointer)
+- A destructor looks like a constructor with a tilde (~) in front of it, and no parameters
+- A class can only have one destructor.
+- **Note** - add a print statement in a destructor, and observe all the times they're called!
+
+---
+
+# Destructors in C++
+
+```cpp
+class MyClass
+{
+public:
+    // Default Destructor
+    ~MyClass()
+    {
+        // Free up resources.
+    }
+};
+```
+
+---
+
+# Headers!
+
+Remember header files?
+
+**Header files for definitions and Source files for implementation**
+
+```cpp
+//my_class.hpp
+class MyClass
+{
+public:
+    // Default constructor
+    MyClass();
+    // Parameterised constructor
+    MyClass(float x, float y);
+private:
+    float _x, _y;
+};
+```
+
+```cpp
+//my_class.cpp
+#include <my_class.hpp> //include my definitions
+MyClass::MyClass(){}//The class define a namespace
+MyClass::MyClass(float x, float y):_x(x),_y(y){}
+```
+
+---
 
 # RAII
 
@@ -110,195 +288,6 @@ void main(){
 }//Mario is destroyed automatically
 
 ```
-
----
-
-# Understanding the role of scopes in C++
-
-C++ is built based on the RAII rule. Desallocation of resources are based on scopes.
-Scopes are defined with curly bracket `{...}`.
-```cpp
-int main(){
-    int i = 0;// this variable exist in the whole function scope
-
-    {//unamed scope
-        int tab[5] = {0,1,2,3}
-    }//tab is desallocated here
-
-    for(int n = 0; n < 10; n++){
-        //n exists only in the for loop scope
-        MyClass A;
-    }//A is desallocated here
-}//i is desallocated here
-```
-
-***DO NOT DECLARE ANYTHING OUT OF SCOPE***
-
----
-
-## Object-Orientation in C++
-
----
-
-
-# Declaring a class in C++
-
-- `class` declarations are simple in C++.
-- To declare a `class` in C++ we use the `class` keyword followed by the name of the `class`.
-- The declaration of the `class` is anything we put between the curly brackets.
-- **Note** - a semi-colon is required at the end of the declaration. This is different to Java and C\#.
-- **Note** - by default, class members are declared *private*.
-- **Note** - by convention, class names are using *camelCase* and a first letter in upper-case.
-
-```cpp
-class MyClass
-{
-    // Members
-};
-```
-
----
-
-# Declaring a struct in C++
-
-- C++ also allows declarations of `struct` types.
-- `struct` declarations are also simple in C++.
-- To declare a `struct` in C++ we use the `struct` keyword followed by the name of the `struct`.
-- A `struct` is then the members declared between the curly brackets.
-- **Note** - by default, struct members are declared *public*.
-- **Note** - we typically use structs for collections of simple data.
-- **Note** - There isn't a widely used convention for struct naming but I will use the same as classes.
-```cpp
-struct MyStruct
-{
-    // Members
-};
-```
-
----
-
-# Defining Attributes
-
-- Attributes are the values that go along with our objects.
-- C++ doesn't define the visibility per attribute (unlike Java & C#).
-    - We will look at visibility in a few slides.
-
-```cpp
-class MyClass
-{
-    // Object (instance) values.
-    float x; // uninitialised value
-    float y = 0.5f; // Initialised value
-    const string name; // Constant value
-    // Class (static) values.
-    static int n;
-};
-```
-
----
-
-# Defining Methods
-
-- Same rules apply for methods.
-- **Note** Generally, the naming convention for variables, methods and functions is *snake_case*.
-
-```cpp
-class MyClass
-{
-    void do_something()
-    {
-        // Do something, that may change any member variables of this object.
-    }
-    // Const methods do not change values of object.
-    float get_x() const
-    {
-        return x;
-    }
-    // Class (static) methods.
-    static int get_n() { return n; }
-};
-```
-
----
-
-# Defining Constructors
-
-- Constructors define how an object is instantiated.
-- We can use them to control initialisation of an object
-- We can have multiple constructors for a class, using different parameters
-- **Note** - always initialise all your variables, either when declaring them or in a constructor
-- **Note** - add a print statement in a constructor, and observe all the times they're called!
-
-```cpp
-class MyClass
-{
-public:
-    // Default constructor
-    MyClass() { }
-    // Parameterised constructor
-    MyClass(float xx, float yy)
-    : x(xx), y(yy) // Sets object attributes
-    {
-    }
-};
-```
-
----
-
-# Defining Destructors
-- Destructors determine how an object is destroyed when it goes out of scope.
-- A destructor is called:
-    - whenever an object goes out of scope (i.e. defined between curly brackets).
-    - When the object is manually deleted (e.g. replacing a variable, deleting a pointer)
-- A destructor looks like a constructor with a tilde (~) in front of it, and no parameters
-- A class can only have one destructor.
-- **Note** - add a print statement in a destructor, and observe all the times they're called!
-
----
-
-# Destructors in C++
-
-```cpp
-class MyClass
-{
-public:
-    // Default Destructor
-    ~MyClass()
-    {
-        // Free up resources.
-    }
-};
-```
-
----
-
-# Scope Protection
-
-- We can specify the visibility of class members via `public`, `private`, and `protected` modifiers.
-- The difference between a `struct` and a `class` is just the default visibility. `struct` is `public`, `class` is `private`.
-- We define "zones" of visibility in C++ rather than individual values.
-- Start with public: most interesting part for users of class
-
----
-
-```cpp
-    class MyClass
-    {
-        // This value is private.
-        int x;
-    public:
-        // The following are public.
-        MyClass() { }
-        float n;
-    protected:
-        // The following are protected.
-        string _str;
-    private:
-        // Private again.
-        int _val;
-    };
-```
-**Note:** Often, in C++, private and protected members (attributes and functions) will have an underscore before their name. 
 
 ---
 
@@ -957,19 +946,8 @@ Static members of a class are shared by all the instance of this class.
 
 ---
 
+
 # Summary
-
-- You have just learned C++ in an hour. <!-- .element: class="fragment" -->
-- This is obviously not possible, and you will need practice in these ideas. I am simply signposting ideas. <!-- .element: class="fragment" -->
-- C++ is one of the most complicated languages around (they keep adding features), so get a good working knowledge of what you need and hack it together. <!-- .element: class="fragment" -->
-- Key thing today was how to do object-orientation properly.  <!-- .element: class="fragment" -->
-- But at the end of the day it is all about practice. <!-- .element: class="fragment" -->
-
-====> ***https://en.cppreference.com*** <====<!-- .element: class="fragment" -->
-
----
-
-# Golden Rules / top tips
 
 1. Keep stuff out of header files. Only the bare minimum!
 
@@ -982,4 +960,4 @@ Static members of a class are shared by all the instance of this class.
 1. Put breakpoints in all your constructors/destructors/assignment operators when debugging scope issues. 
 You might be surprised by when they are called!
 
-
+====> ***https://en.cppreference.com*** <====

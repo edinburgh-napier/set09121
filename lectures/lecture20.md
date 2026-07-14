@@ -1,5 +1,5 @@
 ---
-title: "Lectur20"
+title: "Lecture20"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture20.html
@@ -7,10 +7,11 @@ summary: lecture20
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
 ---
+
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 20 - QA and TRC
+# Lecture 20 - Releasing your game
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -21,264 +22,224 @@ Babis Koniaris/Tobias Grubenmann
 School of Computing. Edinburgh Napier University
 
 
----
-
-## Quality Assurance (QA)
-
 
 ---
 
-# Bug Catching 
+## Release builds
 
-![image](assets/images/portal2_bugs.jpg)
+![image](assets/images/gold-master.jpg) <!-- .element width="60%"  -->
 
 
 ---
 
-# QA 
-"QA and publishing is like being tested on how well you can crash-land a plane" - Tim Schafer
+# Green Go button 
+Moving beyond the Green button.
+
+![image](assets/images/build_options.png) <!-- .element width="95%"  -->
 
 
 ---
 
-# QA 
+# Runtime Resources 
 
-<iframe width="1400" height="800" src="https://www.youtube.com/embed/ssUFuZyu5bw?start=974&end=1353" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
----
-
-# Bug Tracking 
-
-![image](assets/images/bug_tracker.png)
-
----
-
-# Bug Catching 
-
-![image](assets/images/civ.jpg) <!-- .element width="95%"  -->
+![image](assets/images/build_folder.png) <!-- .element width="70%"  -->
 
 
 ---
 
-# Bug Catching 
+# Release Builds 
 
-![image](assets/images/MissingNo.png)
+Tidy up before you ship
 
----
+- Hide CMD window <!-- .element: class="fragment" -->
+- Don't assume resolution <!-- .element: class="fragment" -->
+- Pipe Exceptions to an error popup window <!-- .element: class="fragment" -->
+- Turn off any developer cheats <!-- .element: class="fragment" -->
 
-
-# Bug Catching
-
-[**Game Developer Article - My Hardest Bug Ever**](https://www.gamedeveloper.com/programming/my-hardest-bug-ever)
-
-The symptom was that you'd go to save your progress and it would access the memory card, and almost all the time, it worked normally
-
-... But every once in a while the write or read would time out
-
-... for no obvious reason. A short write would often corrupt the memory card. 
-
-The player would go to save, and not only would we not save, we'd wipe their memory card.
+This should ideally be done automatically <!-- .element: class="fragment" -->
 
 
 ---
 
-# Playtesting
+# Runtime Resources 
 
-Playtests can be super useful. If you treat them right.
-
-1. Be clear of your test goals <!-- .element: class="fragment" -->
- - are you testing if a single mechanic works?
- - are you testing to see if a level is the right difficulty?
- - are you testing to get a general review?
-2. Make a correct environment for your test. <!-- .element: class="fragment" -->
- - Turn off features or levels with issues to isolate just the feature you want to test 
-3. Pick your test candidates, and make sure to inform them accordingly <!-- .element: class="fragment" -->
-4. Be aware of what you do/don't tell test participants beforehand <!-- .element: class="fragment" -->
-5. RECORD THE TEST (Screen capture) <!-- .element: class="fragment" -->
-6. Don't hover <!-- .element: class="fragment" -->
-7. Do a post-test survey / interview. <!-- .element: class="fragment" -->
+What does your game need, and where does it look for it?
 
 
 ---
 
-# Playtesting
+# Static vs Dynamic Linking
 
+**Static Linking**
+- Larger .exe file  <!-- .element: class="fragment" -->
+- No .dll / .so's generated <!-- .element: class="fragment" -->
+- Potential for better compiler optimisation <!-- .element: class="fragment" -->
+- Lock the version of libs <!-- .element: class="fragment" -->
 
-Marc Tattersall (Schell Games) Top 5 post-playtest Questions.
-
-1. What was your favorite moment or interaction? <!-- .element: class="fragment" -->
-1. What was your least favorite moment or interaction? <!-- .element: class="fragment" -->
-1. When did you feel the most clever? <!-- .element: class="fragment" -->
-1. Was there anything you wanted to do that the game wouldn't let you do? <!-- .element: class="fragment" -->
-1. If you had a magic wand and could change any aspect of the game or your experience, what would it be? Unlimited budget and time. <!-- .element: class="fragment" -->
-
-
----
-
-## Technical Requirement Checklist (TRC)
-
-
----
-
-# TRC Intro
-
-- This has many different names, but all companies have them
-- It's vital if you release anything for consoles, in particular
-- It's all about ensuring that your game works on the hardware
-- Sometimes it is just to ensure everything behaves in a standard, expected, way.
-
----
-
-# TRC Example 1
-
-When save data is loaded, the state of the application at
-the save timing (including game progress, status of characters and their
-owned items, play history, etc.) is restored correctly.
+**Dynamic (Shared) linking**
+- Smaller .exe file <!-- .element: class="fragment" -->
+- Libraries compiled to .dll <!-- .element: class="fragment" -->
+- can reuse and share dlls already on the system <!-- .element: class="fragment" -->
+- Modders can hack/swap out your .dlls. <!-- .element: class="fragment" -->
 
 
 ---
 
-# TRC Examples 2 
+# Asset Pipeline During Development Vs Release
 
-If the time required for loading exceeds 30 seconds, the
-application displays an animation. Progress information such as a
-progress bar or the remaining time is displayed if the time required for
-loading exceeds 60 seconds.
+* During **development**: 
+	* Assets need to be frequently iterated on/edited
+	* Assets need to be in an artist-friendly form
+	* Heavy/slow compression hurts iteration times
+
+* At **release**:
+	* Assets are not modified anymore
+	* Assets need to be in optimal form for game execution
+	* Heavy compression is fine, as long as decompression does not hurt load times
+	
+* Examples: 
+	* texture/mesh/sound compression
+	* ... or conversion	to game-ready formats
+---
+
+# Asset Pipeline Out There
+
+* AAA studios do complicated things here. 
+
+* Even UE4/Unity have complicated final "cooking" steps. 
+
+* This should all be automated - more on this later 
+
+* You probably do not need a custom asset pipeline
+
+---
+
+# Installers
+
+Why?  You could just deploy your game as a Zip file
+
+1.  Contain all your game files inside a single runnable .exe file - typically compressed. <!-- .element: class="fragment" -->
+2.  Show a dialogue wizard of some kind that let's the user select an installation folder. <!-- .element: class="fragment" -->
+3.  Extract your game files to the selected folder. <!-- .element: class="fragment" -->
+4.  Optionally create desktop/Start Menu Shortcuts. <!-- .element: class="fragment" -->
+4.  Install dependencies / registry values. <!-- .element: class="fragment" -->
+
+---
+
+# Running as Admin 
+
+### HINT - This has been a recurring issue.  
+
+Windows requires elevated permissions to touch `C:\Program Files` <!-- .element: class="fragment" -->
+
+The only time your game should need Admin Privileges is the installer, and it should work without it if a user installs to a non-protected space. <!-- .element: class="fragment" -->
+
+Consider where your save game files will go. <!-- .element: class="fragment" -->
+
+Perhaps look at where loads of other games save stuff? <!-- .element: class="fragment" -->
+
+---
+
+# How
+
+![image](assets/images/nullsoft.jpg) <!-- .element width="80%"  -->
 
 
 ---
 
-# TRC Examples 3
+# Un-Installers 
 
-Test all online activity with a 2000 friend account
-
----
-
-# Your TRC Pt.1
-
-- 2D graphics engine using SFML
-- Main menu (Ability to quit to menu, and restart game)
-- Some form of AI
-- Interactive Sound (i.e not just background music)
-- 1080p/60fps on a reasonable systems specification
-- Usability options:
- - Remappable controls
- - Controller support
-- Graphics options (Resolution & window mode)
-- Windows: 10 x64
-- Single file .exe game installer/uninstaller
-- User preference/savegame saving/loading from disk
-- Web presence with game promo material and downloads
-
----
-
-# Your TRC Pt.2 
-
-- Software Design & Code Quality
-    - Tidy, documented, and organised code.
-    - Use of appropriate software patterns.
-    - Evidence of performance analysis and optimisation.
-- Software Engineering Methods & Testing
-    - Evidence of proper version control best practises
-    - Evidence of proper project management
-    - Working continuous integration
-    - Working build testing
-    - Evidence and reports from playtests
+Make sure they work, and are added to Windows correctly.
 
 
 ---
 
-# Accessibility 
-<http://gameaccessibilityguidelines.com>
-
-- Allow the game to be started without the need to navigate through multiple levels of menus
-- Ensure no essential information is conveyed by a colour alone
-- Ensure no essential information is conveyed by sounds alone
-- Offer a wide choice of difficulty levels or difficulty customisation
-- Give a clear indication that interactive elements are interactive
-- Allow interfaces to be resized
-- Allow all narrative and instructions to be replayed
-
----
-
-# Localisation 
-
-Watch out for:
-- EFIGS!
-- Vertical text!
-- Text in Art Assets!
-- Gendered Languages
-- Player chat & Unicode
-
+## Continuous Integration
 
 
 ---
 
-## Publishing
+# Continuous Integration Benefits
+
+- Ground Truth - no more "works on my machine"
+- Alerts on broken builds - especially useful for multi-platform
+- Signpost to others that your software still works
+- Links in well with Unit Testing
+
+---
+
+# Continuous Integration Disadvantages
+
+- Might cost you! You're using someone else's computer to do work
+- Can be a bit of a faff to set up...
+
+but...
+- It is a *good idea* that most companies of a certain size and above use.
+- Check out AppVeyor or Github Actions for a way to integrate (heh) this into your current workflow
+
+---
+
+## Deployment Summary
 
 
 ---
 
-# Role of Publishers Then:
+# Summary
 
-- Bankroll Development
-- Handle All Marketing
-- Negotiate Physical Sales and distribution
-- Localisation and QA
-- Legal Protection
-- Occasionally hotdrop producers into dev team
-
----
-
-# Role of Publishers Now:
-- *Might* pay you something before game is finished
-- Handle some marketing, devs do *"Community Management"*
-- Negotiate *some* sales deals (particularly with platform holders)
-- **Localisation and QA**
-- **Legal Protection**
-- Having said that, every publisher is different. Get the deal that works for you!
-
----
-
-# Legals
-
-I'm not a lawyer, and neither are you.
-
-- Get a lawyer
-- Form a company
-- Protect your IP
-- Don't get sued
-
-[LINK: IGDA white papers on IP](https://igda.org/resources/) 
-
-If you game can be cloned. It will be cloned.
+1. Make sure your game works in Release
+2. Understand everything your game needs to run.
+3. Make an Installer & Uninstaller
+4. Test your build automatically in the Cloud
 
 
 ---
 
-# Legal costs
+# TOP TIPS
 
-- **Form a company** 
-    - Protects *you* if you are sued (Actually pretty easy in the UK) £100-1000
-- **Contracts** 
-    - Formal agreement on ownership of work. Get one even if someone is doing work for free. £600-1000
-- **Trademark your game and company** 
-    - People can still clone your game, but they can't pretend to be you  £500-2000
-- **Terms of Service and Privacy Policy** 
-    - Stop you being sued in the first place £600-1000
-- **Package deals** 
-    - Common for Indies £3000
-
-Disclaimer: costs found after 20 mins of googling + I'm not a lawyer.
-
+- Embed Version/Commit Numbers.
+- Automate Everything.
+ - Avoid one-off mistakes, fix it once, it will always work
+- **Test it** 
+ - Test it on new machines, old machines, fresh machines, 
+ - Virtual machines, JKCC/VDS machines, your friends' machines
+ 
+---
 
 ---
 
-# Review
+## IF YOUR CODE DOES NOT RUN ON MY MACHINE WHEN I TEST IT, YOU WILL LOSE MARKS!
 
-- Keep enough time for QA
-- Consider TRC to frame the desired performance of your game.
-- Consider Accessibility
-- Game publishing is a legal battleground
-- If you plan on selling your game... Good luck
+---
+
+# TOP TIPS
+
+Test your code on other machines
+
+Check you have all the files included in the installer
+
+Check you have the right .dlls
+
+---
+
+# What is needed in the game submission
+
+```
+GameFolder/
+	src/ <-- Source of the game
+	bin/ <-- the executable and shared libraries
+	assets/ <-- fonts, images, and sounds
+	lib/
+		SFML (submodule file)
+		Box2D (submodule file, if used)
+	CMakeLists.txt <-- essential!
+	installer.exe (optional)
+	ReadMe.md <-- general info, libraries versions, how to install/compile
+	License
+```
+
+- Compress this folder into a zip file. 
+- **CMakeLists.txt is important!** I don't use Windows, so I will probably compile it on Linux.
+- **The game should be compiled in release!** Otherwise it will not run on other platforms. 
+- **Don't make me fetch the libraries you are using.** Include them in a lib folder using submodules and make sure that the .dll are present in the bin folder!
+
+---

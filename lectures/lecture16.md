@@ -1,5 +1,5 @@
 ---
-title: "Lecture16"
+title: "Lecture16 - Pathfinding"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture16.html
@@ -10,7 +10,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 16 - Decision Trees
+# Lecture 16 - AI Pathfinding
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -21,399 +21,361 @@ Leni Le Goff
 School of Computing. Edinburgh Napier University
 
 
-
 ---
 
 # Recommended Reading
 
-- Artificial Intelligence for Games. Second Edition. Millington and
-    Funge (2009).
-
+- Artificial Intelligence for Games. Second Edition. Millington and Funge (2009).
+- Whole chapter on pathfinding.
 
  ![image](assets/images/ai_book.jpg)
 
 
 ---
 
-| Decision Tree                                                               |                                                              Behaviour Tree |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| ![image](assets/images/decision_tree_ex.png) <!-- .element width="100%"  --> | ![image](assets/images/behaviour_tree_ex.png) <!-- .element width=50%"  -->|
+## Pathfinding
+
+![image](assets/images/pathfinding.jpg)
+
+
+---
+
+# What is Pathfinding?
+
+- Pathfinding (or more specifically path planning) is a decision making process that feeds into the movement.
+    - You can consider it as crossing the boundary between movement and decision making.
+- Pathfinding is really the key ingredient that allows characters to navigate.
+- There is a good chance you have covered this before in AI or Algorithms and Data Structures.
 
 
 
 ---
 
+# Why do we need Pathfinding?
 
-## Decision Trees
-
-![image](assets/images/decision_tree_ex.png)
-
----
-
-# What are Decision Trees?
-
-- Decision trees provide us with an approach to modelling a decision.
-- The decision structure is formed into a tree.
-    - We traverse different branches based on the decision we wish to make.
-- The decision to go down a branch can be determined by:
-    - The current state of the game. (E.g., testing some value)
-    - Randomly, by drawing a value from a distribution.
-- At the end of a branch, a decision is made, and therefore an action is undertaken.
+- Game maps are generally too complicated for simple steering to be in charge.
+- We could hard-code routes through the map, but that is not a scalable strategy.
+- So we need a technique that allows an entity to determine a route to follow to get to its destination.
+- Pathfinding allows us to do this - it examines map data and provides a set of waypoints to follow by the entity.
+- Pathfinding is just a form of graph search, and there are different methods to do this.
+- We need a fast solution - A* being the most commonly used.
 
 
 ---
 
-# Decision Tree - Example 1
+# Why Too Complicated?
 
-- The sophisticated guard.
-- The guard has some basic actions.
-    - The guard patrols between point A and point B.
-    - The guard has a 20% chance of stopping while patrolling.
-    - If the guard is shot at, the guard will stop patrolling, engage with the player, and fire back.
-    - If the guard sees the player, they will engage the player.
-    - If the guard loses sight of the player, the guard will return to patrolling between point A and point B.
+- If there are only simple convex objects, basic avoidance behaviours will look great!
+- But if you have concavities, obstacle avoidance will not work
+- As we discussed previously, level design impacts AI design
+
+---
+
+# Pathfinding Costs
+
+- Maps are very big today - some over $100km^2$.
+- If each square metre was a navigation point that's $10^8$ points.
+- If we can travel in any direction, things get very expensive.
+- Generally we are looking for simplifications to combat this.
+
+
+ ![image](assets/images/witcher3_map.jpg) <!-- .element width="40%"  -->
 
 
 ---
 
-# Decision Tree - Diagram 
 
+## Underpinning Theory - Graphs
 
-![image](assets/images/guard_decisions.png) <!-- .element width="85%"  -->
-
-
----
-
-# Diagram Explanation
-
-- A decision tree is made up of a number of nodes.
-    - Nodes &rarr; decision points, edges &rarr; results
-- And a number of transitions.
-	- A transition has a condition associated with it, e.g. 80%
-- We traverse the tree, starting at the root node, making decisions based on information, before arriving at a leaf.
-
----
-
-# Using Activity Diagrams
-
-- We have previously seen state diagrams used for modelling state machines.
-- We can undertake a similar approach with activity diagrams for decision trees.
-- Activity diagrams provide us with guarded transitions (edges)
-    - The "guard" is simply a decision.
-- Activity diagrams also provide a choice or branch symbol (nodes)
-- If you want, you can use the action states as the actual actions to take.
-
----
-
-# Activity Diagram example
-
-
-![image](assets/images/activity_diagram_example.png) <!-- .element width="65%"  -->
+![image](assets/images/node-link.png)
 
 
 ---
 
-# Decision Trees in Our Game Engine
+# What is a Graph?
 
-- Our aim is to implement basic, reusable decision tree behaviour within our engine.
-    - We want reusable so that is simple for us to extend functionality if required.
-- We will be using a tree-like data structure to implement the decision tree behaviour.
-- Each decision point will be tested to determine which path to follow. The end decision will result in an action.
+- A **graph** ***G***, is a set of **nodes** (vertices or points) ***V*** connected by **edges** (links or lines) ***E***: $$G = (V,E)$$
+- From a game pathfinding point of view, a node is a location in the game world, and an edge is a path between two edges.
 
 
 ---
 
-# `DecisionTreeNode` Interface
 
-- Defines only one method.
-    - `make_decision`
-- `make_decision` is called by the `entity` which in turn calls `make_decision` on any child nodes.
+# Weighted Graphs
 
+- For pathfinding we are concerned with the cost.
+- The cost of a path is dependent on some factors that allows us to determine what the cheapest path is.
+    - Game factors: distance, underlying terrain, obstacles
+- We consider that an edge has a cost associated with it (weight)
+- To traverse an edge means to incur the cost of that traversal.
 
- ![image](assets/images/decision_tree_node.png)
-
-
----
-
-# Implementing Nodes
-
-- `Decision` and `MultiDecision` implement the `DecisionTreeNode` interface.
-- Their `make_decision` method will call the `make_decision` on one of the child nodes returned by `get_branch`.
-- `get_branch` is defined by the programmer based on required parameters.
-
-
- ![image](assets/images/decision_node_types.png) <!-- .element width="80%"  -->
-
----
-
-# Using the Class
-
-- We can make a random decision class implementation just by extending the decision class.
-- On the `get_branch` code we just generate a random number and use it to determine the action to.
-
-```cpp
-static std::random_device rd;
-static std::default_random_engine e(rd());
-static std::uniform_real_distribution<> dist(0, 1);
-bool choice = dist(e) <= _probability;
-if (choice)
-    return _true_node;
-else
-    return _false_node;
-```
+![image](assets/images/weighted-graph.png) <!-- .element width="60%"  -->
 
 
 ---
 
-# Diagram to Implementation
+# Directed Graphs
 
-```cpp
-decision_tree = std::make_shared<PlayerVisibleDecision>( 
-    std::make_shared<EngageDecision>(), 
-    std::make_shared<ChanceDecision>( 
-        0.8f, std::make_shared<PatrolDecision>(),
-         0.2f, 
-         std::make_shared<WaitDecision>())
-    );
-```
+- A graph may also be directed.
+- This means that an edge only has one direction of travel.
+- We won't use this, but it does exist in games.
+    - For example, jumping down a ledge you cannot get back up.
 
-
-![image](assets/images/guard_decisions.png)
+![image](assets/images/directed-graph.png)  <!-- .element width="60%"  -->
 
 
 ---
 
-# Comments on Decision Trees
-- Decision trees are very useful when you want to map a complex decision.
-    - Granted, these are just nested if statements, but those can get messy.
-- Decision trees can be reused easily enough.
-- Decision trees can get quite complex however.
-    - The deeper the tree, the longer it will take to make a decision.
-- We are also using a number of virtual function calls to implement the tree.
-    - Remember, virtual function calls are more expensive than normal function calls.
+# Tile Engine and Graphs
+
+- We will be building our pathfinding into our tile engine.
+    - It is just easier - the data is all there.
+- We will use the data directly and build up our path incrementally from the level data.
+- The algorithm should be reusable though - you just need to specify where you are getting the data from.
+
+![image](assets/images/tile-path.jpg)  <!-- .element width="60%"  -->
 
 
 ---
 
-# Summary
+# Tile Graphs
 
-- Decision trees are a useful diagrammatic technique and algorithm to create AI that can make decisions.
-    - We still need to determine the decisions to program though.
-- We can work with activity diagrams to model our decision trees.
-- We can also combine decision trees and state machines to create more complex data.
-
----
-
-## Behaviour Tree
-
-![image](assets/images/behaviour_tree_ex.png)
+- This approach should be OK for anything you are building, but a word of warning...
+- A tile-based graph pathfinding approach does not scale to large maps.
+    - We mentioned this at the start.
+- A worst case pathfind means that all paths on all nodes have to be searched. 
+    - This leads to an algorithmic complexity of $\mathcal{O}(\lvert V \rvert^2)$.
+    - $\lvert V \rvert$ is the size of the node (vertex) set.
+- So don't convert your massive million by million tile world into a pathfinding nightmare.
 
 ---
 
-# Limitations of State Machines
+## Dijkstra
 
-- State machines are good at modelling a system having a few states.
-- They can get messy when having a lot of states and transistions.
-- Complex tasks involving many steps will require a lot of states.
-- **Behaviour Trees** are an alternative that you might want to consider when you need to deal with a lot of states.
 
 ---
 
-# Definition
+# Dijkstra's Algorithm
 
-- A Behaviour Tree is a model for plan execution.
-- They are popular in games to model AI characters.
-- They consist of: <!-- .element: class="fragment" -->
-    - A **root** node.
-    - Branch nodes: **control** nodes and **decorator** nodes.
-    - Leaf nodes: **action** nodes and **condition** nodes.
+- Defined by Edsger Dijkstra in 1956.
+- An algorithm to find the shortest path between two nodes in a graph.
+    - For a game, find the shortest path between two locations.
+- An extension to the algorithm allowed finding of all the paths from a source node.
+    - In other words, how do we get to each of the nodes in the shortest time.
+- This algorithm is not only used for pathfinding in games.
+    - Google Maps will use something similar for moving in road networks.
+    - Network routing protocols will use such an algorithm.
+- Dijkstra is typically too expensive to use in games
 
----
-
-# Evaluating a Behaviour Tree
-
-- Each tick/update we evaluate the tree starting from the root.
-- The root will ask its child node about its current status.
-- The status of a node might depend on its children.
-- This results in a depth-first traversal.
-- A node's status can be: <!-- .element: class="fragment" -->
-    - Success: The node has been successfully resolved.
-    - Failure: The node has been unsuccessfully resolved.
-    - Running: The node has not yet been resolved.
 
 ---
 
-# Evaluating a Behaviour Tree
-
-![image](assets/images/behavior_tree_traversal.gif) <!-- .element width="100%" -->
-
----
-
-# Action Nodes
-
-- Affects the state of the game.
-    - Move the NPC.
-    - Change the state of an object.
-    - Play animation.
-    - Play audio.
-    - Trigger dialog.
+# Dijkstra's Algorithm - 6 steps
+1.  Mark all nodes as initially unvisited. Use this to create the set of *unvisited* nodes.
+2.  Set costs for the nodes:
+    - Initial node (current node) cost is 0.
+    - Other node costs set to infinity.
+3.  For the current node look at connected neighbours. Use to determine a tentative cost from the current node. Update the neighbours costs if the new route is shorter.
+4.  Mark current node as visited (remove from *unvisited* set). We will not visit this node again.
+5.  If destination has been marked visited (in other words we reached our destination) or all *unvisited* nodes have infinite cost, stop.
+6.  Else select unvisited node with smallest tentative cost from the initial node and set as current node. Go to step 3.
 
 ---
 
-# Example: Behaviour Tree with 1 Action
+![image](assets/images/dijkstra1.png)<!-- .element width="100%" height="100%" -->
 
-- Only one **action**: Enter House
-- The action is directly connected to the root.
-- The action node will return:
-    - Success: If the inside of the house has been reached.
-    - Failure: If it is not possible to reach the inside of the house.
-    - Running: As long as the agent is on its way.
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
-# Example: Behaviour Tree with 1 Action
+![image](assets/images/dijkstra2.png)<!-- .element width="100%" height="100%" -->
 
-![image](assets/images/behavior_tree_1action.png) <!-- .element width="80%" -->
-
----
-
-# Example: Behaviour Tree with 1 Action
-
-- At each tick/update, the tree is evaluated.
-- The root will ask the node about its status.
-- The node will keep returning **Running** while the agent is still on its way.
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
-# Control Nodes
+![image](assets/images/dijkstra3.jpg) <!-- .element width="100%" height="100%" -->
 
-- The moment we want to have more than one action (leaf nodes), we need control nodes (branch nodes).
-- The two most common control nodes are:
-    - **Selector**: Evaluates each children until one is found that does **not** fail and returns the status of this child node.
-    - **Sequence**: Evaluates each children until one is found that does **not** succeed and returns the status of this child node.
-- Note that the child nodes have a pre-determined **order**.
-- We will look at a few example to see how these control nodes are used.
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
-# Selector
+![image](assets/images/dijkstra4.png)<!-- .element width="100%" height="100%" -->
 
-- Evaluates each children until one is found that does **not** fail and returns the status of this child node.
-- As soon as a node is found that returns **running** or **success**, no further child nodes are evaluated.
-- Consquently, only one node will change its status to **running** or **success**.
-- The Selector node selects the first non-failing node.
-- The order of the child nodes describes their **priority**.
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
-# Example: Selector
+![image](assets/images/dijkstra5.png)<!-- .element width="100%" height="100%" -->
 
-- Can you describe in your own words what kind of behaviour this tree represents?
-
-![image](assets/images/behavior_tree_selector.png) <!-- .element width="80%" -->
+[source](https://www.geeksforgeeks.org/dsa/introduction-to-dijkstras-shortest-path-algorithm/)
 
 ---
 
-# Sequence
+# Dijkstra's Algorithm
 
-- Evaluates each children until one is found that does **not** succeed and returns the status of this child node.
-- As soon as a node is found that returns **running** or **failure**, no further child nodes are evaluated.
-- Consquently, all nodes will eventually change its status to **running** or **success**, unless one of the nodes in the squence fails.
-- The Sequence node describes a sequence of nodes that need to be evaluated, but stops the sequence if a failing node is encountered.
-- The order of the child nodes describes their order within the sequence.
+- Dijkstra guarantees that the path found is going to be the shortest
+    - Unlike approaches such as best-first search (BFS), depth-first search
+	- BFS: special case of Dijkstra without weights or priority queue
+- Dijkstra iterates through nodes based on which one has the shortest distance from the start node.
+- This means it is not actively searching for the destination but doing a traversal of the graph until it happens to find it.
 
----
-
-# Example: Sequence
-
-- Can you describe in your own words what kind of behaviour this tree represents?
-
-![image](assets/images/behavior_tree_sequence.png) <!-- .element width="80%" -->
 
 ---
 
-# Condition
+# Example - Dijkstra at Work
 
-- Like the action node, the condition node is a leaf node.
-- A condition node does not change the state of the game world, unlike the action node.
-- Condition nodes test for something in the game world: <!-- .element: class="fragment" -->
-    - Is the enemy in sight?
-    - Is the player on low health?
-- A condition returns: <!-- .element: class="fragment" -->
-    - **Success** if the test was successful.
-    - **Failure** if the test failed.
-    - **Running** if the test needs more time to determine the outcome.
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/dhvf9KCAsVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
-# Using Conditions
+# Problems with Dijkstra
 
-- Conditions can be used to avoid evaluating part of the tree.
-- Inside a selector:
-    - All children after the condition are only evaluated when the condition **fails**.
-- Inside a sequence:
-    - All children after the condition are only evaluated when the condition **succeeds**.
-
----
-
-# Example: Selector
-
-- Can you describe in your own words what kind of behaviour this tree represents?
-- What would happen if the condition were missing?
-
-![image](assets/images/behavior_tree_condition_selector.png) <!-- .element width="70%" -->
+- The problem with Dijkstra's algorithm is it not actually searching for our destination.
+- Dijkstra's approach sets out to find the shortest path from a source to the neighbouring nodes.
+- It just might run into the destination at this step.
+- Therefore, Dijkstra is expensive for pathfinding - it might just get lucky.
+- This leads to an algorithmic complexity of $\mathcal{O}(\lvert V \rvert^2)$.
+- So we need a better technique that tries to find our destination node.
 
 ---
 
-# Example: Sequence
+# Dijkstra for many entities going to the same place
 
-- Can you describe in your own words what kind of behaviour this tree represents?
-- What would happen if the condition were missing?
-
-![image](assets/images/behavior_tree_condition_sequence.png) <!-- .element width="70%" -->
-
----
-
-# Decorator
-
-- Decorators have exactly one child.
-- They are somewhat similar to the Decorator Pattern in OOP (hence the name). <!-- .element: class="fragment" -->
-- Their return value depends on the state of the child and on the specific type of decorator. <!-- .element: class="fragment" -->
-- Decorators are used to change the behaviour of a node. <!-- .element: class="fragment" -->
-- There are many different types of decorators with very different use-cases. <!-- .element: class="fragment" -->
+- What if all your agents are only pathing to a single location?
+	- E.g. enemies swarming the player
+- If so, then you can precalculate it and have hundreds of agents!
+- Precalculate the costs to the goal(s) using Dijkstra from any point in the map
+    - E.g. goal is player position
+- When calculating the path, for each agent:
+    - Look at cost at current position
+    - Look at costs at neighbouring positions
+    - Pick the neighbour position with lower cost
+- Not needed for this module, but it's food for thought!
 
 ---
 
-# Example: Decorator
+## A*
 
-![image](assets/images/DecoratorEnterRoom.svg)
-
----
-
-# Extending Behaviour Trees
-
-- Some implementations add Sequence and Selection nodes with **memory**, avoiding evaluating a node that has been successful previously.
-- Some implementations add a **Blackboard**, which allows passing information between nodes.
-    - This can be used to coordinate different actions.
-    - For example: *walk to* and *talk to* should have the same target.
-- Some implemntations add additional states like *Error*.
 
 ---
 
-# A More Complex Example
+# A*
 
-- Can you describe in your own words what kind of behaviour this tree represents?
+- A* was first described in 1968 (about 10 years after Dijkstra's algorithm) by a team from the Stanford Research Institute.
+- A* is called a best-first search or an informed-search algorithm.
+- This is because it takes into account a goal for working out which node to select next.
+    - In a game our goal is the destination we want to get to quickest.
+- It does this by determining a cost for a node traversal based on whether it best meets the goal.
+- We can use different heuristics to evaluate these costs.
+    - We will just use Euclidean (straight-line) distance.
 
-![image](assets/images/behavior_tree_complex.png) <!-- .element width="80%" -->
+---
+
+# A* Similarity to Dijkstra
+
+- Dijkstra is a special case of A*, where the heuristic is zero
+- The algorithm is identical to Dijkstra, except a few points:
+    - The cost is computed as a *combined cost*: $$C(n) = g(n) + h(n)$$
+- Where
+	- h: heuristic function calculating the cost from the current node to the goal node
+	- g: tentative cost from start to current node
+	- C: the combined cost
+
+---
+
+# A*
+
+- As stated, A* is a best-first search algorithm.
+- This means it doesn't select a shortest path from where it is, but chooses a node that looks like a better choice towards the goal.
+- However, in the worst-case A* still might have to search the entire graph.
+    - We still have $\mathcal{O}(\lvert V \rvert^2)$ complexity.
+
+
+ ![image](assets/images/astar.png) <!-- .element width="40%"  -->
+
+
+---
+
+# Example - A* at Work
+
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/19h1g22hby8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+# Heuristics
+The most common heuristics used are distances .
+
+- **Euclidean distance** (straight line): $$ h(n) = \sqrt{ (x_g-x_n)^2 + (y_g-y_n)^2 } $$
+- **Manhattan distance**: $$ h(n) = \lvert x_g-x_n \rvert + \lvert y_g-y_n \rvert $$
+- **Chebyshev distance**: $$ h(n) = \max(\lvert x_g-x_n \rvert , \lvert y_g-y_n \rvert) $$
+With $n$ current node and $g$ goal node
+
+---
+
+# Heuristics
+
+![image](assets/images/distance_examples.png) <!-- .element width="100%" height=100%" -->
+
+---
+
+# A* versus Dijkstra
+
+<iframe width="1400" height="800" src="https://www.youtube.com/embed/g024lzsknDo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+## Pathfinding and Steering
+
+
+---
+
+# Output from Pathfinding
+
+- The output from a path finding or a path planning operation is called a *path* or *walk*.
+- There are different approaches we can take in a game:
+    - A series of directions of travel (useful for discrete movement).
+    - A list of nodes to visit (better for continuous movement).
+- We will take the latter approach.
+
+
+ ![image](assets/images/graph-walk.png) <!-- .element width="40%"  -->
+
+
+---
+
+# Pathfinding and Steering
+
+- Our aim is to use pathfinding as a decision making process for our movement.
+- The basic idea is that we have a starting position and a target position.
+- We use pathfinding to plan the sequence of movements to reach the target position.
+- The list of nodes to visit then allows us to traverse the map using a steering behaviour.
+- The simplest approach is just to use an arrive behaviour for each node. Seeking might cause bouncing.
+- Combining steering behaviours, pathfinding, and physics will give you all the movement behaviour you need.
+
+
+---
+
+
+# Other Techniques
+
+- We have only looked at the main technique used in games but there are other considerations.
+- Jump Point Search: optimisation to A* for uniform-cost grids
+    - Algorithm considers "jumps" along straight lines in the grid
+- HPA\*  and [HAA*](https://web.archive.org/web/20190411040123/http://aigamedev.com/open/article/clearance-based-pathfinding/) : hierarchical variants
+    - Break map into chunks, identify chunk entries/exits, precompute paths per chunk and run a multi-resolution search at runtime
+
+![image](assets/images/hpastar.png) <!-- .element width="40%"  -->
+
+
 
 ---
 
 # Summary
 
-- Behaviour Trees can be used to model AI behaviour.
-- At each tick/update, the tree gets evaluated and returns a status.
-- A tree consist of nodes. 
-    - A node's status can be: Success, Failure, Running.
-    - Branch nodes: control nodes and decorator nodes.
-    - Leaf nodes: action nodes and condition nodes.
-- Implementation and resource: [BehaviorTree.CPP](https://www.behaviortree.dev/docs/intro) 
+- We've only covered the basics of pathfinding, but this is enough for what you need.
+- Pathfinding is really about finding the least expensive path to a destination.
+- This can obviously change based on the map changing.
+- Our use of pathfinding will get a list of nodes to visit and the subsequent use of this information to move a character around.
+- The lab will provide you with an algorithm that will work in the tile engine, but you should be able to extract the core idea if you need to.

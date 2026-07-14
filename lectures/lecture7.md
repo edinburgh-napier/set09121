@@ -1,5 +1,5 @@
 ---
-title: "Lecture 7 - Game Design Document"
+title: "Lecture 7 - Entities"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture7.html
@@ -10,7 +10,7 @@ presentationTheme: '/assets/revealJS/css/theme/napier.css'
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 7 - Game Design Document
+# Lecture 7 -  Game Entities and Entity Management
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -25,359 +25,282 @@ School of Computing. Edinburgh Napier University
 
 # Recommended Reading
 
-Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
+Game Design Workshop. 3rd Edition. Fullerton (2014).
 
-- Read Chapter 14 on Game Design Documentation.
-- Digital copies are available in the library.
+- Read Chapter 5 on System Dynamics.
 
-![GameDesignWorkshopBook](assets/images/gdw_book.jpg)
-
-
----
-
-# What is a Game Design Document?
+ ![image](assets/images/gdw_book.jpg)
 
 
 ---
 
-# What is the Game Design Document?
+# Review - System Dynamics
 
-- A Game Design Document (GDD) is the template for the game that is to be created.
-- The GDD is the main reference when determining how things should be done when developing the game. <!-- .element: class="fragment" -->
-- However, it is not a sacred document. <!-- .element: class="fragment" -->
-    - It is a living, constantly changing document.
-    - Updates are made as the development progresses.
-- It can get quite large. <!-- .element: class="fragment" -->
-    - Over 1,000 pages in some circumstances.
-- Team size and document size leads to the use of online collaboration tool like a Wiki. <!-- .element: class="fragment" -->
+- Last lecture we examined systems and how games can be viewed as systems.
+- We incorporated our existing Formal Elements of game design into a system. <!-- .element: class="fragment" -->
+- We also showed how we can define a game as a system, and some of the similarities with software development. <!-- .element: class="fragment" -->
+- In this lecture we will go into detail about how we can use this model to develop our game objects. <!-- .element: class="fragment" -->
+- What were the parts of a system we defined? <!-- .element: class="fragment" -->
 
 
 ---
 
-# Game Design Document Overview
+# Review - Objects
 
-- Overview and vision statement.
-- Audience, platform, and marketing.
-- Legal Analysis.
-- Gameplay.
-- Characters.
-- Story.
-- World.
-- Media list.
-- Technical specification.
+- A system is made up of a collection of objects.
+ - Examples: Mario, mushroom, blocks.
+- Objects are the key component of interest - from a game point of view we want to work at the level of objects.
 
----
 
-<!-- .slide: class="leftalign" -->
-
-# GDD Exercise
-
-Research Design Documents! Use Google to search for game design documents. There are quite a few out there and some templates. 
-You are unlikely to find modern AAA games due to the collaborative approach and NDA requirements.
-
-Some examples:
-- [Diablo](https://gamescrye.com//wp-content/uploads/2016/08/diablo_pitch.pdf)
-- [Bioshock](https://gamescrye.com/wp-content/uploads/2023/02/The-Bioshock-pitch-GDD.pdf)
-- [Super Mario Bros.](https://gamescrye.com/wp-content/uploads/2023/02/Super-Mario-GDD.pdf)
-
-All this GDDs are from [gamescrye.com](https://gamescrye.com)
-
----
-
-# Contents
+![image](assets/images/mario.jpg) <!-- .element width="70%"  -->
 
 
 ---
 
-# Design History
+# Review - Properties
 
-- Design History.
-    - GDD is a living document.
-    - Updates to the document should be described at the beginning of the document.
-    - Version history should be maintained.
+- Objects will have properties associated with them.
+- The properties determine the values associated with individual objects.
+- Examples include: health; armour; position; etc.
 
- ![image](assets/images/version.png)
-
-
----
-
-# Audience, Platform, and Marketing
-
-- Market research must be undertaken to determine the likely return to the publisher.
-    - Unit sales are the most important factor for a publisher.
-    - The quality of the game comes second.
-    - Catering for a small/niche market is unlikely to win over a publisher (although this depends on initial outlay).
-
----
-
-# Audience, Platform, and Marketing (cont.)
-
-- You need to define the target audience.
-    - Who will buy the game?
-    - What is the core demographic?
-    - How large is the audience and how likely are they to buy?
-- You also need to choose the target platform(s). <!-- .element: class="fragment" -->
-    - What are the target platforms?
-    - Why have these been chosen?
-    - Ensure this matches with the target audience.
-- You also need to define the hardware requirements. <!-- .element: class="fragment" -->
-
----
-
-# Legal Analysis
-
-- Important that you ensure everything is covered from a legal point of view.
-- Are there any legal or financial implications that come with the game production. <!-- .element: class="fragment" -->
-    - Licence agreements.
-    - Copyright considerations.
-    - Engine/library terms and conditions.
-- Typically, Intellectual Property (IP) will be with the publisher, not the studio. <!-- .element: class="fragment" -->
-- Game engines typically require statements of use, are expensive, and may require a per unit sale cost (for big games). <!-- .element: class="fragment" -->
-- Legal & IP agreements with your Team/Contractors also needs to be considered. <!-- .element: class="fragment" -->
-
----
-
-# Copyright Issues
-
-- IP owners are very protective.
-    - Game companies included.
-- When creating your game consider: <!-- .element: class="fragment" -->
-    - Where you sourced your content from.
-    - If the content is very similar to existing content.
-    - If the game is very similar to others on the market.
-    - If you have given due credit to any external tools, libraries, etc.
-- Paying homage to something is all well and good but can get you into trouble. <!-- .element: class="fragment" -->
-
-![image](assets/images/sonic_anim.gif)
-
----
-
-# Gameplay
-
-- The description of gameplay is initially one of the largest sections.
-- The game designer puts most of their focus into this section at the start. <!-- .element: class="fragment" -->
-- This section will focus on how the game plays. <!-- .element: class="fragment" -->
-- The Formal Elements and systems view will be useful here. <!-- .element: class="fragment" -->
-- Overview section: <!-- .element: class="fragment" -->
-    - Description of the core functionality.
-    - Good practice is to base this on a physical or digital prototype.
-- Gameplay description section: <!-- .element: class="fragment" -->
-    - A detailed description of how the game plays.
-- Controls section: <!-- .element: class="fragment" -->
-    - User interfaces.
-    - Rules and procedures (including some from Formal Elements).
-    - Scoring / winning conditions.
-
----
-
-# Gameplay (cont.)
-
-
-- Modes and other features. <!-- .element: class="fragment" -->
-    - Single player, multiplayer, etc.
-    - Other features that may affect gameplay.
-- Levels. <!-- .element: class="fragment" -->
-    - Designs for any levels for the game.
-    - The more detailed the level descriptions the better.
-- Flowchart. <!-- .element: class="fragment" -->
-    - Flowchart is needed to map out the gameplay.
-- Editor. <!-- .element: class="fragment" -->
-    - Does the game require the development of an editor?
-    - What are its features?
-
----
-
-# Flowcharts
-
-Flowcharts can help visualise the gameplay
-
-![image](assets/images/rock_paper_scissors.png)<!-- .element width="100%" height="100%"  -->
-source: https://ibsilver.github.io/Game_Design_Document_GDD/
-
----
-
-# Characters
-
-- Optional part of the design document but often important.
-- Character work can be a long, iterative process. <!-- .element: class="fragment" -->
-- Very important to increase engagement with the player. <!-- .element: class="fragment" -->
-- Will include concept design and description. <!-- .element: class="fragment" -->
-
-![image](assets/images/game_characters.jpg) <!-- .element width="40%"  -->
-
----
-
-# Contents - Character Types
-
-- Playable characters. <!-- .element: class="fragment" -->
-    - Can have a lot of work spent on them.
-    - Generally very detailed - particularly in games where you see the character all the time.
-- Non-playable characters. <!-- .element: class="fragment" -->
-    - Treat these as objects in your game with properties and functionality.
-    - Includes:
-        - Monsters and enemies.
-        - Friends and allies.
-        - Neutral characters.
-    - Think about which traits you want these characters to have.
-    - Think about the behaviours these characters need.
-    - AI is a core concern in this section.
-
----
-
-# Story
-
-- Another optional section of the GDD. <!-- .element: class="fragment" -->
-- Can become very large for story driven games, like RPGs. <!-- .element: class="fragment" -->
-- There has to be a link between the gameplay and story. <!-- .element: class="fragment" -->
-    - Your story should unfold through the game.
-- Important parts of the story: <!-- .element: class="fragment" -->
-    - Synopsis.
-    - Complete story.
-    - Back story.
-    - Narrative details.
-    - Sub-plots.
+ ![image](assets/images/witcher3.jpg) <!-- .element width="70%"  -->
 
 
 ---
 
-# Game World
+# Review - Behaviours
 
-If required, a description of the game world should be detailed.
-- Overview.
-- Key locations.
-- Travel.
-- Map.
-- Scale.
-- Physical objects.
-- Weather conditions.
-- Day and night cycle.
-- Time/era.
-- Physics.
-- Society/culture.
+- Objects also have behaviours which define what actions an object performs.
+ - In object-orientation we call these behaviours methods.
+- Example behaviours include: jumping; running; shooting; etc.
+
+![image](assets/images/minecraft.jpg) <!-- .element width="70%"  -->
 
 
 ---
 
-# Maps
+# Review - Relationships
 
-Maps can be very helpful to get an overview of the gameworld.
+- The most difficult aspect of a system to define is the relationship between the objects.
+- Relationships allow the objects to interact and therefore provide a more complex system. <!-- .element: class="fragment" -->
+ - Remember Tic-Tac-Toe versus chess.
+- From a game point of view relationships can include: <!-- .element: class="fragment" -->
+ - Position of a character in the game world. <!-- .element: class="fragment" -->
+ - The type of weapon the character currently holds. <!-- .element: class="fragment" -->
+ - The enemy the character is currently attacking. <!-- .element: class="fragment" -->
+ - The armour the enemy is currently wearing. <!-- .element: class="fragment" -->
+ - How the weapon reacts to that type of armour. <!-- .element: class="fragment" -->
 
-![image](assets/images/supermarioworld_map.png)<!-- .element width="80%" height="80%"  -->
+
+---
+
+# Examples - Entities
+
+
+---
+
+# Example Game - Starcraft II 
+
+<iframe width="760" height="515" src="https://www.youtube.com/embed/yaqeZ9Snt4E" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+
+# Engineering a Game - Objects as Entities
+- The first thing to do when considering Starcraft II as a system is to consider the objects.
+ - Soldiers. <!-- .element: class="fragment" -->
+ - Vehicles. <!-- .element: class="fragment" -->
+ - Buildings. <!-- .element: class="fragment" -->
+ - Scenery. <!-- .element: class="fragment" -->
+ - etc. <!-- .element: class="fragment" -->
+- We need a simple method to think of these objects so we can manage and control them. <!-- .element: class="fragment" -->
+
+
+To do this we will define a basic <!-- .element: class="fragment" -->`entity` class.
+
+
+---
+
+# Example Game - Pong 
+
+![image](assets/images/pong.gif)
+
+
+---
+
+# Properties of a Pong Entity
+
+- What do you see in Pong?
+ - What are the objects/entities involved in Pong? <!-- .element: class="fragment" -->
+- What are the attributes/properties of these entities? <!-- .element: class="fragment" -->
+- What are the common properties across all the entities? <!-- .element: class="fragment" -->
+
+
+---
+
+# The Properties of a Basic Entity
+
+- We can identify four basic properties of a game entity.
+- Position of the object in the game world. <!-- .element: class="fragment" -->
+    - Store as a 2-dimensional or 3-dimensional vector. <!-- .element: class="fragment" -->
+- A graphic representing the entity. <!-- .element: class="fragment" -->
+    - Texture. <!-- .element: class="fragment" -->
+    - Geometry. <!-- .element: class="fragment" -->
+- We also need basic state information of the entity. <!-- .element: class="fragment" -->
+    - We need a flag to indicate if the game entity is active/updatable: alive. <!-- .element: class="fragment" -->
+    - We also need a flag to indicate if the entity is visible: visible. <!-- .element: class="fragment" -->
+
+
+---
+
+# Possible Other Properties
+
+- There are numerous other properties a game entity could have:
+    - Velocity.
+    - Sound effect.
+    - Hit points.
+    - etc.
+- The key is to keep the game entity abstract and simple. <!-- .element: class="fragment" -->
+- We can extend the entity class using inheritance or composition. <!-- .element: class="fragment" -->
+
+
+---
+
+# Back to Pong - Behaviours
+
+- What sort of behaviours do the Pong entities have?
+    - What actions do they perform during the game?
+- Are there any similarities between these behaviours?
+
+ ![image](assets/images/pong.gif)
+
+
+---
+
+<!-- .slide: class="split" -->
+# Think About the Game
+
+- What are the main stages that a game goes through?
+ - Initialise.
+ - Load Content.
+ - Update.
+ - Render.
+ - Shutdown.
+
+- From an entity point of view we can operate on the same basic principles.
+
+![image](assets/images/gameloop.png) <!-- .element height="750px"  -->
+
+
+---
+
+# An Entity's Behaviours
+
+- We will have four key behaviours for a game entity.
+ - <!-- .element: class="fragment" --> **Initialise** - will be managed by the constructor of the entity.
+ - <!-- .element: class="fragment" --> **Update** - will update the game entity based on its logic. 
+ - <!-- .element: class="fragment" --> **Render** - will display the game entity on the screen.
+ - <!-- .element: class="fragment" --> **Destructor** - will shutdown/destroy the entity.
+
+- There are numerous other methods possible: <!-- .element: class="fragment" -->
+    - Detect collision. <!-- .element: class="fragment" -->
+    - Update AI. <!-- .element: class="fragment" -->
+    - Update physics. <!-- .element: class="fragment" -->
+
+
+---
+
+
+# Back to System Dynamics
+
+- From a system point of view, we need to define the following:
+- Objects / Entities
+- Object Properties
+ - Abstract level - position, graphic, alive, visible.
+- Object Behaviours
+ - Abstract level - constructor, update, render, destructor.
+- Relationships between Objects.
+ - Handled in the game loop level and we will see later in the *Scene* level
+- Interaction with the system.
+ - External system control.
+
+---
+
+# Our Entity Class
+
+![image](assets/images/entity.png) 
+
+UML Class diagram: **-** means *private*, **+** means *public*, and **#** means *protected* 
+
+---
+
+# Managing Entities
+
+
+---
+
+# Managing Entities
+
+- Our game will have multiple entities within it.
+    - Player controlled characters.
+    - Computer controlled characters.
+    - Pick-ups.
+    - Scenery
+- We need some method of managing all these entities without putting
+    too much thought into it.
+
+---
+
+# Managing Entities
+Games have lots of Entities (Example - Factorio)
+
+![image](assets/images/factorio.jpg) 
+
+
+---
+
+# Data Structure Approach
+
+- The simplest method: use a suitable data structure. <!-- .element: class="fragment" -->
+    - Array, vector, list, or map. <!-- .element: class="fragment" -->
+- Then we can just tell them all to update and draw as required. <!-- .element: class="fragment" -->
+    - For each entity in the list call Update(). <!-- .element: class="fragment" -->
+    - For each entity in the list call Render(). <!-- .element: class="fragment" -->
+- However, this has limitations. <!-- .element: class="fragment" -->
+    - How do we find a single entity in the list? <!-- .element: class="fragment" -->
+    - How do we add or remove entities to/from the list if we want to? <!-- .element: class="fragment" -->
+    - How do we access this list throughout the program? <!-- .element: class="fragment" -->
+- Therefore we will adopt a software engineering approach to tackle this problem: we'll use a manager class. <!-- .element: class="fragment" -->
 
 
 
 ---
 
-# Media List
+# Software Engineering Approach
 
-- You will need a list of the assets that are required by the art and sound team. <!-- .element: class="fragment" -->
-- Descriptions of these assets will need to be provided. <!-- .element: class="fragment" -->
-- You should adopt some form of naming convention to make life easier. <!-- .element: class="fragment" -->
-- Types of assets you may need to produce include: <!-- .element: class="fragment" -->
-    - User interface assets.
-    - Environmental assets.
-    - Character-based assets.
-    - Animations.
-    - Music.
-    - Sound effects.
+- By using a manager class we can: <!-- .element: class="fragment" --> 
+    - Manage all the entities with simple methods. <!-- .element: class="fragment" -->
+    - Manage access, addition and removal to our collection of entities in a generic way <!-- .element: class="fragment" -->
+    - Isolate the entity management for the other components <!-- .element: class="fragment" -->
 
 
 ---
 
-# Technical Specification
+# Defining our Manager Class
+![image](assets/images/entity_manager.png)
 
-- The most important section for the technical team.
-- Can sometimes be a separate document. <!-- .element: class="fragment" -->
-- Developed by the technical lead. <!-- .element: class="fragment" -->
-- Can be quite large and detailed. <!-- .element: class="fragment" -->
+UML Class Diagram: 3 sections in a class box: name, attributes, and methods. <!-- .element: class="fragment" -->
 
 ---
 
-# Technical Specification (cont.)
-
-- What are the technical challenges of the project?
-    - Important for costing the project.
-- Is any new technology required? <!-- .element: class="fragment" -->
-- What are the major software development taks? <!-- .element: class="fragment" -->
-- What are the risks involved in developing the game? <!-- .element: class="fragment" -->
-    - And how do you mitigate these risks?
-- What are the estimated resources required to deliver the game? <!-- .element: class="fragment" -->
-
----
-
-# Technical Specification (cont.)
-
-- Development platform and tools.
-    - e.g. Visual Studio, Unity.
-- Delivery mechanism / distribution. <!-- .element: class="fragment" -->
-    - Steam / Humble / Itch / Epic / GoG
-- Game engine <!-- .element: class="fragment" -->
-    - Technical specifications.
-    - Design.
-- Interface technical specification. <!-- .element: class="fragment" -->
-- Controls technical specification. <!-- .element: class="fragment" -->
-- Lighting models. <!-- .element: class="fragment" -->
-- Rendering system. <!-- .element: class="fragment" -->
-- Internet / network requirements. <!-- .element: class="fragment" -->
-- System parameters. <!-- .element: class="fragment" -->
-    - e.g. max players, connectivity, etc
-
-
----
-
-# Maintenance
-
-- Game Design Document (GDD) is not carved in stone. <!-- .element: class="fragment" -->
-    - Living document.
-    - Updates made as development progresses.
-- GDD can also get quite large. <!-- .element: class="fragment" -->
-    - Thousands of pages in some circumstances.
-- Game development can have large teams. <!-- .element: class="fragment" -->
-    - Over a thousand people in some circumstances.
-
-![image](assets/images/script.jpg) 
-
-
----
-
-# Using Wikis and Repositories
-
-- Some are using a wiki to coordinate and communicate between team members.
-    - Allows multiple users to update.
-    - Allows all users to access the most up to date documentation.
-    - Software development uses these often too - see wikis on GitHub.
-- Repository systems can also be used. <!-- .element: class="fragment" -->
-    - Combine document maintenance with code maintenance.
-    - Could also be storing assets.
-- Tools provide a structured and managed approach to the development process. <!-- .element: class="fragment" -->
-    - Collaboration.
-    - Communication.
-
-
----
-
-# What you will need to put in your GDD
-
-- Overview: context, background and general information
-- Inspiration: related games
-- Player Experience Goals: Aimed overall experience. Does your game at pushing the player in reflexion, relaxation, action, stress, contemplation, immersion, etc ...
-- Audience: Demographic, size of the audience, potential competitor
-- Gameplay
-- Required media list
-- Technical Specification
-
-**If not done already, go read the GDD template provided on Moodle**
-
----
 
 # Summary
 
-- Game Design Document is a very important piece of work to put together at the start of your development process.
-    - Blueprint for your game.
-    - Communication with the team.
-- It is a living document, so keep it up to date.
-    - Content and media lists especially.
-- Use collaboration tools as much as possible.
-    - Team communication.
-    - Document control.
+- Think about the elements of your game as a collection of entities game objects.
+    - Use the entity base class.
+    - Add required properties.
+    - Add required behaviours.
+    - Add required relationships.
+    - Add the entity to the game world.
 
+- By using an entity based approach and a manager we can focus on individual entity behaviours.

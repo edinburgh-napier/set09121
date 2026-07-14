@@ -1,16 +1,16 @@
 ---
-title: "Lecture 5 - Entities"
+title: "Lecture 5 - Systems"
 keywords: Lecture
 tags: [Lecture]
 permalink:  lecture5.html
 summary: lecture5
 layout: presentation
 presentationTheme: '/assets/revealJS/css/theme/napier.css' 
----
+--- 
 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
 <textarea data-template>
 
-# Lecture 5 -  Game Entities and Entity Management
+# Lecture 5 - System Dynamics
 ### SET09121 - Games Engineering
 
 <br><br>
@@ -25,282 +25,287 @@ School of Computing. Edinburgh Napier University
 
 # Recommended Reading
 
-Game Design Workshop. 3rd Edition. Fullerton (2014).
+Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - Read Chapter 5 on System Dynamics.
+- Digital copies are available in the library.
 
- ![image](assets/images/gdw_book.jpg)
+![GameDesignWorkshopBook](assets/images/gdw_book.jpg)
+
+---
+
+# What is a System?
+
+
+- An example of a system is an engine. <!-- .element: class="fragment" -->
+    - Real, or a software one, like what we are going to build in the module.
+- An engine is a system with a particular purpose.  <!-- .element: class="fragment" -->
+    - That purpose is to power some form of manual action.
+- We can apply our formal elements when thinking about systems. <!-- .element: class="fragment" -->
+
+ ![image](assets/images/engine.jpg)  <!-- .element width="50%" --><!-- .element: class="fragment" -->
+
+---
+
+# Games as Systems
+
+- When we consider games as systems, we focus on **objects** that interact with each other according to their **properties**, **behaviors**, **relationships**.
+
+---
+
+# Objects
+
+**Objects are the basic elements of a system**. Consider the objects you define in object-oriented development.
+
+- For example: an engine, steering wheel, and wheels interact together to allow a car to operate. 
+- The complexity of the underlying system is hidden behind an interface. For a car, this is the steering wheel and pedals. 
+- **Objects** are defined by their **properties**, **behaviors**, and **relationships** with each other.
+- In games the most basic of object is usually called an Entity, Actor, or Game Object. 
+- Almost everything in a game is an object. 
+    - For example: players, opponents, environment. 
+
+---
+
+# What Objects Are Here? 
+
+![image](assets/images/mario.jpg)
+
+---
+
+# Entity Inheritance
+Example: Tower defence
+
+![image](assets/images/entity_component_inheritance.png)
 
 
 ---
 
-# Review - System Dynamics
+# Entity Inheritance
+A bit more complex:
 
-- Last lecture we examined systems and how games can be viewed as systems.
-- We incorporated our existing Formal Elements of game design into a system. <!-- .element: class="fragment" -->
-- We also showed how we can define a game as a system, and some of the similarities with software development. <!-- .element: class="fragment" -->
-- In this lecture we will go into detail about how we can use this model to develop our game objects. <!-- .element: class="fragment" -->
-- What were the parts of a system we defined? <!-- .element: class="fragment" -->
+![image](assets/images/entity2_inheritance.png)<!-- .element width="60%" -->
+
+[Spelunky is a good example of entity inheritance](https://github.com/spelunky-fyi/overlunky/blob/main/docs/entities-hierarchy.md)
+
+---
+
+# Properties
+
+**Properties are the attributes of the objects in a system.**
+
+- From an OO point of view, properties are values stored in the object. <!-- .element: class="fragment" -->
+- Some properties might change over the course of a game while others remain constant. <!-- .element: class="fragment" -->
+    - In checkers, the color of a piece remain constant.
+    - The position of a piece might change at every turn.
+- More properties make the game more complex. <!-- .element: class="fragment" -->
+    - More complex does not always mean better.
+- Some common properties include: <!-- .element: class="fragment" -->
+    - Position.
+    - Appearance.
+    - A state.
+
+---
+
+# What Properties are Here? (Final Fantasy VII)
+
+![image](assets/images/final_fantasy_7.jpg)
+
+---
+
+# Behaviours
+
+**Behaviours are the actions that an object undertakes.**
+
+- From an OO point of view, behaviours are implemented as methods of an object. <!-- .element: class="fragment" -->
+- Many of the behaviours are interlinked with the state of the object. <!-- .element: class="fragment" -->
+- Adding more behaviors to a game makes it harder to predict. <!-- .element: class="fragment" -->
+    - Depending on the kind of game you want to create, this might be desirable or not.
+
+---
+
+# Behaviours (cont.)
+
+- Behaviours (==actions) "happen" during the update step. <!-- .element: class="fragment" -->
+ - For example, when B is pressed the player should jump. <!-- .element: class="fragment" -->
+ - Player's actions are normally based on the controls (Procedures from Formal Elements). <!-- .element: class="fragment" -->
+ - Computer controlled actions are normally supplied via some form of Artificial Intelligence (System procedures, objectives, rules).  <!-- .element: class="fragment" -->
+- The physical objects are normally controlled by the physics system. <!-- .element: class="fragment" -->
+
+---
+
+# What Behaviours are Here? 
+
+![image](assets/images/pacman.gif)
+
+---
+
+# Behaviours in PacMan.
+
+- There are three major behaviours:
+	- Chase / Scatter / Frightened <!-- .element: class="fragment" -->
+- Each ghost has it's own chase behaviour <!-- .element: class="fragment" -->
+    - Clyde retreats when getting too close to the player. <!-- .element: class="fragment" -->
+	- Blinky always goes for you <!-- .element: class="fragment" -->
+	- Pinky tries to get in front of you <!-- .element: class="fragment" -->
+	- Inky targets a space based on Blinky and your position <!-- .element: class="fragment" -->
+	
+- Behaviours change based on game state. <!-- .element: class="fragment" -->
+
+![image](assets/images/pacman_ghosts.jpg)
+
+---
+
+# More about PacMan
+
+https://dev.to/code2bits/pac-man-patterns--ghost-movement-strategy-pattern-1k1a
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/S4RHbnBkyh0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+# Relationships
+**Relationships define how entities can interact with each others.**
+
+- To turn a set of objects into a system, we need relationships between them. <!-- .element: class="fragment" -->
+    - The steering wheel of a car is connected to the wheels.
+    - The position of chess pieces on the board determines how pieces can interact with each other.
+    - The position of Tetris pieces determine if lines are cleared, and where falling pieces stop.
+- Some relationships between objects can be changed by the player. <!-- .element: class="fragment" -->
+    - Chess pieces can be moved to a different location.
+- Some relationships can be based on the current state.  <!-- .element: class="fragment" -->
+    - If a character is wanted then guards will chase them on sight.
+
+---
+
+# What Relationships are Here? 
+
+![image](assets/images/zelda_dungeon.jpg)
+The Legend of Zelda: Breath of The Wild
+
+---
+
+# System Dynamics
+
+- A system is more than the objects that make it up. <!-- .element: class="fragment" -->
+    - Dynamic relationships cause unforeseen interactions and Conflict. <!-- .element: class="fragment" -->
+    - Small changes in object properties can have a dramatic effect. <!-- .element: class="fragment" -->
+- To understand a game it is necessary to observe the dynamics of the system during play. <!-- .element: class="fragment" -->
+
+---
+
+# De-constructing Games
 
 
 ---
 
-# Review - Objects
+# De-constructing Tic-Tac-Toe
 
-- A system is made up of a collection of objects.
- - Examples: Mario, mushroom, blocks.
-- Objects are the key component of interest - from a game point of view we want to work at the level of objects.
+- Tic-Tac-Toe (noughts and crosses) is a simple game.  <!-- .element: class="fragment" -->
+ - **Objects:** the nine squares. 
+ - **Properties:** symbol within the square (`O`, `X`, or empty).
+ - **Behaviours:** place a symbol inside a square.
+ - **Relationships:** location of squares on the board.
 
+---
 
-![image](assets/images/mario.jpg) <!-- .element width="70%"  -->
+# Tic-Tac-Toe Game States 
+
+![image](assets/images/tic-tac-toe.jpg)
+
+---
+
+# De-constructing Chess
+
+- Chess is a significantly more complex and strategic game than Tic-Tac-Toe.
+ - **Objects**: board, pieces.
+ - **Properties**: colour, rank, and location of a piece.
+ - **Behaviours**: move a piece.
+ - **Relationships**: location of pieces relative to other pieces.
+
+---
+
+# De-constructing Chess
+
+- Why is chess so much more interesting than tic-tac-toe?
+    - Simple but different behavior for different pieces. <!-- .element: class="fragment" -->
+    - Much larger range of possibilities. <!-- .element: class="fragment" -->
+    - Much more complex relationship between the pieces. <!-- .element: class="fragment" -->
+
+---
+
+# Example Systems
+
+---
+
+# Economies
+
+- In-game economies are often simplified compared to the real-world.
+- **Bartering Economy**: Exchange goods for other goods.
+- **Market Economy**: Have a currency which can be used to buy any good.
+- Some economies even have inflation (MMOs) as a result of how the economy is designed.
+
+---
+
+# Emergent Systems
+
+- Emergent systems exhibit behavior not explicitly programmed. The behavior emerges from the rules placed on the objects. <!-- .element: class="fragment" -->
+    - Birds flocking is such a behavior.
+    - Very relevant to game AI.
+- Nature is full of such systems. <!-- .element: class="fragment" -->
+- Examples include: Factorio, Spore, The Sims. <!-- .element: class="fragment" -->
+
+ ![image](https://66.media.tumblr.com/303da0502e45b38484e73b174b3db9db/tumblr_nhte1rMwH01teec4eo2_500.gif)  <!-- .element width="35%"  --> <!-- .element: class="fragment" -->
+ ![image](https://media.indiedb.com/images/articles/1/182/181609/flock4.gif)  <!-- .element width="50%"  --><!-- .element: class="fragment" -->
+
+---
+
+# Interactin with the System
+
+- What information is provided to the player about the system?  <!-- .element: class="fragment" -->
+    - Hiding information encourages guessing, bluffing, deceiving.
+- What can the player control?  <!-- .element: class="fragment" -->
+    - This has a huge impact on the top-level experience of the game.
+- What feedback occurs within the system?  <!-- .element: class="fragment" -->
+    - Positive feedback loop
+    - Negative feedback loop
 
 
 ---
 
-# Review - Properties
+# Example of feedback loop - Doom 2016 Arcade Mode
 
-- Objects will have properties associated with them.
-- The properties determine the values associated with individual objects.
-- Examples include: health; armour; position; etc.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q2qrt8Ek-eE?si=RPpD0L9hHAxdtT4d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
- ![image](assets/images/witcher3.jpg) <!-- .element width="70%"  -->
+---
+
+# Example of feedback loop - Doom 2016 Arcade Mode
+
+ ![image](assets/images/Doom-Feedback.png) <!-- .element width="80%" height="80%"  -->
 
 
 ---
 
-# Review - Behaviours
+# Tuning of Game Systems
 
-- Objects also have behaviours which define what actions an object performs.
- - In object-orientation we call these behaviours methods.
-- Example behaviours include: jumping; running; shooting; etc.
-
-![image](assets/images/minecraft.jpg) <!-- .element width="70%"  -->
-
-
----
-
-# Review - Relationships
-
-- The most difficult aspect of a system to define is the relationship between the objects.
-- Relationships allow the objects to interact and therefore provide a more complex system. <!-- .element: class="fragment" -->
- - Remember Tic-Tac-Toe versus chess.
-- From a game point of view relationships can include: <!-- .element: class="fragment" -->
- - Position of a character in the game world. <!-- .element: class="fragment" -->
- - The type of weapon the character currently holds. <!-- .element: class="fragment" -->
- - The enemy the character is currently attacking. <!-- .element: class="fragment" -->
- - The armour the enemy is currently wearing. <!-- .element: class="fragment" -->
- - How the weapon reacts to that type of armour. <!-- .element: class="fragment" -->
-
+- Make sure the system is internally complete. <!-- .element: class="fragment" -->
+    - A loophole might allow a player to unintentionally skip a conflict.
+    - It might not be possible to resolve a conflict.
+- Make sure the game is fair and balanced. <!-- .element: class="fragment" -->
+- Avoid dominant strategies (a strategy that is always the best irrespective of the game state) or overpowered items. <!-- .element: class="fragment" -->
+- Make sure it is fun and challenging. <!-- .element: class="fragment" -->
+    - Requires playtesting.
 
 ---
 
-# Examples - Entities
-
-
----
-
-# Example Game - Starcraft II 
-
-<iframe width="760" height="515" src="https://www.youtube.com/embed/yaqeZ9Snt4E" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-
+# Formal Element to System components
 
 ---
-
-# Engineering a Game - Objects as Entities
-- The first thing to do when considering Starcraft II as a system is to consider the objects.
- - Soldiers. <!-- .element: class="fragment" -->
- - Vehicles. <!-- .element: class="fragment" -->
- - Buildings. <!-- .element: class="fragment" -->
- - Scenery. <!-- .element: class="fragment" -->
- - etc. <!-- .element: class="fragment" -->
-- We need a simple method to think of these objects so we can manage and control them. <!-- .element: class="fragment" -->
-
-
-To do this we will define a basic <!-- .element: class="fragment" -->`entity` class.
-
-
----
-
-# Example Game - Pong 
-
-![image](assets/images/pong.gif)
-
-
----
-
-# Properties of a Pong Entity
-
-- What do you see in Pong?
- - What are the objects/entities involved in Pong? <!-- .element: class="fragment" -->
-- What are the attributes/properties of these entities? <!-- .element: class="fragment" -->
-- What are the common properties across all the entities? <!-- .element: class="fragment" -->
-
-
----
-
-# The Properties of a Basic Entity
-
-- We can identify four basic properties of a game entity.
-- Position of the object in the game world. <!-- .element: class="fragment" -->
-    - Store as a 2-dimensional or 3-dimensional vector. <!-- .element: class="fragment" -->
-- A graphic representing the entity. <!-- .element: class="fragment" -->
-    - Texture. <!-- .element: class="fragment" -->
-    - Geometry. <!-- .element: class="fragment" -->
-- We also need basic state information of the entity. <!-- .element: class="fragment" -->
-    - We need a flag to indicate if the game entity is active/updatable: alive. <!-- .element: class="fragment" -->
-    - We also need a flag to indicate if the entity is visible: visible. <!-- .element: class="fragment" -->
-
-
----
-
-# Possible Other Properties
-
-- There are numerous other properties a game entity could have:
-    - Velocity.
-    - Sound effect.
-    - Hit points.
-    - etc.
-- The key is to keep the game entity abstract and simple. <!-- .element: class="fragment" -->
-- We can extend the entity class using inheritance or composition. <!-- .element: class="fragment" -->
-
-
----
-
-# Back to Pong - Behaviours
-
-- What sort of behaviours do the Pong entities have?
-    - What actions do they perform during the game?
-- Are there any similarities between these behaviours?
-
- ![image](assets/images/pong.gif)
-
-
----
-
-<!-- .slide: class="split" -->
-# Think About the Game
-
-- What are the main stages that a game goes through?
- - Initialise.
- - Load Content.
- - Update.
- - Render.
- - Shutdown.
-
-- From an entity point of view we can operate on the same basic principles.
-
-![image](assets/images/gameloop.png) <!-- .element height="750px"  -->
-
-
----
-
-# An Entity's Behaviours
-
-- We will have four key behaviours for a game entity.
- - <!-- .element: class="fragment" --> **Initialise** - will be managed by the constructor of the entity.
- - <!-- .element: class="fragment" --> **Update** - will update the game entity based on its logic. 
- - <!-- .element: class="fragment" --> **Render** - will display the game entity on the screen.
- - <!-- .element: class="fragment" --> **Destructor** - will shutdown/destroy the entity.
-
-- There are numerous other methods possible: <!-- .element: class="fragment" -->
-    - Detect collision. <!-- .element: class="fragment" -->
-    - Update AI. <!-- .element: class="fragment" -->
-    - Update physics. <!-- .element: class="fragment" -->
-
-
----
-
-
-# Back to System Dynamics
-
-- From a system point of view, we need to define the following:
-- Objects / Entities
-- Object Properties
- - Abstract level - position, graphic, alive, visible.
-- Object Behaviours
- - Abstract level - constructor, update, render, destructor.
-- Relationships between Objects.
- - Handled in the game loop level and we will see later in the *Scene* level
-- Interaction with the system.
- - External system control.
-
----
-
-# Our Entity Class
-
-![image](assets/images/entity.png) 
-
-UML Class diagram: **-** means *private*, **+** means *public*, and **#** means *protected* 
-
----
-
-# Managing Entities
-
-
----
-
-# Managing Entities
-
-- Our game will have multiple entities within it.
-    - Player controlled characters.
-    - Computer controlled characters.
-    - Pick-ups.
-    - Scenery
-- We need some method of managing all these entities without putting
-    too much thought into it.
-
----
-
-# Managing Entities
-Games have lots of Entities (Example - Factorio)
-
-![image](assets/images/factorio.jpg) 
-
-
----
-
-# Data Structure Approach
-
-- The simplest method: use a suitable data structure. <!-- .element: class="fragment" -->
-    - Array, vector, list, or map. <!-- .element: class="fragment" -->
-- Then we can just tell them all to update and draw as required. <!-- .element: class="fragment" -->
-    - For each entity in the list call Update(). <!-- .element: class="fragment" -->
-    - For each entity in the list call Render(). <!-- .element: class="fragment" -->
-- However, this has limitations. <!-- .element: class="fragment" -->
-    - How do we find a single entity in the list? <!-- .element: class="fragment" -->
-    - How do we add or remove entities to/from the list if we want to? <!-- .element: class="fragment" -->
-    - How do we access this list throughout the program? <!-- .element: class="fragment" -->
-- Therefore we will adopt a software engineering approach to tackle this problem: we'll use a manager class. <!-- .element: class="fragment" -->
-
-
-
----
-
-# Software Engineering Approach
-
-- By using a manager class we can: <!-- .element: class="fragment" --> 
-    - Manage all the entities with simple methods. <!-- .element: class="fragment" -->
-    - Manage access, addition and removal to our collection of entities in a generic way <!-- .element: class="fragment" -->
-    - Isolate the entity management for the other components <!-- .element: class="fragment" -->
-
-
----
-
-# Defining our Manager Class
-![image](assets/images/entity_manager.png)
-
-UML Class Diagram: 3 sections in a class box: name, attributes, and methods. <!-- .element: class="fragment" -->
-
----
-
 
 # Summary
-
-- Think about the elements of your game as a collection of entities game objects.
-    - Use the entity base class.
-    - Add required properties.
-    - Add required behaviours.
-    - Add required relationships.
-    - Add the entity to the game world.
-
-- By using an entity based approach and a manager we can focus on individual entity behaviours.
+- From this lecture you should understand:
+ - **Objects:** the parts that make up a system.
+ - **Properties:** the values that define the objects of the system.
+ - **Behaviours:** what functions does an object perform in a system.
+ - **Relationships:** how do the objects interact with each other.
+- You should use these principles to try and de-construct games that you are familiar with.

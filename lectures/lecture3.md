@@ -65,16 +65,6 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 ![image](assets/images/mario_title_screen.jpg) <!-- .element height="50%" width="50%" -->
 
 
----
-
-# Multiplayer games
-
-- The invitation to play can become quite complicated in multiplayer games.
-- Can you name unique challenges when inviting players to a multiplayer online game?
-    - You need to check how many players want to join and how many are needed. <!-- .element: class="fragment" -->
-    - Are all of them ready? <!-- .element: class="fragment" -->
-    - Which role is assigned to which player? <!-- .element: class="fragment" -->
-    - Are there any teams? <!-- .element: class="fragment" -->
 
 ---
 
@@ -90,77 +80,6 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
     - Cooperative play.
     - Team competition.
 
----
-
-# Single-player versus the game
-
-- A single player competes against the game system.
-
-![SinglePlayerVersusGame](assets/images/SinglePlayerVersusGame.png)
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
-
----
-
-# Multiple individual players versus the game
-
-- Multiple players competes against the game system.
-- They do not compete against each other and the action is not directed at other players.
-
-![MultipleIndividualsVsGame](assets/images/MultipleIndividualsVsGame.png)
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
-
----
-
-# Player versus player
-
-- Two players directly compete.
-- Within games, the term "Player versus Player" might be used differently.
-
-![PlayerVsPlayer](assets/images/PlayerVsPlayer.png) 
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
-
----
-
-# Unilateral competition
-
-- Two or more players compete against one single player.
-
-![UnilateralCompetition](assets/images/UnilateralCompetition.png)
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
-
----
-
-# Multilateral competition
-
-- Three or more players compete against each other.
-
-![MultilateralCompetition](assets/images/MultilateralCompetition.png)
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
-
----
-
-# Cooperative play.
-
-- Two or more players cooperate against the game system.
-
-![CooperativePlay](assets/images/CooperativePlay.png)
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
-
----
-
-# Team competition.
-
-- Two or more groups compete against each other.
-
-![TeamCompetition](assets/images/TeamCompetition.png)
-
-(Image source: T.Fullerton. Game Design Workshop. 4th Edition, 2019.)
 
 ---
 
@@ -454,6 +373,85 @@ Try to name some examples of resources.
     - The game state where one of the winning conditions (objectives) has been met.
 - Some games continue without end points.
     - Sim City, Factorio (if you ignore the rocket), The Sims
+
+
+---
+
+## Analysis of 2D games genre
+
+---
+
+# Shoot 'em up
+
+![Shoot 'em up](assets/images/shootemup.png)
+
+---
+
+# Shoot 'em up
+
+-  **Players**: <span class="fragment">Single player against the game </span>
+-  **Objectives**:<span class="fragment">Survival, Race, Accumulation</span>
+-  **Procedures**:<span class="fragment">Move left, right, up and down, Shoot</span>
+-  **Rules**:<span class="fragment"> Side scrolling, stats of the enemies and of the players weapon, projectile with geometrical pattern </span>
+-  **Resources**:<span class="fragment">Life, Weapon, Coin etc...</span> 
+-  **Conflict**:<span class="fragment"> Pattern of projectile vs movement </span>
+-  **Boundaries**:<span class="fragment">Limit of the screen</span>
+-  **Outcome**:<span class="fragment">Finishing a level, access to the next level</span>. 
+
+---
+
+# Tower defence
+
+![TowerDefence](assets/images/tower_defence.webp)
+
+
+---
+
+# Tower defence
+
+-  **Players**: <span class="fragment">Single player against the game  </span> 
+-  **Objectives**: <span class="fragment">Survival, Accumulation, Construction </span>
+-  **Procedures**:<span class="fragment"> Build, upgrade, and buy new towers </span>
+-  **Rules**: <span class="fragment">Stats of towers, towers placement, enemies path finding
+-  **Resources**: <span class="fragment">Money </span>
+-  **Conflict**: <span class="fragment">Limited resources vs optimal defense, limited placement </span>
+-  **Boundaries**: <span class="fragment">Small map </span>
+-  **Outcome**: <span class="fragment">Finishing a level, access to the next level. </span>
+
+---
+
+# Metroidvania
+
+<div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
+  <img src="assets/images/Hallownest_marked_map.png" style="height: 300px;" />
+  <img src="assets/images/hollow_knight.jpg" style="height: 300px;" />
+</div>
+
+---
+
+# Metroidvania
+
+-  **Players**: <span class="fragment">Single player against the game  </span> 
+-  **Objectives**: <span class="fragment">Survival, Accumulation, Solution </span>
+-  **Procedures**:<span class="fragment"> Move left and right, Jump, Attack, Items special ability </span>
+-  **Rules**: <span class="fragment"> Gravity, height of jump, speed of displacement </span>
+-  **Resources**: <span class="fragment"> Life, skills items, coin </span>
+-  **Conflict**: <span class="fragment"> Accessing certain area necessite special ability, Gravity vs Jump </span>
+-  **Boundaries**: <span class="fragment"> Entire Map </span>
+-  **Outcome**: <span class="fragment">Finishing a the game. </span>
+
+---
+
+# Other important 2D game genre
+
+- Platformers: Super Mario, Super Meat Boy, Rayman
+- Real time strategy (RTS): Starcraft, Age of Empire
+- Japanese role playing game (JRPG): Final Fantasy, Fire Emblem
+- Hack'n'slash or action RPG: Diablo, Path of Exile
+- Virtual Fighters: Street Fighter, Tekken
+- Beat 'em up: Streets of Rage, Shank
+- Puzzle Game: Tetris
+- Point and click: Grim Fandango, Sam and Max, Monkey Island
 
 
 ---
