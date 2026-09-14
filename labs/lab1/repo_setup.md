@@ -10,7 +10,7 @@ sidebar: home_sidebar
 {:class="important"}
 **Note for JKCC and D2 computers**
 
-To keep projects saved on your account you need to put them on the H:\ drive. **However, to work you need to have your current project on the :\ drive** So, I would advise that you copy or clone your project in the C:\ drive before starting to work.
+To keep projects saved on your account you need to put them on the H:\ drive. **However, to work you need to have your current project on the C:\ drive** So, I would advise that you copy or clone your project in the C:\ drive before starting to work.
 
 <br>
 <br>
