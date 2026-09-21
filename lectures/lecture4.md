@@ -33,16 +33,16 @@ School of Computing - Edinburgh Napier University
 
 ---
 
-# Why using C++
+# Why use C++
 
 Because it is:
 - a multi-paradigm language;
-- a "mid-level" language: access to low-level instruction and to higher-level functions;
+- a "mid-level" language: access to low-level instructions and to higher-level functions;
 - a manual memory management language;
 - an easily optimisable language;
 - one of the fastest language in run-time. 
 
-And based on the fundational language C.
+And based on the foundational language C.
 
 ---
 
@@ -80,7 +80,7 @@ int main()
 ```
 - `iostream` input/output standard library
 - Input/Ouput in C++ are done through **stream** with the insertion operator `<<` into `std::cout` the **standard output stream**.
-- `std::endl` is the endline marker. Additionally to finish the line, it will flush the buffer. Until the buffer is flushed nothing will be printed. 
+- `std::endl` is the endline marker. Additionally to finishing the line, it will flush the buffer. Until the buffer is flushed nothing will be printed. 
 
 ---
 
@@ -420,7 +420,7 @@ bool my_function2(int arg1, double arg2){
 #define PI 3.14159 //to define macros
 ```
 
-Note: `#pragma once` should be at the beginning of every header file. 
+`#pragma once` should be at the beginning of every header file. 
 
 More about Macros: https://gcc.gnu.org/onlinedocs/cpp/Macros.html.
 
