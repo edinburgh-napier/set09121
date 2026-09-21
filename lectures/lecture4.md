@@ -163,7 +163,7 @@ void f; // the empty type
 false || true == true; // inclusive or operator
 false && true == false; // and operator
 !false == true; // negation operator
-0 == false; // 0 is equivalent to true
+0 == false; // 0 is equivalent to false
 1 == true; // 1 or greater integer is true
 nullptr == false;// nullptr is always equivalent to false
 ```
