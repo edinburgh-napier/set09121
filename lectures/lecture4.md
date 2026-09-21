@@ -255,7 +255,7 @@ int main(int argc, char** argv){
 
 ```
 
-`ifstream` is a similar stream as `std::cin` but with a file as input instead of a terminal
+`ifstream` is a stream similar to `std::cin` but with a file as input instead of a terminal
 
 ---
 
@@ -281,7 +281,7 @@ int main(int argc, char** argv){
 
 ```
 
-`ofstream` is a similar stream as `std::cout` but with a file as ouput instead of a terminal
+`ofstream` is a stream similar to `std::cout` but with a file as ouput instead of a terminal
 
 ---
 
@@ -358,7 +358,7 @@ int max = (x > y) ? x : y;
 
 # Function 
 
-Function in C++ are declared and define with the following syntax: 
+Functions in C++ are declared and defined with the following syntax: 
 
 ```cpp
 return_type function_name(arg1_type arg1_name, ...){ Implementation }
@@ -367,7 +367,7 @@ return_type function_name(arg1_type arg1_name, ...){ Implementation }
 ```cpp
 void my_function(int arg1, double arg2){
     // some content
-    return;
+    return; // (optional)
 }
 
 bool my_function2(int arg1, double arg2){
@@ -376,7 +376,7 @@ bool my_function2(int arg1, double arg2){
 }
 ```
 
-Naming convention for functions uses the *snake_case*.
+The naming convention for functions uses *snake_case*.
 
 
 ---
@@ -385,7 +385,7 @@ Naming convention for functions uses the *snake_case*.
 
 - This is an idea you might not be as familiar with if you come from a Java and C\# background.
 - In C++, declarations should be provided in a header file (**.hpp**, .h, .hh, hxx).
-- Actual implementation (definition) should be provided in a source file (**.cpp**, .cc, .cxx).
+- The actual implementation (definition) should be provided in a source file (**.cpp**, .cc, .cxx).
 
 
 ```cpp
