@@ -61,7 +61,7 @@ int main () {
 	sf::RenderWindow window(sf::VideoMode({game_width, game_height}), "PONG");
     //initialise and load
 	init();
-	while(!window.isOpen()){
+	while(window.isOpen()){
 		//Calculate dt
 		...
 		window.clear();
