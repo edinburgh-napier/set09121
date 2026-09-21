@@ -100,7 +100,7 @@ int main(int argc, char** argv)
         return 1;
     }
     for(int i = 1; i <= argc; i++){
-        std::cout << "arg 1: " << argv[i] << std::endl;
+        std::cout << "arg " << i << ": " << argv[i] << std::endl;
     }
     return 0;
 }
