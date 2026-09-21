@@ -244,7 +244,7 @@ int main(int argc, char** argv){
     ifs.open(argv[1]); //open the file entered as argument
     if(!ifs.is_open()){// check if the file is properly open
         std::cerr << "Error: file " << argv[1] << " not found" << std::endl;
-        return 1;// return 1 to indicate an error occured
+        return 1;// return 1 to indicate an error occurred
     }
     std::string line;
     while(std::getline(ifs,line)){ //read line by line the file
@@ -268,9 +268,9 @@ int main(int argc, char** argv){
 int main(int argc, char** argv){
     std::ofstream ofs;// create a writing file stream
     ofs.open(argv[1]);// open the file entered as argument
-    if(!ofs){// check if the file is properly open
+    if(!ofs.is_open()){// check if the file is properly open
         std::cerr << "Error: file " << argv[1] << " not found" << std::endl;
-        return 1;// return 1 to indicate an error occured
+        return 1;// return 1 to indicate an error occurred
     }
     for(int i = 0; i = 99; i++){
         ofs << i << ","; //use insertion operator to write in the file
