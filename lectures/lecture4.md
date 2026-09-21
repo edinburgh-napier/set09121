@@ -352,6 +352,48 @@ int max = (x > y) ? x : y;
 
 ---
 
+## Example of Switch conditions.
+
+To handle process states. 
+
+```cpp
+int state = 0; // possible states 0, 1, 2
+switch(state){
+    case(0):
+        std::cout << "You are in IDLE state" << std::endl;
+        break;
+    case(1):
+        std::cout << "You are in PROCESSING state" << std::endl;
+        break;
+    case(2):
+        std::cout << "You are in ENDING state" << std::endl;
+        break;
+    default:
+        std::cerr << "ERROR: Unknown state" << std::endl;
+        break;
+}
+```
+
+---
+
+## Example If conditions
+
+To test if coordinates are within the arena boundaries.
+
+```cpp
+bool in_arena(int x, int y, int width, int length){
+    if(x > length || x < 0){
+        return false;
+    }
+    else if(y > width || y < 0){
+        return false;
+    }
+    else return true;
+}
+``` 
+
+---
+
 ## Scopes, Functions, and Headers
 
 ---
