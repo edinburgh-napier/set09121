@@ -137,9 +137,9 @@ int main()
 
 - `std::cout` is the **standard output stream**
 - `std::cerr` is the **standard error stream**
-- For output streams use `<<` insertion operator
+- For output streams, use `<<`, called the insertion operator
 - `std::cin` is the **standard input stream**
-- For input streams use `>>` extraction operator
+- For input streams, use `>>`, called the extraction operator
 
 ---
 
@@ -175,7 +175,7 @@ nullptr == false;// nullptr is always equivalent to false
 # String
 
 
-C-style string is an C-style array of char
+C-style string is a C-style array of chars
 
 ```cpp
 char c_str[] = "hello"; 
@@ -411,7 +411,6 @@ bool my_function2(int arg1, double arg2){
 
 ---
 
-
 # Preprocessor instruction
 
 ```cpp
@@ -421,27 +420,28 @@ bool my_function2(int arg1, double arg2){
 #define PI 3.14159 //to define macros
 ```
 
-Note: `#pragma once` should be at the beginning of every header files. 
+Note: `#pragma once` should be at the beginning of every header file. 
 
+More about Macros: https://gcc.gnu.org/onlinedocs/cpp/Macros.html.
 
 ---
 
 # Scopes
 
-In C++ scopes are essential because they define the variable scopes. Desallocation of resources are based on scopes. Scopes are defined with curly bracket `{...}`.
+In C++, scopes are essential because they define variable scopes. Deallocation of resources is based on scopes. Scopes are defined with curly brackets `{...}`.
 ```cpp
 int main(){
-    int i = 0;// this variable exist in the whole function scope
+    int i = 0;// this variable exists in the whole function scope
 
     {//unamed scope
         int tab[5] = {0,1,2,3}
-    }//tab is desallocated here
+    }//tab is deallocated here
 
     for(int n = 0; n < 10; n++){
         //n exists only in the for loop scope
         MyClass A;
-    }//A is desallocated here
-}//i is desallocated here
+    }//A is deallocated here
+}//i is deallocated here
 ```
 
 ***DO NOT DECLARE ANYTHING OUT OF SCOPE***
