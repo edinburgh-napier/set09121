@@ -242,7 +242,7 @@ a = 2
 int main(int argc, char** argv){
     std::ifstream ifs; //create a reading file stream
     ifs.open(argv[1]); //open the file entered as argument
-    if(!ifs){// check if the file is properly open
+    if(!ifs.is_open()){// check if the file is properly open
         std::cerr << "Error: file " << argv[1] << " not found" << std::endl;
         return 1;// return 1 to indicate an error occured
     }
@@ -256,8 +256,6 @@ int main(int argc, char** argv){
 ```
 
 `ifstream` is a similar stream as `std::cin` but with a file as input instead of a terminal
-
-Note that `!ifs` is equivalent to `ifs == nullptr`
 
 ---
 
