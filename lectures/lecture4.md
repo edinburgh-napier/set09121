@@ -111,6 +111,10 @@ int main(int argc, char** argv)
 - `argv[0]` is the name of the function
 - `argv[1]` is the first argument
 
+```bash
+$> ./my_program arg_1 arg_2
+```
+
 ---
 
 # Basic Input/Output
