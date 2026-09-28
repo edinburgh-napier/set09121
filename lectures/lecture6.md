@@ -219,6 +219,7 @@ public:
     }
 };
 ```
+**Do not declare and implement a destructor unless it is necessary**
 
 ---
 
