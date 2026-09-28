@@ -550,10 +550,10 @@ int main(){
 
 # `virtual` Members
 
-- To mark a method as overridable in a child class we need to state that it is `virtual`.
+- To mark a method as overridable in a derived-class we need to state that it is `virtual` in the base-class.
     - Same as C\#; Java uses `abstract`.
-- When a method is `virtual` it means that it can be redefined in child classes
-- Child classes can write their own implementation of the function, specifying it using `override`
+- When a method is `virtual` it means that it can be redefined in derived-classes
+- derived-classes can write their own implementation of the function, specifying it using `override`
     - it's not a requirement, but DO IT
 
 
