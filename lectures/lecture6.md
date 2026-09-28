@@ -848,7 +848,7 @@ public:
     A& operator=(A&&);      // move assignment operator 
 };
 ```
-- **Three:** require destructor/copy constructor/copy assignment, if any data member needs copy instruction like raw pointers.
+- **Three:** require *destructor*, *copy constructor*, *copy assignment*, if any data member needs copy instruction like raw pointers.
 - **Five:** require all five, if some data cannot be copied like a unique_ptr
 - **Zero** only use constructors that don't need special destructors (no special resources)
 
