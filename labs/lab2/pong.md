@@ -38,7 +38,7 @@ Before we get stuck in, let's cover some of the fundamentals.
 
 The fundamental core of all games, is the game loop. While some engines may hide this away, behind the scenes you can be sure that the code for any game can be stripped away to the fundamental game loop. It looks like this.
 ```Cpp
-#include <SFML/Graphics.cpp>
+#include <SFML/Graphics.hpp>
 
 void init(){
 	// initialise all the objects needed for the game. 
