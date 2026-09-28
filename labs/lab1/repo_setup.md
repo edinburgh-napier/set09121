@@ -99,7 +99,8 @@ Navigate to [gitignore.io](https://gitignore.io) and create an ignore file for "
 We will be building SFML from source, which means we need to get the code.
 We will be doing this via Git Submodules, which makes it look  like the SFML code is now copied into your repo, but is actually saved a virtual link to the separate SFML repo.
 ```bash
-mkdir lib && cd lib
+mkdir lib
+cd lib
 git submodule add https://github.com/SFML/SFML.git
 cd SFML
 git checkout 2.6.2
