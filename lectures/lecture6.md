@@ -510,8 +510,8 @@ class Player
 # Multiple-inheritance in C++
 
 - Multiple-inheritance allows us to define a class as inheriting from more than one base-class.
-- In practice it is better to avoid MI. It is generally a bad idea and can lead to major issues.
-- MI is acceptable when the base classes are *abstract*.
+- In practice, it is better to avoid multiple-inheritance. It is generally a bad idea and can lead to major issues.
+- Multiple-inheritance is acceptable when the base classes are *abstract*.
 
 ---
 
