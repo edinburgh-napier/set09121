@@ -262,7 +262,7 @@ The Legend of Zelda: Breath of The Wild
 
 ---
 
-# Interactin with the System
+# Interacting with the System
 
 - What information is provided to the player about the system?  <!-- .element: class="fragment" -->
     - Hiding information encourages guessing, bluffing, deceiving.
