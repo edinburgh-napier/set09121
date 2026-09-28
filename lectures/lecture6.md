@@ -955,6 +955,7 @@ Static members of a class are shared by all the instance of this class.
 1. Keep stuff out of header files. Only the bare minimum!
 
 1. Use unique_ptr or shared_ptr as required: Don't even call new. Or delete. Or malloc and free. Ever. Just don't.
+   Instead use *make_shared* and *make_unique*.
 
 1. Use const as much as you can.
 
