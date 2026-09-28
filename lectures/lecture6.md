@@ -27,7 +27,7 @@ School of Computing. Edinburgh Napier University
 - Any C++ book really, but C++ Primer is good.
 - Online resources:
 	- https://www.geeksforgeeks.org/cpp/c-plus-plus/
- 	- http://www.learncpp.com
+	- http://www.learncpp.com
 - C++ references: https://en.cppreference.com
 
 
