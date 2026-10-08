@@ -18,7 +18,8 @@ The program used to debug c++ code is called gdb. You can run `gdb -h` to get su
 - Open a terminal (Powershell on Windows, any on Linux and MacOS)
 - run 'gdb <your_program>`
 
-  You will enter an interactive debugging session:
+You will enter an interactive debugging session:
+  
 ```bash
 GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
 Copyright (C) 2022 Free Software Foundation, Inc.
@@ -38,6 +39,7 @@ Type "apropos word" to search for commands related to "word"...
 Reading symbols from cpg_test...
 (gdb) 
 ```
+
 - To run the program type `run`, to run with arguments type `run arg1 arg2 ...`
 - The program will run until it finishes, if the program crashes you will be able to inspect the call stack and the variables.
 - To inspect the call stack type: `backtrace` or `bt`, then to navigate the call stack type `up` or `down`
