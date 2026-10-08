@@ -298,10 +298,6 @@ The Legend of Zelda: Breath of The Wild
 
 ---
 
-# Formal Element to System components
-
----
-
 # Summary
 - From this lecture you should understand:
  - **Objects:** the parts that make up a system.
