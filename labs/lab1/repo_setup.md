@@ -10,7 +10,7 @@ sidebar: home_sidebar
 {:class="important"}
 **Note for JKCC and D2 computers**
 
-To keep projects saved on your account you need to put them on the H:\ drive. **However, to work you need to have your current project on the :\ drive** So, I would advise that you copy or clone your project in the C:\ drive before starting to work.
+To keep projects saved on your account you need to put them on the H:\ drive. **However, to work you need to have your current project on the C:\ drive** So, I would advise that you copy or clone your project in the C:\ drive before starting to work.
 
 <br>
 <br>
@@ -99,7 +99,8 @@ Navigate to [gitignore.io](https://gitignore.io) and create an ignore file for "
 We will be building SFML from source, which means we need to get the code.
 We will be doing this via Git Submodules, which makes it look  like the SFML code is now copied into your repo, but is actually saved a virtual link to the separate SFML repo.
 ```bash
-mkdir lib && cd lib
+mkdir lib
+cd lib
 git submodule add https://github.com/SFML/SFML.git
 cd SFML
 git checkout 2.6.2

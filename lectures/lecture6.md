@@ -25,7 +25,9 @@ School of Computing. Edinburgh Napier University
 
 # Recommended Reading:
 - Any C++ book really, but C++ Primer is good.
-- Online resources: https://www.geeksforgeeks.org/cpp/c-plus-plus/
+- Online resources:
+	- https://www.geeksforgeeks.org/cpp/c-plus-plus/
+	- http://www.learncpp.com
 - C++ references: https://en.cppreference.com
 
 
@@ -217,6 +219,7 @@ public:
     }
 };
 ```
+**Do not declare and implement a destructor unless it is necessary**
 
 ---
 
@@ -507,8 +510,8 @@ class Player
 # Multiple-inheritance in C++
 
 - Multiple-inheritance allows us to define a class as inheriting from more than one base-class.
-- In practice it is better to avoid MI. It is generally a bad idea and can lead to major issues.
-- MI is acceptable when the base classes are *abstract*.
+- In practice, it is better to avoid multiple-inheritance. It is generally a bad idea and can lead to major issues.
+- Multiple-inheritance is acceptable when the base classes are *abstract*.
 
 ---
 
@@ -547,10 +550,10 @@ int main(){
 
 # `virtual` Members
 
-- To mark a method as overridable in a child class we need to state that it is `virtual`.
+- To mark a method as overridable in a derived-class we need to state that it is `virtual` in the base-class.
     - Same as C\#; Java uses `abstract`.
-- When a method is `virtual` it means that it can be redefined in child classes
-- Child classes can write their own implementation of the function, specifying it using `override`
+- When a method is `virtual` it means that it can be redefined in derived-classes
+- derived-classes can write their own implementation of the function, specifying it using `override`
     - it's not a requirement, but DO IT
 
 
@@ -845,7 +848,7 @@ public:
     A& operator=(A&&);      // move assignment operator 
 };
 ```
-- **Three:** require destructor/copy constructor/copy assignment, if any data member needs copy instruction like raw pointers.
+- **Three:** require *destructor*, *copy constructor*, *copy assignment*, if any data member needs copy instruction like raw pointers.
 - **Five:** require all five, if some data cannot be copied like a unique_ptr
 - **Zero** only use constructors that don't need special destructors (no special resources)
 
@@ -952,6 +955,7 @@ Static members of a class are shared by all the instance of this class.
 1. Keep stuff out of header files. Only the bare minimum!
 
 1. Use unique_ptr or shared_ptr as required: Don't even call new. Or delete. Or malloc and free. Ever. Just don't.
+   Instead use *make_shared* and *make_unique*.
 
 1. Use const as much as you can.
 

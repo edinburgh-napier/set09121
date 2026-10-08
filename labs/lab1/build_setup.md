@@ -10,7 +10,7 @@ sidebar: home_sidebar
 To begin here I am assuming you have a local repo, with the SFML submodule.
 
 ## Open Visual Studio
-- Open AppsAnywhere and launch **Visual Studio Community 2022 C++ cli**.
+- Launch **Visual Studio Community 2022**.
 - Choose the option open local folder
 - Once the folder open, create two new file *main.cpp* and *CMakeLists.txt*
 
@@ -60,8 +60,9 @@ CMake Downsides:
 
 ### Create the CMake script
 ```CMake
-project(setup)
 cmake_minimum_required(VERSION 3.11)
+project(setup)
+
 # Require modern C++
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

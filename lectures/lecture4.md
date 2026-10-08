@@ -25,22 +25,24 @@ School of Computing - Edinburgh Napier University
 
 # Recommended Reading:
 - Any C++ book really, but C++ Primer is good.
-- Online resources: https://www.geeksforgeeks.org/cpp/c-plus-plus/
+- Online tutorials:
+    - https://www.geeksforgeeks.org/cpp/c-plus-plus/
+    - http://www.learncpp.com
 - C++ references: https://en.cppreference.com
 
 
 ---
 
-# Why using C++
+# Why use C++
 
 Because it is:
 - a multi-paradigm language;
-- a "mid-level" language: access to low-level instruction and to higher-level functions;
+- a "mid-level" language: access to low-level instructions and to higher-level functions;
 - a manual memory management language;
 - an easily optimisable language;
 - one of the fastest language in run-time. 
 
-And based on the fundational language C.
+And based on the foundational language C.
 
 ---
 
@@ -78,7 +80,7 @@ int main()
 ```
 - `iostream` input/output standard library
 - Input/Ouput in C++ are done through **stream** with the insertion operator `<<` into `std::cout` the **standard output stream**.
-- `std::endl` is the endline marker. Additionally to finish the line, it will flush the buffer. Until the buffer is flushed nothing will be printed. 
+- `std::endl` is the endline marker. Additionally to finishing the line, it will flush the buffer. Until the buffer is flushed nothing will be printed. 
 
 ---
 
@@ -98,7 +100,7 @@ int main(int argc, char** argv)
         return 1;
     }
     for(int i = 1; i <= argc; i++){
-        std::cout << "arg 1: " << argv[i] << std::endl;
+        std::cout << "arg " << i << ": " << argv[i] << std::endl;
     }
     return 0;
 }
@@ -108,6 +110,10 @@ int main(int argc, char** argv)
 - `char** argv` is a C-style array of C-style strings.
 - `argv[0]` is the name of the function
 - `argv[1]` is the first argument
+
+```bash
+$> ./my_program arg_1 arg_2
+```
 
 ---
 
@@ -131,9 +137,9 @@ int main()
 
 - `std::cout` is the **standard output stream**
 - `std::cerr` is the **standard error stream**
-- For output streams use `<<` insertion operator
+- For output streams, use `<<`, called the insertion operator
 - `std::cin` is the **standard input stream**
-- For input streams use `>>` extraction operator
+- For input streams, use `>>`, called the extraction operator
 
 ---
 
@@ -157,7 +163,7 @@ void f; // the empty type
 false || true == true; // inclusive or operator
 false && true == false; // and operator
 !false == true; // negation operator
-0 == false; // 0 is equivalent to true
+0 == false; // 0 is equivalent to false
 1 == true; // 1 or greater integer is true
 nullptr == false;// nullptr is always equivalent to false
 ```
@@ -169,7 +175,7 @@ nullptr == false;// nullptr is always equivalent to false
 # String
 
 
-C-style string is an C-style array of char
+C-style string is a C-style array of chars
 
 ```cpp
 char c_str[] = "hello"; 
@@ -236,9 +242,9 @@ a = 2
 int main(int argc, char** argv){
     std::ifstream ifs; //create a reading file stream
     ifs.open(argv[1]); //open the file entered as argument
-    if(!ifs){// check if the file is properly open
+    if(!ifs.is_open()){// check if the file is properly open
         std::cerr << "Error: file " << argv[1] << " not found" << std::endl;
-        return 1;// return 1 to indicate an error occured
+        return 1;// return 1 to indicate an error occurred
     }
     std::string line;
     while(std::getline(ifs,line)){ //read line by line the file
@@ -249,9 +255,7 @@ int main(int argc, char** argv){
 
 ```
 
-`ifstream` is a similar stream as `std::cin` but with a file as input instead of a terminal
-
-Note that `!ifs` is equivalent to `ifs == nullptr`
+`ifstream` is a stream similar to `std::cin` but with a file as input instead of a terminal
 
 ---
 
@@ -264,9 +268,9 @@ Note that `!ifs` is equivalent to `ifs == nullptr`
 int main(int argc, char** argv){
     std::ofstream ofs;// create a writing file stream
     ofs.open(argv[1]);// open the file entered as argument
-    if(!ofs){// check if the file is properly open
+    if(!ofs.is_open()){// check if the file is properly open
         std::cerr << "Error: file " << argv[1] << " not found" << std::endl;
-        return 1;// return 1 to indicate an error occured
+        return 1;// return 1 to indicate an error occurred
     }
     for(int i = 0; i = 99; i++){
         ofs << i << ","; //use insertion operator to write in the file
@@ -277,7 +281,7 @@ int main(int argc, char** argv){
 
 ```
 
-`ofstream` is a similar stream as `std::cout` but with a file as ouput instead of a terminal
+`ofstream` is a stream similar to `std::cout` but with a file as ouput instead of a terminal
 
 ---
 
@@ -348,13 +352,55 @@ int max = (x > y) ? x : y;
 
 ---
 
+# Example of Switch conditions.
+
+To handle process states. 
+
+```cpp
+int state = 0; // possible states 0, 1, 2
+switch(state){
+    case 0:
+        std::cout << "You are in IDLE state" << std::endl;
+        break;
+    case 1:
+        std::cout << "You are in PROCESSING state" << std::endl;
+        break;
+    case 2:
+        std::cout << "You are in ENDING state" << std::endl;
+        break;
+    default:
+        std::cerr << "ERROR: Unknown state" << std::endl;
+        break;
+}
+```
+
+---
+
+# Example If conditions
+
+To test if coordinates are within the arena boundaries.
+
+```cpp
+bool in_arena(int x, int y, int width, int length){
+    if(x > length || x < 0){
+        return false;
+    }
+    else if(y > width || y < 0){
+        return false;
+    }
+    else return true;
+}
+``` 
+
+---
+
 ## Scopes, Functions, and Headers
 
 ---
 
 # Function 
 
-Function in C++ are declared and define with the following syntax: 
+Functions in C++ are declared and defined with the following syntax: 
 
 ```cpp
 return_type function_name(arg1_type arg1_name, ...){ Implementation }
@@ -363,7 +409,7 @@ return_type function_name(arg1_type arg1_name, ...){ Implementation }
 ```cpp
 void my_function(int arg1, double arg2){
     // some content
-    return;
+    return; // (optional)
 }
 
 bool my_function2(int arg1, double arg2){
@@ -372,7 +418,7 @@ bool my_function2(int arg1, double arg2){
 }
 ```
 
-Naming convention for functions uses the *snake_case*.
+The naming convention for functions uses *snake_case*.
 
 
 ---
@@ -381,7 +427,7 @@ Naming convention for functions uses the *snake_case*.
 
 - This is an idea you might not be as familiar with if you come from a Java and C\# background.
 - In C++, declarations should be provided in a header file (**.hpp**, .h, .hh, hxx).
-- Actual implementation (definition) should be provided in a source file (**.cpp**, .cc, .cxx).
+- The actual implementation (definition) should be provided in a source file (**.cpp**, .cc, .cxx).
 
 
 ```cpp
@@ -407,7 +453,6 @@ bool my_function2(int arg1, double arg2){
 
 ---
 
-
 # Preprocessor instruction
 
 ```cpp
@@ -417,27 +462,28 @@ bool my_function2(int arg1, double arg2){
 #define PI 3.14159 //to define macros
 ```
 
-Note: `#pragma once` should be at the beginning of every header files. 
+`#pragma once` should be at the beginning of every header file. 
 
+More about Macros: https://gcc.gnu.org/onlinedocs/cpp/Macros.html.
 
 ---
 
 # Scopes
 
-In C++ scopes are essential because they define the variable scopes. Desallocation of resources are based on scopes. Scopes are defined with curly bracket `{...}`.
+In C++, scopes are essential because they define variable scopes. Deallocation of resources is based on scopes. Scopes are defined with curly brackets `{...}`.
 ```cpp
 int main(){
-    int i = 0;// this variable exist in the whole function scope
+    int i = 0;// this variable exists in the whole function scope
 
     {//unamed scope
         int tab[5] = {0,1,2,3}
-    }//tab is desallocated here
+    }//tab is deallocated here
 
     for(int n = 0; n < 10; n++){
         //n exists only in the for loop scope
         MyClass A;
-    }//A is desallocated here
-}//i is desallocated here
+    }//A is deallocated here
+}//i is deallocated here
 ```
 
 ***DO NOT DECLARE ANYTHING OUT OF SCOPE***

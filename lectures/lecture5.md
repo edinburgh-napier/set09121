@@ -39,8 +39,10 @@ Game Design Workshop. 4th Edition. Tracy Fullerton (2019).
 
 - An example of a system is an engine. <!-- .element: class="fragment" -->
     - Real, or a software one, like what we are going to build in the module.
-- An engine is a system with a particular purpose.  <!-- .element: class="fragment" -->
-    - That purpose is to power some form of manual action.
+- A classical engine is a system that converts one or more forms of energy into mechanical energy. <!-- .element: class="fragment" -->
+	- In a car, the engine is the part that provides power. 
+- Similarly, a game engine is a system that converts low-level instructions into high-level objects and interactions.
+	- It is what powers a game.   
 - We can apply our formal elements when thinking about systems. <!-- .element: class="fragment" -->
 
  ![image](assets/images/engine.jpg)  <!-- .element width="50%" --><!-- .element: class="fragment" -->
@@ -260,7 +262,7 @@ The Legend of Zelda: Breath of The Wild
 
 ---
 
-# Interactin with the System
+# Interacting with the System
 
 - What information is provided to the player about the system?  <!-- .element: class="fragment" -->
     - Hiding information encourages guessing, bluffing, deceiving.

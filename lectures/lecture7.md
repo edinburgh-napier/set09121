@@ -63,8 +63,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
 - The properties determine the values associated with individual objects.
 - Examples include: health; armour; position; etc.
 
- ![image](assets/images/witcher3.jpg) <!-- .element width="70%"  -->
-
+![image](assets/images/minecraft.jpg) <!-- .element width="70%"  -->
 
 ---
 
@@ -74,8 +73,7 @@ Game Design Workshop. 3rd Edition. Fullerton (2014).
  - In object-orientation we call these behaviours methods.
 - Example behaviours include: jumping; running; shooting; etc.
 
-![image](assets/images/minecraft.jpg) <!-- .element width="70%"  -->
-
+![image](assets/images/witcher3.jpg) <!-- .element width="70%"  -->
 
 ---
 

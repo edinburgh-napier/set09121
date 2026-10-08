@@ -310,7 +310,7 @@ There is one rule to rule them all: <!-- .element: class="fragment" -->
 ---
 
 # Naming Note
-GitHub, like many companies, is in the process of changing the name of the 'Master' branch. It seems to be in progress at time of writing, so you might see it called 'Main', 'Default', or 'Origin' in some tools!
+For the main branch, the historical name is *master*. In the last years, a lot of project switched to *main*. On GitHub, when creating a new repository, the main branch is named *main*. You might also see it called *default*, or *origin* in some projects!
 
 (Don't worry, just remember to **Never break the main branch**)
 

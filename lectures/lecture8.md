@@ -298,7 +298,7 @@ Maps can be very helpful to get an overview of the gameworld.
 - What are the technical challenges of the project?
     - Important for costing the project.
 - Is any new technology required? <!-- .element: class="fragment" -->
-- What are the major software development taks? <!-- .element: class="fragment" -->
+- What are the major software development tasks? <!-- .element: class="fragment" -->
 - What are the risks involved in developing the game? <!-- .element: class="fragment" -->
     - And how do you mitigate these risks?
 - What are the estimated resources required to deliver the game? <!-- .element: class="fragment" -->

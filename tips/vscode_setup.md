@@ -6,18 +6,42 @@ permalink:  vscode_setup.html
 sidebar: home_sidebar
 ---
 
-This instructions are written based on this page: https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/how-to.md#build-a-project
 
-On Windows, you might need to create a CMake presets file. You have the instruction here: https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/cmake-presets.md#configure-and-build-with-cmake-presets
+These instructions are written based on these pages: 
+- https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/how-to.md#build-a-project
+- https://code.visualstudio.com/docs/cpp/config-mingw
 
+# C++ Compiler on Windows
 
+## Install C++ compiler
 
-First open the folder containing your code which include at the root the CMakeLists.txt.
-You will need to access the command palette of VS Code. To access it use the short cut ctrl+shift+p, then a drop down menu will appear and space to type a command. 
+- Download the MSYS2 installer [MSYS2 installer](https://github.com/msys2/msys2-installer/releases/download/2026-06-11/msys2-x86_64-20260611.exe)
+- Run the installer and follow the steps. You can refer to this [tutorial](https://www.msys2.org/)
+- In the wizard, choose your desired Installation Folder. Record this directory for later. In most cases, the recommended directory is acceptable. The same applies when you get to setting the start menu shortcuts step. When complete, ensure the Run MSYS2 now box is checked and select Finish. This will open a MSYS2 terminal window for you.
+- In this terminal, install the MinGW-w64 toolchain by running the following command:
+  `pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain`
+- Accept the default number of packages by pressing Enter.
+- Enter Y when prompted to proceed with the installation
+
+## Add the compiler to Windows environment
+
+Add the path of your ucrt64 bin folder to the Windows PATH environment variable by using the following steps:
+- In the Windows search bar, type Settings to open your Windows Settings.
+- Search for Edit environment variables for your account.
+- In your User variables, select the Path variable and then select Edit.
+- Select New and add the MinGW-w64 destination folder you recorded during the installation process to the list. If you used the default settings above, then this will be the path: C:\msys64\ucrt64\bin.
+- Select OK, and then select OK again in the Environment Variables window to update the PATH environment variable. You have to reopen any console windows for the updated PATH environment variable to be available
+
+# Use VSCode
+
+On Windows, you might need to create a CMake presets file. You have the instructions here: https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/cmake-presets.md#configure-and-build-with-cmake-presets
+
+First, open the folder containing your code, which has CMakeLists.txt at the root.
+You will need to access the command palette of VS Code. To access it, use the shortcut Ctrl+Shift+P; then a drop-down menu will appear with a space to type a command. 
 
 ## Add or Select a preset (Optional)
 
-To add or select a preset you can type in the command palette: `CMake: Preset`.
+To add or select a preset, you can type in the command palette: `CMake: Preset`.
 
 ![image](assets/images/command-palette.png)
 
