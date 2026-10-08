@@ -82,6 +82,9 @@ For instance, if you type `help breakpoints`, you will get the list of the break
 
 # Debugging in Visual Studio
 
+You can refer to this [page](https://learn.microsoft.com/en-us/visualstudio/debugger/getting-started-with-the-debugger-cpp?view=visualstudio)
+
+- To start debugging, type F5 or select Debug > Start Debugging
 
 
 # Debugging in VSCode
