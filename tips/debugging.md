@@ -8,7 +8,7 @@ sidebar: home_sidebar
 
 Using debugging is essential to catch elusive bugs! This page explain how to debug in command line, Visual Studio, and VSCode.
 
-To debug
+To debug, you have to compile your program in debug mode. Visual Studio and VSCode will do it per default. To compile in debug in command line, run in your build folder `cmake -DCMAKE_BUILD_TYPE=Debug ..`.
 
 # Debugging in command line
 
@@ -84,7 +84,8 @@ For instance, if you type `help breakpoints`, you will get the list of the break
 
 You can refer to this [page](https://learn.microsoft.com/en-us/visualstudio/debugger/getting-started-with-the-debugger-cpp?view=visualstudio)
 
-- To start debugging, type F5 or select Debug > Start Debugging
+To start debugging, type F5 or select Debug > Start Debugging. 
+You can set breakpoint with a right click on the line where you want stop and select breakpoint > insert breakpoint.
 
 
 # Debugging in VSCode
