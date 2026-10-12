@@ -324,7 +324,7 @@ return 0;
 # Mediator Pattern 
 
 ```cpp
-class Colleague;
+class Colleague; \\ Forward Declaration
 
 class Mediator {
 public:
@@ -460,7 +460,7 @@ public:
         state = new_state;
     }
 
-    void tick() {
+    void update() {
         state->handle(*this);  // Delegate behavior to the current state
     }
 private:
