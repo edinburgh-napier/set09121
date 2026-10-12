@@ -329,12 +329,12 @@ class Colleague;
 class Mediator {
 public:
     virtual void broadcast_message(const std::string& message,
-    Colleague* sender) = 0;
+    std::share_ptr<Colleague> sender) = 0;
 };
 
 class Colleague {
 public:
-    Colleague(Mediator* mediator, const std::string& name) : mediator(mediator), name(name) {}
+    Colleague(std::shared_ptr<Mediator> mediator, const std::string& name) : mediator(mediator), name(name) {}
 
     void send_message(const std::string& message) {
         mediator->broadcast_message(message, this);
@@ -346,7 +346,7 @@ public:
         return name;
     }
 private:
-    Mediator* mediator;
+    std::shared_ptr<Mediator> mediator;
     std::string name;
 };
 ```
@@ -359,19 +359,19 @@ private:
 // Concrete Mediator (Chat Room)
 class ChatRoom : public Mediator {
 public:
-    void add_participant(Colleague* colleague) {
+    void add_participant(std::share_ptr<Colleague> colleague) {
         participants.push_back(colleague);
     }
 
     void broadcast_message(const std::string& message, Colleague* sender) override {
-        for (Colleague* participant : participants) {
+        for (std::share_ptr<Colleague> participant : participants) {
             if (participant != sender) {
                 participant->receive_message(sender->get_name() + ": " + message);
             }
         }
     }
 private:
-    std::vector<Colleague*> participants;
+    std::vector<std::share_ptr<Colleague>> participants;
 };
 ```
 
