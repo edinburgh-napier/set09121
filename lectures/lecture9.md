@@ -490,8 +490,8 @@ void EvadeState::handle(Context& context) {
 
  while (true)
  {
-     pacman.tick();
-     ghost.tick();
+     pacman.update();
+     ghost.update();
  }
 ```
 
