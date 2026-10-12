@@ -180,10 +180,10 @@ public:
 
 class Panel : public UIElement { // Composite
 private:
-    std::vector<std::shared_ptr<UIElement>> panel_elements;
+    std::vector<std::shared_ptr<UIElement>> _panel_elements;
 public:
     void update() override {
-        for (std::shared_ptr<UIElement>& element : panel_elements) {
+        for (std::shared_ptr<UIElement>& element : _panel_elements) {
             element->update();
         }
     }
@@ -238,17 +238,17 @@ public:
 
     int next() override {
         if (has_next()) {
-            return items[position++];
+            return _items[_position++];
         }
         throw std::out_of_range("No more elements.");
     }
 
     bool has_next() override {
-        return position < items.size();
+        return _position < _items.size();
     }
 private:
-    const std::vector<int>& items;
-    size_t position;
+    const std::vector<int>& _items;
+    size_t _position;
 };
 ```
 
@@ -267,14 +267,14 @@ public:
 class ConcreteAggregate : public Aggregate {
 public:
     void add_item(int item) {
-        items.push_back(item);
+        _items.push_back(item);
     }
 
     std::unique_ptr<Iterator> create_iterator() const override {
-        return std::make_unique<ConcreteIterator>(items);
+        return std::make_unique<ConcreteIterator>(_items);
     }
 private:
-    std::vector<int> items;
+    std::vector<int> _items;
 };
 ```
 
@@ -337,17 +337,17 @@ public:
     Colleague(std::shared_ptr<Mediator> mediator, const std::string& name) : mediator(mediator), name(name) {}
 
     void send_message(const std::string& message) {
-        mediator->broadcast_message(message, this);
+        _mediator->broadcast_message(message, this);
     }
     void receive_message(const std::string& message) {
-        std::cout << name << " received: " << message << std::endl;
+        std::cout << _name << " received: " << message << std::endl;
     }
     std::string get_name() const {
-        return name;
+        return _name;
     }
 private:
-    std::shared_ptr<Mediator> mediator;
-    std::string name;
+    std::shared_ptr<Mediator> _mediator;
+    std::string _name;
 };
 ```
 
@@ -360,18 +360,18 @@ private:
 class ChatRoom : public Mediator {
 public:
     void add_participant(std::share_ptr<Colleague> colleague) {
-        participants.push_back(colleague);
+        _participants.push_back(colleague);
     }
 
     void broadcast_message(const std::string& message, Colleague* sender) override {
-        for (std::share_ptr<Colleague> participant : participants) {
+        for (std::share_ptr<Colleague> participant : _participants) {
             if (participant != sender) {
                 participant->receive_message(sender->get_name() + ": " + message);
             }
         }
     }
 private:
-    std::vector<std::share_ptr<Colleague>> participants;
+    std::vector<std::share_ptr<Colleague>> _participants;
 };
 ```
 
@@ -457,14 +457,14 @@ public:
     Context(std::shared_ptr<State> initialState) : state(initialState) {}
 
     void set_state(std::shared_ptr<State> new_state) {
-        state = new_state;
+        _state = new_state;
     }
 
     void update() {
-        state->handle(*this);  // Delegate behavior to the current state
+        _state->handle(*this);  // Delegate behavior to the current state
     }
 private:
-    std::shared_ptr<State> state;  // The current state
+    std::shared_ptr<State> _state;  // The current state
 };
 
 void ChaseState::handle(Context& context) {
@@ -529,10 +529,10 @@ public:
 class Simulator {
 public:
     void update(float h) {
-        integration_method->step(h);
+        _integration_method->step(h);
     }
 private:
-    std::shared_ptr<Integrator> integration_method;
+    std::shared_ptr<Integrator> _integration_method;
 };
 ```
 
@@ -552,10 +552,13 @@ struct Integrators{
 class Simulator {
 public:
     void update(float h) {
-        integrator(h);
+        _integrator(h);
+    }
+    void set_integrator(Integrator integrator){
+        _integrator = integrator;
     }
 private:
-    Integrator integrator;
+    Integrator _integrator;
 };
 
 ```
@@ -594,19 +597,19 @@ public:
 };
 
 class EntityManager { // Subject
-    std::vector<std::shared_ptr<Entity>> entities;
+    std::vector<std::shared_ptr<Entity>> _entities;
     void update(float dt) {
-        for (std::shared_ptr<Entity> &entity : entities) {
+        for (std::shared_ptr<Entity> &entity : _entities) {
             entity->update(dt);
         }
     }
     void render() {
-        for (std::shared_ptr<Entity> &entity : entities) {
+        for (std::shared_ptr<Entity> &entity : _entities) {
             entity->render();
         }
     }
     void register_entity(std::shared_ptr<Entity> entity) {
-        entities.push_back(entity);
+        _entities.push_back(entity);
     }
     void unregister_entity(std::shared_ptr<Entity> entity) {
         // ... remove entity from entities vector
