@@ -352,8 +352,8 @@ int function(const Type1& input, Type2& output);
 
 ```cpp
 int get_value(int key, const std::map<int,std::string> &input, 
-              std::string& output){ //passing as constant reference will 
-    //check if the key exist in the map. If not return 1;
+              std::string& output){ 
+    //check if the key exists in the map. If not return 1;
     if(input.find(key) == std::map<int,std::string>::end())
         return 1;
     //if the key exist
