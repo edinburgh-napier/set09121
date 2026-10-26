@@ -64,8 +64,11 @@ int main(int argc, char **argv)
     int y = 20; // Allocated on the stack.
     
     int *z = new int(30); // Allocated on the heap
-    
     delete z;// the heap is managed manually!
+
+    //smart pointers are allocated on the heap and managed automatically.
+    std::shared_ptr<int> w = std::make_shared<int>(25); 
+    w.reset() //manually free the smart pointer.
 
     return 0;
 }//memory from the stack freed here.
@@ -186,6 +189,13 @@ int *y = new int(5);
 // Free a value
 delete x;
 delete y;
+```
+- Smart pointers are allocated on the heap and are managed automatically. They can also be freed manually.
+```cpp
+std::shared_ptr<double> a = std::make_shared<int>(0.5);
+a.reset();
+std::unique_ptr<std::string> s = std::make_unique<std::string>("abc");
+s.reset();
 ```
 
 ---
