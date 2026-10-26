@@ -615,7 +615,7 @@ private:
 To access the resouces, we will avoid making copies of the resource and instead making a copy of the `shared_ptr`.
 
 ```cpp
-bool get_texture(const std::string& label, std::shared_ptr& texture){
+bool get_texture(const std::string& label, std::shared_ptr<sf::texture>& texture){
     TextureMap::iterator it = textures.find(label);
     if(it != textures.end()){
         return false; //texture not in the storage
