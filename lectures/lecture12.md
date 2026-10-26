@@ -215,8 +215,7 @@ public:
     }
     std::shared_ptr<T> create(Targs... params){
         for(std::shared_ptr<T> &entity: _entity_pool){
-            if(!entity->in_use())
-                entity->init(params);
+	        entity->init(params);
         }
     }
     void update(const double &dt){
