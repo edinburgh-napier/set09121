@@ -190,6 +190,7 @@ int *y = new int(5);
 delete x;
 delete y;
 ```
+
 - Smart pointers are allocated on the heap and are managed automatically. They can also be freed manually.
 ```cpp
 std::shared_ptr<double> a = std::make_shared<int>(0.5);
