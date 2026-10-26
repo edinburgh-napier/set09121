@@ -160,9 +160,7 @@ while(window.isOpen()){
     ...
     // run the code for the current frame
     ...
-    #ifdef DEBUG 
     std::cout << "Frame time : " << dt << std::endl;
-    #endif
 }
 ```
 
