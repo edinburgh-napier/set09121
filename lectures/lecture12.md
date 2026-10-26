@@ -549,9 +549,9 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
  
 - Premature optimisation is the root of all evil, but think of your algorithm choices.
 - Have good coding habits:
-	- Use const, constexpr or static;
- 	- Use memory pools;
-  	- Do not copy large resources.
+  - Use const, constexpr or static;
+  - Use memory pools;
+  - Do not copy large resources.
 - Use tools to identify bottlenecks. Fix if needed.
 - Main performance measure: **Frame Time**
 - **Don't release your game compiled in debug !**
