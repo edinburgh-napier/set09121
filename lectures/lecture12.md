@@ -146,7 +146,7 @@ The following code will be compiled and executed only in debug.
 - Frame Time:  
     - This is actually what we are interested in. How long does it take the game to produce and render a **single** frame? Typically we aim for 16.7ms (60FPS) or 33.3ms (30FPS).
 - Speedup
-    -  When we make an improvement we need to understand what that improvement is. Speedup is the calculation of the original time against the new time. It is calculated as $S=\frac{original}{new}$.
+    -  When we make an improvement, we need to understand what that improvement is. Speedup is the calculation of the original time against the new time. It is calculated as $S=\frac{original}{new}$.
 
 
 ---
@@ -196,7 +196,7 @@ if (health == 0) {
 - It can also lead to objects being scattered around memory -  expensive to jump around.
 - An object pool fixes that (especially when combined with alive flags):
     - Allocate max number of objects required.
-    - When a new object is needed grab from allocated pool and set necessary values.
+    - When a new object is needed, grab from allocated pool and set necessary values.
     - When finished, flag as not-alive and give back to pool.
 
 
@@ -305,8 +305,8 @@ if (dirty flag is true) {
 
 Allocate Your Required Memory First
 - We have mentioned this a few times now.
-- Memory allocation (and subsequent deallocation) is expensive on the free store.
-- Try and allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
+- Memory allocation (and subsequent deallocation) is expensive on the heap.
+- Try to allocate everything you need at the start of a level or the game. Then it is there and you can access it uniformly.
 - Data should also be near similar data -  this allows quick processing of blocks during similar operations.
 
 
