@@ -405,11 +405,11 @@ A(&b); //initialise A with the address of b;
 
 # Smart Pointers
 
-- Due to the pattern of allocation, deallocation, and keeping track of resources many programmers created in-house solutions to these problems.
-- This led to many implementations of self-managing pointers - "smart pointer" - that would do the work for the programmer.
+- Due to the pattern of allocation, deallocation, and keeping track of resources, many programmers created in-house solutions to these problems.
+- This led to many implementations of self-managing pointers - "smart pointers" - that would do the work for the programmer.
 - The most popular implementation was seen in the Boost C++ libraries - Boost is known as the missing C++ API.
-- Eventually smart pointers were standardised and added to the C++11 standard.
-- It is now recommended you use smart pointers and not old (raw) pointers as standard.
+- Eventually, smart pointers were standardised and added to the C++11 standard.
+- It is now recommended to use smart pointers and not old (raw) pointers as standard.
 
 
 ---
@@ -427,7 +427,7 @@ A(&b); //initialise A with the address of b;
 {
     // Make shared_ptr
     std::shared_ptr<int> ptr = std::make_shared<int>(5);
-    // Can derefence as normal
+    // Can dereference as normal
     int n = *ptr;
     // Can get raw pointer - no counting
     int *x = ptr.get();
@@ -435,13 +435,13 @@ A(&b); //initialise A with the address of b;
     {
         std::shared_ptr ptr2;
         ptr2 = ptr; //copy ptr in ptr2, the counter is increased by one.
-    }// ptr2 is freed and counter is decrease by one
+    }// ptr2 is freed, and the counter is decreased by one
 
     // Counter increased by one in call
     do_work(ptr);
     // End of call, counter decreased by one
 
-}//counter decreased, if counter is at 0 the resource of ptr is freed
+}//counter decreased; if counter is at 0, the resource of ptr is freed
 ```
 
 
@@ -451,7 +451,7 @@ A(&b); //initialise A with the address of b;
 
 - `unique_ptr` ensures there is only one owner.
 - You cannot copy the pointer, only move it.
-- It is faster than `shared_ptr` and you should try and use it as much as possible.
+- It is faster than `shared_ptr`, and you should try to use it as much as possible.
 
 
 ```cpp
@@ -460,7 +460,7 @@ A(&b); //initialise A with the address of b;
 {
     // Make unique_ptr
     std::unique_ptr<int> ptr = std::make_unique<int>(5);
-    // Can derefence as normal
+    // Can dereference as normal
     int n = *ptr;
     // Can get raw pointer - no counting
     int *x = ptr.get();
@@ -471,7 +471,7 @@ A(&b); //initialise A with the address of b;
 
 
     // ptr is now nullptr, so no need to free the resource
-}// ptr2 is automatically free here
+}// ptr2 is automatically freed here
 ```
 
 
@@ -496,7 +496,7 @@ A(&b); //initialise A with the address of b;
 # RAII
 
 - Resource Acquisition is Initialisation.
-    - On object's construction, object acquires resource.
+    - On an object's construction, the object acquires a resource.
     - On object's destruction, object frees up resource
 - But!
     - **Do not** give an entity a resource such as a loaded texture or audio clip.
@@ -511,7 +511,7 @@ A(&b); //initialise A with the address of b;
 
 - Although referencing is efficient to reduce memory usage, it can be more expensive for memory access.
 - It is common to copy data between different contexts to improve efficiency.
-- For example having position data in the entity and the physics object.
+- For example, having position data in the entity and the physics object.
 
 
 ```cpp
@@ -547,7 +547,7 @@ Update(){
  - Sound assets can be 100s of MB.
 - We need to avoid loading and unloading these assets all the time.
 - We also need to ensure that we only load the assets that are necessary.
-- To do this we will use a resource manager.
+- To do this, we will use a resource manager.
 
 ---
 
@@ -566,11 +566,11 @@ Update(){
 # Basic Operations
 
 - Our game resource manager needs only a few different operations:
- - `initialise` :   as most of our game engine components will likely have.
- - `load_resource` :   loads and/or retrieves a resource.
- - `unload_resource` :   unloads a loaded resource.
- - `clear_all` :   unloads all loaded resources.
- - `get_resource` : access a reference/pointer to a specific resource 
+ - `initialise`:   as most of our game engine components will likely have.
+ - `load_resource`:   loads and/or retrieves a resource.
+ - `unload_resource`:   unloads a loaded resource.
+ - `clear_all`:   unloads all loaded resources.
+ - `get_resource`: access a reference/pointer to a specific resource 
 - That is all.
 - Depending on your approach:
  - You can have a singleton with typed loads, unloads, and storage
@@ -581,7 +581,7 @@ Update(){
 
 # Storing Resources
 
-`TextureManager` class with a lookup table `std::map`. The map will have a key, like a label to identify the texture.
+`TextureManager` class with a lookup table `std::map`. The map will have a key, like a label, to identify the texture.
 ```cpp
 class TextureManager{
 public:
@@ -635,7 +635,7 @@ bool get_texture(const std::string& label, std::shared_ptr& texture){
 # Switching Levels
 
 - A resource manager also allows you to manage loading and unloading between levels.
-- It works also for the other management components.
+- It also works for the other management components.
 - When switching levels:
     - Unload entities.
     - Unload physics resources.
@@ -653,5 +653,5 @@ bool get_texture(const std::string& label, std::shared_ptr& texture){
 - We looked at how memory works in general.
 - We looked at how memory is used in C++.
 - Techniques to avoid copies.
-- The key take away is how we apply this to **manage game resources** and **optimise your implementation**
+- The key takeaway is how we apply this to **manage game resources** and **optimise your implementation**
 - You should be able to understand the basic premise of a resource manager, why we need it, and how it operates.
