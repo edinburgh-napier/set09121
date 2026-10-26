@@ -191,7 +191,7 @@ if (health == 0) {
 
 # Object Pool
 
-- Object creation and destruction is very expensive.
+- Object creation and destruction are very expensive.
 - It involves memory allocation, function calls, grabbing bits and pieces, maybe loading content.
 - It can also lead to objects being scattered around memory -  expensive to jump around.
 - An object pool fixes that (especially when combined with alive flags):
@@ -265,7 +265,7 @@ if (dirty flag is true) {
 - We can use our flag technique to determine if an object is visible and therefore should be rendered.
 - This allows us to hide objects/turn off their rendering when we want.
 - It also allows us to add objects that should not be rendered.
-    - Remember - what you see when playing a game isn't all that is there.
+    - Remember: what you see when playing a game isn't all that is there.
 
 ```cpp
     if (visible)
@@ -315,8 +315,8 @@ Allocate Your Required Memory First
 # `constexpr` What You Can
 
 - `const` is a qualifier used for readability, maintenance and performance
-- `constexpr` takes this further: expression is calculated at compile time
-    - So you can produce certain functions that are compile time processed.
+- `constexpr` takes this further: the expression is calculated at compile time
+    - So you can produce certain functions that are compile-time processed.
 - Compile time means the code is not processed during runtime.
 
 ```cpp
@@ -336,8 +336,8 @@ constexpr int Nfav = factorial(N);
 
 # Memory Alignment and Cache Coherence
 - We talked about this during our memory and resource management lectures.
-- Memory alignment means that data is aligned in memory to minimize the reads to access the data that we need.
-- For cache coherency we discussed the difference in processing a multi-dimensional array using different indices, due to memory layout. For example, the first `for` loop below is faster than the second.
+- Memory alignment means that data is aligned in memory to minimise the reads to access the data that we need.
+- For cache coherency, we discussed the difference in processing a multi-dimensional array using different indices, due to memory layout. For example, the first `for` loop below is faster than the second.
 
 ```cpp
 for (int i=0; i < 32; i++)
@@ -404,7 +404,7 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 - Two things have to happen.
     1.  Set up the parameters on the stack -  copy data.
     2.  Jump to the new code position.
-- On return there is a jump back again.
+- On return, there is a jump back again.
 
 
  ![image](assets/images/function-call.png) <!-- .element width="25%"  -->
@@ -418,7 +418,7 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
     scope (e.g. class scope).
 
 - If a function is `static` in a C++ code file, the compiler knows it
-    can try and optimise it without affecting external code.
+    can try to optimise it without affecting external code.
 
 - Effectively, rearranging and possible inlining can occur, speeding
     up the program.
@@ -447,9 +447,9 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 
 #  `const` What You Can
 
-- Basically set everything you can to `const`.
+- Basically, set everything you can to `const`.
 - A `const` method is one that will not change the object.
-- Therefore the compiler can optimise the code based on access again.
+- Therefore, the compiler can optimise the code based on access again.
 
 ```cpp
     class my_class
@@ -473,8 +473,8 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 
 - A branch has a cost to check and a cost to jump.
 - **if statement** for complex conditions and/or few conditions
-- **switch statement** when a lot of value to test for a single variable.
-- If possible, use a switch statement instead of a lot of nested or consecutives **if/else if statements**
+- **switch statement** when there are a lot of values to test for a single variable.
+- If possible, use a switch statement instead of a lot of nested or consecutive **if/else if statements**
 
 ```cpp
     if (var == value1) { /* Do work */ }
@@ -506,7 +506,7 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 
 - For loops are one of the most expensive parts of your application due to the number of iterations.
 - They are also one of the best places to optimise -  we will look at parallelisation here also.
-- One particular point is avoiding doing work that the loop statement can do -  such as the indexer.
+- One particular point is avoiding doing work that the loop statement can do,  such as the indexer.
 
 ```cpp
     // Multiply every iteration
@@ -528,7 +528,7 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 # Just Throw Some Threads at the Problem!?
 
 - A simple solution may be to use more of your hardware resources.
-- Multi-core means you can execute code in parallel in different cores at the same time
+- Multi-core means you can execute code in parallel on different cores at the same time
 - There are different techniques: OpenMP, Intel TBB, parallel STL algorithms (C++17), async, threads, etc
     - More on SET10108: Concurrent and Parallel Systems
 
@@ -536,10 +536,11 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 
 # Cost of Threads
 
-- Threads do have costs: performance, cognitive and maintenance
 - They require memory, and switching between threads costs time
 - They can easily introduce bugs into your application
 - Keeping track of application workflow with threads is harder
+- You have to consider the minimum hardware requirements needed to run your game.
+	- How many cores do you need to run your game? 
 
 
 ---
