@@ -437,7 +437,7 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 
 - `virtual` functions have an additional cost.
 - A `virtual` function call involves a lookup on the object to determine which function to call.
-- Effectively we are double jumping in this instance.
+- Effectively, we are double jumping in this instance.
 
 
  ![image](assets/images/virtual-function.png)
@@ -548,6 +548,10 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 # Summary
  
 - Premature optimisation is the root of all evil, but think of your algorithm choices.
+- Have good coding habits:
+	- Use const, constexpr or static;
+ 	- Use memory pools;
+  	- Do not copy large resources.
 - Use tools to identify bottlenecks. Fix if needed.
 - Main performance measure: **Frame Time**
 - **Don't release your game compiled in debug !**
@@ -559,11 +563,11 @@ and [Visual Studio Memory usage](https://learn.microsoft.com/en-us/visualstudio/
 
 Remember the optimisation steps and respect the order:
 
-1. Process and store what is essential (flags, object pool etc..) 
+1. Process and store what is essential (flags, object pool, etc...) 
 2. Creation and heavy processing needs to be done at the right moment
 3. Algorithmic optimisation:
     - function calls
-    - for loops and if statement
+    - for loops and if statements
     - const, static and constexpr
 4. Parallelisation
 
