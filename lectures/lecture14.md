@@ -269,7 +269,6 @@ What is Artificial Intelligence?
     - Neurons get signal input (e.g. through sensors).
     - Signal gets transformed and distributed to other neurons
 - Can have learning developed over time.
-- Researchers and hobbyists see it as a method of believable learning.
 - So far fallen short on game projects (see Creatures, Fable II).
 
 
