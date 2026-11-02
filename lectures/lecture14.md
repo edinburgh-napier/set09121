@@ -33,7 +33,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# History of Game AI
+# What is AI
 
 What is Artificial Intelligence?
 - AI is the study of techniques to develop intelligence in machines, or the study of intelligence by using machines as a substrate for modelling.
@@ -44,7 +44,7 @@ What is Artificial Intelligence?
 
 # Our View of Game AI
 
-- From a games point of view, we will take a very simple outlook:
+- From a game's point of view, we will take a very simple outlook:
     - AI is any algorithm or code that controls the behaviour of one of our game entities.
 - Therefore, our Pong example back at the start of the module had a form of AI.
 - It was dumb, but it still behaved in a way that would allow it to be competitive.
@@ -69,6 +69,12 @@ What is Artificial Intelligence?
         - Path finding, state machines, etc.
     - Modern techniques have been tried, but are rarely successful.
     - Modern techniques have seen more success in content creation.
+
+---
+
+# Academic AI vs Game AI
+
+**AI in games is about creating an illusion of intelligence rather than creating a plausible intelligence model.**
 
 ---
 
