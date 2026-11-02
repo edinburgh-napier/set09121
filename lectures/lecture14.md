@@ -306,15 +306,15 @@ What is Artificial Intelligence?
 # Goal of AI - Realism
 
 - One goal of game AI is to provide a challenge to the player and create a realistic, living world.
-- Examples:
-    - GTA V/RDR 2
-    - Assassin's Creed Origins
+- Examples - Open-world games
+    - Grand Theft Auto franchise
+    - Red Dead Redemption 1 & 2
+    - Assassin's Creed franchise
 - Notice:
     - People walking around.
-    - Reaction to environment effects (e.g. rain).
-    - Enemies attacking in realistic looking manners.
+    - Reaction to environmental effects (e.g. rain).
+    - Enemies attacking in realistic-looking manners.
     - etc.
-
 
 ---
 
