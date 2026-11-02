@@ -36,7 +36,7 @@ School of Computing. Edinburgh Napier University
 # History of Game AI
 
 What is Artificial Intelligence?
-- AI is the study of the intelligence of machines, and the attempt to replicate human-like intelligence in a machine.
+- AI is the study of techniques to develop intelligence in machines, or the study of intelligence by using machines as a substrate for modelling.
 - This is a very wide area of study, incorporating not only technical implementations of intelligence, but also psychology, ethics and philosophy.
 
 
