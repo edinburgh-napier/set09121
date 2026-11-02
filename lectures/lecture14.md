@@ -325,9 +325,9 @@ What is Artificial Intelligence?
 - The design of the level needs to take account of the NPCs' ability to navigate it.
     - Hence you normally get large doorways and corridors.
 - Unfortunately, the AI, NPCs, and levels are normally designed by different teams.
-    - So it doesn't normally work first time.
-    - At some point compromises have to be made.
-- If the NPC is on the player's side you need to make sure it does not let them down.
+    - So it doesn't normally work the first time.
+    - At some point, compromises have to be made.
+- If the NPC is on the player's side, you need to make sure it does not let them down.
     - Halo, Fallout 4, Oblivion, all show examples of this
 
 
