@@ -315,7 +315,7 @@ Flee
 
 
 ```cpp
-SteeringFunction SteeringBehaviours::seek = 
+SteeringFunction SteeringBehaviours::flee = 
 [](const sf::Vector2f &target,const sf::Vector2f &self) -> SteeringOutput{
     SteeringOutput steering;
     steering.direction = normalize(self - target);
