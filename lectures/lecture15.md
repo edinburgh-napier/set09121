@@ -58,11 +58,11 @@ School of Computing. Edinburgh Napier University
 # Review - Working with Vectors
 
 - Steering behaviours rely on vector operations.
-    - We are generally trying to work out positions and velocity to move entities in a certain manner.
+    - We are generally trying to work out positions and velocities to move entities in a certain manner.
 - We will be  using vector operations to support our steering behaviours.
     - Adding and subtracting vectors.
     - Getting the length of a vector.
-    - Normalizing a vector.
+    - Normalising a vector.
     - Converting vectors to angles.
 
 
@@ -214,7 +214,7 @@ $$r = (\theta - orientation) * rot\_{speed}$$
 
 - We want to build a reusable technique for steering behaviours.
     - We want reusable so we can program as many steering behaviours as we like.
-- If you like you can go further and combine steering behaviours within a single steering behaviour.
+- If you like, you can go further and combine steering behaviours within a single steering behaviour.
     - See weighted/combined behaviours in the recommended reading.
     - Read this article [Steering Behaviors For Autonomous Characters by C.W. Reynolds](https://www.red3d.com/cwr/steer/gdc99/)
 
@@ -283,7 +283,7 @@ Functional approach using std::function.
 using SteeringFunction = 
 std::function<SteeringOutput(const sf::Vector2f &,const sf::Vector2f &)>;
 ```
-- Then define the steering behaviours as static variable:
+- Then define the steering behaviours as static variables:
 ```cpp
 struct SteeringBehaviours{
     static SteeringFunction seek;
@@ -339,19 +339,19 @@ move(output.direction*_max_speed * dt);
 Where, 
 - `_player` is a pointer to the player entity 
 - `_parent` is a pointer to the parent entity of this component
-- `move` is a function to move the parent enity.
+- `move` is a function to move the parent entity.
 
 ---
 
 # Combining Steering, Decisions, and State
 
 - Next we are going to discuss decision making and behaviour control using state machines and decision trees.
-- We will be looking at combining these ideas to create a sophisticated looking AI.
+- We will be looking at combining these ideas to create a sophisticated-looking AI.
     - We will look at this in more detail next week.
-- The idea we will look at is when we make a decision (via a decision tree) we will change state.
-    - For example, if we decide we are under attack we change our state to engage.
+- The idea we will look at is that when we make a decision (via a decision tree) we will change state.
+    - For example, if we decide we are under attack, we change our state to engage.
 - We can consider that the behavioural states also contain a steering behaviour if necessary.
-    - For example having a seek state.
+    - For example, having a seek state.
 
 
 ---
@@ -383,7 +383,7 @@ Where,
 - Remember that we can add vectors together quite happily.
     - This will give us a mean direction of travel.
 - We can combine steering behaviours normally.
-    - For example combined seek and face.
+    - For example, combined seek and face.
 - Or we can weight the steering behaviours.
     - 0.8 seek.
     - 0.1 align.
@@ -399,10 +399,10 @@ Where,
 - They can also be very powerful.
     - Combining steering behaviours can lead to rich, complicated movement.
 - They also underpin the basis of many AI techniques.
-    - Path finding uses a path following steering behaviour.
+    - Pathfinding uses a path-following steering behaviour.
     - State machines and decision trees can determine which steering behaviour to perform.
 - Steering behaviours by themselves can lead to weird behaviour.
-    - Remember some of the path finding examples.
+    - Remember some of the pathfinding examples.
 
 
 ---
