@@ -79,7 +79,8 @@ School of Computing. Edinburgh Napier University
 # Decision Tree - Diagram 
 
 
-![image](assets/images/guard_decisions.png) <!-- .element width="85%"  -->
+![image](assets/images/sophisticated_guard.png)
+
 
 
 ---
