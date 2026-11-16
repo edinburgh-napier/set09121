@@ -290,18 +290,18 @@ decision_tree = std::make_shared<PlayerVisibleDecision>(
 
 - The moment we want to have more than one action (leaf nodes), we need control nodes (branch nodes).
 - The two most common control nodes are:
-    - **Selector**: Evaluates each children until one is found that does **not** fail and returns the status of this child node.
-    - **Sequence**: Evaluates each children until one is found that does **not** succeed and returns the status of this child node.
+    - **Selector**: Evaluates each child until one is found that does **not** fail and returns the status of this child node.
+    - **Sequence**: Evaluates each child until one is found that does **not** succeed and returns the status of this child node.
 - Note that the child nodes have a pre-determined **order**.
-- We will look at a few example to see how these control nodes are used.
+- We will look at a few examples to see how these control nodes are used.
 
 ---
 
 # Selector
 
-- Evaluates each children until one is found that does **not** fail and returns the status of this child node.
+- Evaluates each child until one is found that does **not** fail and returns the status of this child node.
 - As soon as a node is found that returns **running** or **success**, no further child nodes are evaluated.
-- Consquently, only one node will change its status to **running** or **success**.
+- Consequently, only one node will change its status to **running** or **success**.
 - The Selector node selects the first non-failing node.
 - The order of the child nodes describes their **priority**.
 
@@ -317,9 +317,9 @@ decision_tree = std::make_shared<PlayerVisibleDecision>(
 
 # Sequence
 
-- Evaluates each children until one is found that does **not** succeed and returns the status of this child node.
+- Evaluates each child until one is found that does **not** succeed and returns the status of this child node.
 - As soon as a node is found that returns **running** or **failure**, no further child nodes are evaluated.
-- Consquently, all nodes will eventually change its status to **running** or **success**, unless one of the nodes in the squence fails.
+- Consequently, all nodes will eventually change their status to **running** or **success**, unless one of the nodes in the sequence fails.
 - The Sequence node describes a sequence of nodes that need to be evaluated, but stops the sequence if a failing node is encountered.
 - The order of the child nodes describes their order within the sequence.
 
