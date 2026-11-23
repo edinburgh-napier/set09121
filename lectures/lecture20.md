@@ -177,7 +177,7 @@ Make sure they work, and are added to Windows correctly.
 
 but...
 - It is a *good idea* that most companies of a certain size and above use.
-- Check out AppVeyor or Github Actions for a way to integrate (heh) this into your current workflow
+- Check out AppVeyor or GitHub Actions for a way to integrate this into your current workflow
 
 ---
 
@@ -200,7 +200,7 @@ but...
 
 - Embed Version/Commit Numbers.
 - Automate Everything.
- - Avoid one-off mistakes, fix it once, it will always work
+ - Avoid one-off mistakes; fix it once, and it will always work
 - **Test it** 
  - Test it on new machines, old machines, fresh machines, 
  - Virtual machines, JKCC/VDS machines, your friends' machines
