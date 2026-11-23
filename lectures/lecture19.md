@@ -348,25 +348,22 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# SFML Networking Server
+# SFML Networking Server (TCP)
 
 ```cpp
 #include <iostream>
 #include <SFML/Network.hpp>
 
-using namespace std;
-using namespace sf;
-
 int main(int argc, char **argv) {
-    TcpListener listener;
-    if (listener.listen(5000) != Socket::Done) {
-        cout << "Server could not open socket" << endl;
+    sf::TcpListener listener;
+    if (listener.listen(5000) != sf::Socket::Done) {
+        std::cout << "Server could not open socket" << std::endl;
         return -1;
     }
     
-    TcpSocket client;
-    if (listener.accept(client) != Socket::Done) {
-        cout << "Server could not accept connection" << endl;
+    sf::TcpSocket client;
+    if (listener.accept(client) != sf::Socket::Done) {
+        std::cout << "Server could not accept connection" << std::endl;
         return -1;
     }
     return 0;
@@ -376,24 +373,86 @@ int main(int argc, char **argv) {
 
 ---
 
-# SFML Networking Client
+# SFML Networking Client (TCP)
 
 ```cpp
 #include <iostream>
 #include <SFML/Network.hpp>
 
-using namespace std;
-using namespace sf;
-
 int main(int argc, char **argv) {
-    TcpSocket socket;
-    Socket::Status status = socket.connect("127.0.0.1", 5000);
-    if (status != Socket::Done) {
-        cout << "Error - could not connect to server" << endl;
+    sf::TcpSocket socket;
+    sf::Socket::Status status = socket.connect("127.0.0.1", 5000);
+    if (status != sf::Socket::Done) {
+        std::cout << "Error - could not connect to server" << std::endl;
         return -1;
     }
     return 0;
 }
+```
+---
+
+# SFML Networking Client/Server UDP
+
+```cpp
+#include <iostream>
+#include <SFML/Network.hpp>
+
+int main(int argc, char** argv){
+	sf::UdpSocket socket;
+
+	// bind the socket to a port
+	if (socket.bind(54000) != sf::Socket::Status::Done)
+	{
+    	std::cout << "Error - could not bind to UDP socket" << std::endl;
+	}
+}
+```
+
+---
+
+# SFML Sending data
+
+```cpp
+std::array<char, 100> data = ...;
+
+// TCP socket:
+if (socket.send(data.data(), data.size()) != sf::Socket::Status::Done)
+{
+    // error...
+}
+
+// UDP socket:
+sf::IpAddress recipient(192, 168, 0, 5);
+const unsigned short port = 54000;
+if (socket.send(data.data(), data.size(), recipient, port) != sf::Socket::Status::Done)
+{
+    // error...
+}
+```
+
+---
+
+# SFML Receive Data
+
+```cpp
+std::array<char, 100> data = ...;
+std::size_t received;
+
+// TCP socket:
+if (socket.receive(data.data(), data.size(), received) != sf::Socket::Status::Done)
+{
+    // error...
+}
+std::cout << "Received " << received << " bytes" << std::endl;
+
+// UDP socket:
+std::optional<sf::IpAddress> sender;
+unsigned short port;
+if (socket.receive(data.data(), data.size(), received, sender, port) != sf::Socket::Status::Done)
+{
+    // error...
+}
+std::cout << "Received " << received << " bytes from " << sender.value() << " on port " << port << std::endl;
 ```
 
 ---
