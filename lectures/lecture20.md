@@ -243,5 +243,3 @@ GameFolder/
 - **CMakeLists.txt is important!** I don't use Windows, so I will probably compile it on Linux.
 - **The game should be compiled in release!** Otherwise it will not run on other platforms. 
 - **Don't make me fetch the libraries you are using.** Include them in a lib folder using submodules and make sure that the .dll are present in the bin folder!
-
----
