@@ -306,7 +306,9 @@ School of Computing. Edinburgh Napier University
 - Can be text (e.g. JSON, XML) or binary
 - Several managed languages have good built-in serialisation because of their support for reflection.
 - Reflection is the capability to inspect type information at runtime
-- C++ has poor reflection support, and poor built-in serialisation capabilities
+- C++ has poor reflection support, and serialisation relies on external libraries:
+	- [Boost::Serialization](https://theboostcpplibraries.com/boost.serialization)
+ 	- [Protobuf library](https://protobuf.dev/) 
 
 
 ---
