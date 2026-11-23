@@ -140,9 +140,11 @@ Perhaps look at where loads of other games save stuff? <!-- .element: class="fra
 
 ---
 
-# How
+# Nullsoft Scriptable Install System
 
-![image](assets/images/nullsoft.jpg) <!-- .element width="80%"  -->
+[NSIS](https://nsis.sourceforge.io/Main_Page)
+
+![image](assets/images/nullsoft.jpg) <!-- .element width="75%"  -->
 
 
 ---
