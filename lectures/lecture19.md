@@ -66,7 +66,7 @@ School of Computing. Edinburgh Napier University
 
 ---
 
-# The Seven Layer OSI Model
+# The Open Systems Interconnection Model
 
 - Networking works on a layered model.
     - Application data at the top layer.
